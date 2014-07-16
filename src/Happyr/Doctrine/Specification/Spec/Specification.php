@@ -27,6 +27,7 @@ interface Specification
 
     /**
      * @param string $className
+     *
      * @return bool
      */
     public function supports($className);

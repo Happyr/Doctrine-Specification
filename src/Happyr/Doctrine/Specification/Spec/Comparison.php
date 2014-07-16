@@ -32,15 +32,23 @@ abstract class Comparison implements Specification
     protected $value;
 
     /**
+     * @var string dqlAlias
+     *
+     */
+    protected $dqlAlias;
+
+    /**
      * Make sure the $field has a value equals to $value
      *
      * @param string $field
      * @param string $value
+     * @param string $dqlAlias
      */
-    public function __construct($field, $value)
+    public function __construct($field, $value, $dqlAlias = null)
     {
         $this->field = $field;
         $this->value = $value;
+        $this->dqlAlias = $dqlAlias;
     }
 
     /**
@@ -58,13 +66,17 @@ abstract class Comparison implements Specification
      */
     public function match(QueryBuilder $qb, $dqlAlias)
     {
-        $paramName=$this->getParameterName($qb);
+        if ($this->dqlAlias !== null) {
+            $dqlAlias = $this->dqlAlias;
+        }
+
+        $paramName = $this->getParameterName($qb);
         $qb->setParameter($paramName, $this->value);
 
         return new ExprComparison(
             sprintf('%s.%s', $dqlAlias, $this->field),
             $this->getComparisonExpression(),
-            ':'.$paramName
+            sprintf(':%s', $paramName)
         );
     }
 

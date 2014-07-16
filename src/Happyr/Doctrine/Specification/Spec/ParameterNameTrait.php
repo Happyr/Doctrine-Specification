@@ -11,7 +11,7 @@ use Doctrine\ORM\QueryBuilder;
  * @author Tobias Nyholm
  *
  */
-trait ParameterNameTrait 
+trait ParameterNameTrait
 {
     /**
      * Get a good unique parameter name

@@ -5,12 +5,12 @@ namespace Happyr\Doctrine\Specification\Spec;
 use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
 
 /**
- * Class GreatherOrEqualThan
+ * Class GreaterOrEqualThan
  *
  * @author Tobias Nyholm
  *
  */
-class GreatherOrEqualThan extends Comparison
+class GreaterOrEqualThan extends Comparison
 {
     protected function getComparisonExpression()
     {

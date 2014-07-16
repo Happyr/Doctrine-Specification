@@ -7,13 +7,13 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class Null
+ * Class IsNull
  *
  * @author Tobias Nyholm
  *
  *
  */
-class Null implements Specification
+class IsNull implements Specification
 {
     /**
      * @var string field
@@ -22,13 +22,20 @@ class Null implements Specification
     protected $field;
 
     /**
+     * @var null|string dqlAlias
+     *
+     */
+    private $dqlAlias;
+
+    /**
      * Make sure the $field IS NULL
      *
      * @param string $field
      */
-    public function __construct($field)
+    public function __construct($field, $dqlAlias = null)
     {
         $this->field = $field;
+        $this->dqlAlias = $dqlAlias;
     }
 
     /**
@@ -39,7 +46,11 @@ class Null implements Specification
      */
     public function match(QueryBuilder $qb, $dqlAlias)
     {
-        return $qb->expr()->isNotNull(sprintf('%s.%s', $dqlAlias, $this->field));
+        if ($this->dqlAlias !== null) {
+            $dqlAlias = $this->dqlAlias;
+        }
+
+        return $qb->expr()->isNull(sprintf('%s.%s', $dqlAlias, $this->field));
     }
 
     /**

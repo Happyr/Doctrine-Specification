@@ -8,28 +8,36 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Comparison as ExprComparison;
 
 /**
- * Class NotNull
+ * Class IsNotNull
  *
  * @author Tobias Nyholm
  *
  *
  */
-class NotNull implements Specification
+class IsNotNull implements Specification
 {
     /**
      * @var string field
      *
      */
-    protected $field;
+    private $field;
+
+    /**
+     * @var null|string dqlAlias
+     *
+     */
+    private $dqlAlias;
 
     /**
      * Make sure the $field IS NULL
      *
      * @param string $field
+     * @param string $dqlAlias
      */
-    public function __construct($field)
+    public function __construct($field, $dqlAlias = null)
     {
         $this->field = $field;
+        $this->dqlAlias = $dqlAlias;
     }
 
     /**
@@ -40,6 +48,10 @@ class NotNull implements Specification
      */
     public function match(QueryBuilder $qb, $dqlAlias)
     {
+        if ($this->dqlAlias !== null) {
+            $dqlAlias = $this->dqlAlias;
+        }
+
         return $qb->expr()->isNotNull(sprintf('%s.%s', $dqlAlias, $this->field));
     }
 

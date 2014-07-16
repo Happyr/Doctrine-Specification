@@ -52,10 +52,13 @@ abstract class LogicX implements Specification
     {
         return call_user_func_array(
             array($qb->expr(), $this->getLogicExpression()),
-            array_map(function (Specification $spec) use ($qb, $dqlAlias) {
+            array_map(
+                function (Specification $spec) use ($qb, $dqlAlias) {
                     return $spec->match($qb, $dqlAlias);
-                }, $this->children
-            ));
+                },
+                $this->children
+            )
+        );
     }
 
     /**

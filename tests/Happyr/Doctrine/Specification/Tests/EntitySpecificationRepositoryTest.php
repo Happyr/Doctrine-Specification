@@ -49,7 +49,7 @@ class EntitySpecificationRepositoryTest extends \PHPUnit_Framework_TestCase
             ->method('getQuery')
             ->will($this->returnValue($query));
 
-        $repo = $this->getMockBuilder('Happyr\Doctrine\Specification\Entity\EntitySpecificationRepository')
+        $repo = $this->getMockBuilder('Happyr\Doctrine\Specification\EntitySpecificationRepository')
             ->setMethods(array('getEntityName', 'createQueryBuilder'))
             ->disableOriginalConstructor()
             ->getMock();
@@ -68,7 +68,8 @@ class EntitySpecificationRepositoryTest extends \PHPUnit_Framework_TestCase
     public function testMatch()
     {
 
-        $spec = $this->getMock('Happyr\Doctrine\Specification\Spec\Specification');
+        $spec = $this->getSpecificationMock();
+
         $spec->expects($this->once())
             ->method('supports')
             ->with($this->equalTo('foobar'))
@@ -96,13 +97,27 @@ class EntitySpecificationRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testMatchNotSupported()
     {
-
-        $spec = $this->getMock('Happyr\Doctrine\Specification\Spec\Specification');
+        $spec = $this->getSpecificationMock();
         $spec->expects($this->once())
             ->method('supports')
             ->with($this->equalTo('foobar'))
             ->will($this->returnValue(false));
 
         $this->repo->match($spec);
+    }
+
+    /**
+     *
+     *
+     *
+     * @return mixed
+     */
+    private function getSpecificationMock()
+    {
+        $spec = $this->getMockBuilder('Happyr\Doctrine\Specification\Spec\Specification')
+            ->setMethods(array('supports', 'match', 'modifyQuery'))
+            ->getMock();
+
+        return $spec;
     }
 }

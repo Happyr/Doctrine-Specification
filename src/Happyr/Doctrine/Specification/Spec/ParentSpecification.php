@@ -1,42 +1,38 @@
 <?php
 
+
 namespace Happyr\Doctrine\Specification\Spec;
 
 use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class Join
+ * Class ParentSpecification
+ *
+ * Extend this abstract class if you want to build a new spec with your domain logic
  *
  * @author Tobias Nyholm
  *
- *
  */
-class Join implements Specification
+abstract class ParentSpecification implements Specification
 {
     /**
-     * @var string field
+     * @var Specification spec
      *
      */
-    private $field;
+    protected $spec;
 
     /**
-     * @var string alias
+     * @var string|null dqlAlias
      *
      */
-    private $newAlias;
-    private $dqlAlias;
+    protected $dqlAlias;
 
     /**
-     * @param string $field
-     * @param string $newAlias
      * @param string $dqlAlias
      */
-    public function __construct($field, $newAlias, $dqlAlias = null)
+    public function __construct($dqlAlias = null)
     {
-        $this->field = $field;
-        $this->newAlias = $newAlias;
         $this->dqlAlias = $dqlAlias;
     }
 
@@ -51,7 +47,8 @@ class Join implements Specification
         if ($this->dqlAlias !== null) {
             $dqlAlias = $this->dqlAlias;
         }
-        $qb->join($dqlAlias . '.' . $this->field, $this->newAlias);
+
+        return $this->spec->match($qb, $dqlAlias);
     }
 
     /**
@@ -59,15 +56,6 @@ class Join implements Specification
      */
     public function modifyQuery(AbstractQuery $query)
     {
+        $this->spec->modifyQuery($query);
     }
-
-    /**
-     * @param string $className
-     *
-     * @return bool
-     */
-    public function supports($className)
-    {
-        return true;
-    }
-}
+} 
