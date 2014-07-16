@@ -1,0 +1,23 @@
+{
+    "name": "happyr/doctrine-specification",
+    "type": "library",
+    "description": "Specification to your Doctrine repositories",
+    "keywords": ["Doctrine", "Repository", "Specification"],
+    "homepage": "http://developer.happyr.com/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tobias Nyholm",
+            "email": "tobias@happyr.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "doctrine/orm": ">=2.2.3"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-0": { "Happyr\\Doctrine\\Specification": "src/" }
+    }
+}
