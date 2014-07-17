@@ -7,35 +7,33 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class AsArray
- *
- * @author Benjamin Eberlei
- *
+ * @author Tobias Nyholm
  */
-class AsArray implements Specification
+class Not implements Specification
 {
     /**
      * @var Specification parent
+     *
      */
     private $parent;
 
     /**
-     * @param Specification $parent
+     * @param Specification $spec
      */
-    public function __construct(Specification $parent)
+    public function __construct(Specification $spec)
     {
-        $this->parent = $parent;
+        $this->parent = $spec;
     }
 
     /**
      * @param QueryBuilder $qb
      * @param string $dqlAlias
      *
-     * @return Query\Expr
+     * @return Query\Expr|mixed
      */
     public function match(QueryBuilder $qb, $dqlAlias)
     {
-        return $this->parent->match($qb, $dqlAlias);
+        return $qb->expr()->not($this->parent->match($qb, $dqlAlias));
     }
 
     /**
@@ -43,7 +41,7 @@ class AsArray implements Specification
      */
     public function modifyQuery(AbstractQuery $query)
     {
-        $query->setHydrationMode(Query::HYDRATE_ARRAY);
+        $this->parent->modifyQuery($query);
     }
 
     /**
