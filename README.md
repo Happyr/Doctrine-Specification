@@ -11,9 +11,11 @@ This library was created with a lot of inspiration from Benjamin Eberlei's [blog
 from my (Tobias Nyholm) discussion with Kacper Gunia on [Sound of Symfony podcast][sos].
 
 
-single responsibility principle
+
 
 ## The problems
+
+***(This section needs some work)***
 
 The problems are:
 
@@ -32,19 +34,21 @@ The problems are:
 
 ## The solution
 
+***(This section needs some work)***
+
 * Re-useable code
 * Easy to test
 * Easy to extend, store and run
+* single responsibility principle
 * Hides the implementation details of the ORM. This might seen like nitpicking, however it leads to bloated client code
 doing the query builder work over and over again.
 
-### Example using the library
+## Example using the library
 
 We should close recruitments that has past their `endDate`. If `endDate` is null make it 4 weeks after the `startDate`.
 
 ``` php
 // Not using the lib
-
 $qb=$this->em->getRepository('HappyrRecruitmentBundle:Recruitment')
     ->createQueryBuilder('r');
 
