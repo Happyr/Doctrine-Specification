@@ -66,7 +66,7 @@ return $qb->where('r.ended = 0')
 ``` php
 // Using the lib
 $spec=new AndX(
-    new Equal('ended', 0),
+    new Equals('ended', 0),
     new OrX(
         new LessThan('endDate', new \DateTime()),
         new AndX(
@@ -79,7 +79,7 @@ $spec=new AndX(
 return $this->em->getRepository('HappyrRecruitmentBundle:Recruitment')->match($spec);
 ```
 
-Yes, it looks pretty much the same. But the later is reusable. Say you want an other query to fetch recruitments that we
+Yes, it looks pretty much the same. But the later is reusable. Say you want another query to fetch recruitments that we
  should close but only for a specific company.
 
 ``` php
@@ -167,7 +167,7 @@ class RecruitmentRepository extends EntityRepository
   protected function filterOwnedByCompany($qb, Company $company)
   {
     return $qb
-      ->join('company', 'c)
+      ->join('company', 'c')
       ->andWhere('c.id = :company_id')
       ->setParameter('company_id', $company->getId())
   }
@@ -176,9 +176,9 @@ class RecruitmentRepository extends EntityRepository
 
 The issues with the later implementation are:
 
-* You may only use the filterOwnedByCompany inside RecruitmentRepository.
-* You can not build a tree with And/Or/Not. Say that you want every recruitment but $company. There is not way to
-reuse filterOwnedByCompany() in that case.
+* You may only use the filters `filterOwnedByCompany` and `filterRecruitmentsWeShouldClose` inside RecruitmentRepository.
+* You can not build a tree with And/Or/Not. Say that you want every recruitment but $company. There is no way to
+reuse `filterOwnedByCompany` in that case.
 * Different parts of the QueryBuilder filtering cannot be composed together, because of the way the API is created.
 Assume we have the filterGroupsForApi() call, there is no way to combine it with another call filterGroupsForPermissions().
 Instead reusing this code will lead to a third method filterGroupsForApiAndPermissions().
@@ -199,8 +199,8 @@ Install this lib with composer.
 }
 ```
 
-Let your repositories extend Happyr\Doctrine\Specification\EntitySpecificationRepository instead of EntityRepository. Then
-you may start to create your specifications. Put them in Acme\DemoBundle\Entity\Spec. Lets start with a simple one:
+Let your repositories extend `Happyr\Doctrine\Specification\EntitySpecificationRepository` instead of `Doctrine\ORM\EntityRepository`. Then
+you may start to create your specifications. Put them in `Acme\DemoBundle\Entity\Spec`. Lets start with a simple one:
 
 ```php
 
