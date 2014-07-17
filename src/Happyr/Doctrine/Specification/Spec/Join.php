@@ -43,8 +43,6 @@ class Join implements Specification
     /**
      * @param \Doctrine\ORM\QueryBuilder $qb
      * @param string $dqlAlias
-     *
-     * @return \Doctrine\ORM\Query\Expr
      */
     public function match(QueryBuilder $qb, $dqlAlias)
     {

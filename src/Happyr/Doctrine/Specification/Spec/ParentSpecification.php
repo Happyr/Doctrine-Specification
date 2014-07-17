@@ -58,4 +58,4 @@ abstract class ParentSpecification implements Specification
     {
         $this->spec->modifyQuery($query);
     }
-} 
+}

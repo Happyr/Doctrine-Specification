@@ -20,16 +20,20 @@ abstract class BaseSpecTest extends \PHPUnit_Framework_TestCase
      * @param Specification $spec
      * @param AbstractQuery $query
      *
+     * @return mixed returns null if $qb==null otherwise it returns the return value of $spec->match()
      */
-    protected function runSpec(Specification $spec, QueryBuilder $qb=null, AbstractQuery $query=null, $alias='e')
+    protected function runSpec(Specification $spec, QueryBuilder $qb = null, AbstractQuery $query = null, $alias = 'e')
     {
+        $result = null;
         if ($qb !== null) {
-            $spec->match($qb, $alias);
+            $result = $spec->match($qb, $alias);
         }
 
         if ($query !== null) {
             $spec->modifyQuery($query);
         }
+
+        return $result;
     }
 
     /**
@@ -38,7 +42,7 @@ abstract class BaseSpecTest extends \PHPUnit_Framework_TestCase
      *
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    protected function getQueryMock(array $methods=array())
+    protected function getQueryMock(array $methods = array())
     {
         return $this->getMockBuilder('\Doctrine\ORM\AbstractQuery')
             ->setMethods($methods)
@@ -53,7 +57,7 @@ abstract class BaseSpecTest extends \PHPUnit_Framework_TestCase
      *
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    protected function getQueryBuilderMock(array $methods=array())
+    protected function getQueryBuilderMock(array $methods = array())
     {
         return $this->getMockBuilder('Doctrine\ORM\QueryBuilder')
             ->setMethods($methods)

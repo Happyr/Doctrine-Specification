@@ -11,5 +11,4 @@ namespace Happyr\Doctrine\Specification\Spec;
  */
 class Collection extends AndX
 {
-
 }

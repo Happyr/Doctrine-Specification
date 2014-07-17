@@ -5,10 +5,7 @@ namespace Happyr\Doctrine\Specification\Tests\Spec;
 use Happyr\Doctrine\Specification\Spec\Join;
 
 /**
- * Class JoinTest
- *
  * @author Tobias Nyholm
- *
  */
 class JoinTest extends BaseSpecTest
 {
