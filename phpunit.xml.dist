@@ -24,18 +24,16 @@
     <filter>
         <blacklist>
             <directory>./vendor/</directory>
-            <directory>./Tests/</directory>
-            <directory>./Resources/</directory>
-            <directory>./DependencyInjection/</directory>
-
-            <!-- Don't test interfaces -->
-            <directory suffix="Interface.php">./</directory>
+            <directory>./tests/</directory>
         </blacklist>
     </filter>
 
     <logging>
         <log type="coverage-clover" target="build/logs/phpunit.coverage.xml"/>
         <log type="junit" target="build/logs/phpunit.xml" logIncompleteSkipped="false"/>
+
+        <!-- Create html coverage reports -->
+        <log type="coverage-html" target="build/logs/coverage" charset="UTF-8" highlight="false"/>
     </logging>
 
 </phpunit>
