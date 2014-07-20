@@ -4,6 +4,7 @@ namespace Happyr\Doctrine\Specification\Spec;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 
 /**
@@ -31,7 +32,7 @@ class AsArray implements Specification
      * @param QueryBuilder $qb
      * @param string $dqlAlias
      *
-     * @return Query\Expr
+     * @return Expr
      */
     public function match(QueryBuilder $qb, $dqlAlias)
     {
@@ -39,7 +40,7 @@ class AsArray implements Specification
     }
 
     /**
-     * @param Query $query
+     * @param AbstractQuery $query
      */
     public function modifyQuery(AbstractQuery $query)
     {

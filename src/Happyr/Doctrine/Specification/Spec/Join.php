@@ -10,8 +10,6 @@ use Doctrine\ORM\QueryBuilder;
  * Class Join
  *
  * @author Tobias Nyholm
- *
- *
  */
 class Join implements Specification
 {
@@ -23,7 +21,6 @@ class Join implements Specification
 
     /**
      * @var string alias
-     *
      */
     private $newAlias;
     private $dqlAlias;
@@ -41,19 +38,25 @@ class Join implements Specification
     }
 
     /**
-     * @param \Doctrine\ORM\QueryBuilder $qb
-     * @param string $dqlAlias
+     * @param QueryBuilder $qb
+     * @param string       $dqlAlias
+     */
+    /**
+     * @param QueryBuilder $qb
+     * @param string       $dqlAlias
+     *
+     * @return Query\Expr|void
      */
     public function match(QueryBuilder $qb, $dqlAlias)
     {
         if ($this->dqlAlias !== null) {
             $dqlAlias = $this->dqlAlias;
         }
-        $qb->join($dqlAlias . '.' . $this->field, $this->newAlias);
+        $qb->join($dqlAlias.'.'.$this->field, $this->newAlias);
     }
 
     /**
-     * @param \Doctrine\ORM\AbstractQuery $query
+     * @param AbstractQuery $query
      */
     public function modifyQuery(AbstractQuery $query)
     {

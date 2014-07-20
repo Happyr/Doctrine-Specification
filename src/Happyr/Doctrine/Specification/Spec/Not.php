@@ -37,7 +37,7 @@ class Not implements Specification
     }
 
     /**
-     * @param Query $query
+     * @param AbstractQuery $query
      */
     public function modifyQuery(AbstractQuery $query)
     {
