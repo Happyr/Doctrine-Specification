@@ -21,6 +21,7 @@ class LogicX implements Specification
      *
      */
     private $children;
+
     /**
      * @var LogicExpression
      */
@@ -29,7 +30,7 @@ class LogicX implements Specification
     /**
      * Take two or more Specification as parameters
      */
-    public function __construct(LogicExpression $logic, $children)
+    public function __construct(LogicExpression $logic, array $children)
     {
         $this->logic = $logic;
         $this->children = $children;
