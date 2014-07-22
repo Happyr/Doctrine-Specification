@@ -32,7 +32,7 @@ class AsArraySpec extends ObjectBehavior
         $this->modifyQuery($query);
     }
 
-    function it_delegates_match_to_decrated_specification(Specification $specification, QueryBuilder $qb)
+    function it_delegates_match_to_decorated_specification(Specification $specification, QueryBuilder $qb)
     {
         $dqlAlias = null;
 

@@ -35,7 +35,7 @@ class LogicXSpec extends ObjectBehavior
         $this->modifyQuery($query);
     }
 
-    function it_matches(QueryBuilder $qb, Expr $expression, Specification $specificationA, Specification $specificationB, $x, $y)
+    function it_composes_and_child_with_expression(QueryBuilder $qb, Expr $expression, Specification $specificationA, Specification $specificationB, $x, $y)
     {
         $dqlAlias = 'a';
 
