@@ -4,6 +4,7 @@
 namespace Happyr\Doctrine\Specification\Spec;
 
 use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 
 /**
@@ -37,10 +38,10 @@ abstract class ParentSpecification implements Specification
     }
 
     /**
-     * @param \Doctrine\ORM\QueryBuilder $qb
+     * @param QueryBuilder $qb
      * @param string $dqlAlias
      *
-     * @return \Doctrine\ORM\Query\Expr
+     * @return Expr
      */
     public function match(QueryBuilder $qb, $dqlAlias)
     {
@@ -52,7 +53,7 @@ abstract class ParentSpecification implements Specification
     }
 
     /**
-     * @param \Doctrine\ORM\AbstractQuery $query
+     * @param AbstractQuery $query
      */
     public function modifyQuery(AbstractQuery $query)
     {

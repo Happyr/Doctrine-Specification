@@ -14,7 +14,7 @@ use Doctrine\ORM\QueryBuilder;
  * @author Tobias Nyholm
  * @author Benjamin Eberlei
  */
-abstract class LogicX implements Specification
+class LogicX implements Specification
 {
     /**
      * @var Specification[] children
@@ -23,22 +23,18 @@ abstract class LogicX implements Specification
     private $children;
 
     /**
-     * Take two or more Specification as parameters
+     * @var LogicExpression
      */
-    public function __construct()
-    {
-        $this->children = func_get_args();
-    }
+    private $logic;
 
     /**
-     * Get the logic expression that may bind together two or more Specification.
-     * This must be a function of $qb->expr()
-     *
-     * Examples: 'andX', 'orX'
-     *
-     * @return string
+     * Take two or more Specification as parameters
      */
-    abstract protected function getLogicExpression();
+    public function __construct(LogicExpression $logic, array $children)
+    {
+        $this->logic = $logic;
+        $this->children = $children;
+    }
 
     /**
      *
@@ -51,7 +47,7 @@ abstract class LogicX implements Specification
     public function match(QueryBuilder $qb, $dqlAlias)
     {
         return call_user_func_array(
-            array($qb->expr(), $this->getLogicExpression()),
+            array($qb->expr(), $this->logic->getExpression()),
             array_map(
                 function (Specification $spec) use ($qb, $dqlAlias) {
                     return $spec->match($qb, $dqlAlias);
@@ -62,10 +58,7 @@ abstract class LogicX implements Specification
     }
 
     /**
-     *
-     *
-     * @param Query $query
-     *
+     * @param AbstractQuery $query
      */
     public function modifyQuery(AbstractQuery $query)
     {

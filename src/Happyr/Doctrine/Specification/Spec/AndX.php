@@ -8,9 +8,12 @@ namespace Happyr\Doctrine\Specification\Spec;
  * @author Tobias Nyholm
  *
  */
-class AndX extends LogicX
+class AndX implements LogicExpression
 {
-    protected function getLogicExpression()
+    /**
+     * @return string
+     */
+    public function getExpression()
     {
         return 'andX';
     }
