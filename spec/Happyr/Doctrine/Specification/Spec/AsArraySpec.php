@@ -32,10 +32,12 @@ class AsArraySpec extends ObjectBehavior
         $this->modifyQuery($query);
     }
 
-    function it_delegates_match_to_decrated_specification(Specification $specification, QueryBuilder $qb)
+    function it_delegates_match_to_decorated_specification(Specification $specification, QueryBuilder $qb)
     {
-        $specification->match($qb, null)->shouldBeCalled();
+        $dqlAlias = null;
 
-        $this->match($qb, null);
+        $specification->match($qb, $dqlAlias)->shouldBeCalled();
+
+        $this->match($qb, $dqlAlias);
     }
 }

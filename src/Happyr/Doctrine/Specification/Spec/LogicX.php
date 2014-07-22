@@ -4,6 +4,7 @@ namespace Happyr\Doctrine\Specification\Spec;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 
 /**
@@ -16,38 +17,41 @@ use Doctrine\ORM\QueryBuilder;
  */
 class LogicX implements Specification
 {
+    const AND_X = 'andX';
+    const OR_X = 'orX';
+
     /**
      * @var Specification[] children
-     *
      */
     private $children;
 
     /**
-     * @var LogicExpression
+     * @var string
      */
-    private $logic;
+    private $expression;
 
     /**
      * Take two or more Specification as parameters
+     *
+     * @param string $expression
+     * @param array  $children
      */
-    public function __construct(LogicExpression $logic, array $children)
+    public function __construct($expression, array $children)
     {
-        $this->logic = $logic;
+        $this->expression = $expression;
         $this->children = $children;
     }
 
     /**
-     *
-     *
      * @param QueryBuilder $qb
      * @param string $dqlAlias
      *
-     * @return Query\Expr|mixed
+     * @return Expr|mixed
      */
     public function match(QueryBuilder $qb, $dqlAlias)
     {
         return call_user_func_array(
-            array($qb->expr(), $this->logic->getExpression()),
+            array($qb->expr(), $this->expression),
             array_map(
                 function (Specification $spec) use ($qb, $dqlAlias) {
                     return $spec->match($qb, $dqlAlias);
