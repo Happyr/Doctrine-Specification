@@ -18,8 +18,6 @@ use Doctrine\ORM\Query\Expr\Comparison as ExprComparison;
  */
 abstract class Comparison implements Specification
 {
-    use ParameterNameTrait;
-
     /**
      * @var string field
      *
@@ -96,5 +94,17 @@ abstract class Comparison implements Specification
     public function supports($className)
     {
         return true;
+    }
+
+    /**
+     * Get a good unique parameter name
+     *
+     * @param QueryBuilder $qb
+     *
+     * @return string
+     */
+    protected function getParameterName(QueryBuilder $qb)
+    {
+        return sprintf('happyr_%d', $qb->getParameters()->count());
     }
 }
