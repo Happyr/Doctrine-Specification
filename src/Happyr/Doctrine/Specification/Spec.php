@@ -10,16 +10,16 @@ class Spec
 {
     public static function andX()
     {
-        return new LogicX(new AndX(), func_get_args());
+        return new LogicX(LogicX::AND_X, func_get_args());
     }
 
     public static function orX()
     {
-        return new LogicX(new OrX(), func_get_args());
+        return new LogicX(LogicX::OR_X, func_get_args());
     }
 
     public static function collection()
     {
-        return new LogicX(new AndX(), func_get_args());
+        return new LogicX(LogicX::AND_X, func_get_args());
     }
 } 

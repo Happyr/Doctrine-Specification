@@ -2,16 +2,10 @@
 
 namespace Happyr\Doctrine\Specification\Spec;
 
-/**
- * Class OrX
- *
- * @author Tobias Nyholm
- *
- */
-class OrX implements LogicExpression
+class OrX extends LogicX
 {
-    public function getExpression()
+    function __construct()
     {
-        return 'orX';
+        parent::__construct(self::OR_X, func_get_args());
     }
 }

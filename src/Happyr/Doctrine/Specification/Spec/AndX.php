@@ -2,19 +2,10 @@
 
 namespace Happyr\Doctrine\Specification\Spec;
 
-/**
- * Class AndX
- *
- * @author Tobias Nyholm
- *
- */
-class AndX implements LogicExpression
+class AndX extends LogicX
 {
-    /**
-     * @return string
-     */
-    public function getExpression()
+    function __construct()
     {
-        return 'andX';
+        parent::__construct(self::AND_X, func_get_args());
     }
 }
