@@ -8,9 +8,9 @@ namespace Happyr\Doctrine\Specification\Spec;
  * @author Tobias Nyholm
  *
  */
-class OrX extends LogicX
+class OrX implements LogicExpression
 {
-    protected function getLogicExpression()
+    public function getExpression()
     {
         return 'orX';
     }
