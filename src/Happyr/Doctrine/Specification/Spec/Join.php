@@ -4,6 +4,7 @@ namespace Happyr\Doctrine\Specification\Spec;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 
 /**
@@ -40,12 +41,8 @@ class Join implements Specification
     /**
      * @param QueryBuilder $qb
      * @param string       $dqlAlias
-     */
-    /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
      *
-     * @return Query\Expr|void
+     * @return Expr|void
      */
     public function match(QueryBuilder $qb, $dqlAlias)
     {

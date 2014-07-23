@@ -6,14 +6,11 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\Query\Expr\Comparison as ExprComparison;
 
 /**
  * Class IsNotNull
  *
  * @author Tobias Nyholm
- *
- *
  */
 class IsNotNull implements Specification
 {

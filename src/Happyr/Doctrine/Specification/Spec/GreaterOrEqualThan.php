@@ -2,18 +2,10 @@
 
 namespace Happyr\Doctrine\Specification\Spec;
 
-use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
-
-/**
- * Class GreaterOrEqualThan
- *
- * @author Tobias Nyholm
- *
- */
 class GreaterOrEqualThan extends Comparison
 {
-    protected function getComparisonExpression()
+    public function __construct($operator, $field, $value, $dqlAlias = null)
     {
-        return DoctrineComparison::GTE;
+        parent::__construct(self::GTE, $field, $value, $dqlAlias);
     }
 }
