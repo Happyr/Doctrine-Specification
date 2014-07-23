@@ -11,7 +11,6 @@ use Doctrine\ORM\QueryBuilder;
  * Class AsArray
  *
  * @author Benjamin Eberlei
- *
  */
 class AsArray implements Specification
 {

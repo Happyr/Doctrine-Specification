@@ -8,14 +8,13 @@ use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class ParentSpecification
+ * Class BaseSpecification
  *
  * Extend this abstract class if you want to build a new spec with your domain logic
  *
  * @author Tobias Nyholm
- *
  */
-abstract class ParentSpecification implements Specification
+abstract class BaseSpecification implements Specification
 {
     /**
      * @var Specification spec

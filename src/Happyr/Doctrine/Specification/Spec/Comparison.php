@@ -6,18 +6,26 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\Query\Expr\Comparison as ExprComparison;
+use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
 
 /**
- * Abstract class Comparison
+ * Comparison class
  *
- * This is used when you should compare two values
+ * This is used when you need to compare two values
  *
  * @author Tobias Nyholm
- *
  */
-abstract class Comparison implements Specification
+class Comparison implements Specification
 {
+    const EQ = '=';
+    const NEQ = '<>';
+    const LT = '<';
+    const LTE = '<=';
+    const GT = '>';
+    const GTE = '>=';
+
+    private static $operators = array(self::EQ, self::NEQ, self::LT, self::LTE, self::GT, self::GTE);
+
     /**
      * @var string field
      *
@@ -35,31 +43,41 @@ abstract class Comparison implements Specification
      *
      */
     protected $dqlAlias;
+    /**
+     * @var string
+     */
+    private $operator;
 
     /**
      * Make sure the $field has a value equals to $value
      *
+     * @param string $operator
      * @param string $field
      * @param string $value
      * @param string $dqlAlias
+     *
+     * @throws \InvalidArgumentException
      */
-    public function __construct($field, $value, $dqlAlias = null)
+    public function __construct($operator, $field, $value, $dqlAlias = null)
     {
+        if (!in_array($operator, self::$operators)) {
+            throw new \InvalidArgumentException(
+                sprintf('"%s" is not a valid comparison operator. Valid operators are: "%s"',
+                        $operator,
+                        implode(',', self::$operators)
+                )
+            );
+        }
+
+        $this->operator = $operator;
         $this->field = $field;
         $this->value = $value;
         $this->dqlAlias = $dqlAlias;
     }
 
     /**
-     * Returns one of the const for Doctrine\ORM\Query\Expr\Comparison
-     *
-     * @return string
-     */
-    abstract protected function getComparisonExpression();
-
-    /**
      * @param QueryBuilder $qb
-     * @param string $dqlAlias
+     * @param string       $dqlAlias
      *
      * @return Expr
      */
@@ -72,9 +90,9 @@ abstract class Comparison implements Specification
         $paramName = $this->getParameterName($qb);
         $qb->setParameter($paramName, $this->value);
 
-        return new ExprComparison(
+        return new DoctrineComparison(
             sprintf('%s.%s', $dqlAlias, $this->field),
-            $this->getComparisonExpression(),
+            $this->operator,
             sprintf(':%s', $paramName)
         );
     }
@@ -105,6 +123,6 @@ abstract class Comparison implements Specification
      */
     protected function getParameterName(QueryBuilder $qb)
     {
-        return sprintf('happyr_%d', $qb->getParameters()->count());
+        return sprintf('comparison_%d', $qb->getParameters()->count());
     }
 }

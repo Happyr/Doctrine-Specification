@@ -84,7 +84,7 @@ Yes, it looks pretty much the same. But the later is reusable. Say you want anot
 
 ``` php
 
-class RecruitmentsWeShouldClose extends ParentSpecification
+class RecruitmentsWeShouldClose extends BaseSpecification
 {
   public function __construct($dqlAlias=null)
   {
@@ -104,7 +104,7 @@ class RecruitmentsWeShouldClose extends ParentSpecification
   // the support() function
 }
 
-class OwnedByCompany extends ParentSpecification
+class OwnedByCompany extends BaseSpecification
 {
   public function __construct(Company $company, $dqlAlias=null)
   {
@@ -218,7 +218,7 @@ use Happyr\Doctrine\Specification\Spec as S;
  *
  * @author Tobias Nyholm
  */
-class IsActive extends S\ParentSpecification
+class IsActive extends S\BaseSpecification
 {
     /**
      * @param string $dqlAlias
