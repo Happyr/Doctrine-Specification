@@ -46,10 +46,10 @@ class In implements Specification
 
 
     /**
-     * @param \Doctrine\ORM\QueryBuilder $qb
+     * @param QueryBuilder $qb
      * @param string $dqlAlias
      *
-     * @return \Doctrine\ORM\Query\Expr
+     * @return Expr
      */
     public function match(QueryBuilder $qb, $dqlAlias)
     {
@@ -67,7 +67,7 @@ class In implements Specification
     }
 
     /**
-     * @param \Doctrine\ORM\AbstractQuery $query
+     * @param AbstractQuery $query
      */
     public function modifyQuery(AbstractQuery $query)
     {
@@ -92,6 +92,6 @@ class In implements Specification
      */
     protected function getParameterName(QueryBuilder $qb)
     {
-        return sprintf('comparison_%d', $qb->getParameters()->count());
+        return sprintf('in_%d', $qb->getParameters()->count());
     }
 }

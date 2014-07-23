@@ -32,12 +32,12 @@ class InSpec extends ObjectBehavior
     {
         $dqlAlias = 'a';
         $qb->expr()->willReturn($expr);
-        $expr->in(sprintf('%s.%s', $dqlAlias, $this->field), ':comparison_10')->shouldBeCalled();
+        $expr->in(sprintf('%s.%s', $dqlAlias, $this->field), ':in_10')->shouldBeCalled();
 
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', $this->value)->shouldBeCalled();
+        $qb->setParameter('in_10', $this->value)->shouldBeCalled();
 
         $this->match($qb, null);
     }
