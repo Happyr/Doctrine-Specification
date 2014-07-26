@@ -32,11 +32,8 @@
     </filter>
 
     <logging>
-        <log type="coverage-clover" target="build/logs/phpunit.coverage.xml"/>
+        <log type="coverage-clover" target="build/logs/clover.phpunit.xml"/>
         <log type="junit" target="build/logs/phpunit.xml" logIncompleteSkipped="false"/>
-
-        <!-- Create html coverage reports -->
-        <log type="coverage-html" target="build/logs/coverage" charset="UTF-8" highlight="false"/>
     </logging>
 
 </phpunit>

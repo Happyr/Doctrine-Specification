@@ -5,7 +5,5 @@ extensions:
 code_coverage:
   format:
     - clover
-    - html
   output:
-    html: build/logs/coverage
-    clover: build/logs/clover.xml
+    clover: build/logs/clover.phpspec.xml
