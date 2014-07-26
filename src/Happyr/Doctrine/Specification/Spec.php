@@ -7,8 +7,8 @@ use Happyr\Doctrine\Specification\Spec as S;
 
 class Spec
 {
-    public static $logic = ['andX', 'orX'];
-    public static $comparison = ['eq', 'neq', 'gt', 'lt', 'gte', 'lte'];
+    public static $logic = array('andX', 'orX');
+    public static $comparison = array('eq', 'neq', 'gt', 'lt', 'gte', 'lte');
 
     /**
      * Make a static call to this class to create a spec
