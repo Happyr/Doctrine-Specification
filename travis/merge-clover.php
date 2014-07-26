@@ -19,17 +19,21 @@ if (count($lobjFiles) >= 2) {
 
     while ($i < count($lobjFiles)) {
         $lobjXmlNext = simplexml_load_file($lobjFiles[$i]);
-        foreach ($lobjXmlNext->file as $file) {
-            $lobjAddChild = $lobjXmlAggregate->addChild('file', $file);
-            foreach ($file->attributes() as $key => $value) {
-                $lobjAddChild->addAttribute($key, $value);
-            }
+        foreach ($lobjXmlNext->project as $project) {
+            foreach ($project->package as $package) {
+                foreach ($package->file as $file) {
+                    $lobjAddChild = $lobjXmlAggregate->addChild('file', $file);
+                    foreach ($file->attributes() as $key => $value) {
+                        $lobjAddChild->addAttribute($key, $value);
+                    }
 
-            foreach ($file->error as $error) {
-                $lobjAddError = $lobjAddChild->addChild('error', $error);
+                    foreach ($file->error as $error) {
+                        $lobjAddError = $lobjAddChild->addChild('error', $error);
 
-                foreach ($error->attributes() as $key => $value) {
-                    $lobjAddError->addAttribute($key, $value);
+                        foreach ($error->attributes() as $key => $value) {
+                            $lobjAddError->addAttribute($key, $value);
+                        }
+                    }
                 }
             }
         }
