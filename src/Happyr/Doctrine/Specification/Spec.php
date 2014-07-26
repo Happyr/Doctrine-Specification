@@ -2,55 +2,57 @@
 
 namespace Happyr\Doctrine\Specification;
 
-use Happyr\Doctrine\Specification\Spec\AndX;
-use Happyr\Doctrine\Specification\Spec\Comparison;
 use Happyr\Doctrine\Specification\Spec\LogicX;
-use Happyr\Doctrine\Specification\Spec\OrX;
+use Happyr\Doctrine\Specification\Spec as S;
 
 class Spec
 {
-    public static function andX()
+    public static $logic = ['andX', 'orX'];
+    public static $comparison = ['eq', 'neq', 'gt', 'lt', 'gte', 'lte'];
+
+    /**
+     * Make a static call to this class to create a spec
+     *
+     * @param string $name the function called
+     * @param array $arguments
+     *
+     * @return \Happyr\Doctrine\Specification\Spec\Specification
+     * @throws \LogicException
+     */
+    public static function __callStatic($name, $arguments)
     {
-        return new LogicX(LogicX::AND_X, func_get_args());
+        if (in_array($name, Spec::$logic)) {
+            return new S\LogicX($name, $arguments);
+
+        } elseif (in_array($name, Spec::$comparison)) {
+            return new S\Comparison(
+                constant('Happyr\Doctrine\Specification\Spec\Comparison::'.strtoupper($name)),
+                array_pop($arguments),
+                array_pop($arguments),
+                array_pop($arguments)
+            );
+
+        } else {
+            $name[0]=strtoupper($name[0]);
+            $ns=sprintf('%s\Spec\%s', __NAMESPACE__, $name);
+
+            if (class_exists($ns)) {
+                $reflection = new \ReflectionClass($ns);
+                return $reflection->newInstanceArgs($arguments);
+
+            } else {
+                throw new \LogicException(sprintf('Method "%s" was not found on %s.', $name, __CLASS__));
+            }
+        }
     }
 
-    public static function orX()
-    {
-        return new LogicX(LogicX::OR_X, func_get_args());
-    }
-
+    /**
+     * Add a collection of specs
+     *
+     * @return LogicX
+     */
     public static function collection()
     {
-        return new LogicX(LogicX::AND_X, func_get_args());
+        return new S\LogicX(LogicX::AND_X, func_get_args());
     }
-
-    public static function eq($field, $value, $dqlAlias = null)
-    {
-        return new Comparison(Comparison::EQ, $field, $value, $dqlAlias);
-    }
-
-    public static function neq($field, $value, $dqlAlias = null)
-    {
-        return new Comparison(Comparison::NEQ, $field, $value, $dqlAlias);
-    }
-
-    public static function lt($field, $value, $dqlAlias = null)
-    {
-        return new Comparison(Comparison::LT, $field, $value, $dqlAlias);
-    }
-
-    public static function lte($field, $value, $dqlAlias = null)
-    {
-        return new Comparison(Comparison::LTE, $field, $value, $dqlAlias);
-    }
-
-    public static function gt($field, $value, $dqlAlias = null)
-    {
-        return new Comparison(Comparison::GT, $field, $value, $dqlAlias);
-    }
-
-    public static function gte($field, $value, $dqlAlias = null)
-    {
-        return new Comparison(Comparison::GTE, $field, $value, $dqlAlias);
-    }
-} 
+}
