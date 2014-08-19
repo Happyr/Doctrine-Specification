@@ -76,12 +76,14 @@ $spec=new AndX(
 return $this->em->getRepository('HappyrRecruitmentBundle:Advert')->match($spec);
 ```
 
-Yes, it looks pretty much the same. But the later is reusable. Say you want another query to fetch recruitments that we
+Yes, it looks pretty much the same. But the later is reusable. Say you want another query to fetch Adverts that we
  should close but only for a specific company.
+ 
+#### Doctrine Specification
 
 ``` php
 
-class RecruitmentsWeShouldClose extends BaseSpecification
+class AdvertsWeShouldClose extends BaseSpecification
 {
   public function __construct($dqlAlias=null)
   {
@@ -118,30 +120,32 @@ class OwnedByCompany extends BaseSpecification
 class SomeService
 {
   /**
-   * Fetch recruitments that we should close but only for a specific company
+   * Fetch Adverts that we should close but only for a specific company
    */
   public function myQuery(Company $company)
   {
     $spec = new AndX(
-      new RecruitmentsWeShouldClose(),
+      new AdvertsWeShouldClose(),
       new OwnedByCompany($company)
     );
 
-    return $this->em->getRepository('HappyrRecruitmentBundle:Recruitment')->match($spec);
+    return $this->em->getRepository('HappyrRecruitmentBundle:Advert')->match($spec);
   }
 }
 ```
 
+#### QueryBuilder
+
 If you were about to do the same thing with only the QueryBuilder it would look like this:
 
 ``` php
-class RecruitmentRepository extends EntityRepository
+class AdvertRepository extends EntityRepository
 {
   public function myQuery(Company $company)
   {
-    $qb=$this->em->getRepository('HappyrRecruitmentBundle:Recruitment')
+    $qb=$this->em->getRepository('HappyrRecruitmentBundle:Advert')
       ->createQueryBuilder('r');
-    $this->filterRecruitmentsWeShouldClose($qb)
+    $this->filterAdvertsWeShouldClose($qb)
     $this->filterOwnedByCompany($qb, $company)
 
     return $qb
@@ -149,7 +153,7 @@ class RecruitmentRepository extends EntityRepository
       ->getResult();
   }
 
-  protected function filterRecruitmentsWeShouldClose($qb)
+  protected function filterAdvertsWeShouldClose($qb)
   {
     return $qb
       ->andWhere('r.ended = 0')
@@ -171,13 +175,13 @@ class RecruitmentRepository extends EntityRepository
 }
 ```
 
-The issues with the later implementation are:
+The issues with the QueryBuilder implementation are:
 
-* You may only use the filters `filterOwnedByCompany` and `filterRecruitmentsWeShouldClose` inside RecruitmentRepository.
-* You can not build a tree with And/Or/Not. Say that you want every recruitment but $company. There is no way to
-reuse `filterOwnedByCompany` in that case.
+* You may only use the filters `filterOwnedByCompany` and `filterAdvertsWeShouldClose` inside AdvertRepository.
+* You can not build a tree with And/Or/Not. Say that you want every Advert but not those owned by $company. There 
+is no way to reuse `filterOwnedByCompany()` in that case.
 * Different parts of the QueryBuilder filtering cannot be composed together, because of the way the API is created.
-Assume we have the filterGroupsForApi() call, there is no way to combine it with another call filterGroupsForPermissions().
+Assume we have a filterGroupsForApi() call, there is no way to combine it with another call filterGroupsForPermissions().
 Instead reusing this code will lead to a third method filterGroupsForApiAndPermissions().
 
 ## Continue reading
