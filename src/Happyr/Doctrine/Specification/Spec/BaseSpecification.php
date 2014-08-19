@@ -40,10 +40,14 @@ abstract class BaseSpecification implements Specification
      * @param QueryBuilder $qb
      * @param string $dqlAlias
      *
-     * @return Expr
+     * @return Expr|null
      */
     public function match(QueryBuilder $qb, $dqlAlias)
     {
+        if ($this->spec === null) {
+            return;
+        }
+
         if ($this->dqlAlias !== null) {
             $dqlAlias = $this->dqlAlias;
         }
@@ -52,10 +56,14 @@ abstract class BaseSpecification implements Specification
     }
 
     /**
-     * @param AbstractQuery $query
+     * @param AbstractQuery|null $query
      */
     public function modifyQuery(AbstractQuery $query)
     {
+        if ($this->spec === null) {
+            return;
+        }
+
         $this->spec->modifyQuery($query);
     }
 }
