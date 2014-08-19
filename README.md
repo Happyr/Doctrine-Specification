@@ -10,46 +10,43 @@ you are using a lot of parameters to the same method to accommodate different us
 This library was created with a lot of inspiration from Benjamin Eberlei's [blog post][whitewashing] and
 from my (Tobias Nyholm) discussion with Kacper Gunia on [Sound of Symfony podcast][sos].
 
+### Table of contents
+
+1. [Motivation](##why-do-we-need-this-lib) and [basic understanding](##the-practical-differences) (this page)
+2. [Usage examples](docs/0-usage.md)
+3. [Create your own spec](docs/1-creatingSpecs.md)
 
 
+## Why do we need this lib?
 
-## The problems
+You are probably wondering why we created this library. Your entity repositories are working just fine as they are, right?
+But if your friend open one of your repository classes he will find that the code is not as perfect as you thought.
+Entity repositories has a tendency to get messy. Problems may include:
 
-***(This section needs some work)***
+ * Too many functions (`findActiveUser`, `findActiveUserWithPicture`, `findUserToEmail`, etc)
+ * Too many arguments
+ * Code duplicate
+ * Difficult to test
 
-The problems are:
+## Requirements of the solution
 
- * Doctrine repository functions get messy
- * Lots of code duplicate
- * It is very hard to test
+The solution should have the following features:
 
-### Example of bad repos
-` Lots of functions `
-
-` Lots of messy code `
-
-`Lots of function arguments`
-
-
-
-## The solution
-
-***(This section needs some work)***
-
-* Re-useable code
 * Easy to test
 * Easy to extend, store and run
-* single responsibility principle
-* Hides the implementation details of the ORM. This might seen like nitpicking, however it leads to bloated client code
-doing the query builder work over and over again.
+* Re-useable code
+* Single responsibility principle
+* Hides the implementation details of the ORM. (This might seen like nitpicking, however it leads to bloated client code
+doing the query builder work over and over again.)
 
-## Example using the library
+## The practical differences
 
-We should close recruitments that has past their `endDate`. If `endDate` is null make it 4 weeks after the `startDate`.
+This is an example of how you use the lib. Say that you want to fetch some Adverts and close them. Select all Adverts
+that has past their `endDate`. If `endDate` is null make it 4 weeks after the `startDate`.
 
 ``` php
 // Not using the lib
-$qb=$this->em->getRepository('HappyrRecruitmentBundle:Recruitment')
+$qb=$this->em->getRepository('HappyrRecruitmentBundle:Advert')
     ->createQueryBuilder('r');
 
 return $qb->where('r.ended = 0')
@@ -76,7 +73,7 @@ $spec=new AndX(
     )
 );
 
-return $this->em->getRepository('HappyrRecruitmentBundle:Recruitment')->match($spec);
+return $this->em->getRepository('HappyrRecruitmentBundle:Advert')->match($spec);
 ```
 
 Yes, it looks pretty much the same. But the later is reusable. Say you want another query to fetch recruitments that we
@@ -182,93 +179,6 @@ reuse `filterOwnedByCompany` in that case.
 * Different parts of the QueryBuilder filtering cannot be composed together, because of the way the API is created.
 Assume we have the filterGroupsForApi() call, there is no way to combine it with another call filterGroupsForPermissions().
 Instead reusing this code will lead to a third method filterGroupsForApiAndPermissions().
-
-
-# Usage
-
-Install this lib with composer.
-
-```js
-// composer.json
-{
-    // ...
-    require: {
-        // ...
-        "happyr/doctrine-specification": "dev-master",
-    }
-}
-```
-
-Let your repositories extend `Happyr\Doctrine\Specification\EntitySpecificationRepository` instead of `Doctrine\ORM\EntityRepository`. Then
-you may start to create your specifications. Put them in `Acme\DemoBundle\Entity\Spec`. Lets start with a simple one:
-
-```php
-
-<?php
-
-namespace Acme\DemoBundle\Entity\Spec;
-
-use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\QueryBuilder;
-use Happyr\Doctrine\Specification\Spec as S;
-
-/**
- * Check if a user is active.
- * A active user is not banned and has logged in within the last 6 months.
- *
- * @author Tobias Nyholm
- */
-class IsActive extends S\BaseSpecification
-{
-    /**
-     * @param string $dqlAlias
-     */
-    public function __construct($dqlAlias=null)
-    {
-        parent::__construct($dqlAlias);
-        $this->spec = new S\AndX(
-          new S\Equals('banned', false),
-          new S\GreaterThan('lastLogin', new \DateTime('-6months'),
-        );
-    }
-
-    /**
-     * @param string $className
-     *
-     * @return bool
-     */
-    public function supports($className)
-    {
-        return $className === 'Acme\DemoBundle\Entity\User';
-    }
-}
-
-```
-
-I recommend you to write simple Specifications and combine them with `Spec\AndX` and `Spec\OrX`. To use the `IsActive`
-Specification, do like this:
-
-```php
-<?php
-
-namespace Acme\DemoBundle\Controller;
-
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Acme\DemoBundle\Entity\Spec\IsActive;
-
-class DefaultController extends Controller
-{
-  public function someAction()
-  {
-    $users=$this->getEntityManager()
-      ->getRepository('AcmeDemoBundle:User')
-      ->match(new IsActive());
-
-    //Do whatever with your active users
-
-  }
-}
-```
 
 
 [whitewashing]: http://www.whitewashing.de/2013/03/04/doctrine_repositories.html
