@@ -27,7 +27,7 @@ class IsNotNull implements Specification
     private $dqlAlias;
 
     /**
-     * Make sure the $field IS NULL
+     * Make sure the $field IS NOT NULL
      *
      * @param string $field
      * @param string $dqlAlias
