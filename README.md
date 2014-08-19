@@ -12,9 +12,9 @@ from my (Tobias Nyholm) discussion with Kacper Gunia on [Sound of Symfony podcas
 
 ### Table of contents
 
-1. [Motivation](##why-do-we-need-this-lib) and [basic understanding](##the-practical-differences) (this page)
-2. [Usage examples](docs/0-usage.md)
-3. [Create your own spec](docs/1-creatingSpecs.md)
+1. [Motivation](#why-do-we-need-this-lib) and [basic understanding](#the-practical-differences) (this page)
+2. [Usage examples][doc-usage]
+3. [Create your own spec][doc-create]
 
 
 ## Why do we need this lib?
@@ -180,7 +180,15 @@ reuse `filterOwnedByCompany` in that case.
 Assume we have the filterGroupsForApi() call, there is no way to combine it with another call filterGroupsForPermissions().
 Instead reusing this code will lead to a third method filterGroupsForApiAndPermissions().
 
+## Continue reading
+
+You may want to take a look at some [usage examples][doc-usage] or find out
+how to [create your own spec][doc-create]
+
+
 
 [whitewashing]: http://www.whitewashing.de/2013/03/04/doctrine_repositories.html
 [wiki_spec_pattern]: http://en.wikipedia.org/wiki/Specification_pattern
 [sos]: http://www.soundofsymfony.com/episode/episode-2/
+[doc-usage]: docs/0-usage.md
+[doc-create]: docs/1-creatingSpecs.md
