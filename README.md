@@ -41,8 +41,7 @@ doing the query builder work over and over again.)
 
 ## The practical differences
 
-This is an example of how you use the lib. Say that you want to fetch some Adverts and close them. Select all Adverts
-that has past their `endDate`. If `endDate` is null make it 4 weeks after the `startDate`.
+This is an example of how you use the lib. Say that you want to fetch some Adverts and close them. We should select all Adverts that have past their `endDate`. If `endDate` is null make it 4 weeks after the `startDate`.
 
 ``` php
 // Not using the lib
