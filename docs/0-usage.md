@@ -120,7 +120,7 @@ interact with directly with the Comparison class.
 
 ``` php
 
-use Happyr\Doctrine\Specification\Spec\GreaterThan;
+use Happyr\Doctrine\Specification\Spec\Comparison;
 
 // ...
 
