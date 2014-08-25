@@ -13,8 +13,19 @@ Install this lib with composer.
 }
 ```
 
-Let your repositories extend `Happyr\Doctrine\Specification\EntitySpecificationRepository` instead of `Doctrine\ORM\EntityRepository`. Then
-you may start to create your specifications. Put them in `Acme\DemoBundle\Entity\Spec`. Lets start with a simple one:
+Let your repositories extend `Happyr\Doctrine\Specification\EntitySpecificationRepository` instead of `Doctrine\ORM\EntityRepository`.
+Also make sure that the default repository is changed. If you haven't created a repository class in your source
+then `$this->em->getRepository('xxx')` will return an instance of the default repository class.
+
+```js
+// app/config/config.yml
+doctrine:
+  orm:
+    default_repository_class: Happyr\Doctrine\Specification\EntitySpecificationRepository
+
+```
+
+Then you may start to create your specifications. Put them in `Acme\DemoBundle\Entity\Spec`. Lets start with a simple one:
 
 ```php
 
