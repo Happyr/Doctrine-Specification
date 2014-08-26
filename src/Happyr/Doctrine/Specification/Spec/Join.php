@@ -49,6 +49,7 @@ class Join implements Specification
         if ($this->dqlAlias !== null) {
             $dqlAlias = $this->dqlAlias;
         }
+
         $qb->join(sprintf('%s.%s', $dqlAlias, $this->field), $this->newAlias);
     }
 
