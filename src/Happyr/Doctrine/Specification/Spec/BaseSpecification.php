@@ -41,9 +41,12 @@ abstract class BaseSpecification implements Specification
      * @param string $dqlAlias
      *
      * @return Expr
+     * @throws \LogicException
      */
     public function match(QueryBuilder $qb, $dqlAlias)
     {
+        $this->validateSpec();
+
         if ($this->dqlAlias !== null) {
             $dqlAlias = $this->dqlAlias;
         }
@@ -53,9 +56,29 @@ abstract class BaseSpecification implements Specification
 
     /**
      * @param AbstractQuery $query
+     *
+     * @throws \LogicException
      */
     public function modifyQuery(AbstractQuery $query)
     {
+        $this->validateSpec();
+
         $this->spec->modifyQuery($query);
+    }
+
+    /**
+     * Make sure that the spec is a Specification
+     *
+     * @throws \LogicException
+     */
+    private function validateSpec()
+    {
+        if (!$this->spec instanceof Specification) {
+            throw new \LogicException(sprintf(
+                'The protected variable BaseSpecification::spec must be an instance of Specification. Please validate the class %s and make sure to assign $this->spec with a object implementing %s.',
+                get_class($this),
+                'Happyr\Doctrine\Specification\Spec\Specification'
+            ));
+        }
     }
 }
