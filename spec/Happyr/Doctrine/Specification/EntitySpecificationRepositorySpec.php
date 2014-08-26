@@ -1,0 +1,48 @@
+<?php
+
+namespace spec\Happyr\Doctrine\Specification;
+
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
+use Happyr\Doctrine\Specification\EntitySpecificationRepository;
+use Happyr\Doctrine\Specification\Spec\Specification;
+use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
+
+/**
+ * @mixin EntitySpecificationRepository
+ */
+class EntitySpecificationRepositorySpec extends ObjectBehavior
+{
+    function let(EntityManager $entityManager, ClassMetadata $classMetadata)
+    {
+        $this->beConstructedWith($entityManager, $classMetadata);
+    }
+
+    function it_throws_an_exception_if_entity_is_not_supported(Specification $specification)
+    {
+        $specification->supports(Argument::any())->willReturn(false);
+        $this->shouldThrow(new \InvalidArgumentException("Specification not supported by this repository."))->duringMatch($specification);
+    }
+
+    function it_(Specification $specification, EntityManager $entityManager, QueryBuilder $qb, Expr $expr, AbstractQuery $query)
+    {
+        $specification->supports(Argument::any())->willReturn(true);
+        $entityManager->createQueryBuilder()->willReturn($qb);
+        $qb->select('e')->willReturn($qb);
+        $qb->from(Argument::any(), 'e')->willReturn($qb);
+        $specification->match($qb, 'e')->willReturn($expr);
+        $qb->where($expr)->willReturn($qb);
+        $qb->getQuery()->willReturn($query);
+
+        $specification->modifyQuery($query)->shouldBeCalled();
+        $query->getResult()->willReturn([]);
+
+        $this->match($specification)->shouldReturn([]);
+    }
+}
