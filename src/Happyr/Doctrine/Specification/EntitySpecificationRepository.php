@@ -12,7 +12,7 @@ use Happyr\Doctrine\Specification\Spec\Specification;
  * @author Tobias Nyholm
  *
  */
-abstract class EntitySpecificationRepository extends EntityRepository
+class EntitySpecificationRepository extends EntityRepository
 {
     /**
      * Get result when you match with a Specification
