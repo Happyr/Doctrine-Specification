@@ -41,8 +41,9 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $qb->getQuery()->willReturn($query);
 
         $specification->modifyQuery($query)->shouldBeCalled();
-        $query->getResult()->willReturn([]);
+        $result = array();
+        $query->getResult()->willReturn($result);
 
-        $this->match($specification)->shouldReturn([]);
+        $this->match($specification)->shouldReturn($result);
     }
 }
