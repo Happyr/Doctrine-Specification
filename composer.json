@@ -9,6 +9,10 @@
         {
             "name": "Tobias Nyholm",
             "email": "tobias@happyr.com"
+        },
+        {
+            "name": "Kacper Gunia",
+            "email": "kacper@gunia.me"
         }
     ],
     "require": {
@@ -16,8 +20,9 @@
         "doctrine/orm": ">=2.2.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4",
-        "phpspec/phpspec": "2.*"
+        "phpspec/phpspec": "2.*",
+        "henrikbjorn/phpspec-code-coverage": "0.2.*",
+        "satooshi/php-coveralls": "0.6.*"
     },
     "autoload": {
         "psr-0": {
