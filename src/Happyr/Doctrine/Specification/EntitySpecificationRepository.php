@@ -3,7 +3,6 @@
 namespace Happyr\Doctrine\Specification;
 
 use Doctrine\ORM\EntityRepository;
-use Happyr\Doctrine\Specification\Spec\Specification;
 
 /**
  * Class EntitySpecificationRepository

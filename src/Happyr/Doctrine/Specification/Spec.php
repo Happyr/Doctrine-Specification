@@ -2,14 +2,13 @@
 
 namespace Happyr\Doctrine\Specification;
 
-use Happyr\Doctrine\Specification\Spec\AsArray;
-use Happyr\Doctrine\Specification\Spec\Comparison;
-use Happyr\Doctrine\Specification\Spec\In;
-use Happyr\Doctrine\Specification\Spec\Like;
-use Happyr\Doctrine\Specification\Spec\IsNull;
-use Happyr\Doctrine\Specification\Spec\LogicX;
-use Happyr\Doctrine\Specification\Spec\Not;
-use Happyr\Doctrine\Specification\Spec\Specification;
+use Happyr\Doctrine\Specification\Query\AsArray;
+use Happyr\Doctrine\Specification\Comparison\Comparison;
+use Happyr\Doctrine\Specification\Comparison\In;
+use Happyr\Doctrine\Specification\Comparison\Like;
+use Happyr\Doctrine\Specification\Comparison\IsNull;
+use Happyr\Doctrine\Specification\Logic\LogicX;
+use Happyr\Doctrine\Specification\Logic\Not;
 
 /**
  * Factory class for the specifications

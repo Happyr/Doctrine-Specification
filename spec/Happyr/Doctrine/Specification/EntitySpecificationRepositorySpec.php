@@ -2,7 +2,6 @@
 
 namespace spec\Happyr\Doctrine\Specification;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -10,7 +9,7 @@ use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\Doctrine\Specification\EntitySpecificationRepository;
-use Happyr\Doctrine\Specification\Spec\Specification;
+use Happyr\Doctrine\Specification\Specification;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
