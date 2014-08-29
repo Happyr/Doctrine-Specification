@@ -186,7 +186,7 @@ Instead reusing this code will lead to a third method filterGroupsForApiAndPermi
 ## Continue reading
 
 You may want to take a look at some [usage examples][doc-usage] or find out
-how to [create your own spec][doc-create]
+how to [create your own spec][doc-create].
 
 
 
