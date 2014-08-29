@@ -23,8 +23,14 @@ class Comparison implements Specification
     const LTE = '<=';
     const GT = '>';
     const GTE = '>=';
+    const LIKE = 'LIKE';
 
-    private static $operators = array(self::EQ, self::NEQ, self::LT, self::LTE, self::GT, self::GTE);
+    private static $operators = array(
+        self::EQ, self::NEQ,
+        self::LT, self::LTE,
+        self::GT, self::GTE,
+        self::LIKE
+    );
 
     /**
      * @var string field

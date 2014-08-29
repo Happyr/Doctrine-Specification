@@ -5,6 +5,7 @@ namespace Happyr\Doctrine\Specification;
 use Happyr\Doctrine\Specification\Spec\AsArray;
 use Happyr\Doctrine\Specification\Spec\Comparison;
 use Happyr\Doctrine\Specification\Spec\In;
+use Happyr\Doctrine\Specification\Spec\Like;
 use Happyr\Doctrine\Specification\Spec\IsNull;
 use Happyr\Doctrine\Specification\Spec\LogicX;
 use Happyr\Doctrine\Specification\Spec\Not;
@@ -86,5 +87,10 @@ class Spec
     public static function gte($field, $value, $dqlAlias = null)
     {
         return new Comparison(Comparison::GTE, $field, $value, $dqlAlias);
+    }
+
+    public static function like($field, $value, $format = Like::CONTAINS, $dqlAlias = null)
+    {
+        return new Like($field, $value, $format, $dqlAlias);
     }
 }
