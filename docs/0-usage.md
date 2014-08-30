@@ -13,7 +13,7 @@ Install this lib with composer.
 }
 ```
 
-Let your repositories extend `Happyr\Doctrine\Specification\EntitySpecificationRepository` instead of `Doctrine\ORM\EntityRepository`.
+Let your repositories extend `Happyr\DoctrineSpecification\EntitySpecificationRepository` instead of `Doctrine\ORM\EntityRepository`.
 Also make sure that the default repository is changed. If you haven't created a repository class in your source
 then `$this->em->getRepository('xxx')` will return an instance of the default repository class.
 
@@ -21,7 +21,7 @@ then `$this->em->getRepository('xxx')` will return an instance of the default re
 // app/config/config.yml
 doctrine:
   orm:
-    default_repository_class: Happyr\Doctrine\Specification\EntitySpecificationRepository
+    default_repository_class: Happyr\DoctrineSpecification\EntitySpecificationRepository
 
 ```
 
@@ -35,7 +35,7 @@ namespace Acme\DemoBundle\Entity\Spec;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\Doctrine\Specification\Spec as S;
+use Happyr\DoctrineSpecification\Spec;
 
 /**
  * Check if a user is active.
@@ -51,9 +51,9 @@ class IsActive extends S\BaseSpecification
     public function __construct($dqlAlias=null)
     {
         parent::__construct($dqlAlias);
-        $this->spec = new S\AndX(
-          new S\Equals('banned', false),
-          new S\GreaterThan('lastLogin', new \DateTime('-6months'),
+        $this->spec = Spec::andX(
+          Spec::eq('banned', false),
+          Spec::gt('lastLogin', new \DateTime('-6months'),
         );
     }
 
@@ -70,7 +70,7 @@ class IsActive extends S\BaseSpecification
 
 ```
 
-I recommend you to write simple Specifications and combine them with `Spec\AndX` and `Spec\OrX`. To use the `IsActive`
+I recommend you to write simple Specifications and combine them with `Spec::andX` and `Spec::orX`. To use the `IsActive`
 Specification, do like this:
 
 ```php
@@ -97,12 +97,12 @@ class DefaultController extends Controller
 
 ## Syntactic sugar
 
-There is a few different ways of using a Spec. You might use the Spec factory which probably is the most
+There is a few different ways of using a Specification. You might use the Spec factory which probably is the most
 convenient one. (At least it reduces the imports)
 
 ``` php
 
-use Happyr\Doctrine\Specification\Spec;
+use Happyr\DoctrineSpecification\Spec;
 
 // ...
 
@@ -112,11 +112,11 @@ $objects= $this->getEntityManager()
 
 ```
 
-You may of course use the Spec classes directly.
+You may of course use the Specification classes directly.
 
 ``` php
 
-use Happyr\Doctrine\Specification\Spec\GreaterThan;
+use Happyr\DoctrineSpecification\Comparison\GreaterThan;
 
 // ...
 
@@ -131,7 +131,7 @@ interact with directly with the Comparison class.
 
 ``` php
 
-use Happyr\Doctrine\Specification\Spec\Comparison;
+use Happyr\DoctrineSpecification\Comparison\Comparison;
 
 // ...
 

@@ -61,13 +61,13 @@ return $qb->where('r.ended = 0')
 
 ``` php
 // Using the lib
-$spec=new AndX(
-    new Equals('ended', 0),
-    new OrX(
-        new LessThan('endDate', new \DateTime()),
-        new AndX(
-            new IsNull('endDate'),
-            new LessThan('startDate', new \DateTime('-4weeks'))
+$spec = Spec::andX(
+    Spec::eq('ended', 0),
+    Spec::orX(
+        Spec::lt('endDate', new \DateTime()),
+        Spec::andX(
+            Spec::isNull('endDate'),
+            Spec::lt('startDate', new \DateTime('-4weeks'))
         )
     )
 );
@@ -87,13 +87,13 @@ class AdvertsWeShouldClose extends BaseSpecification
   public function __construct($dqlAlias=null)
   {
     parent::__construct($dqlAlias);
-    $this->spec=new AndX(
-      new Equals('ended', 0),
-      new OrX(
-        new LessThan('endDate', new \DateTime()),
-        new AndX(
-          new IsNull('endDate'),
-          new LessThan('startDate', new \DateTime('-4weeks'))
+    $this->spec = Spec::andX(
+      Spec::eq('ended', 0),
+      Spec::orX(
+        Spec::lt('endDate', new \DateTime()),
+        Spec::andX(
+          Spec::isNull('endDate'),
+          Spec::lt('startDate', new \DateTime('-4weeks'))
         )
       )
     );
@@ -107,9 +107,9 @@ class OwnedByCompany extends BaseSpecification
   public function __construct(Company $company, $dqlAlias=null)
   {
     parent::__construct($dqlAlias);
-    $this->spec=new Collection(
-      new Join('company', 'c'),
-      new Equals('id', $company->getId(), 'c')
+    $this->spec = Spec::collection(
+      Spec::join('company', 'c'),
+      Spec::eq('id', $company->getId(), 'c')
     );
   }
 
@@ -123,7 +123,7 @@ class SomeService
    */
   public function myQuery(Company $company)
   {
-    $spec = new AndX(
+    $spec = Spec::andX(
       new AdvertsWeShouldClose(),
       new OwnedByCompany($company)
     );
@@ -186,7 +186,7 @@ Instead reusing this code will lead to a third method filterGroupsForApiAndPermi
 ## Continue reading
 
 You may want to take a look at some [usage examples][doc-usage] or find out
-how to [create your own spec][doc-create]
+how to [create your own spec][doc-create].
 
 
 
