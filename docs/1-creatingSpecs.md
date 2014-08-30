@@ -1,6 +1,6 @@
 # Creating specs
 
-Every spec should implement `Happyr\Doctrine\Specification\Spec\Specification`. The interface has 3 functions.
+Every spec should implement `Happyr\DoctrineSpecification\Spec\Specification`. The interface has 3 functions.
 
 ### Match
 
@@ -57,7 +57,7 @@ fully qualified name of the entity as a parameter.
 ## BaseSpecification
 
 If you are creating your own Specification you are most likely to use other specifications. To make your life
-easier you may use the `Happyr\Doctrine\Specification\Spec\BaseSpecification` class. When you inherit
+easier you may use the `Happyr\DoctrineSpecification\Spec\BaseSpecification` class. When you inherit
 from this class you don't need to bother with `match` or `modifyQuery`. You need to do 3 things:
 
 1. Call the parent constructor

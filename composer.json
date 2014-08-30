@@ -26,7 +26,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Happyr\\Doctrine\\Specification": "src/"
+            "Happyr\\DoctrineSpecification": "src/"
         }
     }
 }

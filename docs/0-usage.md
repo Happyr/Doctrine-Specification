@@ -13,7 +13,7 @@ Install this lib with composer.
 }
 ```
 
-Let your repositories extend `Happyr\Doctrine\Specification\EntitySpecificationRepository` instead of `Doctrine\ORM\EntityRepository`.
+Let your repositories extend `Happyr\DoctrineSpecification\EntitySpecificationRepository` instead of `Doctrine\ORM\EntityRepository`.
 Also make sure that the default repository is changed. If you haven't created a repository class in your source
 then `$this->em->getRepository('xxx')` will return an instance of the default repository class.
 
@@ -21,7 +21,7 @@ then `$this->em->getRepository('xxx')` will return an instance of the default re
 // app/config/config.yml
 doctrine:
   orm:
-    default_repository_class: Happyr\Doctrine\Specification\EntitySpecificationRepository
+    default_repository_class: Happyr\DoctrineSpecification\EntitySpecificationRepository
 
 ```
 
@@ -35,7 +35,7 @@ namespace Acme\DemoBundle\Entity\Spec;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\Doctrine\Specification\Spec as S;
+use Happyr\DoctrineSpecification\Spec as S;
 
 /**
  * Check if a user is active.
@@ -102,7 +102,7 @@ convenient one. (At least it reduces the imports)
 
 ``` php
 
-use Happyr\Doctrine\Specification\Spec;
+use Happyr\DoctrineSpecification\Spec;
 
 // ...
 
@@ -116,7 +116,7 @@ You may of course use the Spec classes directly.
 
 ``` php
 
-use Happyr\Doctrine\Specification\Spec\GreaterThan;
+use Happyr\DoctrineSpecification\Spec\GreaterThan;
 
 // ...
 
@@ -131,7 +131,7 @@ interact with directly with the Comparison class.
 
 ``` php
 
-use Happyr\Doctrine\Specification\Spec\Comparison;
+use Happyr\DoctrineSpecification\Spec\Comparison;
 
 // ...
 
