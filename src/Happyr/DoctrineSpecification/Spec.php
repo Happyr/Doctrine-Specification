@@ -9,6 +9,7 @@ use Happyr\DoctrineSpecification\Comparison\Like;
 use Happyr\DoctrineSpecification\Comparison\IsNull;
 use Happyr\DoctrineSpecification\Logic\LogicX;
 use Happyr\DoctrineSpecification\Logic\Not;
+use Happyr\DoctrineSpecification\Query\Join;
 
 /**
  * Factory class for the specifications
@@ -31,6 +32,11 @@ class Spec
     public static function collection()
     {
         return new LogicX(LogicX::AND_X, func_get_args());
+    }
+
+    public static function join($field, $newAlias, $dqlAlias = null)
+    {
+        return new Join($field, $newAlias, $dqlAlias);
     }
 
     public static function asArray(Specification $spec)
