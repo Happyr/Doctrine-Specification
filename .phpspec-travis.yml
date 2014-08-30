@@ -1,4 +1,3 @@
-
 extensions:
   - PhpSpec\Extension\CodeCoverageExtension
 

@@ -16,7 +16,7 @@ before_script:
   - mkdir -p build/logs
 
 script:
-  - ./vendor/bin/phpspec run
+  - ./vendor/bin/phpspec --config=.phpspec-travis.yml run
 
 after_success:
   - php vendor/bin/coveralls -v
