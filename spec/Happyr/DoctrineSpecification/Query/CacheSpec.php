@@ -1,18 +1,18 @@
 <?php
 
-namespace spec\Happyr\Doctrine\Specification\Spec;
+namespace spec\Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\Doctrine\Specification\Spec\CacheSpec;
-use Happyr\Doctrine\Specification\Spec\Specification;
+use Happyr\DoctrineSpecification\Query\Cache;
+use Happyr\DoctrineSpecification\Specification;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
- * @mixin CacheSpec
+ * @mixin Cache
  */
-class CacheSpecSpec extends ObjectBehavior
+class CacheSpec extends ObjectBehavior
 {
     private $lifetime = 3600;
 
@@ -23,7 +23,7 @@ class CacheSpecSpec extends ObjectBehavior
 
     function it_is_a_specification()
     {
-        $this->shouldBeAnInstanceOf('Happyr\Doctrine\Specification\Spec\Specification');
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Specification');
     }
 
     function it_delegates_match_to_decorated_specification(Specification $specification, QueryBuilder $qb)

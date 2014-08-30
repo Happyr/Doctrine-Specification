@@ -1,12 +1,13 @@
 <?php
 
-namespace Happyr\Doctrine\Specification\Spec;
+namespace Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Specification;
 
-class CacheSpec implements Specification
+class Cache implements Specification
 {
     /**
      * @var Specification

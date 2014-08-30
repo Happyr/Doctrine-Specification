@@ -2,6 +2,7 @@
 
 namespace Happyr\DoctrineSpecification;
 
+use Happyr\DoctrineSpecification\Comparison\IsNotNull;
 use Happyr\DoctrineSpecification\Query\AsArray;
 use Happyr\DoctrineSpecification\Comparison\Comparison;
 use Happyr\DoctrineSpecification\Comparison\In;
@@ -9,6 +10,7 @@ use Happyr\DoctrineSpecification\Comparison\Like;
 use Happyr\DoctrineSpecification\Comparison\IsNull;
 use Happyr\DoctrineSpecification\Logic\LogicX;
 use Happyr\DoctrineSpecification\Logic\Not;
+use Happyr\DoctrineSpecification\Query\Cache;
 
 /**
  * Factory class for the specifications
@@ -91,5 +93,10 @@ class Spec
     public static function like($field, $value, $format = Like::CONTAINS, $dqlAlias = null)
     {
         return new Like($field, $value, $format, $dqlAlias);
+    }
+
+    public static function cache(Specification $spec, $cacheLifetime)
+    {
+        return new Cache($spec, $cacheLifetime);
     }
 }
