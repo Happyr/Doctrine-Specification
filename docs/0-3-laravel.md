@@ -3,8 +3,8 @@
 If you're choosing to use Doctrine with Laravel, there are some common Doctrine integration packages, however only some of them allow configruation of the default repository type.
 
 ### atrauzzi/laravel-doctrine
-For this package, set the `defaultRepository` setting to `Happyr\Doctrine\Specification\EntitySpecificationRepository`
+For this package, in its configuration settings, set the `defaultRepository` setting to `Happyr\DoctrineSpecification\EntitySpecificationRepository`
 
 ###  mitchellvanw/laravel-doctrine
-For this package, set the `repository` setting to `Happyr\Doctrine\Specification\EntitySpecificationRepository`
+For this package, in its configuration settings, set the `repository` setting to `Happyr\DoctrineSpecification\EntitySpecificationRepository`
 

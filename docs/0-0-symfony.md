@@ -7,5 +7,5 @@ Replacing Doctrine's default repository type with `\Happyr\Doctrine\Specificatio
 // app/config/config.yml
 doctrine:
   orm:
-    default_repository_class: Happyr\Doctrine\Specification\EntitySpecificationRepository
+    default_repository_class: Happyr\DoctrineSpecification\EntitySpecificationRepository
 ```

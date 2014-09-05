@@ -1,32 +1,21 @@
 # Integrating with frameworks - Zend 2
 ## Replacing the default repository type
-Doctrine integration with Zend Framework 2 can be achieved using the `DoctrineORM` bundle. This bundle contains configuration options for the repository factory. To replace the default repository type, provide a concrete implementation of the abstract `\Happyr\Doctrine\Specification\EntitySpecificationRepository` and the necessary configruation options.
+Doctrine integration with Zend Framework 2 can be achieved using the `DoctrineORM` bundle. This bundle contains configuration options for the repository factory. To replace the default repository type, provide a factory creatign an instance of `\Happyr\DoctrineSpecification\EntitySpecificationRepository` and any necessary configruation options.
 
 ```php
-// DoctrineORM bundle configruation
-array(
-   'doctrine' => array(
+// Application configuration
+'doctrine' => array(
+    'configuration' => array(
         'orm_default' => array(
-            'repository_factory' => 'happyr.doctrine.specification.repository'
+            'repository_factory' => 'happyr_doctrinespecification_repository',
         )
     ),
 
     'service_manager' => array(
-        'factories' => array(
-            'happyr.doctrine.specification.repository' => function($sm){
-                return new \My\Repository\BaseEntitySpecificationRepository();   
-            }
+        'services' => array(
+            'happyr_doctrinespecification_repository' => new Happyr\DoctrineSpecification\RepositoryFactory()
         )
     )
 );
-
-// My/Repository/BaseEntitySpecificationRepository.php
-namespace My\Repository;
-
-class BaseEntitySpecificationRepository extends \Happyr\Doctrine\Specification\EntitySpecificationRepository
-{
-    // Implements nothing extra.
-    // Merely provides a concrete instance of \Happyr\Doctrine\Specification\EntitySpecificationRepository
-    // to use with \Happyr\Doctrime\ORM\EntitySpecificationRepositoryFactory
-}
 ```
+    
