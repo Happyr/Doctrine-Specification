@@ -16,7 +16,7 @@ Install this lib with composer.
 Let your repositories extend `Happyr\DoctrineSpecification\EntitySpecificationRepository` instead of `Doctrine\ORM\EntityRepository`.
 Also make sure that the default repository is changed. If you haven't created a repository class in your source
 then you will have to tell `$this->em->getRepository('xxx')` to return a instance of `Happyr\DoctrineSpecification\EntitySpecificationRepository`.
-See instructions for [Laravel](docs/0-3-laravel.md), [Symfony2](docs/0-0-symfony.md), [Zend1](docs/0-1-zend1.md) and [Zend2](docs/0-2-zend2.md).
+See instructions for [Laravel](0-3-laravel.md), [Symfony2](0-0-symfony.md), [Zend1](0-1-zend1.md) and [Zend2](0-2-zend2.md).
 
 Then you may start to create your specifications. Put them in `Acme\DemoBundle\Entity\Spec`. Lets start with a simple one:
 
