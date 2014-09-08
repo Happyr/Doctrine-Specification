@@ -5,8 +5,8 @@ namespace spec\Happyr\DoctrineSpecification\Logic;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Logic\LogicX;
 use Happyr\DoctrineSpecification\Specification;
+use Happyr\DoctrineSpecification\Where\Logic\LogicX;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

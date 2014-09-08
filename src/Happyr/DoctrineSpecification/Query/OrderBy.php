@@ -2,7 +2,6 @@
 
 namespace Happyr\DoctrineSpecification\Query;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Specification;
 
@@ -41,7 +40,7 @@ class OrderBy implements Specification
     }
 
     /**
-     * @param \Doctrine\ORM\QueryBuilder $qb
+     * @param QueryBuilder $qb
      * @param string $dqlAlias
      *
      */
@@ -52,13 +51,6 @@ class OrderBy implements Specification
         }
 
         $qb->orderBy(sprintf('%s.%s', $dqlAlias, $this->field), $this->order);
-    }
-
-    /**
-     * @param \Doctrine\ORM\AbstractQuery $query
-     */
-    public function modifyQuery(AbstractQuery $query)
-    {
     }
 
     /**

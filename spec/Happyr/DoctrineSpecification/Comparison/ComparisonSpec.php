@@ -4,7 +4,7 @@ namespace spec\Happyr\DoctrineSpecification\Comparison;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Comparison\Comparison;
+use Happyr\DoctrineSpecification\Where\Comparison\Comparison;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -17,12 +17,12 @@ class ComparisonSpec extends ObjectBehavior
     {
         $this->beConstructedWith(Comparison::GT, 'age', 18, 'a');
     }
-    
+
     function it_is_a_specification()
     {
         $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Specification');
     }
-    
+
     function it_returns_comparison_object(QueryBuilder $qb, ArrayCollection $parameters)
     {
         $qb->getParameters()->willReturn($parameters);

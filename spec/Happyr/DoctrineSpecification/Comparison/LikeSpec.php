@@ -7,7 +7,6 @@ use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Happyr\DoctrineSpecification\Comparison\Comparison;
 
 class LikeSpec extends ObjectBehavior
 {
@@ -58,4 +57,4 @@ class LikeSpec extends ObjectBehavior
 
         $this->match($qb, null);
     }
-} 
+}

@@ -1,10 +1,9 @@
 <?php
 
-namespace Happyr\DoctrineSpecification\Comparison;
+namespace Happyr\DoctrineSpecification\Where\Comparison;
 
-use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Specification;
 
@@ -51,22 +50,5 @@ class IsNull implements Specification
         }
 
         return $qb->expr()->isNull(sprintf('%s.%s', $dqlAlias, $this->field));
-    }
-
-    /**
-     * @param AbstractQuery $query
-     */
-    public function modifyQuery(AbstractQuery $query)
-    {
-    }
-
-    /**
-     * @param string $className
-     *
-     * @return bool
-     */
-    public function supports($className)
-    {
-        return true;
     }
 }

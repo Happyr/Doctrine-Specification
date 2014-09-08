@@ -20,16 +20,4 @@ interface Specification
      * @return Expr
      */
     public function match(QueryBuilder $qb, $dqlAlias);
-
-    /**
-     * @param AbstractQuery $query
-     */
-    public function modifyQuery(AbstractQuery $query);
-
-    /**
-     * @param string $className
-     *
-     * @return bool
-     */
-    public function supports($className);
 }

@@ -3,6 +3,7 @@
 namespace Happyr\DoctrineSpecification;
 
 use Doctrine\ORM\EntityRepository;
+use InvalidArgumentException;
 
 /**
  * Class EntitySpecificationRepository
@@ -17,15 +18,17 @@ class EntitySpecificationRepository extends EntityRepository
      * Get result when you match with a Specification
      *
      * @param Specification $specification
+     * @param QueryOption $queryModifier
+     *
+     * @throws InvalidArgumentException
      *
      * @return mixed
-     * @throws \InvalidArgumentException
      */
-    public function match(Specification $specification)
+    public function match(Specification $specification, QueryOption $queryModifier = null)
     {
         //check if the Specification is supported
         if (!$specification->supports($this->getEntityName())) {
-            throw new \InvalidArgumentException("Specification not supported by this repository.");
+            throw new InvalidArgumentException("Specification not supported by this repository.");
         }
 
         //get the Query Builder
@@ -37,10 +40,10 @@ class EntitySpecificationRepository extends EntityRepository
         //add teh result expression in the where clause
         $query = $qb->where($expr)->getQuery();
 
-        //give the Specification a change to modify the query
-        $specification->modifyQuery($query);
+        if ($queryModifier instanceof QueryOption) {
+            $queryModifier->modifyQuery($query);
+        }
 
-        //get and return the result
         return $query->getResult();
     }
 }

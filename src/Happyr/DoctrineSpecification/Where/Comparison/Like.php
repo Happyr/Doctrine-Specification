@@ -1,6 +1,6 @@
 <?php
 
-namespace Happyr\DoctrineSpecification\Comparison;
+namespace Happyr\DoctrineSpecification\Where\Comparison;
 
 class Like extends Comparison
 {
@@ -10,11 +10,11 @@ class Like extends Comparison
 
     public function __construct($field, $value, $format = self::CONTAINS, $dqlAlias = null)
     {
-        $formattedValue = $this->formatValue($format, $value);
-        parent::__construct(self::LIKE, $field, $formattedValue, $dqlAlias);
+        $pattern = $this->formatPattern($format, $value);
+        parent::__construct(self::LIKE, $field, $pattern, $dqlAlias);
     }
 
-    private function formatValue($format, $value)
+    private function formatPattern($format, $value)
     {
         return sprintf($format, $value);
     }

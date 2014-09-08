@@ -1,6 +1,6 @@
 <?php
 
-namespace Happyr\DoctrineSpecification\Logic;
+namespace Happyr\DoctrineSpecification\Where\Logic;
 
 class AndX extends LogicX
 {

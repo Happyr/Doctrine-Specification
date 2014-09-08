@@ -1,6 +1,6 @@
 <?php
 
-namespace Happyr\DoctrineSpecification\Comparison;
+namespace Happyr\DoctrineSpecification\Where\Comparison;
 
 class GreaterOrEqualThan extends Comparison
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Happyr\DoctrineSpecification\Logic;
+namespace Happyr\DoctrineSpecification\Where\Logic;
 
-use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Specification;
+use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
+use Happyr\DoctrineSpecification\Where\Expression;
 
 /**
  * Abstract Class LogicX
@@ -16,13 +16,13 @@ use Happyr\DoctrineSpecification\Specification;
  * @author Tobias Nyholm
  * @author Benjamin Eberlei
  */
-class LogicX implements Specification
+class LogicX implements Expression
 {
     const AND_X = 'andX';
     const OR_X = 'orX';
 
     /**
-     * @var Specification[] children
+     * @var Expression[] children
      */
     private $children;
 
@@ -32,13 +32,16 @@ class LogicX implements Specification
     private $expression;
 
     /**
-     * Take two or more Specification as parameters
+     * Take two or more WhereSpecification as parameters
      *
      * @param string $expression
-     * @param array  $children
+     * @param array $children
+     *
      */
     public function __construct($expression, array $children)
     {
+        $this->validateChildren($children);
+
         $this->expression = $expression;
         $this->children = $children;
     }
@@ -54,7 +57,7 @@ class LogicX implements Specification
         return call_user_func_array(
             array($qb->expr(), $this->expression),
             array_map(
-                function (Specification $spec) use ($qb, $dqlAlias) {
+                function (Expression $spec) use ($qb, $dqlAlias) {
                     return $spec->match($qb, $dqlAlias);
                 },
                 $this->children
@@ -63,22 +66,18 @@ class LogicX implements Specification
     }
 
     /**
-     * @param AbstractQuery $query
-     */
-    public function modifyQuery(AbstractQuery $query)
-    {
-        foreach ($this->children as $child) {
-            $child->modifyQuery($query);
-        }
-    }
-
-    /**
-     * @param string $className
+     * @param array $children
      *
-     * @return bool
+     * @throws InvalidArgumentException
      */
-    public function supports($className)
+    public function validateChildren(array $children)
     {
-        return true;
+        foreach ($children as $child) {
+            if (!$child instanceof Expression) {
+                throw new InvalidArgumentException(
+                    sprintf('Expected instance of "WhereSpecification" but got "%s"', get_class($child))
+                );
+            }
+        }
     }
 }

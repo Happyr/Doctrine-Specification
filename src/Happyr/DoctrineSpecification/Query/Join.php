@@ -55,13 +55,6 @@ class Join implements Specification
     }
 
     /**
-     * @param AbstractQuery $query
-     */
-    public function modifyQuery(AbstractQuery $query)
-    {
-    }
-
-    /**
      * @param string $className
      *
      * @return bool

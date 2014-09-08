@@ -5,13 +5,12 @@ namespace spec\Happyr\DoctrineSpecification\Query;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Query\AsArray;
 use Happyr\DoctrineSpecification\Specification;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
- * @mixin AsArray
+ * @mixin \Happyr\DoctrineSpecification\QueryOption\AsArray
  */
 class AsArraySpec extends ObjectBehavior
 {
