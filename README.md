@@ -20,12 +20,13 @@ from my (Tobias Nyholm) discussion with Kacper Gunia on [Sound of Symfony podcas
 ## Why do we need this lib?
 
 You are probably wondering why we created this library. Your entity repositories are working just fine as they are, right?
-But if your friend open one of your repository classes he will find that the code is not as perfect as you thought.
+
+But if your friend open one of your repository classes he/she would probably find that the code is not as perfect as you thought.
 Entity repositories has a tendency to get messy. Problems may include:
 
  * Too many functions (`findActiveUser`, `findActiveUserWithPicture`, `findUserToEmail`, etc)
- * Too many arguments
- * Code duplicate
+ * Some functions have too many arguments
+ * Code duplication
  * Difficult to test
 
 ## Requirements of the solution
@@ -50,9 +51,14 @@ $qb=$this->em->getRepository('HappyrRecruitmentBundle:Advert')
 
 return $qb->where('r.ended = 0')
     ->andWhere(
-        $qb->expr()
-            ->orX('r.endDate < :now',
-                $qb->expr()->andX('r.endDate IS NULL', 'r.startDate < :timeLimit')))
+        $qb->expr()->orX(
+            'r.endDate < :now',
+            $qb->expr()->andX(
+                'r.endDate IS NULL',
+                'r.startDate < :timeLimit'
+            )
+        )
+    )
     ->setParameter('now', new \DateTime())
     ->setParameter('timeLimit', new \DateTime('-4weeks'))
     ->getQuery()
@@ -140,18 +146,6 @@ If you were about to do the same thing with only the QueryBuilder it would look 
 ``` php
 class AdvertRepository extends EntityRepository
 {
-  public function myQuery(Company $company)
-  {
-    $qb=$this->em->getRepository('HappyrRecruitmentBundle:Advert')
-      ->createQueryBuilder('r');
-    $this->filterAdvertsWeShouldClose($qb)
-    $this->filterOwnedByCompany($qb, $company)
-
-    return $qb
-      ->getQuery()
-      ->getResult();
-  }
-
   protected function filterAdvertsWeShouldClose($qb)
   {
     return $qb
@@ -170,6 +164,18 @@ class AdvertRepository extends EntityRepository
       ->join('company', 'c')
       ->andWhere('c.id = :company_id')
       ->setParameter('company_id', $company->getId())
+  }
+  
+  public function myQuery(Company $company)
+  {
+    $qb=$this->em->getRepository('HappyrRecruitmentBundle:Advert')
+      ->createQueryBuilder('r');
+    $this->filterAdvertsWeShouldClose($qb)
+    $this->filterOwnedByCompany($qb, $company)
+
+    return $qb
+      ->getQuery()
+      ->getResult();
   }
 }
 ```
