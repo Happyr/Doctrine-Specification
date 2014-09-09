@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Happyr\DoctrineSpecification\Logic;
+namespace spec\Happyr\DoctrineSpecification\Where\Logic;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr;

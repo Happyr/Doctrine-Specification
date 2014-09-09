@@ -13,6 +13,6 @@ class SpecSpec extends ObjectBehavior
 {
     function it_creates_and_x_specification()
     {
-        $this->andX()->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Logic\LogicX');
+        $this->andX()->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Where\Logic\LogicX');
     }
 }

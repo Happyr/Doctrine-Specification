@@ -1,13 +1,13 @@
 <?php
 
-namespace spec\Happyr\DoctrineSpecification\Comparison;
+namespace spec\Happyr\DoctrineSpecification\Where\Comparison;
 
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class IsNotNullSpec extends ObjectBehavior
+class IsNullSpec extends ObjectBehavior
 {
     private $field='foobar';
 
@@ -20,7 +20,7 @@ class IsNotNullSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Comparison\IsNotNull');
+        $this->shouldHaveType('Happyr\DoctrineSpecification\Where\Comparison\IsNull');
     }
 
     /**
@@ -34,11 +34,11 @@ class IsNotNullSpec extends ObjectBehavior
     /**
      * returns expression func object
      */
-    function it_calls_not_null(QueryBuilder $qb, Expr $expr)
+    function it_calls_null(QueryBuilder $qb, Expr $expr)
     {
         $qb->expr()->willReturn($expr);
 
-        $expr->isNotNull(sprintf('%s.%s', $this->dqlAlias, $this->field))->shouldBeCalled();
+        $expr->isNull(sprintf('%s.%s', $this->dqlAlias, $this->field))->shouldBeCalled();
         $this->match($qb, 'b');
     }
 
@@ -48,7 +48,7 @@ class IsNotNullSpec extends ObjectBehavior
         $this->beConstructedWith($this->field, null);
         $qb->expr()->willReturn($expr);
 
-        $expr->isNotNull(sprintf('%s.%s', $dqlAlias, $this->field))->shouldBeCalled();
+        $expr->isNull(sprintf('%s.%s', $dqlAlias, $this->field))->shouldBeCalled();
         $this->match($qb, $dqlAlias);
     }
 }

@@ -23,13 +23,13 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->beConstructedWith($entityManager, $classMetadata);
     }
 
-    function it_throws_an_exception_if_entity_is_not_supported(Specification $specification)
+    function _it_throws_an_exception_if_entity_is_not_supported(Specification $specification)
     {
         $specification->supports(Argument::any())->willReturn(false);
         $this->shouldThrow(new \InvalidArgumentException("Specification not supported by this repository."))->duringMatch($specification);
     }
 
-    function it_(Specification $specification, EntityManager $entityManager, QueryBuilder $qb, Expr $expr, AbstractQuery $query)
+    function _it_(Specification $specification, EntityManager $entityManager, QueryBuilder $qb, Expr $expr, AbstractQuery $query)
     {
         $specification->supports(Argument::any())->willReturn(true);
         $entityManager->createQueryBuilder()->willReturn($qb);

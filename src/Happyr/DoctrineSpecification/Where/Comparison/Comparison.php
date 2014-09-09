@@ -6,6 +6,7 @@ use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 use Happyr\DoctrineSpecification\Specification;
 
 /**
@@ -63,12 +64,12 @@ class Comparison implements Specification
      * @param string $value
      * @param string $dqlAlias
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function __construct($operator, $field, $value, $dqlAlias = null)
     {
         if (!in_array($operator, self::$operators)) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf('"%s" is not a valid comparison operator. Valid operators are: "%s"',
                     $operator,
                     implode(',', self::$operators)

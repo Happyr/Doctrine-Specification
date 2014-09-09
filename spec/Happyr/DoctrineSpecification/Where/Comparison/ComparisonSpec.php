@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Happyr\DoctrineSpecification\Comparison;
+namespace spec\Happyr\DoctrineSpecification\Where\Comparison;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
@@ -30,12 +30,7 @@ class ComparisonSpec extends ObjectBehavior
 
         $qb->setParameter('comparison_10', 18)->shouldBeCalled();
 
-        $comparison = $this->match($qb, null);
-
-        $comparison->shouldBeAnInstanceOf('Doctrine\ORM\Query\Expr\Comparison');
-        $comparison->getLeftExpr()->shouldReturn('a.age');
-        $comparison->getOperator()->shouldReturn(Comparison::GT);
-        $comparison->getRightExpr()->shouldReturn(':comparison_10');
+        $this->match($qb, null)->shouldReturn('a.age > :comparison_10');
     }
 
     function it_uses_comparison_specific_dql_alias_if_passed(QueryBuilder $qb, ArrayCollection $parameters)
@@ -47,11 +42,11 @@ class ComparisonSpec extends ObjectBehavior
 
         $qb->setParameter('comparison_10', 18)->shouldBeCalled();
 
-        $this->match($qb, 'x')->getLeftExpr()->shouldReturn('x.age');
+        $this->match($qb, 'x')->shouldReturn('x.age > :comparison_10');
     }
 
     function it_validates_operator()
     {
-        $this->shouldThrow('\InvalidArgumentException')->during('__construct', array('==', 'age', 18, null));
+        $this->shouldThrow('Happyr\DoctrineSpecification\Exception\InvalidArgumentException')->during('__construct', array('==', 'age', 18, null));
     }
 }
