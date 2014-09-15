@@ -41,6 +41,6 @@ class EntitySpecificationRepository extends EntityRepository
         $specification->modifyQuery($query);
 
         //get and return the result
-        return $query->getResult();
+        return $query->getResult($query->getHydrationMode());
     }
 }

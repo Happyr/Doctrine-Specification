@@ -40,8 +40,9 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $qb->getQuery()->willReturn($query);
 
         $specification->modifyQuery($query)->shouldBeCalled();
+        $query->getHydrationMode()->willReturn(AbstractQuery::HYDRATE_OBJECT);
         $result = array();
-        $query->getResult()->willReturn($result);
+        $query->getResult(AbstractQuery::HYDRATE_OBJECT)->willReturn($result);
 
         $this->match($specification)->shouldReturn($result);
     }
