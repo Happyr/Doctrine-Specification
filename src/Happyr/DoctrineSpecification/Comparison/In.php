@@ -15,19 +15,16 @@ class In implements Specification
 {
     /**
      * @var string field
-     *
      */
     protected $field;
 
     /**
      * @var string value
-     *
      */
     protected $value;
 
     /**
      * @var string dqlAlias
-     *
      */
     protected $dqlAlias;
 

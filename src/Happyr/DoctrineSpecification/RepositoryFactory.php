@@ -3,7 +3,6 @@
 namespace Happyr\DoctrineSpecification;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Happyr\DoctrineSpecification\EntitySpecificationRepository;
 
 /**
  * Factory class for creating \Happyr\DoctrineSpecification\EntitySpecificationRepository instances.

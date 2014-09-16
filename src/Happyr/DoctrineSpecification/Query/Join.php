@@ -17,7 +17,6 @@ class Join implements Specification
 {
     /**
      * @var string field
-     *
      */
     private $field;
 

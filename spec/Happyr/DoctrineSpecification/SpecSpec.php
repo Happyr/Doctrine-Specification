@@ -11,7 +11,7 @@ use Prophecy\Argument;
  */
 class SpecSpec extends ObjectBehavior
 {
-    function it_creates_and_x_specification()
+    function it_creates_an_x_specification()
     {
         $this->andX()->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Logic\LogicX');
     }

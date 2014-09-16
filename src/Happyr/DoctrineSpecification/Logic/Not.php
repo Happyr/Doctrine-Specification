@@ -15,7 +15,6 @@ class Not implements Specification
 {
     /**
      * @var Specification parent
-     *
      */
     private $parent;
 
