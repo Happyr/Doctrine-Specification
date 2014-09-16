@@ -15,6 +15,7 @@ from my (Tobias Nyholm) discussion with Kacper Gunia on [Sound of Symfony podcas
 1. [Motivation](#why-do-we-need-this-lib) and [basic understanding](#the-practical-differences) (this page)
 2. [Usage examples][doc-usage]
 3. [Create your own spec][doc-create]
+4. [Contributing to the library][contributing]
 
 
 ## Why do we need this lib?
@@ -201,3 +202,4 @@ how to [create your own spec][doc-create].
 [sos]: http://www.soundofsymfony.com/episode/episode-2/
 [doc-usage]: docs/0-usage.md
 [doc-create]: docs/1-creatingSpecs.md
+[contributing]: CONTRIBUTING.md
