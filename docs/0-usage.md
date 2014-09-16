@@ -8,7 +8,7 @@ Install this lib with composer.
     // ...
     require: {
         // ...
-        "happyr/doctrine-specification": "dev-master",
+        "happyr/doctrine-specification": "dev-master@dev",
     }
 }
 ```
@@ -21,32 +21,31 @@ See instructions for [Laravel](0-3-laravel.md), [Symfony2](0-0-symfony.md), [Zen
 Then you may start to create your specifications. Put them in `Acme\DemoBundle\Entity\Spec`. Lets start with a simple one:
 
 ```php
-
 <?php
 
 namespace Acme\DemoBundle\Entity\Spec;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Spec;
+use Happyr\DoctrineSpecification\BaseSpecification;
 
 /**
  * Check if a user is active.
- * A active user is not banned and has logged in within the last 6 months.
+ * An active user is not banned and has logged in within the last 6 months.
  *
  * @author Tobias Nyholm
  */
-class IsActive extends S\BaseSpecification
+class IsActive extends BaseSpecification
 {
     /**
      * @param string $dqlAlias
      */
-    public function __construct($dqlAlias=null)
+    public function __construct($dqlAlias = null)
     {
         parent::__construct($dqlAlias);
         $this->spec = Spec::andX(
-          Spec::eq('banned', false),
-          Spec::gt('lastLogin', new \DateTime('-6months'),
+            Spec::eq('banned', false),
+            Spec::gt('lastLogin', new \DateTime('-6months'),
         );
     }
 
@@ -60,7 +59,6 @@ class IsActive extends S\BaseSpecification
         return $className === 'Acme\DemoBundle\Entity\User';
     }
 }
-
 ```
 
 I recommend you to write simple Specifications and combine them with `Spec::andX` and `Spec::orX`. To use the `IsActive`
@@ -76,15 +74,15 @@ use Acme\DemoBundle\Entity\Spec\IsActive;
 
 class DefaultController extends Controller
 {
-  public function someAction()
-  {
-    $users=$this->getEntityManager()
-      ->getRepository('AcmeDemoBundle:User')
-      ->match(new IsActive());
+    public function someAction()
+    {
+        $users = $this->getEntityManager()
+            ->getRepository('AcmeDemoBundle:User')
+            ->match(new IsActive())
+        ;
 
-    //Do whatever with your active users
-
-  }
+        // Do whatever with your active users
+    }
 }
 ```
 
@@ -101,8 +99,8 @@ use Happyr\DoctrineSpecification\Spec;
 
 $objects= $this->getEntityManager()
     ->getRepository('...')
-    ->match(Spec::gt('age', 18));
-
+    ->match(Spec::gt('age', 18))
+;
 ```
 
 You may of course use the Specification classes directly.
@@ -115,8 +113,8 @@ use Happyr\DoctrineSpecification\Comparison\GreaterThan;
 
 $objects= $this->getEntityManager()
     ->getRepository('...')
-    ->match(new GreaterThan('age', 18));
-
+    ->match(new GreaterThan('age', 18))
+;
 ```
 
 Some specs inherits from the Comparison spec (ie `Equals`, `GreaterThan`, `LessOrEqualThan`). You may choose to
@@ -130,8 +128,8 @@ use Happyr\DoctrineSpecification\Comparison\Comparison;
 
 $objects= $this->getEntityManager()
     ->getRepository('...')
-    ->match(new Comparison(Comparison::GT, 'age', 18));
-
+    ->match(new Comparison(Comparison::GT, 'age', 18))
+;
 ```
 
 

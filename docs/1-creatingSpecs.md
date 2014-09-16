@@ -1,6 +1,6 @@
 # Creating specs
 
-Every spec should implement `Happyr\DoctrineSpecification\Specification`. The interface has 3 functions.
+Every spec should implement `Happyr\DoctrineSpecification\Specification`. The interface has 3 methods.
 
 ### Match
 
@@ -35,17 +35,17 @@ when you want to change the Hydration mode.
 namespace Acme\DemoBundle\Entity\Spec;
 
 use Doctrine\ORM\AbstractQuery;
-use Happyr\DoctrineSpecification\BaseSpecification
+use Happyr\DoctrineSpecification\BaseSpecification;
 
 /**
  * Get the result as an array
  */
 class AsArray extends BaseSpecification
 {
-   public function modifyQuery(AbstractQuery $query)
-   {
-       $query->setHydrationMode(AbstractQuery::HYDRATE_ARRAY);
-   }
+    public function modifyQuery(AbstractQuery $query)
+    {
+        $query->setHydrationMode(AbstractQuery::HYDRATE_ARRAY);
+    }
 }
 
 ```
@@ -70,26 +70,26 @@ Consider the following example.
 
 ``` php
 
-use Happyr\DoctrineSpecification\BaseSpecification
-use Happyr\DoctrineSpecification\Spec
+use Happyr\DoctrineSpecification\BaseSpecification;
+use Happyr\DoctrineSpecification\Spec;
 
 /**
  * Matches every active user
  */
-class IsActive extends S\BaseSpecification
+class IsActive extends BaseSpecification
 {
     /**
      * @param string $dqlAlias
      */
-    public function __construct($dqlAlias=null)
+    public function __construct($dqlAlias = null)
     {
         // you need to call the parent constructor
         parent::__construct($dqlAlias);
 
         // you need to make sure $this->spec is assigned with an object that inherits Specification
         $this->spec = Spec::andX(
-          Spec::eq('banned', false),
-          Spec::gt('lastLogin', new \DateTime('-6months'),
+            Spec::eq('banned', false),
+            Spec::gt('lastLogin', new \DateTime('-6months'),
         );
     }
 

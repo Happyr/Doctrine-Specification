@@ -23,7 +23,7 @@ from my (Tobias Nyholm) discussion with Kacper Gunia on [Sound of Symfony podcas
 You are probably wondering why we created this library. Your entity repositories are working just fine as they are, right?
 
 But if your friend open one of your repository classes he/she would probably find that the code is not as perfect as you thought.
-Entity repositories has a tendency to get messy. Problems may include:
+Entity repositories have a tendency to get messy. Problems may include:
 
  * Too many functions (`findActiveUser`, `findActiveUserWithPicture`, `findUserToEmail`, etc)
  * Some functions have too many arguments
@@ -36,18 +36,18 @@ The solution should have the following features:
 
 * Easy to test
 * Easy to extend, store and run
-* Re-useable code
+* Re-usable code
 * Single responsibility principle
 * Hides the implementation details of the ORM. (This might seen like nitpicking, however it leads to bloated client code
 doing the query builder work over and over again.)
 
 ## The practical differences
 
-This is an example of how you use the lib. Say that you want to fetch some Adverts and close them. We should select all Adverts that have past their `endDate`. If `endDate` is null make it 4 weeks after the `startDate`.
+This is an example of how you use the lib. Say that you want to fetch some Adverts and close them. We should select all Adverts that have their `endDate` in the past. If `endDate` is null make it 4 weeks after the `startDate`.
 
 ``` php
 // Not using the lib
-$qb=$this->em->getRepository('HappyrRecruitmentBundle:Advert')
+$qb = $this->em->getRepository('HappyrRecruitmentBundle:Advert')
     ->createQueryBuilder('r');
 
 return $qb->where('r.ended = 0')
@@ -84,59 +84,58 @@ return $this->em->getRepository('HappyrRecruitmentBundle:Advert')->match($spec);
 
 Yes, it looks pretty much the same. But the later is reusable. Say you want another query to fetch Adverts that we
  should close but only for a specific company.
- 
+
 #### Doctrine Specification
 
 ``` php
-
 class AdvertsWeShouldClose extends BaseSpecification
 {
-  public function __construct($dqlAlias=null)
-  {
-    parent::__construct($dqlAlias);
-    $this->spec = Spec::andX(
-      Spec::eq('ended', 0),
-      Spec::orX(
-        Spec::lt('endDate', new \DateTime()),
-        Spec::andX(
-          Spec::isNull('endDate'),
-          Spec::lt('startDate', new \DateTime('-4weeks'))
-        )
-      )
-    );
-  }
+    public function __construct($dqlAlias = null)
+    {
+        parent::__construct($dqlAlias);
+        $this->spec = Spec::andX(
+            Spec::eq('ended', 0),
+            Spec::orX(
+                Spec::lt('endDate', new \DateTime()),
+                Spec::andX(
+                    Spec::isNull('endDate'),
+                    Spec::lt('startDate', new \DateTime('-4weeks'))
+                )
+            )
+        );
+    }
 
-  // the support() function
+    // the support() function
 }
 
 class OwnedByCompany extends BaseSpecification
 {
-  public function __construct(Company $company, $dqlAlias=null)
-  {
-    parent::__construct($dqlAlias);
-    $this->spec = Spec::collection(
-      Spec::join('company', 'c'),
-      Spec::eq('id', $company->getId(), 'c')
-    );
-  }
+    public function __construct(Company $company, $dqlAlias = null)
+    {
+        parent::__construct($dqlAlias);
+        $this->spec = Spec::collection(
+            Spec::join('company', 'c'),
+            Spec::eq('id', $company->getId(), 'c')
+        );
+    }
 
-  // the support() function
+    // the support() function
 }
 
 class SomeService
 {
-  /**
-   * Fetch Adverts that we should close but only for a specific company
-   */
-  public function myQuery(Company $company)
-  {
-    $spec = Spec::andX(
-      new AdvertsWeShouldClose(),
-      new OwnedByCompany($company)
-    );
+    /**
+     * Fetch Adverts that we should close but only for a specific company
+     */
+    public function myQuery(Company $company)
+    {
+        $spec = Spec::andX(
+            new AdvertsWeShouldClose(),
+            new OwnedByCompany($company)
+        );
 
-    return $this->em->getRepository('HappyrRecruitmentBundle:Advert')->match($spec);
-  }
+        return $this->em->getRepository('HappyrRecruitmentBundle:Advert')->match($spec);
+    }
 }
 ```
 
@@ -147,37 +146,38 @@ If you were about to do the same thing with only the QueryBuilder it would look 
 ``` php
 class AdvertRepository extends EntityRepository
 {
-  protected function filterAdvertsWeShouldClose($qb)
-  {
-    return $qb
-      ->andWhere('r.ended = 0')
-      ->andWhere(
-          $qb->expr()
-              ->orX('r.endDate < :now',
-                  $qb->expr()->andX('r.endDate IS NULL', 'r.startDate < :timeLimit')))
-      ->setParameter('now', new \DateTime())
-      ->setParameter('timeLimit', new \DateTime('-4weeks'));
-  }
+    protected function filterAdvertsWeShouldClose($qb)
+    {
+        return $qb
+            ->andWhere('r.ended = 0')
+            ->andWhere(
+                $qb->expr()->orX(
+                    'r.endDate < :now',
+                    $qb->expr()->andX('r.endDate IS NULL', 'r.startDate < :timeLimit')
+                )
+            )
+            ->setParameter('now', new \DateTime())
+            ->setParameter('timeLimit', new \DateTime('-4weeks'))
+        ;
+    }
 
-  protected function filterOwnedByCompany($qb, Company $company)
-  {
-    return $qb
-      ->join('company', 'c')
-      ->andWhere('c.id = :company_id')
-      ->setParameter('company_id', $company->getId())
-  }
-  
-  public function myQuery(Company $company)
-  {
-    $qb=$this->em->getRepository('HappyrRecruitmentBundle:Advert')
-      ->createQueryBuilder('r');
-    $this->filterAdvertsWeShouldClose($qb)
-    $this->filterOwnedByCompany($qb, $company)
+    protected function filterOwnedByCompany($qb, Company $company)
+    {
+        return $qb
+            ->join('company', 'c')
+            ->andWhere('c.id = :company_id')
+            ->setParameter('company_id', $company->getId())
+        ;
+    }
 
-    return $qb
-      ->getQuery()
-      ->getResult();
-  }
+    public function myQuery(Company $company)
+    {
+        $qb = $this->em->getRepository('HappyrRecruitmentBundle:Advert')->createQueryBuilder('r');
+        $this->filterAdvertsWeShouldClose($qb)
+        $this->filterOwnedByCompany($qb, $company)
+
+        return $qb->getQuery()->getResult();
+    }
 }
 ```
 
