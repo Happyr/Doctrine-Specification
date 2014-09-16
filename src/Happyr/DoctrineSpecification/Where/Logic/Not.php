@@ -32,8 +32,8 @@ class Not implements Expression
      *
      * @return Expr|mixed
      */
-    public function match(QueryBuilder $qb, $dqlAlias)
+    public function getExpression(QueryBuilder $qb, $dqlAlias)
     {
-        return $qb->expr()->not($this->parent->match($qb, $dqlAlias));
+        return $qb->expr()->not($this->parent->getExpression($qb, $dqlAlias));
     }
 }

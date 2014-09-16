@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Happyr\DoctrineSpecification\Where\Logic;
+namespace spec\ Happyr\DoctrineSpecification\Where\Logic;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr;
@@ -45,6 +45,6 @@ class LogicXSpec extends ObjectBehavior
 
         $expression->{self::EXPRESSION}($x, $y)->shouldBeCalled();
 
-        $this->match($qb, $dqlAlias);
+        $this->getExpression($qb, $dqlAlias);
     }
 }

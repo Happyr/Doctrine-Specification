@@ -52,13 +52,13 @@ class LogicX implements Expression
      *
      * @return Expr|mixed
      */
-    public function match(QueryBuilder $qb, $dqlAlias)
+    public function getExpression(QueryBuilder $qb, $dqlAlias)
     {
         return call_user_func_array(
             array($qb->expr(), $this->expression),
             array_map(
                 function (Expression $spec) use ($qb, $dqlAlias) {
-                    return $spec->match($qb, $dqlAlias);
+                    return $spec->getExpression($qb, $dqlAlias);
                 },
                 $this->children
             )

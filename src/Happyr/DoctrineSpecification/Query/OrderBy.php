@@ -10,7 +10,7 @@ use Happyr\DoctrineSpecification\Specification;
  *
  * @author Tobias Nyholm
  */
-class OrderBy implements Specification
+class OrderBy implements QueryStuff
 {
     /**
      * @var string field
@@ -42,7 +42,6 @@ class OrderBy implements Specification
     /**
      * @param QueryBuilder $qb
      * @param string $dqlAlias
-     *
      */
     public function match(QueryBuilder $qb, $dqlAlias)
     {

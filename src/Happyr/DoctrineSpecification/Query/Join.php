@@ -13,7 +13,7 @@ use Happyr\DoctrineSpecification\Specification;
  *
  * @author Tobias Nyholm
  */
-class Join implements Specification
+class Join implements QueryStuff
 {
     /**
      * @var string field
@@ -42,8 +42,6 @@ class Join implements Specification
     /**
      * @param QueryBuilder $qb
      * @param string       $dqlAlias
-     *
-     * @return Expr|void
      */
     public function match(QueryBuilder $qb, $dqlAlias)
     {

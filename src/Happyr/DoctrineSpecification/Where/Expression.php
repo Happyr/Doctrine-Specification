@@ -2,9 +2,15 @@
 
 namespace Happyr\DoctrineSpecification\Where;
 
-use Happyr\DoctrineSpecification\Specification;
+use Doctrine\ORM\QueryBuilder;
 
-interface Expression extends Specification
+interface Expression
 {
-
+    /**
+     * @param QueryBuilder $qb
+     * @param              $dqlAlias
+     *
+     * @return string Logic expression
+     */
+    public function getExpression(QueryBuilder $qb, $dqlAlias);
 }
