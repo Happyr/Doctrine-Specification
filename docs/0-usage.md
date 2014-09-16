@@ -8,7 +8,7 @@ Install this lib with composer.
     // ...
     require: {
         // ...
-        "happyr/doctrine-specification": "dev-master",
+        "happyr/doctrine-specification": "dev-master@dev",
     }
 }
 ```
