@@ -29,7 +29,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->shouldThrow(new \InvalidArgumentException("Specification not supported by this repository."))->duringMatch($specification);
     }
 
-    function it_(Specification $specification, EntityManager $entityManager, QueryBuilder $qb, Expr $expr, AbstractQuery $query)
+    function it_matches_a_specification(Specification $specification, EntityManager $entityManager, QueryBuilder $qb, Expr $expr, AbstractQuery $query)
     {
         $specification->supports(Argument::any())->willReturn(true);
         $entityManager->createQueryBuilder()->willReturn($qb);

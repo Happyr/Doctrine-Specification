@@ -17,13 +17,11 @@ class IsNotNull implements Specification
 {
     /**
      * @var string field
-     *
      */
     private $field;
 
     /**
      * @var null|string dqlAlias
-     *
      */
     private $dqlAlias;
 

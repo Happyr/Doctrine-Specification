@@ -18,13 +18,11 @@ class IsNull implements Specification
 {
     /**
      * @var string field
-     *
      */
     protected $field;
 
     /**
      * @var null|string dqlAlias
-     *
      */
     private $dqlAlias;
 

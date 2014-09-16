@@ -7,7 +7,6 @@ use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Happyr\DoctrineSpecification\Comparison\Comparison;
 
 class LikeSpec extends ObjectBehavior
 {
@@ -19,7 +18,6 @@ class LikeSpec extends ObjectBehavior
     {
         $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, "dqlAlias");
     }
-
 
     public function it_is_a_specification()
     {

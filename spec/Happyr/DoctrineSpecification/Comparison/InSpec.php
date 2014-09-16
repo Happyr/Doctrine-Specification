@@ -13,7 +13,6 @@ use Prophecy\Argument;
  */
 class InSpec extends ObjectBehavior
 {
-
     private $field='foobar';
 
     private $value=array('bar', 'baz');
