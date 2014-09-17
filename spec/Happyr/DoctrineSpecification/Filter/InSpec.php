@@ -1,10 +1,11 @@
 <?php
 
-namespace spec\Happyr\DoctrineSpecification\Comparison;
+namespace spec\Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Filter\In;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -22,9 +23,9 @@ class InSpec extends ObjectBehavior
         $this->beConstructedWith($this->field, $this->value, 'a');
     }
 
-    function it_is_a_specification()
+    function it_is_an_expression()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Specification');
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Expression');
     }
 
     function it_returns_expression_func_object(QueryBuilder $qb, ArrayCollection $parameters, Expr $expr)
@@ -38,6 +39,6 @@ class InSpec extends ObjectBehavior
 
         $qb->setParameter('in_10', $this->value)->shouldBeCalled();
 
-        $this->match($qb, null);
+        $this->getExpression($qb, null);
     }
 }

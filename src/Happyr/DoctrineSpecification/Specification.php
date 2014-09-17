@@ -2,34 +2,10 @@
 
 namespace Happyr\DoctrineSpecification;
 
-use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\Query\Expr;
-use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Filter\Expression;
+use Happyr\DoctrineSpecification\Query\Modifier;
 
-/**
- * Interface Specification
- *
- * @author Benjamin Eberlei
- */
-interface Specification
+interface Specification extends Expression, Modifier
 {
-    /**
-     * @param QueryBuilder $qb
-     * @param string $dqlAlias
-     *
-     * @return Expr
-     */
-    public function match(QueryBuilder $qb, $dqlAlias);
 
-    /**
-     * @param AbstractQuery $query
-     */
-    public function modifyQuery(AbstractQuery $query);
-
-    /**
-     * @param string $className
-     *
-     * @return bool
-     */
-    public function supports($className);
 }

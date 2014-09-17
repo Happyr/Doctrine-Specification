@@ -20,24 +20,19 @@ class JoinSpec extends ObjectBehavior
 
     function it_is_a_specification()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Specification');
-    }
-
-    function it_supports_any_class()
-    {
-        $this->supports(new \stdClass())->shouldReturn(true);
+        $this->shouldHaveType('Happyr\DoctrineSpecification\Query\Modifier');
     }
 
     function it_joins_with_default_dql_alias(QueryBuilder $qb)
     {
         $qb->join('a.user', 'authUser')->shouldBeCalled();
-        $this->match($qb, 'a');
+        $this->modify($qb, 'a');
     }
 
     function it_uses_local_alias_if_global_was_not_set(QueryBuilder $qb)
     {
         $this->beConstructedWith('user', 'authUser');
         $qb->join('b.user', 'authUser')->shouldBeCalled();
-        $this->match($qb, 'b');
+        $this->modify($qb, 'b');
     }
 }

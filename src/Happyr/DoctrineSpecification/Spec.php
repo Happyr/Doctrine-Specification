@@ -2,20 +2,18 @@
 
 namespace Happyr\DoctrineSpecification;
 
-use Happyr\DoctrineSpecification\Query\AsArray;
-use Happyr\DoctrineSpecification\Comparison\Comparison;
-use Happyr\DoctrineSpecification\Comparison\In;
-use Happyr\DoctrineSpecification\Comparison\Like;
-use Happyr\DoctrineSpecification\Comparison\IsNull;
+use Happyr\DoctrineSpecification\Filter\IsNotNull;
+use Happyr\DoctrineSpecification\Result\AsArray;
+use Happyr\DoctrineSpecification\Filter\Comparison;
+use Happyr\DoctrineSpecification\Filter\In;
+use Happyr\DoctrineSpecification\Filter\Like;
+use Happyr\DoctrineSpecification\Filter\IsNull;
 use Happyr\DoctrineSpecification\Logic\LogicX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Query\Join;
 
 /**
  * Factory class for the specifications
- *
- * @author Kacper Gunia
- * @author Tobias Nyholm
  */
 class Spec
 {

@@ -3,16 +3,14 @@
 
 namespace Happyr\DoctrineSpecification;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Exception\LogicException;
 
 /**
  * Class BaseSpecification
  *
  * Extend this abstract class if you want to build a new spec with your domain logic
- *
- * @author Tobias Nyholm
  */
 abstract class BaseSpecification implements Specification
 {
@@ -38,32 +36,26 @@ abstract class BaseSpecification implements Specification
 
     /**
      * @param QueryBuilder $qb
-     * @param string $dqlAlias
+     * @param string       $dqlAlias
      *
-     * @return Expr
-     * @throws \LogicException
+     * @return string
      */
-    public function match(QueryBuilder $qb, $dqlAlias)
+    public function getExpression(QueryBuilder $qb, $dqlAlias)
     {
         $this->validateSpec();
 
-        if ($this->dqlAlias !== null) {
-            $dqlAlias = $this->dqlAlias;
-        }
-
-        return $this->spec->match($qb, $dqlAlias);
+        return $this->spec->getExpression($qb, $this->getAlias($dqlAlias));
     }
 
     /**
-     * @param AbstractQuery $query
-     *
-     * @throws \LogicException
+     * @param QueryBuilder $qb
+     * @param string       $dqlAlias
      */
-    public function modifyQuery(AbstractQuery $query)
+    public function modify(QueryBuilder $qb, $dqlAlias)
     {
         $this->validateSpec();
 
-        $this->spec->modifyQuery($query);
+        $this->spec->modify($qb, $this->getAlias($dqlAlias));
     }
 
     /**
@@ -74,11 +66,26 @@ abstract class BaseSpecification implements Specification
     private function validateSpec()
     {
         if (!$this->spec instanceof Specification) {
-            throw new \LogicException(sprintf(
-                'The protected variable BaseSpecification::spec must be an instance of Specification. Please validate the class %s and make sure to assign $this->spec with a object implementing %s.',
+            throw new LogicException(sprintf(
+                'The protected variable BaseSpecification::spec must be an instance of Specification.
+                Please validate the class %s and make sure to assign $this->spec with a object implementing %s.',
                 get_class($this),
                 'Happyr\DoctrineSpecification\Specification'
             ));
         }
+    }
+
+    /**
+     * @param $dqlAlias
+     *
+     * @return string
+     */
+    private function getAlias($dqlAlias)
+    {
+        if ($this->dqlAlias !== null) {
+            return $this->dqlAlias;
+        }
+
+        return $dqlAlias;
     }
 }

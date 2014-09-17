@@ -2,16 +2,9 @@
 
 namespace Happyr\DoctrineSpecification\Query;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Specification;
 
-/**
- * Class OrderBy
- *
- * @author Tobias Nyholm
- */
-class OrderBy implements Specification
+class OrderBy implements Modifier
 {
     /**
      * @var string field
@@ -41,33 +34,15 @@ class OrderBy implements Specification
     }
 
     /**
-     * @param \Doctrine\ORM\QueryBuilder $qb
-     * @param string $dqlAlias
-     *
+     * @param QueryBuilder $qb
+     * @param string       $dqlAlias
      */
-    public function match(QueryBuilder $qb, $dqlAlias)
+    public function modify(QueryBuilder $qb, $dqlAlias)
     {
         if ($this->dqlAlias !== null) {
             $dqlAlias = $this->dqlAlias;
         }
 
         $qb->orderBy(sprintf('%s.%s', $dqlAlias, $this->field), $this->order);
-    }
-
-    /**
-     * @param \Doctrine\ORM\AbstractQuery $query
-     */
-    public function modifyQuery(AbstractQuery $query)
-    {
-    }
-
-    /**
-     * @param string $className
-     *
-     * @return bool
-     */
-    public function supports($className)
-    {
-        return true;
     }
 }

@@ -2,15 +2,11 @@
 
 namespace Happyr\DoctrineSpecification\Logic;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Specification;
 
-/**
- * @author Tobias Nyholm
- */
 class Not implements Specification
 {
     /**
@@ -30,28 +26,19 @@ class Not implements Specification
      * @param QueryBuilder $qb
      * @param string $dqlAlias
      *
-     * @return Expr|mixed
+     * @return string
      */
-    public function match(QueryBuilder $qb, $dqlAlias)
+    public function getExpression(QueryBuilder $qb, $dqlAlias)
     {
-        return $qb->expr()->not($this->parent->match($qb, $dqlAlias));
+        return (string) $qb->expr()->not($this->parent->getExpression($qb, $dqlAlias));
     }
 
     /**
-     * @param AbstractQuery $query
+     * @param QueryBuilder $query
+     * @param string       $dqlAlias
      */
-    public function modifyQuery(AbstractQuery $query)
+    public function modify(QueryBuilder $query, $dqlAlias)
     {
-        $this->parent->modifyQuery($query);
-    }
-
-    /**
-     * @param string $className
-     *
-     * @return bool
-     */
-    public function supports($className)
-    {
-        return true;
+        $this->parent->modify($query, $dqlAlias);
     }
 }

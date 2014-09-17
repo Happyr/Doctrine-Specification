@@ -1,20 +1,12 @@
 <?php
 
-namespace Happyr\DoctrineSpecification\Comparison;
+namespace Happyr\DoctrineSpecification\Filter;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Specification;
 
-/**
- * Class IsNull
- *
- * @author Tobias Nyholm
- *
- */
-class IsNull implements Specification
+class IsNull implements Expression
 {
     /**
      * @var string field
@@ -42,29 +34,12 @@ class IsNull implements Specification
      *
      * @return Expr
      */
-    public function match(QueryBuilder $qb, $dqlAlias)
+    public function getExpression(QueryBuilder $qb, $dqlAlias)
     {
         if ($this->dqlAlias !== null) {
             $dqlAlias = $this->dqlAlias;
         }
 
-        return $qb->expr()->isNull(sprintf('%s.%s', $dqlAlias, $this->field));
-    }
-
-    /**
-     * @param AbstractQuery $query
-     */
-    public function modifyQuery(AbstractQuery $query)
-    {
-    }
-
-    /**
-     * @param string $className
-     *
-     * @return bool
-     */
-    public function supports($className)
-    {
-        return true;
+        return (string) $qb->expr()->isNull(sprintf('%s.%s', $dqlAlias, $this->field));
     }
 }

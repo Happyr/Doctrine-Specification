@@ -2,13 +2,16 @@
 
 namespace spec\Happyr\DoctrineSpecification\Logic;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Specification;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * @mixin Not
+ */
 class NotSpec extends ObjectBehavior
 {
     function let(Specification $spec)
@@ -16,32 +19,29 @@ class NotSpec extends ObjectBehavior
         $this->beConstructedWith($spec, null);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Logic\Not');
-    }
-
     /**
      * calls parent
      */
     function it_calls_parent_match(QueryBuilder $qb, Expr $expr, Specification $spec)
     {
-        $dqlAlias='a';
+        $dqlAlias = 'a';
+        $expression = 'expression';
+        $parentExpression = 'foobar';
+
         $qb->expr()->willReturn($expr);
-        $parentResult='foobar';
-        $spec->match($qb, $dqlAlias)->willReturn($parentResult);
+        $spec->getExpression($qb, $dqlAlias)->willReturn($parentExpression);
 
-        $expr->not($parentResult)->shouldBeCalled();
+        $expr->not($parentExpression)->willReturn($expression);
 
-        $this->match($qb, $dqlAlias);
+        $this->getExpression($qb, $dqlAlias)->shouldReturn($expression);
     }
 
     /**
      * modifies parent query
      */
-    function it_modifies_parent_query(AbstractQuery $query, Specification $spec)
+    function it_modifies_parent_query(QueryBuilder $qb, Specification $spec)
     {
-        $spec->modifyQuery($query)->shouldBeCalled();
-        $this->modifyQuery($query);
+        $spec->modify($qb, 'a')->shouldBeCalled();
+        $this->modify($qb, 'a');
     }
 }
