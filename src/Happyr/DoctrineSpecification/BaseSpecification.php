@@ -1,30 +1,32 @@
 <?php
 
-
 namespace Happyr\DoctrineSpecification;
 
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\LogicException;
+use Happyr\DoctrineSpecification\Filter\Expression;
+use Happyr\DoctrineSpecification\Query\Modifier;
 
 /**
- * Class BaseSpecification
- *
  * Extend this abstract class if you want to build a new spec with your domain logic
  */
 abstract class BaseSpecification implements Specification
 {
     /**
-     * @var Specification spec
-     *
+     * @return Expression
      */
-    protected $spec;
+    abstract public function getWrappedExpression();
+
+    /**
+     * @return Modifier
+     */
+    abstract public function getWrappedModifier();
 
     /**
      * @var string|null dqlAlias
-     *
      */
-    protected $dqlAlias;
+    private $dqlAlias = null;
 
     /**
      * @param string $dqlAlias
@@ -42,9 +44,9 @@ abstract class BaseSpecification implements Specification
      */
     public function getExpression(QueryBuilder $qb, $dqlAlias)
     {
-        $this->validateSpec();
+        $this->validate('getWrappedExpression', 'Happyr\DoctrineSpecification\Filter\Expression');
 
-        return $this->spec->getExpression($qb, $this->getAlias($dqlAlias));
+        return $this->getWrappedExpression()->getExpression($qb, $this->getAlias($dqlAlias));
     }
 
     /**
@@ -53,24 +55,27 @@ abstract class BaseSpecification implements Specification
      */
     public function modify(QueryBuilder $qb, $dqlAlias)
     {
-        $this->validateSpec();
+        $this->validate('getWrappedModifier', 'Happyr\DoctrineSpecification\Query\Modifier');
 
-        $this->spec->modify($qb, $this->getAlias($dqlAlias));
+        $this->getWrappedModifier()->modify($qb, $this->getAlias($dqlAlias));
     }
 
     /**
-     * Make sure that the spec is a Specification
+     * @param $getter
+     * @param $class
      *
-     * @throws \LogicException
+     * @throws LogicException
      */
-    private function validateSpec()
+    private function validate($getter, $class)
     {
-        if (!$this->spec instanceof Specification) {
+        if (!is_a($this->$getter(), $class)) {
             throw new LogicException(sprintf(
-                'The protected variable BaseSpecification::spec must be an instance of Specification.
-                Please validate the class %s and make sure to assign $this->spec with a object implementing %s.',
+                'Returned object must be an instance of %s.
+                Please validate the %s::%s function and make it return instance of %s.',
+                $class,
                 get_class($this),
-                'Happyr\DoctrineSpecification\Specification'
+                $getter,
+                $class
             ));
         }
     }
