@@ -2,7 +2,6 @@
 
 namespace spec\Happyr\DoctrineSpecification\Result;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Specification;
@@ -24,7 +23,7 @@ class AsArraySpec extends ObjectBehavior
         $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Result\Modifier');
     }
 
-    function it_sets_hydration_mode_to_array(AbstractQuery $query)
+    function it_sets_hydration_mode_to_array(Query $query)
     {
         $query->setHydrationMode(Query::HYDRATE_ARRAY)->shouldBeCalled();
 

@@ -2,7 +2,7 @@
 
 namespace spec\Happyr\DoctrineSpecification;
 
-use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
@@ -31,7 +31,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         Specification $specification,
         EntityManager $entityManager,
         QueryBuilder $qb,
-        AbstractQuery $query
+        Query $query
     )
     {
         $this->prepareStubs($specification, $entityManager, $qb, $query);
@@ -45,7 +45,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         Specification $specification,
         EntityManager $entityManager,
         QueryBuilder $qb,
-        AbstractQuery $query,
+        Query $query,
         Modifier $modifier
     )
     {
@@ -57,7 +57,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->match($specification, $modifier)->shouldReturn($this->result);
     }
 
-    private function prepareStubs(Specification $specification, EntityManager $entityManager, QueryBuilder $qb, AbstractQuery $query)
+    private function prepareStubs(Specification $specification, EntityManager $entityManager, QueryBuilder $qb, Query $query)
     {
         $entityManager->createQueryBuilder()->willReturn($qb);
         $specification->getExpression($qb, $this->alias)->willReturn($this->expression);
