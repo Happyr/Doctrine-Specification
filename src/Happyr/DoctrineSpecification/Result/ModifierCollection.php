@@ -2,7 +2,6 @@
 
 namespace Happyr\DoctrineSpecification\Result;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 
@@ -22,9 +21,9 @@ class ModifierCollection implements Modifier
     }
 
     /**
-     * @param AbstractQuery $query
+     * @param Query $query
      */
-    public function modify(AbstractQuery $query)
+    public function modify(Query $query)
     {
         foreach ($this->children as $child) {
             if (!$child instanceof Modifier) {

@@ -2,7 +2,6 @@
 
 namespace Happyr\DoctrineSpecification\Result;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
 use Happyr\DoctrineSpecification\Specification;
@@ -26,9 +25,9 @@ class AsArray implements Modifier
     }
 
     /**
-     * @param AbstractQuery $query
+     * @param Query $query
      */
-    public function modify(AbstractQuery $query)
+    public function modify(Query $query)
     {
         $query->setHydrationMode(Query::HYDRATE_ARRAY);
     }
