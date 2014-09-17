@@ -42,7 +42,7 @@ use Happyr\DoctrineSpecification\BaseSpecification;
  */
 class AsArray extends BaseSpecification
 {
-    public function modifyQuery(AbstractQuery $query)
+    public function modify(AbstractQuery $query)
     {
         $query->setHydrationMode(AbstractQuery::HYDRATE_ARRAY);
     }
@@ -59,7 +59,7 @@ fully qualified name of the entity as a parameter.
 
 If you are creating your own Specification you are most likely to use other specifications. To make your life
 easier you may use the `Happyr\DoctrineSpecification\BaseSpecification` class. When you inherit
-from this class you don't need to bother with `match` or `modifyQuery`. You need to do 3 things:
+from this class you don't need to bother with `match` or `modify`. You need to do 3 things:
 
 1. Call the parent constructor
 2. Add your Specifications to $this->spec

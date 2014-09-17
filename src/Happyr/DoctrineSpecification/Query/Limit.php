@@ -2,16 +2,9 @@
 
 namespace Happyr\DoctrineSpecification\Query;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Specification;
 
-/**
- * Class Limit
- *
- * @author Tobias Nyholm
- */
-class Limit implements Specification
+class Limit implements Modifier
 {
     /**
      * @var int limit
@@ -27,29 +20,11 @@ class Limit implements Specification
     }
 
     /**
-     * @param \Doctrine\ORM\QueryBuilder $qb
-     * @param string $dqlAlias
-     *
+     * @param QueryBuilder $qb
+     * @param string       $dqlAlias
      */
-    public function match(QueryBuilder $qb, $dqlAlias)
+    public function modify(QueryBuilder $qb, $dqlAlias)
     {
         $qb->setMaxResults($this->limit);
-    }
-
-    /**
-     * @param \Doctrine\ORM\AbstractQuery $query
-     */
-    public function modifyQuery(AbstractQuery $query)
-    {
-    }
-
-    /**
-     * @param string $className
-     *
-     * @return bool
-     */
-    public function supports($className)
-    {
-        return true;
     }
 }

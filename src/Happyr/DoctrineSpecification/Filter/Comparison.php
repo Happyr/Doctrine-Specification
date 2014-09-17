@@ -1,22 +1,19 @@
 <?php
 
-namespace Happyr\DoctrineSpecification\Comparison;
+namespace Happyr\DoctrineSpecification\Filter;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
-use Happyr\DoctrineSpecification\Specification;
+use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 
 /**
  * Comparison class
  *
  * This is used when you need to compare two values
- *
- * @author Tobias Nyholm
  */
-class Comparison implements Specification
+class Comparison implements Expression
 {
     const EQ = '=';
     const NEQ = '<>';
@@ -63,15 +60,15 @@ class Comparison implements Specification
      * @param string $value
      * @param string $dqlAlias
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function __construct($operator, $field, $value, $dqlAlias = null)
     {
         if (!in_array($operator, self::$operators)) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf('"%s" is not a valid comparison operator. Valid operators are: "%s"',
                         $operator,
-                        implode(',', self::$operators)
+                        implode(', ', self::$operators)
                 )
             );
         }
@@ -86,9 +83,9 @@ class Comparison implements Specification
      * @param QueryBuilder $qb
      * @param string       $dqlAlias
      *
-     * @return Expr
+     * @return string
      */
-    public function match(QueryBuilder $qb, $dqlAlias)
+    public function getExpression(QueryBuilder $qb, $dqlAlias)
     {
         if ($this->dqlAlias !== null) {
             $dqlAlias = $this->dqlAlias;
@@ -97,28 +94,11 @@ class Comparison implements Specification
         $paramName = $this->getParameterName($qb);
         $qb->setParameter($paramName, $this->value);
 
-        return new DoctrineComparison(
+        return (string) new DoctrineComparison(
             sprintf('%s.%s', $dqlAlias, $this->field),
             $this->operator,
             sprintf(':%s', $paramName)
         );
-    }
-
-    /**
-     * @param AbstractQuery $query
-     */
-    public function modifyQuery(AbstractQuery $query)
-    {
-    }
-
-    /**
-     * @param string $className
-     *
-     * @return bool
-     */
-    public function supports($className)
-    {
-        return true;
     }
 
     /**

@@ -1,12 +1,16 @@
 <?php
 
-namespace spec\Happyr\DoctrineSpecification\Comparison;
+namespace spec\Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Filter\IsNull;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * @mixin IsNull
+ */
 class IsNullSpec extends ObjectBehavior
 {
     private $field='foobar';
@@ -18,17 +22,9 @@ class IsNullSpec extends ObjectBehavior
         $this->beConstructedWith($this->field, $this->dqlAlias);
     }
 
-    function it_is_initializable()
+    function it_is_an_expression()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Comparison\IsNull');
-    }
-
-    /**
-     * is a specification
-     */
-    function it_is_a_specification()
-    {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Specification');
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Expression');
     }
 
     /**
@@ -36,10 +32,12 @@ class IsNullSpec extends ObjectBehavior
      */
     function it_calls_null(QueryBuilder $qb, Expr $expr)
     {
-        $qb->expr()->willReturn($expr);
+        $expression = 'a.foobar is null';
 
-        $expr->isNull(sprintf('%s.%s', $this->dqlAlias, $this->field))->shouldBeCalled();
-        $this->match($qb, 'b');
+        $qb->expr()->willReturn($expr);
+        $expr->isNull(sprintf('%s.%s', $this->dqlAlias, $this->field))->willReturn($expression);
+
+        $this->getExpression($qb, 'b')->shouldReturn($expression);
     }
 
     function it_uses_dql_alias_if_passed(QueryBuilder $qb, Expr $expr)
@@ -49,6 +47,6 @@ class IsNullSpec extends ObjectBehavior
         $qb->expr()->willReturn($expr);
 
         $expr->isNull(sprintf('%s.%s', $dqlAlias, $this->field))->shouldBeCalled();
-        $this->match($qb, $dqlAlias);
+        $this->getExpression($qb, $dqlAlias);
     }
 }

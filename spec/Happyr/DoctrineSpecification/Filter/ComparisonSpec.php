@@ -1,10 +1,10 @@
 <?php
 
-namespace spec\Happyr\DoctrineSpecification\Comparison;
+namespace spec\Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Comparison\Comparison;
+use Happyr\DoctrineSpecification\Filter\Comparison;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -17,10 +17,10 @@ class ComparisonSpec extends ObjectBehavior
     {
         $this->beConstructedWith(Comparison::GT, 'age', 18, 'a');
     }
-    
-    function it_is_a_specification()
+
+    function it_is_an_expression()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Specification');
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Expression');
     }
     
     function it_returns_comparison_object(QueryBuilder $qb, ArrayCollection $parameters)
@@ -30,12 +30,9 @@ class ComparisonSpec extends ObjectBehavior
 
         $qb->setParameter('comparison_10', 18)->shouldBeCalled();
 
-        $comparison = $this->match($qb, null);
+        $comparison = $this->getExpression($qb, null);
 
-        $comparison->shouldBeAnInstanceOf('Doctrine\ORM\Query\Expr\Comparison');
-        $comparison->getLeftExpr()->shouldReturn('a.age');
-        $comparison->getOperator()->shouldReturn(Comparison::GT);
-        $comparison->getRightExpr()->shouldReturn(':comparison_10');
+        $comparison->shouldReturn('a.age > :comparison_10');
     }
 
     function it_uses_comparison_specific_dql_alias_if_passed(QueryBuilder $qb, ArrayCollection $parameters)
@@ -47,11 +44,11 @@ class ComparisonSpec extends ObjectBehavior
 
         $qb->setParameter('comparison_10', 18)->shouldBeCalled();
 
-        $this->match($qb, 'x')->getLeftExpr()->shouldReturn('x.age');
+        $this->getExpression($qb, 'x')->shouldReturn('x.age > :comparison_10');
     }
 
     function it_validates_operator()
     {
-        $this->shouldThrow('\InvalidArgumentException')->during('__construct', array('==', 'age', 18, null));
+        $this->shouldThrow('Happyr\DoctrineSpecification\Exception\InvalidArgumentException')->during('__construct', array('==', 'age', 18, null));
     }
 }

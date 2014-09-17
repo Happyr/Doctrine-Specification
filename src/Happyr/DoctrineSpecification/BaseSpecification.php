@@ -1,32 +1,32 @@
 <?php
 
-
 namespace Happyr\DoctrineSpecification;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Exception\LogicException;
+use Happyr\DoctrineSpecification\Filter\Expression;
+use Happyr\DoctrineSpecification\Query\Modifier;
 
 /**
- * Class BaseSpecification
- *
  * Extend this abstract class if you want to build a new spec with your domain logic
- *
- * @author Tobias Nyholm
  */
 abstract class BaseSpecification implements Specification
 {
     /**
-     * @var Specification spec
-     *
+     * @return Expression
      */
-    protected $spec;
+    abstract public function getWrappedExpression();
+
+    /**
+     * @return Modifier
+     */
+    abstract public function getWrappedModifier();
 
     /**
      * @var string|null dqlAlias
-     *
      */
-    protected $dqlAlias;
+    private $dqlAlias = null;
 
     /**
      * @param string $dqlAlias
@@ -38,47 +38,59 @@ abstract class BaseSpecification implements Specification
 
     /**
      * @param QueryBuilder $qb
-     * @param string $dqlAlias
+     * @param string       $dqlAlias
      *
-     * @return Expr
-     * @throws \LogicException
+     * @return string
      */
-    public function match(QueryBuilder $qb, $dqlAlias)
+    public function getExpression(QueryBuilder $qb, $dqlAlias)
     {
-        $this->validateSpec();
+        $this->validate('getWrappedExpression', 'Happyr\DoctrineSpecification\Filter\Expression');
 
-        if ($this->dqlAlias !== null) {
-            $dqlAlias = $this->dqlAlias;
-        }
-
-        return $this->spec->match($qb, $dqlAlias);
+        return $this->getWrappedExpression()->getExpression($qb, $this->getAlias($dqlAlias));
     }
 
     /**
-     * @param AbstractQuery $query
-     *
-     * @throws \LogicException
+     * @param QueryBuilder $qb
+     * @param string       $dqlAlias
      */
-    public function modifyQuery(AbstractQuery $query)
+    public function modify(QueryBuilder $qb, $dqlAlias)
     {
-        $this->validateSpec();
+        $this->validate('getWrappedModifier', 'Happyr\DoctrineSpecification\Query\Modifier');
 
-        $this->spec->modifyQuery($query);
+        $this->getWrappedModifier()->modify($qb, $this->getAlias($dqlAlias));
     }
 
     /**
-     * Make sure that the spec is a Specification
+     * @param $getter
+     * @param $class
      *
-     * @throws \LogicException
+     * @throws LogicException
      */
-    private function validateSpec()
+    private function validate($getter, $class)
     {
-        if (!$this->spec instanceof Specification) {
-            throw new \LogicException(sprintf(
-                'The protected variable BaseSpecification::spec must be an instance of Specification. Please validate the class %s and make sure to assign $this->spec with a object implementing %s.',
+        if (!is_a($this->$getter(), $class)) {
+            throw new LogicException(sprintf(
+                'Returned object must be an instance of %s.
+                Please validate the %s::%s function and make it return instance of %s.',
+                $class,
                 get_class($this),
-                'Happyr\DoctrineSpecification\Specification'
+                $getter,
+                $class
             ));
         }
+    }
+
+    /**
+     * @param $dqlAlias
+     *
+     * @return string
+     */
+    private function getAlias($dqlAlias)
+    {
+        if ($this->dqlAlias !== null) {
+            return $this->dqlAlias;
+        }
+
+        return $dqlAlias;
     }
 }

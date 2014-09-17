@@ -2,7 +2,6 @@
 
 namespace Happyr\DoctrineSpecification\Logic;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
@@ -11,10 +10,7 @@ use Happyr\DoctrineSpecification\Specification;
 /**
  * Abstract Class LogicX
  *
- * This class should be used when you combine two specifications
- *
- * @author Tobias Nyholm
- * @author Benjamin Eberlei
+ * This class should be used when you combine two or more specifications
  */
 class LogicX implements Specification
 {
@@ -47,15 +43,15 @@ class LogicX implements Specification
      * @param QueryBuilder $qb
      * @param string $dqlAlias
      *
-     * @return Expr|mixed
+     * @return string
      */
-    public function match(QueryBuilder $qb, $dqlAlias)
+    public function getExpression(QueryBuilder $qb, $dqlAlias)
     {
         return call_user_func_array(
             array($qb->expr(), $this->expression),
             array_map(
                 function (Specification $spec) use ($qb, $dqlAlias) {
-                    return $spec->match($qb, $dqlAlias);
+                    return $spec->getExpression($qb, $dqlAlias);
                 },
                 $this->children
             )
@@ -63,22 +59,13 @@ class LogicX implements Specification
     }
 
     /**
-     * @param AbstractQuery $query
+     * @param QueryBuilder $query
+     * @param string       $dqlAlias
      */
-    public function modifyQuery(AbstractQuery $query)
+    public function modify(QueryBuilder $query, $dqlAlias)
     {
         foreach ($this->children as $child) {
-            $child->modifyQuery($query);
+            $child->modify($query, $dqlAlias);
         }
-    }
-
-    /**
-     * @param string $className
-     *
-     * @return bool
-     */
-    public function supports($className)
-    {
-        return true;
     }
 }

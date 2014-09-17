@@ -2,7 +2,6 @@
 
 namespace spec\Happyr\DoctrineSpecification\Logic;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Logic\LogicX;
@@ -27,24 +26,26 @@ class LogicXSpec extends ObjectBehavior
         $this->shouldHaveType('Happyr\DoctrineSpecification\Specification');
     }
 
-    function it_modifies_all_child_queries(AbstractQuery $query, Specification $specificationA, Specification $specificationB)
+    function it_modifies_all_child_queries(QueryBuilder $queryBuilder, Specification $specificationA, Specification $specificationB)
     {
-        $specificationA->modifyQuery($query)->shouldBeCalled();
-        $specificationB->modifyQuery($query)->shouldBeCalled();
+        $dqlAlias = 'a';
 
-        $this->modifyQuery($query);
+        $specificationA->modify($queryBuilder, $dqlAlias)->shouldBeCalled();
+        $specificationB->modify($queryBuilder, $dqlAlias)->shouldBeCalled();
+
+        $this->modify($queryBuilder, $dqlAlias);
     }
 
     function it_composes_and_child_with_expression(QueryBuilder $qb, Expr $expression, Specification $specificationA, Specification $specificationB, $x, $y)
     {
         $dqlAlias = 'a';
 
-        $specificationA->match($qb, $dqlAlias)->willReturn($x);
-        $specificationB->match($qb, $dqlAlias)->willReturn($y);
+        $specificationA->getExpression($qb, $dqlAlias)->willReturn($x);
+        $specificationB->getExpression($qb, $dqlAlias)->willReturn($y);
         $qb->expr()->willReturn($expression);
 
         $expression->{self::EXPRESSION}($x, $y)->shouldBeCalled();
 
-        $this->match($qb, $dqlAlias);
+        $this->getExpression($qb, $dqlAlias);
     }
 }

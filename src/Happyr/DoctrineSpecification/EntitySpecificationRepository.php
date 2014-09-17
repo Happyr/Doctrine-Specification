@@ -4,43 +4,29 @@ namespace Happyr\DoctrineSpecification;
 
 use Doctrine\ORM\EntityRepository;
 
-/**
- * Class EntitySpecificationRepository
- *
- * @author Benjamin Eberlei
- * @author Tobias Nyholm
- *
- */
 class EntitySpecificationRepository extends EntityRepository
 {
+    private $alias = 'e';
+
     /**
      * Get result when you match with a Specification
      *
-     * @param Specification $specification
+     * @param Specification   $specification
+     * @param Result\Modifier $modifier
      *
      * @return mixed
-     * @throws \InvalidArgumentException
      */
-    public function match(Specification $specification)
+    public function match(Specification $specification, Result\Modifier $modifier = null)
     {
-        //check if the Specification is supported
-        if (!$specification->supports($this->getEntityName())) {
-            throw new \InvalidArgumentException("Specification not supported by this repository.");
+        $qb = $this->createQueryBuilder($this->alias);
+
+        $specification->modify($qb, $this->alias);
+        $query = $qb->where($specification->getExpression($qb, $this->alias))->getQuery();
+
+        if ($modifier instanceof Result\Modifier) {
+            $modifier->modify($query);
         }
 
-        //get the Query Builder
-        $qb = $this->createQueryBuilder('e');
-
-        //match with the Specification
-        $expr = $specification->match($qb, 'e');
-
-        //add teh result expression in the where clause
-        $query = $qb->where($expr)->getQuery();
-
-        //give the Specification a change to modify the query
-        $specification->modifyQuery($query);
-
-        //get and return the result
-        return $query->getResult($query->getHydrationMode());
+        return $query->execute();
     }
 }
