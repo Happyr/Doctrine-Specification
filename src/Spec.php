@@ -47,14 +47,14 @@ class Spec
         return new Not($spec);
     }
 
-    public static function isNull($field, $value, $dqlAlias = null)
+    public static function isNull($field, $dqlAlias = null)
     {
-        return new IsNull($field, $value, $dqlAlias);
+        return new IsNull($field, $dqlAlias);
     }
 
-    public static function isNotNull($field, $value, $dqlAlias = null)
+    public static function isNotNull($field, $dqlAlias = null)
     {
-        return new IsNotNull($field, $value, $dqlAlias);
+        return new IsNotNull($field, $dqlAlias);
     }
 
     public static function in($field, $value, $dqlAlias = null)
