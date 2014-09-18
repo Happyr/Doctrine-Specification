@@ -5,21 +5,22 @@ namespace Happyr\DoctrineSpecification\Logic;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Filter\Expression;
 use Happyr\DoctrineSpecification\Specification;
 
 class Not implements Specification
 {
     /**
-     * @var Specification parent
+     * @var Expression parent
      */
     private $parent;
 
     /**
-     * @param Specification $spec
+     * @param Expression $expr
      */
-    public function __construct(Specification $spec)
+    public function __construct(Expression $expr)
     {
-        $this->parent = $spec;
+        $this->parent = $expr;
     }
 
     /**
@@ -39,6 +40,8 @@ class Not implements Specification
      */
     public function modify(QueryBuilder $query, $dqlAlias)
     {
-        $this->parent->modify($query, $dqlAlias);
+        if ($this->parent instanceof Specification) {
+            $this->parent->modify($query, $dqlAlias);
+        }
     }
 }
