@@ -50,10 +50,7 @@ class LogicXSpec extends ObjectBehavior
         $this->getExpression($qb, $dqlAlias);
     }
 
-    /**
-     * Make sure you may use Expressions with the Logic
-     */
-    function it_works_with_expressions(QueryBuilder $qb, Expr $expression, Expression $exprA, Expression $exprB, $x, $y)
+    function it_supports_expressions(QueryBuilder $qb, Expr $expression, Expression $exprA, Expression $exprB, $x, $y)
     {
         $this->beConstructedWith(self::EXPRESSION, array($exprA, $exprB));
 
@@ -66,6 +63,5 @@ class LogicXSpec extends ObjectBehavior
         $expression->{self::EXPRESSION}($x, $y)->shouldBeCalled();
 
         $this->getExpression($qb, $dqlAlias);
-
     }
 }
