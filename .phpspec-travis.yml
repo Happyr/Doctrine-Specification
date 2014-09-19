@@ -12,4 +12,4 @@ code_coverage:
 suites:
     main:
         namespace: Happyr\DoctrineSpecification
-        psr4_prefix: src\Happyr\DoctrineSpecification
+        psr4_prefix: Happyr\DoctrineSpecification
