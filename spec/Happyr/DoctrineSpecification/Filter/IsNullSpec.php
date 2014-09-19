@@ -42,7 +42,7 @@ class IsNullSpec extends ObjectBehavior
 
     function it_uses_dql_alias_if_passed(QueryBuilder $qb, Expr $expr)
     {
-        $dqlAlias='x';
+        $dqlAlias = 'x';
         $this->beConstructedWith($this->field, null);
         $qb->expr()->willReturn($expr);
 
