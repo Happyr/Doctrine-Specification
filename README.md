@@ -7,7 +7,7 @@ The problem with writing Doctrine queries is that it soon will be messy. When yo
 20+ function in your Doctrine repositories. All with long and complicated QueryBuilder calls. You will also find that
 you are using a lot of parameters to the same method to accommodate different use cases.
 
-After a discussion with Kacper Gunia on [Sound of Symfony podcast][sos] about how to test your Doctrine repositoris properly, we (Kacper and Tobias) decided to create this library. We have been inspired by Benjamin Eberlei's thoughts in his [blog post][whitewashing]. 
+After a discussion with Kacper Gunia on [Sound of Symfony podcast][sos] about how to test your Doctrine repositories properly, we (Kacper and Tobias) decided to create this library. We have been inspired by Benjamin Eberlei's thoughts in his [blog post][whitewashing].
 
 ### Table of contents
 
