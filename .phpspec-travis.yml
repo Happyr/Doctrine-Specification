@@ -8,3 +8,8 @@ code_coverage:
   output:
     html: build/logs/coverage
     clover: build/logs/clover.xml
+
+suites:
+    main:
+        namespace: Happyr\DoctrineSpecification
+        psr4_prefix: Happyr\DoctrineSpecification
