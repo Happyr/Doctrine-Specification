@@ -1,7 +1,7 @@
 {
     "name": "happyr/doctrine-specification",
     "type": "library",
-    "description": "Specification to your Doctrine repositories",
+    "description": "Specification Pattern for your Doctrine repositories",
     "keywords": ["Doctrine", "Repository", "Specification"],
     "homepage": "http://developer.happyr.com/",
     "license": "MIT",
