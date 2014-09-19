@@ -6,7 +6,7 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 
-class OptionCollection implements Modifier
+class ModifierCollection implements Modifier
 {
     /**
      * @var Modifier[]
