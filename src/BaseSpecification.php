@@ -14,19 +14,17 @@ use Happyr\DoctrineSpecification\Query\QueryModifier;
 abstract class BaseSpecification implements Specification
 {
     /**
-     * @return Filter
-     */
-    abstract public function getWrappedExpression();
-
-    /**
-     * @return QueryModifier
-     */
-    abstract public function getWrappedModifier();
-
-    /**
      * @var string|null dqlAlias
      */
     private $dqlAlias = null;
+
+    /**
+     * You may assign a Specification to this property. If you do, you do not *need* to overwrite the getFilterInstance
+     * or getQueryOptionInstance
+     *
+     * @var Specification spec
+     */
+    protected $spec = null;
 
     /**
      * @param string $dqlAlias
@@ -37,6 +35,26 @@ abstract class BaseSpecification implements Specification
     }
 
     /**
+     * This method should return a Filter. You should overwrite this if you're not using BaseSpecification::$spec
+     *
+     * @return Filter
+     */
+    protected function getFilterInstance()
+    {
+        return $this->spec;
+    }
+
+    /**
+     * This method should return a QueryModifier. You should overwrite this if you're not using BaseSpecification::$spec
+     *
+     * @return QueryModifier
+     */
+    protected function getQueryOptionInstance()
+    {
+        return $this->spec;
+    }
+
+    /**
      * @param QueryBuilder $qb
      * @param string       $dqlAlias
      *
@@ -44,9 +62,13 @@ abstract class BaseSpecification implements Specification
      */
     public function getFilter(QueryBuilder $qb, $dqlAlias)
     {
-        $this->validate('getWrappedExpression', 'Happyr\DoctrineSpecification\Filter\Expression');
+        $this->validate('getFilterInstance', 'Happyr\DoctrineSpecification\Filter\Filter');
 
-        return $this->getWrappedExpression()->getFilter($qb, $this->getAlias($dqlAlias));
+        if (null === $filter = $this->getFilterInstance()) {
+            return;
+        }
+
+        return $filter->getFilter($qb, $this->getAlias($dqlAlias));
     }
 
     /**
@@ -55,9 +77,13 @@ abstract class BaseSpecification implements Specification
      */
     public function modify(QueryBuilder $qb, $dqlAlias)
     {
-        $this->validate('getWrappedModifier', 'Happyr\DoctrineSpecification\Query\Modifier');
+        $this->validate('getQueryOptionInstance', 'Happyr\DoctrineSpecification\Query\QueryModifier');
 
-        $this->getWrappedModifier()->modify($qb, $this->getAlias($dqlAlias));
+        if (null === $queryModifier = $this->getQueryOptionInstance()) {
+            return;
+        }
+
+        $queryModifier->modify($qb, $this->getAlias($dqlAlias));
     }
 
     /**
@@ -68,7 +94,9 @@ abstract class BaseSpecification implements Specification
      */
     private function validate($getter, $class)
     {
-        if (!is_a($this->$getter(), $class)) {
+        $object = $this->$getter();
+        // if $object is an object but not instance of $class
+        if (!is_null($object) && !is_a($object, $class)) {
             throw new LogicException(sprintf(
                 'Returned object must be an instance of %s.
                 Please validate the %s::%s function and make it return instance of %s.',
