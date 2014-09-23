@@ -5,7 +5,7 @@ namespace Happyr\DoctrineSpecification\Logic;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Filter\Expression;
+use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Specification;
 
 /**
@@ -17,7 +17,7 @@ class LogicX implements Specification
     const OR_X = 'orX';
 
     /**
-     * @var Expression[] children
+     * @var Filter[] children
      */
     private $children;
 
@@ -30,7 +30,7 @@ class LogicX implements Specification
      * Take two or more Expression as parameters
      *
      * @param string $expression
-     * @param Expression[] $children
+     * @param Filter[] $children
      */
     public function __construct($expression, array $children)
     {
@@ -44,13 +44,13 @@ class LogicX implements Specification
      *
      * @return string
      */
-    public function getExpression(QueryBuilder $qb, $dqlAlias)
+    public function getFilter(QueryBuilder $qb, $dqlAlias)
     {
         return call_user_func_array(
             array($qb->expr(), $this->expression),
             array_map(
-                function (Expression $expr) use ($qb, $dqlAlias) {
-                    return $expr->getExpression($qb, $dqlAlias);
+                function (Filter $expr) use ($qb, $dqlAlias) {
+                    return $expr->getFilter($qb, $dqlAlias);
                 },
                 $this->children
             )

@@ -6,7 +6,7 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 
-class IsNotNull implements Expression
+class IsNotNull implements Filter
 {
     /**
      * @var string field
@@ -36,7 +36,7 @@ class IsNotNull implements Expression
      *
      * @return Expr
      */
-    public function getExpression(QueryBuilder $qb, $dqlAlias)
+    public function getFilter(QueryBuilder $qb, $dqlAlias)
     {
         if ($this->dqlAlias !== null) {
             $dqlAlias = $this->dqlAlias;

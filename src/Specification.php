@@ -2,10 +2,10 @@
 
 namespace Happyr\DoctrineSpecification;
 
-use Happyr\DoctrineSpecification\Filter\Expression;
+use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\Modifier;
 
-interface Specification extends Expression, Modifier
+interface Specification extends Filter, Modifier
 {
 
 }

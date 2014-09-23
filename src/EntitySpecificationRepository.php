@@ -21,7 +21,7 @@ class EntitySpecificationRepository extends EntityRepository
         $qb = $this->createQueryBuilder($this->alias);
 
         $specification->modify($qb, $this->alias);
-        $query = $qb->where($specification->getExpression($qb, $this->alias))->getQuery();
+        $query = $qb->where($specification->getFilter($qb, $this->alias))->getQuery();
 
         if ($modifier instanceof Result\Modifier) {
             $modifier->modify($query);

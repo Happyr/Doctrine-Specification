@@ -5,7 +5,7 @@ namespace Happyr\DoctrineSpecification;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\LogicException;
-use Happyr\DoctrineSpecification\Filter\Expression;
+use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\Modifier;
 
 /**
@@ -14,7 +14,7 @@ use Happyr\DoctrineSpecification\Query\Modifier;
 abstract class BaseSpecification implements Specification
 {
     /**
-     * @return Expression
+     * @return Filter
      */
     abstract public function getWrappedExpression();
 
@@ -42,11 +42,11 @@ abstract class BaseSpecification implements Specification
      *
      * @return string
      */
-    public function getExpression(QueryBuilder $qb, $dqlAlias)
+    public function getFilter(QueryBuilder $qb, $dqlAlias)
     {
         $this->validate('getWrappedExpression', 'Happyr\DoctrineSpecification\Filter\Expression');
 
-        return $this->getWrappedExpression()->getExpression($qb, $this->getAlias($dqlAlias));
+        return $this->getWrappedExpression()->getFilter($qb, $this->getAlias($dqlAlias));
     }
 
     /**

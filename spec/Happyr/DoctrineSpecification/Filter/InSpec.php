@@ -39,6 +39,6 @@ class InSpec extends ObjectBehavior
 
         $qb->setParameter('in_10', $this->value)->shouldBeCalled();
 
-        $this->getExpression($qb, null);
+        $this->getFilter($qb, null);
     }
 }

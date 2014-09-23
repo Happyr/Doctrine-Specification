@@ -4,7 +4,7 @@ namespace spec\Happyr\DoctrineSpecification\Logic;
 
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Filter\Expression;
+use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Spec;
 use Happyr\DoctrineSpecification\Specification;
@@ -16,7 +16,7 @@ use Prophecy\Argument;
  */
 class NotSpec extends ObjectBehavior
 {
-    function let(Expression $filterExpr)
+    function let(Filter $filterExpr)
     {
         $this->beConstructedWith($filterExpr, null);
     }
@@ -24,18 +24,18 @@ class NotSpec extends ObjectBehavior
     /**
      * calls parent
      */
-    function it_calls_parent_match(QueryBuilder $qb, Expr $expr, Expression $filterExpr)
+    function it_calls_parent_match(QueryBuilder $qb, Expr $expr, Filter $filterExpr)
     {
         $dqlAlias = 'a';
         $expression = 'expression';
         $parentExpression = 'foobar';
 
         $qb->expr()->willReturn($expr);
-        $filterExpr->getExpression($qb, $dqlAlias)->willReturn($parentExpression);
+        $filterExpr->getFilter($qb, $dqlAlias)->willReturn($parentExpression);
 
         $expr->not($parentExpression)->willReturn($expression);
 
-        $this->getExpression($qb, $dqlAlias)->shouldReturn($expression);
+        $this->getFilter($qb, $dqlAlias)->shouldReturn($expression);
     }
 
     /**

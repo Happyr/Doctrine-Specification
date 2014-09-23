@@ -37,7 +37,7 @@ class IsNullSpec extends ObjectBehavior
         $qb->expr()->willReturn($expr);
         $expr->isNull(sprintf('%s.%s', $this->dqlAlias, $this->field))->willReturn($expression);
 
-        $this->getExpression($qb, 'b')->shouldReturn($expression);
+        $this->getFilter($qb, 'b')->shouldReturn($expression);
     }
 
     function it_uses_dql_alias_if_passed(QueryBuilder $qb, Expr $expr)
@@ -47,6 +47,6 @@ class IsNullSpec extends ObjectBehavior
         $qb->expr()->willReturn($expr);
 
         $expr->isNull(sprintf('%s.%s', $dqlAlias, $this->field))->shouldBeCalled();
-        $this->getExpression($qb, $dqlAlias);
+        $this->getFilter($qb, $dqlAlias);
     }
 }

@@ -13,7 +13,7 @@ use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
  *
  * This is used when you need to compare two values
  */
-class Comparison implements Expression
+class Comparison implements Filter
 {
     const EQ = '=';
     const NEQ = '<>';
@@ -85,7 +85,7 @@ class Comparison implements Expression
      *
      * @return string
      */
-    public function getExpression(QueryBuilder $qb, $dqlAlias)
+    public function getFilter(QueryBuilder $qb, $dqlAlias)
     {
         if ($this->dqlAlias !== null) {
             $dqlAlias = $this->dqlAlias;
