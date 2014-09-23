@@ -13,9 +13,9 @@ class ResultModifierCollection implements ResultModifier
     private $children;
 
     /**
-     * @param ResultModifier $child
+     * Construct it with one or more instances of ResultModifier
      */
-    function __construct(ResultModifier $child)
+    function __construct()
     {
         $this->children = func_get_args();
     }
