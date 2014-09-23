@@ -21,7 +21,7 @@ class AsArraySpec extends ObjectBehavior
 
     function it_is_a_result_modifier()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Result\Modifier');
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Result\ResultModifier');
     }
 
     function it_sets_hydration_mode_to_array(AbstractQuery $query)

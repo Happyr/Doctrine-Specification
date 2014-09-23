@@ -6,7 +6,7 @@ use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\LogicException;
 use Happyr\DoctrineSpecification\Filter\Filter;
-use Happyr\DoctrineSpecification\Query\Modifier;
+use Happyr\DoctrineSpecification\Query\QueryModifier;
 
 /**
  * Extend this abstract class if you want to build a new spec with your domain logic
@@ -19,7 +19,7 @@ abstract class BaseSpecification implements Specification
     abstract public function getWrappedExpression();
 
     /**
-     * @return Modifier
+     * @return QueryModifier
      */
     abstract public function getWrappedModifier();
 

@@ -3,9 +3,9 @@
 namespace Happyr\DoctrineSpecification;
 
 use Happyr\DoctrineSpecification\Filter\Filter;
-use Happyr\DoctrineSpecification\Query\Modifier;
+use Happyr\DoctrineSpecification\Query\QueryModifier;
 
-interface Specification extends Filter, Modifier
+interface Specification extends Filter, QueryModifier
 {
 
 }

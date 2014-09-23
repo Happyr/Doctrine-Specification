@@ -20,7 +20,7 @@ class JoinSpec extends ObjectBehavior
 
     function it_is_a_specification()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Query\Modifier');
+        $this->shouldHaveType('Happyr\DoctrineSpecification\Query\QueryModifier');
     }
 
     function it_joins_with_default_dql_alias(QueryBuilder $qb)

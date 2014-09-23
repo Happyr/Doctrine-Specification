@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\EntitySpecificationRepository;
-use Happyr\DoctrineSpecification\Result\Modifier;
+use Happyr\DoctrineSpecification\Result\ResultModifier;
 use Happyr\DoctrineSpecification\Specification;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -46,7 +46,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query,
-        Modifier $modifier
+        ResultModifier $modifier
     )
     {
         $this->prepareStubs($specification, $entityManager, $qb, $query);
