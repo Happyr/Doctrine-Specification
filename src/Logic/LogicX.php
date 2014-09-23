@@ -5,12 +5,11 @@ namespace Happyr\DoctrineSpecification\Logic;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Filter\Expression;
 use Happyr\DoctrineSpecification\Specification;
 
 /**
- * Abstract Class LogicX
- *
- * This class should be used when you combine two or more specifications
+ * This class should be used when you combine two or more Expressions
  */
 class LogicX implements Specification
 {
@@ -18,7 +17,7 @@ class LogicX implements Specification
     const OR_X = 'orX';
 
     /**
-     * @var Specification[] children
+     * @var Expression[] children
      */
     private $children;
 
@@ -28,10 +27,10 @@ class LogicX implements Specification
     private $expression;
 
     /**
-     * Take two or more Specification as parameters
+     * Take two or more Expression as parameters
      *
      * @param string $expression
-     * @param array  $children
+     * @param Expression[] $children
      */
     public function __construct($expression, array $children)
     {
@@ -50,8 +49,8 @@ class LogicX implements Specification
         return call_user_func_array(
             array($qb->expr(), $this->expression),
             array_map(
-                function (Specification $spec) use ($qb, $dqlAlias) {
-                    return $spec->getExpression($qb, $dqlAlias);
+                function (Expression $expr) use ($qb, $dqlAlias) {
+                    return $expr->getExpression($qb, $dqlAlias);
                 },
                 $this->children
             )
@@ -65,7 +64,9 @@ class LogicX implements Specification
     public function modify(QueryBuilder $query, $dqlAlias)
     {
         foreach ($this->children as $child) {
-            $child->modify($query, $dqlAlias);
+            if ($child instanceof Specification) {
+                $child->modify($query, $dqlAlias);
+            }
         }
     }
 }
