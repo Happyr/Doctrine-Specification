@@ -6,17 +6,17 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 
-class ModifierCollection implements Modifier
+class QueryModifierCollection implements QueryModifier
 {
     /**
-     * @var Modifier[]
+     * @var QueryModifier[]
      */
     private $children;
 
     /**
-     * @param Modifier $child
+     * @param QueryModifier $child
      */
-    function __construct(Modifier $child)
+    function __construct(QueryModifier $child)
     {
         $this->children = func_get_args();
     }
@@ -28,7 +28,7 @@ class ModifierCollection implements Modifier
     public function modify(QueryBuilder $qb, $dqlAlias)
     {
         foreach ($this->children as $child) {
-            if (!$child instanceof Modifier) {
+            if (!$child instanceof QueryModifier) {
                 throw new InvalidArgumentException(
                     sprintf(
                         'Child passed to ModifierCollection must be an instance of Query\Modifier, but instance of %s found',

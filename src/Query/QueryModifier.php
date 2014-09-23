@@ -4,7 +4,7 @@ namespace Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
 
-interface Modifier
+interface QueryModifier
 {
     /**
      * @param QueryBuilder $qb

@@ -4,7 +4,7 @@ namespace Happyr\DoctrineSpecification\Result;
 
 use Doctrine\ORM\AbstractQuery;
 
-interface Modifier
+interface ResultModifier
 {
     /**
      * @param AbstractQuery $query

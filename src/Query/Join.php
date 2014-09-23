@@ -9,7 +9,7 @@ use Doctrine\ORM\QueryBuilder;
 /**
  * Class Join
  */
-class Join implements Modifier
+class Join implements QueryModifier
 {
     /**
      * @var string field

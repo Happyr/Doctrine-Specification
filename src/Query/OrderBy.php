@@ -4,7 +4,7 @@ namespace Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
 
-class OrderBy implements Modifier
+class OrderBy implements QueryModifier
 {
     /**
      * @var string field
