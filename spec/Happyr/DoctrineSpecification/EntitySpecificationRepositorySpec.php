@@ -60,7 +60,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
     private function prepareStubs(Specification $specification, EntityManager $entityManager, QueryBuilder $qb, AbstractQuery $query)
     {
         $entityManager->createQueryBuilder()->willReturn($qb);
-        $specification->getExpression($qb, $this->alias)->willReturn($this->expression);
+        $specification->getFilter($qb, $this->alias)->willReturn($this->expression);
         $qb->from(Argument::any(), $this->alias)->willReturn($qb);
         $qb->select($this->alias)->willReturn($qb);
         $qb->where($this->expression)->willReturn($qb);

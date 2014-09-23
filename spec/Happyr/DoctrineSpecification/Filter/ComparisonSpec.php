@@ -20,7 +20,7 @@ class ComparisonSpec extends ObjectBehavior
 
     function it_is_an_expression()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Expression');
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Filter');
     }
     
     function it_returns_comparison_object(QueryBuilder $qb, ArrayCollection $parameters)
@@ -30,7 +30,7 @@ class ComparisonSpec extends ObjectBehavior
 
         $qb->setParameter('comparison_10', 18)->shouldBeCalled();
 
-        $comparison = $this->getExpression($qb, null);
+        $comparison = $this->getFilter($qb, null);
 
         $comparison->shouldReturn('a.age > :comparison_10');
     }
@@ -44,7 +44,7 @@ class ComparisonSpec extends ObjectBehavior
 
         $qb->setParameter('comparison_10', 18)->shouldBeCalled();
 
-        $this->getExpression($qb, 'x')->shouldReturn('x.age > :comparison_10');
+        $this->getFilter($qb, 'x')->shouldReturn('x.age > :comparison_10');
     }
 
     function it_validates_operator()

@@ -25,7 +25,7 @@ class InSpec extends ObjectBehavior
 
     function it_is_an_expression()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Expression');
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Filter');
     }
 
     function it_returns_expression_func_object(QueryBuilder $qb, ArrayCollection $parameters, Expr $expr)
@@ -39,6 +39,6 @@ class InSpec extends ObjectBehavior
 
         $qb->setParameter('in_10', $this->value)->shouldBeCalled();
 
-        $this->getExpression($qb, null);
+        $this->getFilter($qb, null);
     }
 }

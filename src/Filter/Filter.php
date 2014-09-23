@@ -4,7 +4,7 @@ namespace Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\QueryBuilder;
 
-interface Expression
+interface Filter
 {
     /**
      * @param QueryBuilder $qb
@@ -12,5 +12,5 @@ interface Expression
      *
      * @return string
      */
-    public function getExpression(QueryBuilder $qb, $dqlAlias);
+    public function getFilter(QueryBuilder $qb, $dqlAlias);
 } 
