@@ -4,7 +4,7 @@ namespace Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
 
-class Limit implements Modifier
+class Limit implements QueryModifier
 {
     /**
      * @var int limit

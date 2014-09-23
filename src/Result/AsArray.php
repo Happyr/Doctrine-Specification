@@ -10,7 +10,7 @@ use Happyr\DoctrineSpecification\Specification;
 /**
  * Class AsArray
  */
-class AsArray implements Modifier
+class AsArray implements ResultModifier
 {
     /**
      * @var Specification parent

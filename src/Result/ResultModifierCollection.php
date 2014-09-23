@@ -6,17 +6,17 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 
-class ModifierCollection implements Modifier
+class ResultModifierCollection implements ResultModifier
 {
     /**
-     * @var Modifier[]
+     * @var ResultModifier[]
      */
     private $children;
 
     /**
-     * @param Modifier $child
+     * @param ResultModifier $child
      */
-    function __construct(Modifier $child)
+    function __construct(ResultModifier $child)
     {
         $this->children = func_get_args();
     }
@@ -27,7 +27,7 @@ class ModifierCollection implements Modifier
     public function modify(AbstractQuery $query)
     {
         foreach ($this->children as $child) {
-            if (!$child instanceof Modifier) {
+            if (!$child instanceof ResultModifier) {
                 throw new InvalidArgumentException(
                     sprintf(
                         'Child passed to ModifierCollection must be an instance of Result\Modifier, but instance of %s found',

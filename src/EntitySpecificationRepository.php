@@ -12,18 +12,18 @@ class EntitySpecificationRepository extends EntityRepository
      * Get result when you match with a Specification
      *
      * @param Specification   $specification
-     * @param Result\Modifier $modifier
+     * @param Result\ResultModifier $modifier
      *
      * @return mixed
      */
-    public function match(Specification $specification, Result\Modifier $modifier = null)
+    public function match(Specification $specification, Result\ResultModifier $modifier = null)
     {
         $qb = $this->createQueryBuilder($this->alias);
 
         $specification->modify($qb, $this->alias);
         $query = $qb->where($specification->getExpression($qb, $this->alias))->getQuery();
 
-        if ($modifier instanceof Result\Modifier) {
+        if ($modifier instanceof Result\ResultModifier) {
             $modifier->modify($query);
         }
 
