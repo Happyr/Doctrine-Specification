@@ -29,7 +29,7 @@ class ResultModifierCollection implements ResultModifier
             if (!$child instanceof ResultModifier) {
                 throw new InvalidArgumentException(
                     sprintf(
-                        'Child passed to ModifierCollection must be an instance of Result\Modifier, but instance of %s found',
+                        'Child passed to ResultModifierCollection must be an instance of Happyr\DoctrineSpecification\Result\ResultModifier, but instance of %s found',
                         get_class($child)
                     )
                 );
