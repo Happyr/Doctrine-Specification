@@ -3,7 +3,6 @@
 namespace Happyr\DoctrineSpecification\Result;
 
 use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\Query;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 
 class ResultModifierCollection implements ResultModifier
