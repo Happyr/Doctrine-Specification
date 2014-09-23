@@ -8,6 +8,7 @@ interface ResultModifier
 {
     /**
      * @param AbstractQuery $query
+     * @return void
      */
     public function modify(AbstractQuery $query);
 } 

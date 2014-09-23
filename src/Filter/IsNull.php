@@ -2,8 +2,6 @@
 
 namespace Happyr\DoctrineSpecification\Filter;
 
-use Doctrine\ORM\Query;
-use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 
 class IsNull implements Filter
@@ -32,7 +30,7 @@ class IsNull implements Filter
      * @param QueryBuilder $qb
      * @param string $dqlAlias
      *
-     * @return Expr
+     * @return string
      */
     public function getFilter(QueryBuilder $qb, $dqlAlias)
     {

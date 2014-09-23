@@ -2,7 +2,6 @@
 
 namespace Happyr\DoctrineSpecification;
 
-use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\LogicException;
 use Happyr\DoctrineSpecification\Filter\Filter;
@@ -87,8 +86,8 @@ abstract class BaseSpecification implements Specification
     }
 
     /**
-     * @param $getter
-     * @param $class
+     * @param string $getter
+     * @param string $class
      *
      * @throws LogicException
      */
@@ -109,7 +108,7 @@ abstract class BaseSpecification implements Specification
     }
 
     /**
-     * @param $dqlAlias
+     * @param string $dqlAlias
      *
      * @return string
      */

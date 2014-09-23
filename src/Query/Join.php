@@ -3,7 +3,6 @@
 namespace Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\Query;
-use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 
 /**

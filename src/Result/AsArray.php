@@ -4,7 +4,6 @@ namespace Happyr\DoctrineSpecification\Result;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\Query\Expr;
 use Happyr\DoctrineSpecification\Specification;
 
 /**

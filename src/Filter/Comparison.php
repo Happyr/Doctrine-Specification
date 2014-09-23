@@ -2,8 +2,6 @@
 
 namespace Happyr\DoctrineSpecification\Filter;
 
-use Doctrine\ORM\Query;
-use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;

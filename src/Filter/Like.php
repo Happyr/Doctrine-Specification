@@ -14,6 +14,9 @@ class Like extends Comparison
         parent::__construct(self::LIKE, $field, $formattedValue, $dqlAlias);
     }
 
+    /**
+     * @param string $format
+     */
     private function formatValue($format, $value)
     {
         return sprintf($format, $value);
