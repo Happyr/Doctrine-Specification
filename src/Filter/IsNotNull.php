@@ -4,30 +4,8 @@ namespace Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\QueryBuilder;
 
-class IsNotNull implements Filter
+class IsNotNull extends IsNull
 {
-    /**
-     * @var string field
-     */
-    private $field;
-
-    /**
-     * @var null|string dqlAlias
-     */
-    private $dqlAlias;
-
-    /**
-     * Make sure the $field IS NOT NULL
-     *
-     * @param string $field
-     * @param string $dqlAlias
-     */
-    public function __construct($field, $dqlAlias = null)
-    {
-        $this->field = $field;
-        $this->dqlAlias = $dqlAlias;
-    }
-
     /**
      * @param QueryBuilder $qb
      * @param string $dqlAlias

@@ -14,7 +14,7 @@ class IsNull implements Filter
     /**
      * @var null|string dqlAlias
      */
-    private $dqlAlias;
+    protected $dqlAlias;
 
     /**
      * @param string      $field
