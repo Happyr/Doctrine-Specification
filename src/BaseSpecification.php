@@ -97,8 +97,7 @@ abstract class BaseSpecification implements Specification
         // if $object is an object but not instance of $class
         if (!is_null($object) && !is_a($object, $class)) {
             throw new LogicException(sprintf(
-                'Returned object must be an instance of %s.
-                Please validate the %s::%s function and make it return instance of %s.',
+                'Returned object must be an instance of %s. Please validate the %s::%s function and make it return instance of %s.',
                 $class,
                 get_class($this),
                 $getter,
