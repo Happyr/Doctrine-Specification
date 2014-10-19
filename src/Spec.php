@@ -2,6 +2,7 @@
 
 namespace Happyr\DoctrineSpecification;
 
+use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\IsNotNull;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Filter\Comparison;
@@ -27,22 +28,17 @@ class Spec
         return new LogicX(LogicX::OR_X, func_get_args());
     }
 
-    public static function collection()
-    {
-        return new LogicX(LogicX::AND_X, func_get_args());
-    }
-
     public static function join($field, $newAlias, $dqlAlias = null)
     {
         return new Join($field, $newAlias, $dqlAlias);
     }
 
-    public static function asArray(Specification $spec)
+    public static function asArray()
     {
-        return new AsArray($spec);
+        return new AsArray();
     }
 
-    public static function not(Specification $spec)
+    public static function not(Filter $spec)
     {
         return new Not($spec);
     }

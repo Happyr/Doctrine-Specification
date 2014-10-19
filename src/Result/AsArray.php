@@ -12,19 +12,6 @@ use Happyr\DoctrineSpecification\Specification;
 class AsArray implements ResultModifier
 {
     /**
-     * @var Specification parent
-     */
-    private $parent;
-
-    /**
-     * @param Specification $parent
-     */
-    public function __construct(Specification $parent)
-    {
-        $this->parent = $parent;
-    }
-
-    /**
      * @param AbstractQuery $query
      */
     public function modify(AbstractQuery $query)
