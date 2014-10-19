@@ -28,11 +28,6 @@ class Spec
         return new LogicX(LogicX::OR_X, func_get_args());
     }
 
-    public static function collection()
-    {
-        return new LogicX(LogicX::AND_X, func_get_args());
-    }
-
     public static function join($field, $newAlias, $dqlAlias = null)
     {
         return new Join($field, $newAlias, $dqlAlias);
