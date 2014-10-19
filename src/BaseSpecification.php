@@ -19,7 +19,7 @@ abstract class BaseSpecification implements Specification
 
     /**
      * You may assign a Specification to this property. If you do, you do not *need* to overwrite the getFilterInstance
-     * or getQueryOptionInstance
+     * or getQueryModifierInstance
      *
      * @var Specification spec
      */
@@ -48,7 +48,7 @@ abstract class BaseSpecification implements Specification
      *
      * @return QueryModifier
      */
-    protected function getQueryOptionInstance()
+    protected function getQueryModifierInstance()
     {
         return $this->spec;
     }
@@ -76,9 +76,9 @@ abstract class BaseSpecification implements Specification
      */
     public function modify(QueryBuilder $qb, $dqlAlias)
     {
-        $this->validate('getQueryOptionInstance', 'Happyr\DoctrineSpecification\Query\QueryModifier');
+        $this->validate('getQueryModifierInstance', 'Happyr\DoctrineSpecification\Query\QueryModifier');
 
-        if (null === $queryModifier = $this->getQueryOptionInstance()) {
+        if (null === $queryModifier = $this->getQueryModifierInstance()) {
             return;
         }
 
