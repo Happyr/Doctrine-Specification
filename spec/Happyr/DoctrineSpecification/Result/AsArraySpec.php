@@ -14,11 +14,6 @@ use Prophecy\Argument;
  */
 class AsArraySpec extends ObjectBehavior
 {
-    function let(Specification $specification)
-    {
-        $this->beConstructedWith($specification);
-    }
-
     function it_is_a_result_modifier()
     {
         $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Result\ResultModifier');
