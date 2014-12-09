@@ -4,6 +4,7 @@ namespace Happyr\DoctrineSpecification\Logic;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Specification;
 
 /**
@@ -62,7 +63,7 @@ class LogicX implements Specification
     public function modify(QueryBuilder $query, $dqlAlias)
     {
         foreach ($this->children as $child) {
-            if ($child instanceof Specification) {
+            if ($child instanceof QueryModifier) {
                 $child->modify($query, $dqlAlias);
             }
         }
