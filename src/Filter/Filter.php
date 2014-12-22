@@ -10,7 +10,7 @@ abstract class Filter implements FilterInterface
     protected $field;
 
     /**
-     * @param string      $field
+     * @param string $field
      */
     public function __construct($field)
     {
@@ -18,7 +18,7 @@ abstract class Filter implements FilterInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getField()
     {

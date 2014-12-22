@@ -5,7 +5,7 @@ namespace Happyr\DoctrineSpecification\Filter;
 abstract class Comparison extends Filter implements ComparisonInterface, FilterInterface
 {
     /**
-     * @var mixed field
+     * @var mixed value
      */
     protected $value;
 
@@ -20,7 +20,7 @@ abstract class Comparison extends Filter implements ComparisonInterface, FilterI
     }
 
     /**
-     * @return mixed
+     * @inheritdoc
      */
     public function getValue()
     {
