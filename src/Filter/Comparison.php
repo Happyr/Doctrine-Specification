@@ -11,7 +11,7 @@ abstract class Comparison extends Filter implements ComparisonInterface, FilterI
 
     /**
      * @param string $field
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function __construct($field, $value)
     {

@@ -10,8 +10,8 @@ class Like extends Comparison
 
     /**
      * @param string $field
-     * @param mixed $value
-     * @param int $format
+     * @param mixed  $value
+     * @param int    $format
      */
     public function __construct($field, $value, $format = self::CONTAINS)
     {
