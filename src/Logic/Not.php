@@ -6,7 +6,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Specification;
 
-class Not implements Specification
+class Not
 {
     /**
      * @var Filter parent

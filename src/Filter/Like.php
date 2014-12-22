@@ -2,16 +2,15 @@
 
 namespace Happyr\DoctrineSpecification\Filter;
 
-class Like extends Comparison
+class Like implements Comparison
 {
     const CONTAINS = "%%%s%%";
     const ENDS_WITH = "%%%s";
     const STARTS_WITH = "%s%%";
 
-    public function __construct($field, $value, $format = self::CONTAINS, $dqlAlias = null)
+    public function __construct($field, $value, $format = self::CONTAINS)
     {
-        $formattedValue = $this->formatValue($format, $value);
-        parent::__construct(self::LIKE, $field, $formattedValue, $dqlAlias);
+        $this->value =
     }
 
     /**

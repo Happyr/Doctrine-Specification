@@ -9,7 +9,7 @@ use Happyr\DoctrineSpecification\Specification;
 /**
  * This class should be used when you combine two or more Expressions
  */
-class LogicX implements Specification
+class LogicX
 {
     const AND_X = 'andX';
     const OR_X = 'orX';

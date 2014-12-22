@@ -2,8 +2,6 @@
 
 namespace Happyr\DoctrineSpecification\Filter;
 
-use Doctrine\ORM\QueryBuilder;
-
 class IsNull implements Filter
 {
     /**
@@ -12,32 +10,18 @@ class IsNull implements Filter
     protected $field;
 
     /**
-     * @var null|string dqlAlias
-     */
-    protected $dqlAlias;
-
-    /**
      * @param string      $field
-     * @param string|null $dqlAlias
      */
-    public function __construct($field, $dqlAlias = null)
+    public function __construct($field)
     {
         $this->field = $field;
-        $this->dqlAlias = $dqlAlias;
     }
 
     /**
-     * @param QueryBuilder $qb
-     * @param string $dqlAlias
-     *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    public function getField()
     {
-        if ($this->dqlAlias !== null) {
-            $dqlAlias = $this->dqlAlias;
-        }
-
-        return (string) $qb->expr()->isNull(sprintf('%s.%s', $dqlAlias, $this->field));
+        return $this->field;
     }
 }
