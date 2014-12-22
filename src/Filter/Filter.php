@@ -2,7 +2,26 @@
 
 namespace Happyr\DoctrineSpecification\Filter;
 
-interface Filter
+abstract class Filter implements FilterInterface
 {
-    public function getField();
+    /**
+     * @var string field
+     */
+    protected $field;
+
+    /**
+     * @param string      $field
+     */
+    public function __construct($field)
+    {
+        $this->field = $field;
+    }
+
+    /**
+     * @return string
+     */
+    public function getField()
+    {
+        return $this->field;
+    }
 }

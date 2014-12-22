@@ -1,14 +1,12 @@
 <?php
 
+
 namespace spec\Happyr\DoctrineSpecification\Filter;
 
-use Happyr\DoctrineSpecification\Filter\In;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
-/**
- * @mixin In
- */
-class InSpec extends ObjectBehavior
+class GreaterThanSpec extends ObjectBehavior
 {
     function let()
     {

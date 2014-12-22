@@ -11,17 +11,33 @@ use Prophecy\Argument;
 
 class LikeSpec extends ObjectBehavior
 {
-    private $field = "foo";
-
-    private $value = "bar";
-
-    public function let()
+    function let()
     {
-        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS);
+        $this->beConstructedWith('field', 'value', Like::CONTAINS);
     }
 
-    public function it_is_a_specification()
+    function it_is_a_filter()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Specification');
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\FilterInterface');
+    }
+
+    function it_is_a_comparision()
+    {
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\ComparisonInterface');
+    }
+
+    function it_has_field_name()
+    {
+        $this->getField()->shouldReturn('field');
+    }
+
+    function it_has_field_value()
+    {
+        $this->getValue()->shouldReturn('value');
+    }
+
+    function it_has_format()
+    {
+        $this->getFormat()->shouldReturn(Like::CONTAINS);
     }
 }

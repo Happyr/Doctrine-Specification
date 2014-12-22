@@ -2,6 +2,7 @@
 
 namespace Happyr\DoctrineSpecification\Filter;
 
-class NotEquals extends Comparison
+interface FilterInterface
 {
+    public function getField();
 }

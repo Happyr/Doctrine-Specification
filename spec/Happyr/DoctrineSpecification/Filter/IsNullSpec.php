@@ -10,15 +10,18 @@ use PhpSpec\ObjectBehavior;
  */
 class IsNullSpec extends ObjectBehavior
 {
-    private $field='foobar';
-
     function let()
     {
-        $this->beConstructedWith($this->field);
+        $this->beConstructedWith('field');
     }
 
-    function it_is_an_expression()
+    function it_is_a_filter()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Filter');
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\FilterInterface');
+    }
+
+    function it_has_field_name()
+    {
+        $this->getField()->shouldReturn('field');
     }
 }
