@@ -2,13 +2,13 @@
 
 namespace spec\Happyr\DoctrineSpecification\Filter;
 
-use Happyr\DoctrineSpecification\Filter\In;
+use Happyr\DoctrineSpecification\Filter\ComparisonInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
- * @mixin In
+ * @mixin Comparison
  */
-class InSpec extends ObjectBehavior
+class EqualsSpec extends ObjectBehavior
 {
     function let()
     {

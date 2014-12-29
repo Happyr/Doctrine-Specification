@@ -2,23 +2,30 @@
 
 namespace Happyr\DoctrineSpecification\Filter;
 
+use Happyr\DoctrineSpecification\Filter\Base\Comparison;
+
 class Like extends Comparison
 {
-    const CONTAINS = "%%%s%%";
-    const ENDS_WITH = "%%%s";
-    const STARTS_WITH = "%s%%";
+    const CONTAINS = 1;
+    const ENDS_WITH = 2;
+    const STARTS_WITH = 3;
 
-    public function __construct($field, $value, $format = self::CONTAINS, $dqlAlias = null)
+    /**
+     * @param string $field
+     * @param mixed  $value
+     * @param int    $format
+     */
+    public function __construct($field, $value, $format = self::CONTAINS)
     {
-        $formattedValue = $this->formatValue($format, $value);
-        parent::__construct(self::LIKE, $field, $formattedValue, $dqlAlias);
+        parent::__construct($field, $value);
+        $this->format = $format;
     }
 
     /**
-     * @param string $format
+     * @return int
      */
-    private function formatValue($format, $value)
+    public function getFormat()
     {
-        return sprintf($format, $value);
+        return $this->format;
     }
 }

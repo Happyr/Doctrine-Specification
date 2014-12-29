@@ -11,50 +11,33 @@ use Prophecy\Argument;
 
 class LikeSpec extends ObjectBehavior
 {
-    private $field = "foo";
-
-    private $value = "bar";
-
-    public function let()
+    function let()
     {
-        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, "dqlAlias");
+        $this->beConstructedWith('field', 'value', Like::CONTAINS);
     }
 
-    public function it_is_a_specification()
+    function it_is_a_filter()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Specification');
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Base\FilterInterface');
     }
 
-    public function it_surrounds_with_wildcards_when_using_contains(QueryBuilder $qb, ArrayCollection $parameters)
+    function it_is_a_comparision()
     {
-        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, "dqlAlias");
-        $qb->getParameters()->willReturn($parameters);
-        $parameters->count()->willReturn(1);
-
-        $qb->setParameter("comparison_1", "%bar%")->shouldBeCalled();
-
-        $this->match($qb, null);
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Base\ComparisonInterface');
     }
 
-    public function it_starts_with_wildcard_when_using_ends_with(QueryBuilder $qb, ArrayCollection $parameters)
+    function it_has_field_name()
     {
-        $this->beConstructedWith($this->field, $this->value, Like::ENDS_WITH, "dqlAlias");
-        $qb->getParameters()->willReturn($parameters);
-        $parameters->count()->willReturn(1);
-
-        $qb->setParameter("comparison_1", "%bar")->shouldBeCalled();
-
-        $this->match($qb, null);
+        $this->getField()->shouldReturn('field');
     }
 
-    public function it_ends_with_wildcard_when_using_starts_with(QueryBuilder $qb, ArrayCollection $parameters)
+    function it_has_field_value()
     {
-        $this->beConstructedWith($this->field, $this->value, Like::STARTS_WITH, "dqlAlias");
-        $qb->getParameters()->willReturn($parameters);
-        $parameters->count()->willReturn(1);
-
-        $qb->setParameter("comparison_1", "bar%")->shouldBeCalled();
-
-        $this->match($qb, null);
+        $this->getValue()->shouldReturn('value');
     }
-} 
+
+    function it_has_format()
+    {
+        $this->getFormat()->shouldReturn(Like::CONTAINS);
+    }
+}

@@ -5,7 +5,8 @@ namespace Happyr\DoctrineSpecification;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 
-interface Specification extends Filter, QueryModifier
+interface Specification
 {
-
+    public function __construct(Filter $filter);
+    public function getFilter();
 }
