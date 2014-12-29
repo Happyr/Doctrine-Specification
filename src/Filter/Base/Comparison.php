@@ -1,6 +1,6 @@
 <?php
 
-namespace Happyr\DoctrineSpecification\Filter;
+namespace Happyr\DoctrineSpecification\Filter\Base;
 
 abstract class Comparison extends Filter implements ComparisonInterface, FilterInterface
 {

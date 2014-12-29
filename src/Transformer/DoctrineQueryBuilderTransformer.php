@@ -4,8 +4,8 @@ namespace Happyr\DoctrineSpecification\Transformer;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
+use Happyr\DoctrineSpecification\Filter\Base\Filter;
 use Happyr\DoctrineSpecification\Filter\Equals;
-use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\GreaterOrEqualThan;
 use Happyr\DoctrineSpecification\Filter\GreaterThan;
 use Happyr\DoctrineSpecification\Filter\In;

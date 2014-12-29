@@ -1,6 +1,6 @@
 <?php
 
-namespace Happyr\DoctrineSpecification\Filter;
+namespace Happyr\DoctrineSpecification\Filter\Base;
 
 interface ComparisonInterface
 {

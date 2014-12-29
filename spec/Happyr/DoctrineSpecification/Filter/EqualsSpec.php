@@ -17,12 +17,12 @@ class EqualsSpec extends ObjectBehavior
 
     function it_is_a_filter()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\FilterInterface');
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Base\FilterInterface');
     }
 
     function it_is_a_comparision()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\ComparisonInterface');
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Base\ComparisonInterface');
     }
 
     function it_has_field_name()
