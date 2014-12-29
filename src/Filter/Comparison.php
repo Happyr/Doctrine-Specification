@@ -16,7 +16,7 @@ abstract class Comparison extends Filter implements ComparisonInterface, FilterI
     public function __construct($field, $value)
     {
         $this->field = $field;
-        $this->$value = $value;
+        $this->value = $value;
     }
 
     /**
