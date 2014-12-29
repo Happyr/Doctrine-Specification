@@ -16,16 +16,25 @@ class FilterTransformer implements FilterTransformerInterface
      */
     private $queryBuilder;
 
+    /**
+     * @inheritdoc
+     */
     public function setQueryBuilder(QueryBuilder $queryBuilder)
     {
         $this->queryBuilder = $queryBuilder;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function supports(FilterInterface $filter)
     {
         return $filter instanceof IsNotNull || $filter instanceof IsNull;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function transform(FilterInterface $filter, ParametersBag $parameters)
     {
         if ($filter instanceof IsNull) {

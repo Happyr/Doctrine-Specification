@@ -23,11 +23,17 @@ class ComparisonTransformer implements FilterTransformerInterface
      */
     private $queryBuilder;
 
+    /**
+     * @inheritdoc
+     */
     public function setQueryBuilder(QueryBuilder $queryBuilder)
     {
         $this->queryBuilder = $queryBuilder;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function supports(FilterInterface $object)
     {
         if ($object instanceof Comparison) {
@@ -44,6 +50,9 @@ class ComparisonTransformer implements FilterTransformerInterface
         return false;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function transform(FilterInterface $filter, ParametersBag $parameters)
     {
         if ($filter instanceof Equals) {

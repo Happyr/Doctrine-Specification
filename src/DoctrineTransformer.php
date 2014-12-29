@@ -36,6 +36,12 @@ class DoctrineTransformer
         $this->queryBuilder = $queryBuilder;
     }
 
+    /**
+     * Modify query builder according to specification
+     *
+     * @param Specification $specification
+     * @return QueryBuilder modified query builder
+     */
     public function transform(Specification $specification)
     {
         $queryBuilder = clone $this->queryBuilder;
@@ -47,14 +53,20 @@ class DoctrineTransformer
         return $this->transformers;
     }
 
+    /**
+     * Add transformer to collection to use to transform specifications
+     * @param FilterTransformerInterface $transformer
+     */
     public function addTransformer(FilterTransformerInterface $transformer)
     {
         $this->transformers[] = $transformer;
     }
 
     /**
+     * Build where part
      * @param Specification $specification
      * @param $queryBuilder
+     *
      * @return QueryBuilder
      */
     private function addWhere(Specification $specification, $queryBuilder)
