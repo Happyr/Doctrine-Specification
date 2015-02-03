@@ -2,10 +2,32 @@
 
 namespace Happyr\DoctrineSpecification\Logic;
 
-class OrX extends LogicX
+use Happyr\DoctrineSpecification\InternalSpecificationInterface;
+
+class OrX implements  LogicX, InternalSpecificationInterface
 {
-    function __construct()
+    private $left;
+    private $right;
+
+    public function __construct(InternalSpecificationInterface $left, InternalSpecificationInterface $right)
     {
-        parent::__construct(self::OR_X, func_get_args());
+        $this->left = $left;
+        $this->right = $right;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLeft()
+    {
+        return $this->left;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRight()
+    {
+        return $this->right;
     }
 }

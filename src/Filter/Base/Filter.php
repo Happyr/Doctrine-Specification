@@ -2,7 +2,9 @@
 
 namespace Happyr\DoctrineSpecification\Filter\Base;
 
-abstract class Filter implements FilterInterface
+use Happyr\DoctrineSpecification\InternalSpecificationInterface;
+
+abstract class Filter implements FilterInterface, InternalSpecificationInterface
 {
     /**
      * @var string field

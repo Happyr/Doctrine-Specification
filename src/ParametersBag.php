@@ -10,9 +10,14 @@ class ParametersBag
     private $parameters = [];
 
     /**
+     * @var string
+     */
+    private $lastName = '';
+
+    /**
      * Clears parameters array
      */
-    public function clear()
+    public function clearAll()
     {
         $this->parameters = [];
     }
@@ -22,7 +27,7 @@ class ParametersBag
      *
      * @return array
      */
-    public function get()
+    public function getAll()
     {
         return $this->parameters;
     }
@@ -39,7 +44,7 @@ class ParametersBag
         $key = count($this->parameters) + 1;
         $this->parameters[$key] = $value;
 
-        return '?' . $key;
+        $this->lastName = '?' . $key;
     }
 
     /**
@@ -47,8 +52,16 @@ class ParametersBag
      *
      * @return bool
      */
-    public function has()
+    public function hasAny()
     {
         return (boolean)count($this->parameters);
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
     }
 }

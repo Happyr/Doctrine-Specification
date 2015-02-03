@@ -2,44 +2,30 @@
 
 namespace Happyr\DoctrineSpecification\Logic;
 
-use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Filter\Filter;
-use Happyr\DoctrineSpecification\Specification;
+use Happyr\DoctrineSpecification\Filter\Base\FilterInterface;
+use Happyr\DoctrineSpecification\InternalSpecificationInterface;
+use Happyr\DoctrineSpecification\SpecificationInterface;
 
-class Not
+class Not implements LogicX, InternalSpecificationInterface
 {
     /**
-     * @var Filter parent
+     * @var FilterInterface
      */
-    private $parent;
+    private $expression;
 
     /**
-     * @param Filter $expr
+     * @param SpecificationInterface $expression
      */
-    public function __construct(Filter $expr)
+    public function __construct(InternalSpecificationInterface $expression)
     {
-        $this->parent = $expr;
+        $this->expression = $expression;
     }
 
     /**
-     * @param QueryBuilder $qb
-     * @param string $dqlAlias
-     *
-     * @return string
+     * @return SpecificationInterface
      */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    public function getExpression()
     {
-        return (string) $qb->expr()->not($this->parent->getFilter($qb, $dqlAlias));
-    }
-
-    /**
-     * @param QueryBuilder $query
-     * @param string       $dqlAlias
-     */
-    public function modify(QueryBuilder $query, $dqlAlias)
-    {
-        if ($this->parent instanceof Specification) {
-            $this->parent->modify($query, $dqlAlias);
-        }
+        return $this->expression;
     }
 }
