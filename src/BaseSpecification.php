@@ -50,7 +50,7 @@ abstract class BaseSpecification implements Specification
      */
     protected function getQueryModifierInstance()
     {
-        return $this->spec;
+        return null;
     }
 
     /**
