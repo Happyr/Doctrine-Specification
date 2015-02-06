@@ -5,6 +5,7 @@ namespace Happyr\DoctrineSpecification;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
+use Happyr\DoctrineSpecification\Filter\Base\FilterInterface;
 use Happyr\DoctrineSpecification\Filter\Equals;
 use Happyr\DoctrineSpecification\Filter\GreaterOrEqualThan;
 use Happyr\DoctrineSpecification\Filter\GreaterThan;
@@ -35,10 +36,10 @@ class DoctrineTransformer
     /**
      * Modify query builder according to specification
      *
-     * @param SpecificationInterface $specification
+     * @param FilterInterface $specification
      * @return QueryBuilder modified query builder
      */
-    public function getQueryBuilder(SpecificationInterface $specification)
+    public function getQueryBuilder(FilterInterface $specification)
     {
         $parameters = new ParametersBag();
         $queryBuilder = clone $this->queryBuilder;
@@ -52,20 +53,16 @@ class DoctrineTransformer
     /**
      * Transform specification to DQL part
      *
-     * @param InternalSpecificationInterface $specification
+     * @param FilterInterface $specification
      * @param ParametersBag $parameters
      * @return QueryBuilder modified query builder
      */
-    public function getDQLPart(InternalSpecificationInterface $specification, ParametersBag $parameters)
+    public function getDQLPart(FilterInterface $specification, ParametersBag $parameters)
     {
-        if ($specification instanceof SpecificationInterface) {
-            $specification = $specification->getSpecification();
-        }
-
-        return $this->getInternalDqlPart($specification, $parameters);
+        return $this->getFilterDqlPart($specification, $parameters);
     }
 
-    private function getInternalDqlPart(InternalSpecificationInterface $specification, ParametersBag $parameters)
+    private function getFilterDqlPart(FilterInterface $specification, ParametersBag $parameters)
     {
         switch (get_class($specification)) {
             case 'Happyr\DoctrineSpecification\Filter\Equals':

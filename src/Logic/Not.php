@@ -3,10 +3,9 @@
 namespace Happyr\DoctrineSpecification\Logic;
 
 use Happyr\DoctrineSpecification\Filter\Base\FilterInterface;
-use Happyr\DoctrineSpecification\InternalSpecificationInterface;
 use Happyr\DoctrineSpecification\SpecificationInterface;
 
-class Not implements LogicX, InternalSpecificationInterface
+class Not implements LogicX
 {
     /**
      * @var FilterInterface
@@ -14,9 +13,9 @@ class Not implements LogicX, InternalSpecificationInterface
     private $expression;
 
     /**
-     * @param SpecificationInterface $expression
+     * @param FilterInterface $expression
      */
-    public function __construct(InternalSpecificationInterface $expression)
+    public function __construct(FilterInterface $expression)
     {
         $this->expression = $expression;
     }
@@ -27,5 +26,12 @@ class Not implements LogicX, InternalSpecificationInterface
     public function getExpression()
     {
         return $this->expression;
+    }
+
+    /**
+     * @return mixed Return field name to filter
+     */
+    public function getField()
+    {
     }
 }

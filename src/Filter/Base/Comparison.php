@@ -2,9 +2,7 @@
 
 namespace Happyr\DoctrineSpecification\Filter\Base;
 
-use Happyr\DoctrineSpecification\InternalSpecificationInterface;
-
-abstract class Comparison extends Filter implements ComparisonInterface, FilterInterface, InternalSpecificationInterface
+abstract class Comparison extends Filter
 {
     /**
      * @var mixed value

@@ -2,6 +2,8 @@
 
 namespace Happyr\DoctrineSpecification\Logic;
 
-interface LogicX
+use Happyr\DoctrineSpecification\Filter\Base\FilterInterface;
+
+interface LogicX extends FilterInterface
 {
 }

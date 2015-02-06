@@ -2,14 +2,15 @@
 
 namespace Happyr\DoctrineSpecification\Logic;
 
-use Happyr\DoctrineSpecification\InternalSpecificationInterface;
 
-class AndX implements LogicX, InternalSpecificationInterface
+use Happyr\DoctrineSpecification\Filter\Base\FilterInterface;
+
+class AndX implements LogicX
 {
     private $left;
     private $right;
 
-    public function __construct(InternalSpecificationInterface $left, InternalSpecificationInterface $right)
+    public function __construct(FilterInterface $left, FilterInterface $right)
     {
         $this->left = $left;
         $this->right = $right;
@@ -29,5 +30,12 @@ class AndX implements LogicX, InternalSpecificationInterface
     public function getRight()
     {
         return $this->right;
+    }
+
+    /**
+     * @return mixed Return field name to filter
+     */
+    public function getField()
+    {
     }
 }

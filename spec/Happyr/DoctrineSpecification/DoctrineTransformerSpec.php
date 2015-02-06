@@ -174,4 +174,6 @@ class DoctrineTransformerSpec extends ObjectBehavior
 
         $this->getDqlPart(new OrX(new Equals('field', 'value1'), new Equals('field', 'value2')), $parameters)->shouldReturn('field = ?1 OR field = ?2');
     }
+
+
 }
