@@ -1,4 +1,15 @@
-# Upgrade from 0.2 to dev-master
+# Upgrade from 0.3 to dev-master
+
+## BaseSpecification
+
+Merged `getFilterInstance` and `getQueryModifierInstance` into `getSpec`. The new function should return a `Filter` and/or
+a `QueryBuilder`. We did this to make the API easier.
+
+## LogicX
+
+You can now do `Spec::andx(new MyFilter(), new MyQueryModifier);` with both `Filter`s and `QueryBuilder`s.
+
+# Upgrade from 0.2 to 0.3
 
 It has been many changes since 0.2 and we refactored quite a lot. These are the biggest changes.
 
