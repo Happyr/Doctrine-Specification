@@ -15,19 +15,21 @@ It has been many changes since 0.2 and we refactored quite a lot. These are the 
 
 ## Changed interfaces
 
-The old `Specification` interface has been split up to two parts. We got a `Expression` with will modify the `SELECT` clause of
-the SQL query. We also got the `Query\Modifier` interface the modifies the query.
+The old `Specification` interface has been split up to two parts. We got a `Filter` with will modify the `SELECT` clause of
+the SQL query. We also got the `QueryModifier` interface the modifies the query (Limit, Order, Join etc). 
 
-The new `Specification` interface extends `Query\Modifier` and `Expression`.
+The new `Specification` interface extends `Filter` and `QueryModifier`.
 
-You have to update your specifications to comply with `Query\Modifier` and/or `Expression`
+You have to update your specifications to comply with `QueryModifier` and/or `Expression`
 
 
 ## BaseSpecification
 
-There are two new abstract methods `getWrappedModifier` and `getExpression`.
+There are two new methods `getFilter` and `modify`. You don't need to override these. You may use BaseSpecfication as normal. 
+
+The `supports` function has been removed.
 
 ## EntitySpecificationRepository
 
-The `match` method has changed to take a second optional parameter of a `Result\Modifier`. You may modify the result by chnaging
+The `match` method has changed to take a second optional parameter of a `ResultModifier`. You may modify the result by changing
 the hydration mode or to add a cache. We decided that it would not be a part of a `Specification`.
