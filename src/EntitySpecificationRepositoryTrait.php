@@ -13,6 +13,13 @@ trait EntitySpecificationRepositoryTrait
     private $alias = 'e';
 
     /**
+     * @param $alias
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    abstract public function createQueryBuilder($alias);
+
+    /**
      * Get result when you match with a Specification
      *
      * @param Specification   $specification
@@ -23,7 +30,6 @@ trait EntitySpecificationRepositoryTrait
     public function match(Specification $specification, Result\ResultModifier $modifier = null)
     {
         $alias = $this->alias;
-        /** @var \Doctrine\ORM\QueryBuilder $qb */
         $qb = $this->createQueryBuilder($alias);
 
         $specification->modify($qb, $alias);
