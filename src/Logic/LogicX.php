@@ -48,8 +48,10 @@ class LogicX implements Specification
         return call_user_func_array(
             array($qb->expr(), $this->expression),
             array_map(
-                function (Filter $expr) use ($qb, $dqlAlias) {
-                    return $expr->getFilter($qb, $dqlAlias);
+                function ($spec) use ($qb, $dqlAlias) {
+                    if ($spec instanceof Filter) {
+                        return $spec->getFilter($qb, $dqlAlias);
+                    }
                 },
                 $this->children
             )
