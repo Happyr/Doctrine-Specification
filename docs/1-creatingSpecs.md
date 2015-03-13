@@ -14,7 +14,6 @@ The `getFilter` function is where the action happens. You are most probably to r
 choose to return null. Consider this `ImageIsNullFilter`
 
 ``` php
-
 public function getFilter(QueryBuilder $qb, $dqlAlias)
 {
     if ($this->dqlAlias !== null) {
@@ -35,7 +34,6 @@ Implement this function if you want to make any changes to the query object. Say
 or limit the result set. Consider this `JoinUserSettingsModifier`.
 
 ```php
-
 /**
  * @param QueryBuilder $qb
  * @param string       $dqlAlias
@@ -63,7 +61,6 @@ this class you don't need to bother with `getFilter` or `modify`. You need to do
 Consider the following example.
 
 ``` php
-
 use Happyr\DoctrineSpecification\BaseSpecification;
 use Happyr\DoctrineSpecification\Spec;
 

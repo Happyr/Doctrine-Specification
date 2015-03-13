@@ -25,8 +25,6 @@ Then you may start to create your specifications. Put them in `Acme\DemoBundle\E
 
 namespace Acme\DemoBundle\Entity\Spec;
 
-use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\BaseSpecification;
 use Happyr\DoctrineSpecification\Spec;
 
@@ -38,7 +36,7 @@ class IsActive extends BaseSpecification
 {
     public function getSpec()
     {
-        $this->spec = Spec::andX(
+        return Spec::andX(
             Spec::eq('banned', false),
             Spec::gt('lastLogin', new \DateTime('-6months'),
         );
@@ -73,25 +71,22 @@ class DefaultController extends Controller
 
 ## Syntactic sugar
 
-There is a few different ways of using a Specification. You might use the ´Spec´ factory which probably is the most
-convenient one. (At least it reduces the imports)
+There is a few different ways of using a `Specification`. You might use the `Spec` factory which probably is the most
+convenient one. (At least it reduces the number of imports.)
 
 ``` php
-
 use Happyr\DoctrineSpecification\Spec;
 
 // ...
 
 $objects= $this->getEntityManager()
     ->getRepository('...')
-    ->match(Spec::gt('age', 18))
-;
+    ->match(Spec::gt('age', 18));
 ```
 
-You may of course use the Specification classes directly.
+You may of course use the specification classes directly.
 
 ``` php
-
 use Happyr\DoctrineSpecification\Comparison\GreaterThan;
 
 // ...
@@ -102,8 +97,8 @@ $objects= $this->getEntityManager()
 ;
 ```
 
-Some specs inherits from the Comparison spec (ie `Equals`, `GreaterThan`, `LessOrEqualThan`). You may choose to
-interact with directly with the Comparison class.
+Some specifications inherits from the `Comparison` specification (ie `Equals`, `GreaterThan`, `LessOrEqualThan`). You may choose to
+interact with directly with the `Comparison` class.
 
 ``` php
 
@@ -139,6 +134,24 @@ public function anyFunction()
     $spec = new MySpecification();
 
     $entitiesAsArray = $repo->match($spec, new AsArray());
+
+    // Do whatever
+}
+
+```
+
+You can use multiple `ResultModifiers` with the `ResultModifierCollection`.
+```php
+public function anyFunction()
+{
+    $repo = // EntitySpecificationRepository
+    $spec = new MySpecification();
+    $resultModifiers = new ResultModifierCollection(
+        new AsArray(),
+        new Cache(60),
+    );
+
+    $entities = $repo->match($spec, $resultModifiers);
 
     // Do whatever
 }

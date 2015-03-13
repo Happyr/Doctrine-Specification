@@ -116,7 +116,7 @@ class OwnedByCompany extends BaseSpecification
 
     public function getSpec()
     {
-        $this->spec = Spec::andX(
+        return Spec::andX(
             Spec::join('company', 'c'),
             Spec::eq('id', $this->companyId, 'c')
         );
