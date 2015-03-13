@@ -12,7 +12,7 @@ class In implements Filter
     protected $field;
 
     /**
-     * @var string value
+     * @var mixed value
      */
     protected $value;
 
@@ -22,10 +22,10 @@ class In implements Filter
     protected $dqlAlias;
 
     /**
-     * Make sure the $field has a value equals to $value
+     * Make sure the $field has a value equals to $value.
      *
      * @param string $field
-     * @param string $value
+     * @param mixed  $value
      * @param string $dqlAlias
      */
     public function __construct($field, $value, $dqlAlias = null)
@@ -35,10 +35,9 @@ class In implements Filter
         $this->dqlAlias = $dqlAlias;
     }
 
-
     /**
      * @param QueryBuilder $qb
-     * @param string $dqlAlias
+     * @param string       $dqlAlias
      *
      * @return string
      */
@@ -58,7 +57,7 @@ class In implements Filter
     }
 
     /**
-     * Get a good unique parameter name
+     * Get a good unique parameter name.
      *
      * @param QueryBuilder $qb
      *
