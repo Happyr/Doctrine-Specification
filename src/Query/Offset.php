@@ -4,11 +4,11 @@ use Doctrine\ORM\QueryBuilder;
 class Offset implements QueryModifier
 {
     /**
-     * @var int limit
+     * @var int offset
      */
     protected $offset;
     /**
-     * @param int $limit
+     * @param int $offset
      */
     public function __construct($offset)
     {
