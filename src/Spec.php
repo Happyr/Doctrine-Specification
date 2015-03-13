@@ -12,6 +12,7 @@ use Happyr\DoctrineSpecification\Filter\IsNull;
 use Happyr\DoctrineSpecification\Logic\LogicX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Query\Join;
+use Happyr\DoctrineSpecification\Result\Cache;
 
 /**
  * Factory class for the specifications
@@ -93,8 +94,8 @@ class Spec
         return new Like($field, $value, $format, $dqlAlias);
     }
 
-    public static function cache(Specification $spec, $cacheLifetime)
+    public static function cache($cacheLifetime)
     {
-        return new Cache($spec, $cacheLifetime);
+        return new Cache($cacheLifetime);
     }
 }
