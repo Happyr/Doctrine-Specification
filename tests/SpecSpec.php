@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Happyr\DoctrineSpecification;
+namespace tests\Happyr\DoctrineSpecification;
 
 use Happyr\DoctrineSpecification\Spec;
 use PhpSpec\ObjectBehavior;

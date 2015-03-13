@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Happyr\DoctrineSpecification\Filter;
+namespace tests\Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Expr;

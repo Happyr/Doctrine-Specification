@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Happyr\DoctrineSpecification\Logic;
+namespace tests\Happyr\DoctrineSpecification\Logic;
 
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
