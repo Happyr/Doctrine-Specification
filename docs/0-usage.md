@@ -28,35 +28,20 @@ namespace Acme\DemoBundle\Entity\Spec;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\BaseSpecification;
+use Happyr\DoctrineSpecification\Spec;
 
 /**
  * Check if a user is active.
  * An active user is not banned and has logged in within the last 6 months.
- *
- * @author Tobias Nyholm
  */
 class IsActive extends BaseSpecification
 {
-    /**
-     * @param string $dqlAlias
-     */
-    public function __construct($dqlAlias = null)
+    public function getSpec()
     {
-        parent::__construct($dqlAlias);
         $this->spec = Spec::andX(
             Spec::eq('banned', false),
             Spec::gt('lastLogin', new \DateTime('-6months'),
         );
-    }
-
-    /**
-     * @param string $className
-     *
-     * @return bool
-     */
-    public function supports($className)
-    {
-        return $className === 'Acme\DemoBundle\Entity\User';
     }
 }
 ```
@@ -88,7 +73,7 @@ class DefaultController extends Controller
 
 ## Syntactic sugar
 
-There is a few different ways of using a Specification. You might use the Spec factory which probably is the most
+There is a few different ways of using a Specification. You might use the ´Spec´ factory which probably is the most
 convenient one. (At least it reduces the imports)
 
 ``` php
@@ -138,3 +123,24 @@ $objects= $this->getEntityManager()
 * ```Spec::gt('age', 18)```
 * ```new GreaterThan('age', 18)```
 * ```new Comparison(Comparison::GT, 'age', 18)```
+
+
+
+# ResultModifier
+
+When you call `EntitySpecificationRepository::match` with your specification as first parameter you may use a `ResultModifier`
+as second parameter to modify the result.  An excellent use-case of this function is
+when you want to change the Hydration mode.
+
+```php
+public function anyFunction()
+{
+    $repo = // EntitySpecificationRepository
+    $spec = new MySpecification();
+
+    $entitiesAsArray = $repo->match($spec, new AsArray());
+
+    // Do whatever
+}
+
+```

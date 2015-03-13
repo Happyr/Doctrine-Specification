@@ -89,10 +89,9 @@ Yes, it looks pretty much the same. But the later is reusable. Say you want anot
 ``` php
 class AdvertsWeShouldClose extends BaseSpecification
 {
-    public function __construct($dqlAlias = null)
+    public function getSpec()
     {
-        parent::__construct($dqlAlias);
-        $this->spec = Spec::andX(
+        return Spec::andX(
             Spec::eq('ended', 0),
             Spec::orX(
                 Spec::lt('endDate', new \DateTime()),
@@ -103,22 +102,25 @@ class AdvertsWeShouldClose extends BaseSpecification
             )
         );
     }
-
-    // the support() function
 }
 
 class OwnedByCompany extends BaseSpecification
 {
+    private $companyId;
+
     public function __construct(Company $company, $dqlAlias = null)
     {
         parent::__construct($dqlAlias);
-        $this->spec = Spec::collection(
-            Spec::join('company', 'c'),
-            Spec::eq('id', $company->getId(), 'c')
-        );
+        $this->companyId = $company->getId();
     }
 
-    // the support() function
+    public function getSpec()
+    {
+        $this->spec = Spec::andX(
+            Spec::join('company', 'c'),
+            Spec::eq('id', $this->companyId, 'c')
+        );
+    }
 }
 
 class SomeService
