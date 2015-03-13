@@ -59,10 +59,8 @@ abstract class BaseSpecification implements Specification
     {
         $spec = $this->getSpec();
         if ($spec instanceof QueryModifier) {
-            return $spec->modify($qb, $this->getAlias($dqlAlias));
+            $spec->modify($qb, $this->getAlias($dqlAlias));
         }
-
-        return;
     }
 
     /**
