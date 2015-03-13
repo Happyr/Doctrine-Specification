@@ -92,4 +92,9 @@ class Spec
     {
         return new Like($field, $value, $format, $dqlAlias);
     }
+
+    public static function cache(Specification $spec, $cacheLifetime)
+    {
+        return new Cache($spec, $cacheLifetime);
+    }
 }
