@@ -1,0 +1,6 @@
+
+suites:
+    main:
+        namespace: Happyr\DoctrineSpecification
+        psr4_prefix: Happyr\DoctrineSpecification
+        spec_prefix: tests

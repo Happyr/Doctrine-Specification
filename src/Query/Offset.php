@@ -10,6 +10,7 @@ class Offset implements QueryModifier
      * @var int offset
      */
     protected $offset;
+
     /**
      * @param int $offset
      */
@@ -17,6 +18,7 @@ class Offset implements QueryModifier
     {
         $this->offset = $offset;
     }
+
     /**
      * @param QueryBuilder $qb
      * @param string       $dqlAlias

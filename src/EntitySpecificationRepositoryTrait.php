@@ -35,7 +35,7 @@ trait EntitySpecificationRepositoryTrait
         $specification->modify($qb, $alias);
         $query = $qb->where($specification->getFilter($qb, $alias))->getQuery();
 
-        if ($modifier instanceof Result\ResultModifier) {
+        if ($modifier !== null) {
             $modifier->modify($query);
         }
 

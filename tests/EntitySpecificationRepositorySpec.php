@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Happyr\DoctrineSpecification;
+namespace tests\Happyr\DoctrineSpecification;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;

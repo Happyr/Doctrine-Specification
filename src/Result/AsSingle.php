@@ -6,15 +6,15 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 
 /**
- * Class AsArray
+ * Class AsArray.
  */
-class AsArray implements ResultModifier
+class AsSingle implements ResultModifier
 {
     /**
      * @param AbstractQuery $query
      */
     public function modify(AbstractQuery $query)
     {
-        $query->setHydrationMode(Query::HYDRATE_ARRAY);
+        $query->setHydrationMode(Query::HYDRATE_SINGLE_SCALAR);
     }
 }
