@@ -13,4 +13,4 @@ interface Filter
      * @return string
      */
     public function getFilter(QueryBuilder $qb, $dqlAlias);
-} 
+}

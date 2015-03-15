@@ -28,7 +28,7 @@ class IsNull implements Filter
 
     /**
      * @param QueryBuilder $qb
-     * @param string $dqlAlias
+     * @param string       $dqlAlias
      *
      * @return string
      */

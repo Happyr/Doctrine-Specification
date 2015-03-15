@@ -2,11 +2,10 @@
 
 namespace Happyr\DoctrineSpecification\Query;
 
-use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class Join
+ * Class Join.
  */
 class Join implements QueryModifier
 {

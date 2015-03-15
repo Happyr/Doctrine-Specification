@@ -22,11 +22,11 @@ class OrderBy implements QueryModifier
     protected $dqlAlias;
 
     /**
-     * @param string $field
-     * @param string $order
+     * @param string      $field
+     * @param string      $order
      * @param string|null $dqlAlias
      */
-    public function __construct($field, $order='ASC', $dqlAlias = null)
+    public function __construct($field, $order = 'ASC', $dqlAlias = null)
     {
         $this->field = $field;
         $this->order = $order;

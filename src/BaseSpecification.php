@@ -3,12 +3,11 @@
 namespace Happyr\DoctrineSpecification;
 
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Exception\LogicException;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 
 /**
- * Extend this abstract class if you want to build a new spec with your domain logic
+ * Extend this abstract class if you want to build a new spec with your domain logic.
  */
 abstract class BaseSpecification implements Specification
 {
@@ -26,7 +25,7 @@ abstract class BaseSpecification implements Specification
     }
 
     /**
-     * Return all the specifications
+     * Return all the specifications.
      *
      * @return Specification
      */

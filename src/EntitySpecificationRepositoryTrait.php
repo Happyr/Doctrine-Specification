@@ -3,7 +3,7 @@
 namespace Happyr\DoctrineSpecification;
 
 /**
- * This trait should be used by a class extending \Doctrine\ORM\EntityRepository
+ * This trait should be used by a class extending \Doctrine\ORM\EntityRepository.
  */
 trait EntitySpecificationRepositoryTrait
 {
@@ -20,9 +20,9 @@ trait EntitySpecificationRepositoryTrait
     abstract public function createQueryBuilder($alias);
 
     /**
-     * Get result when you match with a Specification
+     * Get result when you match with a Specification.
      *
-     * @param Specification   $specification
+     * @param Specification         $specification
      * @param Result\ResultModifier $modifier
      *
      * @return mixed

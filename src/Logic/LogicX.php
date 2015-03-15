@@ -8,7 +8,7 @@ use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Specification;
 
 /**
- * This class should be used when you combine two or more Expressions
+ * This class should be used when you combine two or more Expressions.
  */
 class LogicX implements Specification
 {
@@ -26,9 +26,9 @@ class LogicX implements Specification
     private $expression;
 
     /**
-     * Take two or more Expression as parameters
+     * Take two or more Expression as parameters.
      *
-     * @param string $expression
+     * @param string   $expression
      * @param Filter[] $children
      */
     public function __construct($expression, array $children)
@@ -39,7 +39,7 @@ class LogicX implements Specification
 
     /**
      * @param QueryBuilder $qb
-     * @param string $dqlAlias
+     * @param string       $dqlAlias
      *
      * @return string
      */

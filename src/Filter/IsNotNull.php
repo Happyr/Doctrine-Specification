@@ -8,7 +8,7 @@ class IsNotNull extends IsNull
 {
     /**
      * @param QueryBuilder $qb
-     * @param string $dqlAlias
+     * @param string       $dqlAlias
      *
      * @return string
      */

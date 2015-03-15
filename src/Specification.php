@@ -7,5 +7,4 @@ use Happyr\DoctrineSpecification\Query\QueryModifier;
 
 interface Specification extends Filter, QueryModifier
 {
-
 }

@@ -19,7 +19,7 @@ use Happyr\DoctrineSpecification\Result\Cache;
 use Happyr\DoctrineSpecification\Specification\CountOf;
 
 /**
- * Factory class for the specifications
+ * Factory class for the specifications.
  */
 class Spec
 {

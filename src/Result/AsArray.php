@@ -6,7 +6,7 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 
 /**
- * Class AsArray
+ * Class AsArray.
  */
 class AsArray implements ResultModifier
 {

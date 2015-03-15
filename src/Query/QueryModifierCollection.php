@@ -14,9 +14,9 @@ class QueryModifierCollection implements QueryModifier
     private $children;
 
     /**
-     * Construct it with one or more instances of QueryModifier
+     * Construct it with one or more instances of QueryModifier.
      */
-    function __construct()
+    public function __construct()
     {
         $this->children = func_get_args();
     }
