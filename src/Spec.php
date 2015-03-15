@@ -6,6 +6,7 @@ use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\IsNotNull;
 use Happyr\DoctrineSpecification\Query\Limit;
 use Happyr\DoctrineSpecification\Query\Offset;
+use Happyr\DoctrineSpecification\Query\OrderBy;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Result\AsSingle;
 use Happyr\DoctrineSpecification\Filter\Comparison;
@@ -23,10 +24,9 @@ use Happyr\DoctrineSpecification\Specification\CountOf;
  */
 class Spec
 {
-    public static function countOf(Specification $spec)
-    {
-        return new CountOf($spec);
-    }
+    /*
+     * Logic
+     */
 
     public static function andX()
     {
@@ -43,6 +43,10 @@ class Spec
         return new Not($spec);
     }
 
+    /*
+     * Query modifier
+     */
+
     public static function join($field, $newAlias, $dqlAlias = null)
     {
         return new Join($field, $newAlias, $dqlAlias);
@@ -58,6 +62,15 @@ class Spec
         return new Offset($count);
     }
 
+    public static function orderBy($field, $order = 'ASC', $dqlAlias = null)
+    {
+        return new OrderBy($field, $order, $dqlAlias);
+    }
+
+    /*
+     * Result modifier
+     */
+
     public static function asArray()
     {
         return new AsArray();
@@ -67,6 +80,15 @@ class Spec
     {
         return new AsSingle();
     }
+
+    public static function cache($cacheLifetime)
+    {
+        return new Cache($cacheLifetime);
+    }
+
+    /*
+     * Filters
+     */
 
     public static function isNull($field, $dqlAlias = null)
     {
@@ -118,8 +140,12 @@ class Spec
         return new Like($field, $value, $format, $dqlAlias);
     }
 
-    public static function cache($cacheLifetime)
+    /*
+     * Specifications
+     */
+
+    public static function countOf(Specification $spec)
     {
-        return new Cache($cacheLifetime);
+        return new CountOf($spec);
     }
 }
