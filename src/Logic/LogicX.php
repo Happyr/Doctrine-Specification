@@ -16,7 +16,7 @@ class LogicX implements Specification
     const OR_X = 'orX';
 
     /**
-     * @var Filter[] children
+     * @var Filter[]|QueryModifier[] children
      */
     private $children;
 
@@ -28,10 +28,10 @@ class LogicX implements Specification
     /**
      * Take two or more Expression as parameters.
      *
-     * @param string   $expression
-     * @param Filter[] $children
+     * @param string                   $expression
+     * @param Filter[]|QueryModifier[] $children
      */
-    public function __construct($expression, array $children)
+    public function __construct($expression, array $children = array())
     {
         $this->expression = $expression;
         $this->children = $children;
@@ -69,5 +69,15 @@ class LogicX implements Specification
                 $child->modify($query, $dqlAlias);
             }
         }
+    }
+
+    /**
+     * Add another child to this logic tree.
+     *
+     * @param |Happyr\DoctrineSpecification\Filter\Filter|\Happyr\DoctrineSpecification\Query\QueryModifier $child
+     */
+    protected function append($child)
+    {
+        $this->children[] = $child;
     }
 }
