@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Happyr\DoctrineSpecification\Result;
+namespace tests\Happyr\DoctrineSpecification\Result;
 
 use Doctrine\ORM\AbstractQuery;
 use Happyr\DoctrineSpecification\Result\Cache;
