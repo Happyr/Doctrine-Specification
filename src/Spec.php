@@ -4,7 +4,10 @@ namespace Happyr\DoctrineSpecification;
 
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\IsNotNull;
+use Happyr\DoctrineSpecification\Query\Limit;
+use Happyr\DoctrineSpecification\Query\Offset;
 use Happyr\DoctrineSpecification\Result\AsArray;
+use Happyr\DoctrineSpecification\Result\AsSingle;
 use Happyr\DoctrineSpecification\Filter\Comparison;
 use Happyr\DoctrineSpecification\Filter\In;
 use Happyr\DoctrineSpecification\Filter\Like;
@@ -28,9 +31,24 @@ class Spec
         return new LogicX(LogicX::OR_X, func_get_args());
     }
 
+    public static function not(Filter $spec)
+    {
+        return new Not($spec);
+    }
+
     public static function join($field, $newAlias, $dqlAlias = null)
     {
         return new Join($field, $newAlias, $dqlAlias);
+    }
+
+    public static function limit($count)
+    {
+        return new Limit($count);
+    }
+
+    public static function offset($count)
+    {
+        return new Offset($count);
     }
 
     public static function asArray()
@@ -38,9 +56,9 @@ class Spec
         return new AsArray();
     }
 
-    public static function not(Filter $spec)
+    public static function asSingle()
     {
-        return new Not($spec);
+        return new AsSingle();
     }
 
     public static function isNull($field, $dqlAlias = null)
