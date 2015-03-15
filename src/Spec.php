@@ -16,12 +16,18 @@ use Happyr\DoctrineSpecification\Logic\LogicX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Query\Join;
 use Happyr\DoctrineSpecification\Result\Cache;
+use Happyr\DoctrineSpecification\Specification\CountOf;
 
 /**
  * Factory class for the specifications
  */
 class Spec
 {
+    public static function countOf(Specification $spec)
+    {
+        return new CountOf($spec);
+    }
+
     public static function andX()
     {
         return new LogicX(LogicX::AND_X, func_get_args());
