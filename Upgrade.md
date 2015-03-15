@@ -1,4 +1,7 @@
-# Upgrade from 0.3 to dev-master
+# Upgrade from 0.4 to dev-master
+
+
+# Upgrade from 0.3 to 0.4
 
 ## BaseSpecification
 
