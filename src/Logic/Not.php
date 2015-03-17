@@ -4,21 +4,22 @@ namespace Happyr\DoctrineSpecification\Logic;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Specification;
 
 class Not implements Specification
 {
     /**
-     * @var Filter parent
+     * @var Filter child
      */
-    private $parent;
+    private $child;
 
     /**
      * @param Filter $expr
      */
     public function __construct(Filter $expr)
     {
-        $this->parent = $expr;
+        $this->child = $expr;
     }
 
     /**
@@ -29,7 +30,7 @@ class Not implements Specification
      */
     public function getFilter(QueryBuilder $qb, $dqlAlias)
     {
-        return (string) $qb->expr()->not($this->parent->getFilter($qb, $dqlAlias));
+        return (string) $qb->expr()->not($this->child->getFilter($qb, $dqlAlias));
     }
 
     /**
@@ -38,8 +39,8 @@ class Not implements Specification
      */
     public function modify(QueryBuilder $query, $dqlAlias)
     {
-        if ($this->parent instanceof Specification) {
-            $this->parent->modify($query, $dqlAlias);
+        if ($this->child instanceof QueryModifier) {
+            $this->child->modify($query, $dqlAlias);
         }
     }
 }
