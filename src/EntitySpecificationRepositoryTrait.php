@@ -2,6 +2,8 @@
 
 namespace Happyr\DoctrineSpecification;
 
+use Happyr\DoctrineSpecification\Specification\Specification;
+
 /**
  * This trait should be used by a class extending \Doctrine\ORM\EntityRepository.
  */

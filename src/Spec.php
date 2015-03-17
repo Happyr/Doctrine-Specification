@@ -20,6 +20,7 @@ use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Query\Join;
 use Happyr\DoctrineSpecification\Result\Cache;
 use Happyr\DoctrineSpecification\Specification\CountOf;
+use Happyr\DoctrineSpecification\Specification\Specification;
 
 /**
  * Factory class for the specifications.
