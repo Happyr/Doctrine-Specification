@@ -9,7 +9,7 @@ use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\EntitySpecificationRepository;
 use Happyr\DoctrineSpecification\Result\ResultModifier;
-use Happyr\DoctrineSpecification\Specification;
+use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

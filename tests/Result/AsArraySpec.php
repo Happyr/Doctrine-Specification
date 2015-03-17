@@ -5,7 +5,7 @@ namespace tests\Happyr\DoctrineSpecification\Result;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Happyr\DoctrineSpecification\Result\AsArray;
-use Happyr\DoctrineSpecification\Specification;
+use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
