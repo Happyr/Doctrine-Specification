@@ -51,6 +51,11 @@ class Spec
     {
         return new Join($field, $newAlias, $dqlAlias);
     }
+    
+    public static function leftJoin($field, $newAlias, $dqlAlias = null)
+    {
+        return new LeftJoin($field, $newAlias, $dqlAlias);
+    }
 
     public static function limit($count)
     {
