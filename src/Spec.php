@@ -4,6 +4,8 @@ namespace Happyr\DoctrineSpecification;
 
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\IsNotNull;
+use Happyr\DoctrineSpecification\Query\InnerJoin;
+use Happyr\DoctrineSpecification\Query\LeftJoin;
 use Happyr\DoctrineSpecification\Query\Limit;
 use Happyr\DoctrineSpecification\Query\Offset;
 use Happyr\DoctrineSpecification\Query\OrderBy;
@@ -55,6 +57,11 @@ class Spec
     public static function leftJoin($field, $newAlias, $dqlAlias = null)
     {
         return new LeftJoin($field, $newAlias, $dqlAlias);
+    }
+
+    public static function innerJoin($field, $newAlias, $dqlAlias = null)
+    {
+        return new InnerJoin($field, $newAlias, $dqlAlias);
     }
 
     public static function limit($count)
