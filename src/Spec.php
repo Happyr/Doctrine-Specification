@@ -119,7 +119,7 @@ class Spec
 	
     public static function notIn($field, $value, $dqlAlias = null)
     {
-        return new Not (new In($field, $value, $dqlAlias));
+        return new Not(new In($field, $value, $dqlAlias));
     }
 
     public static function eq($field, $value, $dqlAlias = null)
