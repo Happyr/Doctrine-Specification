@@ -13,6 +13,7 @@ use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Result\AsSingle;
 use Happyr\DoctrineSpecification\Filter\Comparison;
 use Happyr\DoctrineSpecification\Filter\In;
+use Happyr\DoctrineSpecification\Filter\NotIn;
 use Happyr\DoctrineSpecification\Filter\Like;
 use Happyr\DoctrineSpecification\Filter\IsNull;
 use Happyr\DoctrineSpecification\Logic\LogicX;
@@ -115,6 +116,11 @@ class Spec
     public static function in($field, $value, $dqlAlias = null)
     {
         return new In($field, $value, $dqlAlias);
+    }
+    
+    public static function notIn($field, $value, $dqlAlias = null)
+    {
+        return new NotIn($field, $value, $dqlAlias);
     }
 
     public static function eq($field, $value, $dqlAlias = null)
