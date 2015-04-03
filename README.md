@@ -1,4 +1,8 @@
 # Happyr Doctrine Specification
+[![Build Status](https://travis-ci.org/Happyr/Doctrine-Specification.svg?branch=master)](https://travis-ci.org/Happyr/Doctrine-Specification)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/44c425af-90f6-4c25-b789-4ece28b01a2b/mini.png)](https://insight.sensiolabs.com/projects/44c425af-90f6-4c25-b789-4ece28b01a2b)
+[![Latest Stable Version](https://poser.pugx.org/happyr/doctrine-specification/v/stable.svg)](https://packagist.org/packages/happyr/doctrine-specification)
+[![Monthly Downloads](https://poser.pugx.org/happyr/doctrine-specification/d/monthly.png)](https://packagist.org/packages/happyr/doctrine-specification)
 
 This library gives you a new way for writing queries. Using the [Specification pattern][wiki_spec_pattern] you will
 get small Specification classes that are highly reusable.
