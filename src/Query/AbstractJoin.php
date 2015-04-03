@@ -37,7 +37,8 @@ abstract class AbstractJoin implements QueryModifier
     }
 
     /**
-     * Return a join type (ie a function of QueryBuilder) like: "join", "innerJoin", "leftJoin"
+     * Return a join type (ie a function of QueryBuilder) like: "join", "innerJoin", "leftJoin".
+     *
      * @return string
      */
     abstract protected function getJoinType();

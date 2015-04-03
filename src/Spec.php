@@ -53,7 +53,7 @@ class Spec
     {
         return new Join($field, $newAlias, $dqlAlias);
     }
-    
+
     public static function leftJoin($field, $newAlias, $dqlAlias = null)
     {
         return new LeftJoin($field, $newAlias, $dqlAlias);
@@ -116,12 +116,12 @@ class Spec
     {
         return new In($field, $value, $dqlAlias);
     }
-	
+
     public static function notIn($field, $value, $dqlAlias = null)
     {
         return new Not(new In($field, $value, $dqlAlias));
     }
-	
+
     public static function eq($field, $value, $dqlAlias = null)
     {
         return new Comparison(Comparison::EQ, $field, $value, $dqlAlias);
