@@ -13,13 +13,6 @@ trait EntitySpecificationRepositoryTrait
     private $alias = 'e';
 
     /**
-     * @param $alias
-     *
-     * @return \Doctrine\ORM\QueryBuilder
-     */
-    abstract public function createQueryBuilder($alias);
-
-    /**
      * Get result when you match with a Specification.
      *
      * @param Specification         $specification

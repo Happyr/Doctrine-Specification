@@ -61,7 +61,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
     {
         $entityManager->createQueryBuilder()->willReturn($qb);
         $specification->getFilter($qb, $this->alias)->willReturn($this->expression);
-        $qb->from(Argument::any(), $this->alias)->willReturn($qb);
+        $qb->from(Argument::any(), $this->alias, null)->willReturn($qb);
         $qb->select($this->alias)->willReturn($qb);
         $qb->where($this->expression)->willReturn($qb);
         $qb->getQuery()->willReturn($query);
