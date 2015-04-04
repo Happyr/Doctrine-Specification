@@ -1,5 +1,9 @@
-# Upgrade from 0.4 to dev-master
+# Upgrade from 0.5 to dev-master
 
+
+# Upgrade from 0.4 to 0.5
+
+Moved `Happyr\DoctrineSpecification\Specification` to `Happyr\DoctrineSpecification\Specification\Specification`.
 
 # Upgrade from 0.3 to 0.4
 
