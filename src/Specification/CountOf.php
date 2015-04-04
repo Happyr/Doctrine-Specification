@@ -3,7 +3,6 @@
 namespace Happyr\DoctrineSpecification\Specification;
 
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Specification;
 
 /**
  * @author Tobias Nyholm
@@ -11,7 +10,7 @@ use Happyr\DoctrineSpecification\Specification;
 class CountOf implements Specification
 {
     /**
-     * @var \Happyr\DoctrineSpecification\Specification child
+     * @var \Happyr\DoctrineSpecification\Specification\Specification child
      */
     private $child;
 

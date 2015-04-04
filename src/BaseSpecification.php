@@ -5,6 +5,7 @@ namespace Happyr\DoctrineSpecification;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
+use Happyr\DoctrineSpecification\Specification\Specification;
 
 /**
  * Extend this abstract class if you want to build a new spec with your domain logic.

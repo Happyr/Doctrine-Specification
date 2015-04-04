@@ -1,6 +1,6 @@
 <?php
 
-namespace Happyr\DoctrineSpecification;
+namespace Happyr\DoctrineSpecification\Specification;
 
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;

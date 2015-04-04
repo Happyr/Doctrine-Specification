@@ -5,7 +5,7 @@ namespace Happyr\DoctrineSpecification\Logic;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
-use Happyr\DoctrineSpecification\Specification;
+use Happyr\DoctrineSpecification\Specification\Specification;
 
 /**
  * This class should be used when you combine two or more Expressions.
