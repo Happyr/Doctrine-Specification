@@ -25,7 +25,7 @@ trait EntitySpecificationRepositoryTrait
      */
     public function match(Specification $specification, Result\ResultModifier $modifier = null)
     {
-        $query = $this->prepare($specification, $modifier);
+        $query = $this->getQuery($specification, $modifier);
 
         return $query->execute();
     }
@@ -38,7 +38,7 @@ trait EntitySpecificationRepositoryTrait
      *
      * @return Query
      */
-    public function prepare(Specification $specification, Result\ResultModifier $modifier = null)
+    public function getQuery(Specification $specification, Result\ResultModifier $modifier = null)
     {
         $alias = $this->alias;
         $qb = $this->createQueryBuilder($alias);
