@@ -2,6 +2,7 @@
 
 namespace Happyr\DoctrineSpecification;
 
+use Doctrine\ORM\Query;
 use Happyr\DoctrineSpecification\Specification\Specification;
 
 /**
@@ -24,6 +25,21 @@ trait EntitySpecificationRepositoryTrait
      */
     public function match(Specification $specification, Result\ResultModifier $modifier = null)
     {
+        $query = $this->getQuery($specification, $modifier);
+
+        return $query->execute();
+    }
+
+    /**
+     * Prepare a Query with a Specification
+     *
+     * @param Specification         $specification
+     * @param Result\ResultModifier $modifier
+     *
+     * @return Query
+     */
+    public function getQuery(Specification $specification, Result\ResultModifier $modifier = null)
+    {
         $alias = $this->alias;
         $qb = $this->createQueryBuilder($alias);
 
@@ -32,9 +48,11 @@ trait EntitySpecificationRepositoryTrait
 
         if ($modifier !== null) {
             $modifier->modify($query);
+
+            return $query;
         }
 
-        return $query->execute();
+        return $query;
     }
 
     /**
