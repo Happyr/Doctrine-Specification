@@ -2,7 +2,6 @@
 
 namespace Happyr\DoctrineSpecification\Query;
 
-
 class LeftJoin extends AbstractJoin
 {
     /**

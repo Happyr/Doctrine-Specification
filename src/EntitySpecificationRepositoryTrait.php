@@ -2,7 +2,6 @@
 
 namespace Happyr\DoctrineSpecification;
 
-use Doctrine\ORM\Query;
 use Happyr\DoctrineSpecification\Specification\Specification;
 
 /**
@@ -31,12 +30,12 @@ trait EntitySpecificationRepositoryTrait
     }
 
     /**
-     * Prepare a Query with a Specification
+     * Prepare a Query with a Specification.
      *
      * @param Specification         $specification
      * @param Result\ResultModifier $modifier
      *
-     * @return Query
+     * @return \Doctrine\ORM\Query
      */
     public function getQuery(Specification $specification, Result\ResultModifier $modifier = null)
     {
