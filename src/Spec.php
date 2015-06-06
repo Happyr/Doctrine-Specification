@@ -19,6 +19,7 @@ use Happyr\DoctrineSpecification\Filter\IsNull;
 use Happyr\DoctrineSpecification\Logic\LogicX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Query\Join;
+use Happyr\DoctrineSpecification\Result\AsSingleScalar;
 use Happyr\DoctrineSpecification\Result\Cache;
 use Happyr\DoctrineSpecification\Specification\CountOf;
 use Happyr\DoctrineSpecification\Specification\Having;
@@ -99,6 +100,11 @@ class Spec
     public static function asSingle()
     {
         return new AsSingle();
+    }
+
+    public static function asSingleScalar()
+    {
+        return new AsSingleScalar();
     }
 
     public static function cache($cacheLifetime)
