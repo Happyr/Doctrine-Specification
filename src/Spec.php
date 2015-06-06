@@ -4,6 +4,8 @@ namespace Happyr\DoctrineSpecification;
 
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\IsNotNull;
+use Happyr\DoctrineSpecification\Logic\AndX;
+use Happyr\DoctrineSpecification\Logic\OrX;
 use Happyr\DoctrineSpecification\Query\GroupBy;
 use Happyr\DoctrineSpecification\Query\InnerJoin;
 use Happyr\DoctrineSpecification\Query\LeftJoin;
@@ -16,7 +18,6 @@ use Happyr\DoctrineSpecification\Filter\Comparison;
 use Happyr\DoctrineSpecification\Filter\In;
 use Happyr\DoctrineSpecification\Filter\Like;
 use Happyr\DoctrineSpecification\Filter\IsNull;
-use Happyr\DoctrineSpecification\Logic\LogicX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Query\Join;
 use Happyr\DoctrineSpecification\Result\Cache;
@@ -35,12 +36,12 @@ class Spec
 
     public static function andX()
     {
-        return new LogicX(LogicX::AND_X, func_get_args());
+        return new AndX(func_get_args());
     }
 
     public static function orX()
     {
-        return new LogicX(LogicX::OR_X, func_get_args());
+        return new OrX(func_get_args());
     }
 
     public static function not(Filter $spec)
