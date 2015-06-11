@@ -6,7 +6,7 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 
 /**
- * Class AsArray.
+ * Class AsSingle.
  */
 class AsSingle implements ResultModifier
 {
@@ -15,6 +15,6 @@ class AsSingle implements ResultModifier
      */
     public function modify(AbstractQuery $query)
     {
-        $query->setHydrationMode(Query::HYDRATE_SINGLE_SCALAR);
+        $query->setHydrationMode(Query::HYDRATE_OBJECT);
     }
 }
