@@ -49,9 +49,9 @@ trait EntitySpecificationRepositoryTrait
         try {
             return $query->getSingleResult();
         } catch (NonUniqueResultException $e) {
-            throw new Exception\NonUniqueResultException;
+            throw new Exception\NonUniqueResultException($e->getMessage(), $e->getCode(), $e);
         } catch (NoResultException $e) {
-            throw new Exception\NoResultException;
+            throw new Exception\NoResultException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
