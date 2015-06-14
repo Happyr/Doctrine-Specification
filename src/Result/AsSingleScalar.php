@@ -6,9 +6,9 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 
 /**
- * Class AsArray.
+ * Class AsSingleScalar.
  */
-class AsSingle implements ResultModifier
+class AsSingleScalar implements ResultModifier
 {
     /**
      * @param AbstractQuery $query

@@ -2,6 +2,8 @@
 
 namespace Happyr\DoctrineSpecification;
 
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Happyr\DoctrineSpecification\Specification\Specification;
 
 /**
@@ -15,18 +17,62 @@ trait EntitySpecificationRepositoryTrait
     private $alias = 'e';
 
     /**
-     * Get result when you match with a Specification.
+     * Get results when you match with a Specification.
      *
      * @param Specification         $specification
      * @param Result\ResultModifier $modifier
      *
-     * @return mixed
+     * @return mixed[]
      */
     public function match(Specification $specification, Result\ResultModifier $modifier = null)
     {
         $query = $this->getQuery($specification, $modifier);
 
         return $query->execute();
+    }
+
+    /**
+     * Get single result when you match with a Specification.
+     *
+     * @param Specification         $specification
+     * @param Result\ResultModifier $modifier
+     *
+     * @throw Exception\NonUniqueException  If more than one result is found
+     * @throw Exception\NoResultException   If no results found
+     *
+     * @return mixed
+     */
+    public function matchSingleResult(Specification $specification, Result\ResultModifier $modifier = null)
+    {
+        $query = $this->getQuery($specification, $modifier);
+
+        try {
+            return $query->getSingleResult();
+        } catch (NonUniqueResultException $e) {
+            throw new Exception\NonUniqueResultException($e->getMessage(), $e->getCode(), $e);
+        } catch (NoResultException $e) {
+            throw new Exception\NoResultException($e->getMessage(), $e->getCode(), $e);
+        }
+    }
+
+
+    /**
+     * Get single result or null when you match with a Specification
+     *
+     * @param Specification         $specification
+     * @param Result\ResultModifier $modifier
+     *
+     * @throw Exception\NonUniqueException  If more than one result is found
+     *
+     * @return mixed|null
+     */
+    public function matchOneOrNullResult(Specification $specification, Result\ResultModifier $modifier = null)
+    {
+        try {
+            return $this->matchSingleResult($specification, $modifier);
+        } catch (Exception\NoResultException $e) {
+            return null;
+        }
     }
 
     /**
