@@ -89,7 +89,12 @@ trait EntitySpecificationRepositoryTrait
         $qb = $this->createQueryBuilder($alias);
 
         $specification->modify($qb, $alias);
-        $query = $qb->where($specification->getFilter($qb, $alias))->getQuery();
+
+        if ($filter = (string) $specification->getFilter($qb, $alias)) {
+            $qb->where($filter);
+        }
+
+        $query = $qb->getQuery();
 
         if ($modifier !== null) {
             $modifier->modify($query);

@@ -29,6 +29,22 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->beConstructedWith($entityManager, $classMetadata);
     }
 
+    function it_matches_a_specification_with_empty_filter(
+        Specification $specification,
+        EntityManager $entityManager,
+        QueryBuilder $qb,
+        AbstractQuery $query
+    )
+    {
+        $this->prepareEntityManagerStub($entityManager, $qb);
+        $this->prepareQueryBuilderStub($qb, $query);
+        $query->execute()->willReturn($this->result);
+
+        $qb->where()->shouldNotBeCalled();
+
+        $this->match($specification)->shouldReturn($this->result);
+    }
+
     function it_matches_a_specification_without_result_modifier(
         Specification $specification,
         EntityManager $entityManager,
@@ -164,8 +180,23 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
 
     private function prepareStubs(Specification $specification, EntityManager $entityManager, QueryBuilder $qb, AbstractQuery $query)
     {
+        $this->prepareEntityManagerStub($entityManager, $qb);
+        $this->prepareSpecificationStub($specification, $qb);
+        $this->prepareQueryBuilderStub($qb, $query);
+    }
+
+    private function prepareEntityManagerStub(EntityManager $entityManager, QueryBuilder $qb)
+    {
         $entityManager->createQueryBuilder()->willReturn($qb);
+    }
+
+    private function prepareSpecificationStub(Specification $specification, QueryBuilder $qb)
+    {
         $specification->getFilter($qb, $this->alias)->willReturn($this->expression);
+    }
+
+    private function prepareQueryBuilderStub(QueryBuilder $qb, Query $query)
+    {
         $qb->from(Argument::any(), $this->alias, null)->willReturn($qb);
         $qb->select($this->alias)->willReturn($qb);
         $qb->where($this->expression)->willReturn($qb);
