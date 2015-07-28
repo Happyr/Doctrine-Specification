@@ -2,24 +2,25 @@
 
 namespace Happyr\DoctrineSpecification;
 
+use Happyr\DoctrineSpecification\Filter\Comparison;
 use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Filter\In;
+use Happyr\DoctrineSpecification\Filter\InstanceOfX;
 use Happyr\DoctrineSpecification\Filter\IsNotNull;
+use Happyr\DoctrineSpecification\Filter\IsNull;
+use Happyr\DoctrineSpecification\Filter\Like;
 use Happyr\DoctrineSpecification\Logic\AndX;
+use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
 use Happyr\DoctrineSpecification\Query\GroupBy;
 use Happyr\DoctrineSpecification\Query\InnerJoin;
+use Happyr\DoctrineSpecification\Query\Join;
 use Happyr\DoctrineSpecification\Query\LeftJoin;
 use Happyr\DoctrineSpecification\Query\Limit;
 use Happyr\DoctrineSpecification\Query\Offset;
 use Happyr\DoctrineSpecification\Query\OrderBy;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Result\AsSingle;
-use Happyr\DoctrineSpecification\Filter\Comparison;
-use Happyr\DoctrineSpecification\Filter\In;
-use Happyr\DoctrineSpecification\Filter\Like;
-use Happyr\DoctrineSpecification\Filter\IsNull;
-use Happyr\DoctrineSpecification\Logic\Not;
-use Happyr\DoctrineSpecification\Query\Join;
 use Happyr\DoctrineSpecification\Result\AsSingleScalar;
 use Happyr\DoctrineSpecification\Result\Cache;
 use Happyr\DoctrineSpecification\Specification\CountOf;
@@ -170,6 +171,11 @@ class Spec
     public static function like($field, $value, $format = Like::CONTAINS, $dqlAlias = null)
     {
         return new Like($field, $value, $format, $dqlAlias);
+    }
+
+    public static function instanceOfX($value, $dqlAlias = null)
+    {
+        return new InstanceOfX($value, $dqlAlias);
     }
 
     /*
