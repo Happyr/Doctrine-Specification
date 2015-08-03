@@ -4,7 +4,9 @@ namespace Happyr\DoctrineSpecification;
 
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
-use Happyr\DoctrineSpecification\Specification\Specification;
+use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Query\QueryModifier;
 
 /**
  * This trait should be used by a class extending \Doctrine\ORM\EntityRepository.
@@ -19,12 +21,12 @@ trait EntitySpecificationRepositoryTrait
     /**
      * Get results when you match with a Specification.
      *
-     * @param Specification         $specification
+     * @param Filter|QueryModifier  $specification
      * @param Result\ResultModifier $modifier
      *
      * @return mixed[]
      */
-    public function match(Specification $specification, Result\ResultModifier $modifier = null)
+    public function match($specification, Result\ResultModifier $modifier = null)
     {
         $query = $this->getQuery($specification, $modifier);
 
@@ -34,7 +36,7 @@ trait EntitySpecificationRepositoryTrait
     /**
      * Get single result when you match with a Specification.
      *
-     * @param Specification         $specification
+     * @param Filter|QueryModifier  $specification
      * @param Result\ResultModifier $modifier
      *
      * @throw Exception\NonUniqueException  If more than one result is found
@@ -42,7 +44,7 @@ trait EntitySpecificationRepositoryTrait
      *
      * @return mixed
      */
-    public function matchSingleResult(Specification $specification, Result\ResultModifier $modifier = null)
+    public function matchSingleResult($specification, Result\ResultModifier $modifier = null)
     {
         $query = $this->getQuery($specification, $modifier);
 
@@ -59,14 +61,14 @@ trait EntitySpecificationRepositoryTrait
     /**
      * Get single result or null when you match with a Specification
      *
-     * @param Specification         $specification
+     * @param Filter|QueryModifier  $specification
      * @param Result\ResultModifier $modifier
      *
      * @throw Exception\NonUniqueException  If more than one result is found
      *
      * @return mixed|null
      */
-    public function matchOneOrNullResult(Specification $specification, Result\ResultModifier $modifier = null)
+    public function matchOneOrNullResult($specification, Result\ResultModifier $modifier = null)
     {
         try {
             return $this->matchSingleResult($specification, $modifier);
@@ -78,21 +80,16 @@ trait EntitySpecificationRepositoryTrait
     /**
      * Prepare a Query with a Specification.
      *
-     * @param Specification         $specification
+     * @param Filter|QueryModifier  $specification
      * @param Result\ResultModifier $modifier
      *
      * @return \Doctrine\ORM\Query
      */
-    public function getQuery(Specification $specification, Result\ResultModifier $modifier = null)
+    public function getQuery($specification, Result\ResultModifier $modifier = null)
     {
-        $alias = $this->alias;
-        $qb = $this->createQueryBuilder($alias);
+        $qb = $this->createQueryBuilder($this->alias);
 
-        $specification->modify($qb, $alias);
-
-        if ($filter = (string) $specification->getFilter($qb, $alias)) {
-            $qb->where($filter);
-        }
+        $this->applySpecification($qb, $specification);
 
         $query = $qb->getQuery();
 
@@ -123,5 +120,34 @@ trait EntitySpecificationRepositoryTrait
     public function getAlias()
     {
         return $this->alias;
+    }
+
+    /**
+     * @param QueryBuilder         $queryBuilder
+     * @param Filter|QueryModifier $specification
+     * @param string               $alias
+     * @throws \InvalidArgumentException
+     */
+    protected function applySpecification(QueryBuilder $queryBuilder, $specification = null, $alias = null)
+    {
+        if (null === $specification) {
+            return;
+        }
+        if (!$specification instanceof QueryModifier && !$specification instanceof Filter) {
+            throw new \InvalidArgumentException(sprintf(
+                'Expected argument of type "%s" or "%s", "%s" given.',
+                'Happyr\DoctrineSpecification\Query\QueryModifier',
+                'Happyr\DoctrineSpecification\Filter\Filter',
+                is_object($specification) ? get_class($specification) : gettype($specification)
+            ));
+        }
+        if ($specification instanceof QueryModifier) {
+            $specification->modify($queryBuilder, $alias ?: $this->getAlias());
+        }
+        if ($specification instanceof Filter
+            && $filter = (string)$specification->getFilter($queryBuilder, $alias ?: $this->getAlias())
+        ) {
+            $queryBuilder->andWhere($filter);
+        }
     }
 }

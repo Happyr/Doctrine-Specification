@@ -10,6 +10,8 @@ use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\EntitySpecificationRepository;
+use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Result\ResultModifier;
 use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
@@ -29,17 +31,75 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->beConstructedWith($entityManager, $classMetadata);
     }
 
+    function it_should_modify_query(
+        QueryModifier $specification,
+        EntityManager $entityManager,
+        QueryBuilder $qb,
+        AbstractQuery $query
+    ) {
+        $this->prepareEntityManagerStub($entityManager, $qb);
+        $this->prepareQueryBuilderStub($qb, $query);
+        $query->execute()->willReturn($this->result);
+
+        $specification->modify($qb, $this->alias)->shouldBeCalled();
+
+        $this->match($specification);
+    }
+
+    function it_should_apply_filter(
+        Filter $specification,
+        EntityManager $entityManager,
+        QueryBuilder $qb,
+        AbstractQuery $query
+    ) {
+        $this->prepareEntityManagerStub($entityManager, $qb);
+        $this->prepareQueryBuilderStub($qb, $query);
+        $specification->getFilter($qb, $this->alias)->willReturn($this->expression);
+
+        $qb->andWhere($this->expression)->willReturn($qb);
+        $qb->where()->shouldNotBeCalled();
+
+        $this->match($specification);
+    }
+
+    function it_should_skip_apply_empty_specification(
+        EntityManager $entityManager,
+        QueryBuilder $qb,
+        AbstractQuery $query
+    ) {
+        $this->prepareEntityManagerStub($entityManager, $qb);
+        $this->prepareQueryBuilderStub($qb, $query);
+
+        $qb->andWhere()->shouldNotBeCalled();
+        $qb->where()->shouldNotBeCalled();
+
+        $this->match(null);
+    }
+
+    function it_should_throw_exception_when_apply_not_specification(
+        EntityManager $entityManager,
+        QueryBuilder $qb,
+        AbstractQuery $query
+    ) {
+        $this->prepareEntityManagerStub($entityManager, $qb);
+        $this->prepareQueryBuilderStub($qb, $query);
+
+        $this->shouldThrow('\InvalidArgumentException')->duringMatch(new \stdClass);
+        $this->shouldThrow('\InvalidArgumentException')->duringMatch(['fake', 'array']);
+        $this->shouldThrow('\InvalidArgumentException')->duringMatch('fake');
+    }
+
     function it_matches_a_specification_with_empty_filter(
         Specification $specification,
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    )
-    {
+    ) {
         $this->prepareEntityManagerStub($entityManager, $qb);
         $this->prepareQueryBuilderStub($qb, $query);
         $query->execute()->willReturn($this->result);
 
+        $qb->andWhere()->shouldNotBeCalled();
         $qb->where()->shouldNotBeCalled();
 
         $this->match($specification)->shouldReturn($this->result);
@@ -199,7 +259,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
     {
         $qb->from(Argument::any(), $this->alias, null)->willReturn($qb);
         $qb->select($this->alias)->willReturn($qb);
-        $qb->where($this->expression)->willReturn($qb);
+        $qb->andWhere($this->expression)->willReturn($qb);
         $qb->getQuery()->willReturn($query);
     }
 }
