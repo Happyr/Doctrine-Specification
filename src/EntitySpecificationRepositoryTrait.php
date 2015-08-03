@@ -57,9 +57,8 @@ trait EntitySpecificationRepositoryTrait
         }
     }
 
-
     /**
-     * Get single result or null when you match with a Specification
+     * Get single result or null when you match with a Specification.
      *
      * @param Filter|QueryModifier  $specification
      * @param Result\ResultModifier $modifier
@@ -73,7 +72,7 @@ trait EntitySpecificationRepositoryTrait
         try {
             return $this->matchSingleResult($specification, $modifier);
         } catch (Exception\NoResultException $e) {
-            return null;
+            return;
         }
     }
 
@@ -88,15 +87,11 @@ trait EntitySpecificationRepositoryTrait
     public function getQuery($specification, Result\ResultModifier $modifier = null)
     {
         $qb = $this->createQueryBuilder($this->alias);
-
         $this->applySpecification($qb, $specification);
-
         $query = $qb->getQuery();
 
         if ($modifier !== null) {
             $modifier->modify($query);
-
-            return $query;
         }
 
         return $query;
@@ -126,6 +121,7 @@ trait EntitySpecificationRepositoryTrait
      * @param QueryBuilder         $queryBuilder
      * @param Filter|QueryModifier $specification
      * @param string               $alias
+     *
      * @throws \InvalidArgumentException
      */
     protected function applySpecification(QueryBuilder $queryBuilder, $specification = null, $alias = null)
@@ -133,6 +129,7 @@ trait EntitySpecificationRepositoryTrait
         if (null === $specification) {
             return;
         }
+
         if (!$specification instanceof QueryModifier && !$specification instanceof Filter) {
             throw new \InvalidArgumentException(sprintf(
                 'Expected argument of type "%s" or "%s", "%s" given.',
@@ -141,11 +138,13 @@ trait EntitySpecificationRepositoryTrait
                 is_object($specification) ? get_class($specification) : gettype($specification)
             ));
         }
+
         if ($specification instanceof QueryModifier) {
             $specification->modify($queryBuilder, $alias ?: $this->getAlias());
         }
+
         if ($specification instanceof Filter
-            && $filter = (string)$specification->getFilter($queryBuilder, $alias ?: $this->getAlias())
+            && $filter = (string) $specification->getFilter($queryBuilder, $alias ?: $this->getAlias())
         ) {
             $queryBuilder->andWhere($filter);
         }
