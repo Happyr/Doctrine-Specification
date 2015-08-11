@@ -9,9 +9,7 @@ use Happyr\DoctrineSpecification\Filter\InstanceOfX;
 use Happyr\DoctrineSpecification\Filter\IsNotNull;
 use Happyr\DoctrineSpecification\Filter\IsNull;
 use Happyr\DoctrineSpecification\Filter\Like;
-use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Logic\Not;
-use Happyr\DoctrineSpecification\Logic\OrX;
 use Happyr\DoctrineSpecification\Query\GroupBy;
 use Happyr\DoctrineSpecification\Query\InnerJoin;
 use Happyr\DoctrineSpecification\Query\Join;
@@ -38,12 +36,18 @@ class Spec
 
     public static function andX()
     {
-        return new AndX(func_get_args());
+        $args = func_get_args();
+        $reflection = new \ReflectionClass('Happyr\DoctrineSpecification\Logic\AndX');
+
+        return $reflection->newInstanceArgs($args);
     }
 
     public static function orX()
     {
-        return new OrX(func_get_args());
+        $args = func_get_args();
+        $reflection = new \ReflectionClass('Happyr\DoctrineSpecification\Logic\OrX');
+
+        return $reflection->newInstanceArgs($args);
     }
 
     public static function not(Filter $spec)
