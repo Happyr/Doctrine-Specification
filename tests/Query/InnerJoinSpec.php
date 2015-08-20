@@ -22,14 +22,14 @@ class InnerJoinSpec extends ObjectBehavior
 
     public function it_joins_with_default_dql_alias(QueryBuilder $qb)
     {
-        $qb->innerJoin('a.user', 'authUser')->shouldBeCalled();
+        $qb->innerJoin('a.user', 'authUser', null, null)->shouldBeCalled();
         $this->modify($qb, 'a');
     }
 
     public function it_uses_local_alias_if_global_was_not_set(QueryBuilder $qb)
     {
         $this->beConstructedWith('user', 'authUser');
-        $qb->innerJoin('b.user', 'authUser')->shouldBeCalled();
+        $qb->innerJoin('b.user', 'authUser', null, null)->shouldBeCalled();
         $this->modify($qb, 'b');
     }
 }
