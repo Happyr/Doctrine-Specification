@@ -59,19 +59,19 @@ class Spec
      * Query modifier
      */
 
-    public static function join($field, $newAlias, $dqlAlias = null)
+    public static function join($field, $newAlias, $dqlAlias = null, $condition = null, $conditionType = null)
     {
-        return new Join($field, $newAlias, $dqlAlias);
+        return new Join($field, $newAlias, $dqlAlias, $condition, $conditionType);
     }
 
-    public static function leftJoin($field, $newAlias, $dqlAlias = null)
+    public static function leftJoin($field, $newAlias, $dqlAlias = null, $condition = null, $conditionType = null)
     {
-        return new LeftJoin($field, $newAlias, $dqlAlias);
+        return new LeftJoin($field, $newAlias, $dqlAlias, $condition, $conditionType);
     }
 
-    public static function innerJoin($field, $newAlias, $dqlAlias = null)
+    public static function innerJoin($field, $newAlias, $dqlAlias = null, $condition = null, $conditionType = null)
     {
-        return new InnerJoin($field, $newAlias, $dqlAlias);
+        return new InnerJoin($field, $newAlias, $dqlAlias, $condition, $conditionType);
     }
 
     public static function limit($count)
