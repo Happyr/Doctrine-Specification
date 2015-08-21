@@ -103,6 +103,9 @@ class Spec
         return new AsArray();
     }
 
+    /**
+     * @deprecated
+     */
     public static function asSingle()
     {
         return new AsSingle();
