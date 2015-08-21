@@ -2,7 +2,6 @@
 
 namespace Happyr\DoctrineSpecification\Query;
 
-use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 

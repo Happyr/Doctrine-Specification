@@ -7,7 +7,7 @@ use Doctrine\ORM\AbstractQuery;
 class Cache implements ResultModifier
 {
     /**
-     * @var integer How may seconds the cache entry is valid
+     * @var int How may seconds the cache entry is valid
      */
     private $cacheLifetime;
 

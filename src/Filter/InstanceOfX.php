@@ -1,20 +1,18 @@
 <?php
+
 namespace Happyr\DoctrineSpecification\Filter;
 
-use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 
 class InstanceOfX implements Filter
 {
     /**
      * @var null|string dqlAlias
-     *
      */
     protected $dqlAlias;
 
     /**
      * @var string value
-     *
      */
     protected $value;
 

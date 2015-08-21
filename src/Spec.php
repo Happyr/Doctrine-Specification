@@ -18,7 +18,6 @@ use Happyr\DoctrineSpecification\Query\Limit;
 use Happyr\DoctrineSpecification\Query\Offset;
 use Happyr\DoctrineSpecification\Query\OrderBy;
 use Happyr\DoctrineSpecification\Result\AsArray;
-use Happyr\DoctrineSpecification\Result\AsSingle;
 use Happyr\DoctrineSpecification\Result\AsSingleScalar;
 use Happyr\DoctrineSpecification\Result\Cache;
 use Happyr\DoctrineSpecification\Specification\CountOf;
@@ -101,14 +100,6 @@ class Spec
     public static function asArray()
     {
         return new AsArray();
-    }
-
-    /**
-     * @deprecated
-     */
-    public static function asSingle()
-    {
-        return new AsSingle();
     }
 
     public static function asSingleScalar()
