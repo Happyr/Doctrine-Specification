@@ -4,6 +4,8 @@ namespace Happyr\DoctrineSpecification;
 
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\Common\Persistence\ObjectRepository;
+use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Query\QueryModifier;
 
 /**
  * This interface should be used by an EntityRepository implementing the Specification pattern.
@@ -44,4 +46,14 @@ interface EntitySpecificationRepositoryInterface extends ObjectRepository, Selec
      * @return mixed|null
      */
     function matchOneOrNullResult($specification, Result\ResultModifier $modifier);
+
+    /**
+     * Prepare a Query with a Specification.
+     *
+     * @param Filter|QueryModifier  $specification
+     * @param Result\ResultModifier $modifier
+     *
+     * @return \Doctrine\ORM\Query
+     */
+    function getQuery($specification, Result\ResultModifier $modifier);
 }
