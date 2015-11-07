@@ -43,6 +43,6 @@ class OrderBy implements QueryModifier
             $dqlAlias = $this->dqlAlias;
         }
 
-        $qb->orderBy(sprintf('%s.%s', $dqlAlias, $this->field), $this->order);
+        $qb->addOrderBy(sprintf('%s.%s', $dqlAlias, $this->field), $this->order);
     }
 }
