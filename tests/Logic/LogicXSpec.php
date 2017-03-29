@@ -8,7 +8,6 @@ use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Logic\LogicX;
 use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * @mixin LogicX
@@ -17,17 +16,17 @@ class LogicXSpec extends ObjectBehavior
 {
     const EXPRESSION = 'andX';
 
-    function let(Specification $specificationA, Specification $specificationB)
+    public function let(Specification $specificationA, Specification $specificationB)
     {
         $this->beConstructedWith(self::EXPRESSION, array($specificationA, $specificationB));
     }
 
-    function it_is_a_specification()
+    public function it_is_a_specification()
     {
         $this->shouldHaveType('Happyr\DoctrineSpecification\Specification\Specification');
     }
 
-    function it_modifies_all_child_queries(QueryBuilder $queryBuilder, Specification $specificationA, Specification $specificationB)
+    public function it_modifies_all_child_queries(QueryBuilder $queryBuilder, Specification $specificationA, Specification $specificationB)
     {
         $dqlAlias = 'a';
 
@@ -37,7 +36,7 @@ class LogicXSpec extends ObjectBehavior
         $this->modify($queryBuilder, $dqlAlias);
     }
 
-    function it_composes_and_child_with_expression(QueryBuilder $qb, Expr $expression, Specification $specificationA, Specification $specificationB, $x, $y)
+    public function it_composes_and_child_with_expression(QueryBuilder $qb, Expr $expression, Specification $specificationA, Specification $specificationB, $x, $y)
     {
         $dqlAlias = 'a';
 
@@ -50,7 +49,7 @@ class LogicXSpec extends ObjectBehavior
         $this->getFilter($qb, $dqlAlias);
     }
 
-    function it_supports_expressions(QueryBuilder $qb, Expr $expression, Filter $exprA, Filter $exprB, $x, $y)
+    public function it_supports_expressions(QueryBuilder $qb, Expr $expression, Filter $exprA, Filter $exprB, $x, $y)
     {
         $this->beConstructedWith(self::EXPRESSION, array($exprA, $exprB));
 

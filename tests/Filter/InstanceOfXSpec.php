@@ -1,4 +1,5 @@
 <?php
+
 namespace tests\Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\QueryBuilder;
@@ -10,22 +11,22 @@ use PhpSpec\ObjectBehavior;
  */
 class InstanceOfXSpec extends ObjectBehavior
 {
-    function let()
+    public function let()
     {
         $this->beConstructedWith('My\Model', 'o');
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Happyr\DoctrineSpecification\Filter\InstanceOfX');
     }
 
-    function it_is_an_expression()
+    public function it_is_an_expression()
     {
         $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Filter');
     }
 
-    function it_returns_expression_func_object(QueryBuilder $qb)
+    public function it_returns_expression_func_object(QueryBuilder $qb)
     {
         $this->getFilter($qb, null)->shouldReturn('o INSTANCE OF My\Model');
     }

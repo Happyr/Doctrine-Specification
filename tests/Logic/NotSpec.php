@@ -6,25 +6,23 @@ use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Logic\Not;
-use Happyr\DoctrineSpecification\Spec;
 use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * @mixin Not
  */
 class NotSpec extends ObjectBehavior
 {
-    function let(Filter $filterExpr)
+    public function let(Filter $filterExpr)
     {
         $this->beConstructedWith($filterExpr, null);
     }
 
     /**
-     * calls parent
+     * calls parent.
      */
-    function it_calls_parent_match(QueryBuilder $qb, Expr $expr, Filter $filterExpr)
+    public function it_calls_parent_match(QueryBuilder $qb, Expr $expr, Filter $filterExpr)
     {
         $dqlAlias = 'a';
         $expression = 'expression';
@@ -39,9 +37,9 @@ class NotSpec extends ObjectBehavior
     }
 
     /**
-     * modifies parent query
+     * modifies parent query.
      */
-    function it_modifies_parent_query(QueryBuilder $qb, Specification $spec)
+    public function it_modifies_parent_query(QueryBuilder $qb, Specification $spec)
     {
         $this->beConstructedWith($spec, null);
 
@@ -49,7 +47,7 @@ class NotSpec extends ObjectBehavior
         $this->modify($qb, 'a');
     }
 
-    function it_does_not_modify_parent_query(QueryBuilder $qb)
+    public function it_does_not_modify_parent_query(QueryBuilder $qb)
     {
         $this->modify($qb, 'a');
     }
