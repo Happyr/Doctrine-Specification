@@ -7,7 +7,6 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
-use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\EntitySpecificationRepository;
 use Happyr\DoctrineSpecification\Filter\Filter;
@@ -26,12 +25,12 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
     private $expression = 'expression';
     private $result = 'result';
 
-    function let(EntityManager $entityManager, ClassMetadata $classMetadata)
+    public function let(EntityManager $entityManager, ClassMetadata $classMetadata)
     {
         $this->beConstructedWith($entityManager, $classMetadata);
     }
 
-    function it_should_modify_query(
+    public function it_should_modify_query(
         QueryModifier $specification,
         EntityManager $entityManager,
         QueryBuilder $qb,
@@ -46,7 +45,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->match($specification);
     }
 
-    function it_should_apply_filter(
+    public function it_should_apply_filter(
         Filter $specification,
         EntityManager $entityManager,
         QueryBuilder $qb,
@@ -62,7 +61,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->match($specification);
     }
 
-    function it_should_skip_apply_empty_specification(
+    public function it_should_skip_apply_empty_specification(
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
@@ -76,7 +75,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->match(null);
     }
 
-    function it_should_throw_exception_when_apply_not_specification(
+    public function it_should_throw_exception_when_apply_not_specification(
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
@@ -84,12 +83,12 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->prepareEntityManagerStub($entityManager, $qb);
         $this->prepareQueryBuilderStub($qb, $query);
 
-        $this->shouldThrow('\InvalidArgumentException')->duringMatch(new \stdClass);
+        $this->shouldThrow('\InvalidArgumentException')->duringMatch(new \stdClass());
         $this->shouldThrow('\InvalidArgumentException')->duringMatch(['fake', 'array']);
         $this->shouldThrow('\InvalidArgumentException')->duringMatch('fake');
     }
 
-    function it_matches_a_specification_with_empty_filter(
+    public function it_matches_a_specification_with_empty_filter(
         Specification $specification,
         EntityManager $entityManager,
         QueryBuilder $qb,
@@ -105,13 +104,12 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->match($specification)->shouldReturn($this->result);
     }
 
-    function it_matches_a_specification_without_result_modifier(
+    public function it_matches_a_specification_without_result_modifier(
         Specification $specification,
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    )
-    {
+    ) {
         $this->prepareStubs($specification, $entityManager, $qb, $query);
         $query->execute()->willReturn($this->result);
 
@@ -120,14 +118,13 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->match($specification)->shouldReturn($this->result);
     }
 
-    function it_matches_a_single_result_without_result_modifier(
+    public function it_matches_a_single_result_without_result_modifier(
         Specification $specification,
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    )
-    {
-        $singleResult = new \stdClass;
+    ) {
+        $singleResult = new \stdClass();
 
         $this->prepareStubs($specification, $entityManager, $qb, $query);
 
@@ -138,13 +135,12 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->matchSingleResult($specification)->shouldReturn($singleResult);
     }
 
-    function it_throws_exception_when_expecting_single_result_finding_none_without_result_modifier(
+    public function it_throws_exception_when_expecting_single_result_finding_none_without_result_modifier(
         Specification $specification,
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    )
-    {
+    ) {
         $this->prepareStubs($specification, $entityManager, $qb, $query);
 
         $specification->modify($qb, $this->alias)->shouldBeCalled();
@@ -154,13 +150,12 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->shouldThrow('Happyr\DoctrineSpecification\Exception\NoResultException')->duringMatchSingleResult($specification);
     }
 
-    function it_throws_exception_when_expecting_single_result_finding_multiple_without_result_modifier(
+    public function it_throws_exception_when_expecting_single_result_finding_multiple_without_result_modifier(
         Specification $specification,
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    )
-    {
+    ) {
         $this->prepareStubs($specification, $entityManager, $qb, $query);
 
         $specification->modify($qb, $this->alias)->shouldBeCalled();
@@ -170,14 +165,13 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->shouldThrow('Happyr\DoctrineSpecification\Exception\NonUniqueResultException')->duringMatchSingleResult($specification);
     }
 
-    function it_matches_a_single_result_when_expecting_one_or_null_without_result_modifier(
+    public function it_matches_a_single_result_when_expecting_one_or_null_without_result_modifier(
         Specification $specification,
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    )
-    {
-        $singleResult = new \stdClass;
+    ) {
+        $singleResult = new \stdClass();
 
         $this->prepareStubs($specification, $entityManager, $qb, $query);
 
@@ -188,13 +182,12 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->matchOneOrNullResult($specification)->shouldReturn($singleResult);
     }
 
-    function it_matches_null_when_expecting_one_or_null_without_result_modifier(
+    public function it_matches_null_when_expecting_one_or_null_without_result_modifier(
         Specification $specification,
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    )
-    {
+    ) {
         $this->prepareStubs($specification, $entityManager, $qb, $query);
 
         $specification->modify($qb, $this->alias)->shouldBeCalled();
@@ -204,13 +197,12 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->shouldThrow('Happyr\DoctrineSpecification\Exception\NonUniqueResultException')->duringMatchOneOrNullResult($specification);
     }
 
-    function it_throws_exception_when_expecting_one_or_null_finding_multiple_without_result_modifier(
+    public function it_throws_exception_when_expecting_one_or_null_finding_multiple_without_result_modifier(
         Specification $specification,
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    )
-    {
+    ) {
         $this->prepareStubs($specification, $entityManager, $qb, $query);
 
         $specification->modify($qb, $this->alias)->shouldBeCalled();
@@ -220,15 +212,13 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->shouldThrow('Happyr\DoctrineSpecification\Exception\UnexpectedResultException')->duringMatchOneOrNullResult($specification);
     }
 
-
-    function it_matches_a_specification_with_result_modifier(
+    public function it_matches_a_specification_with_result_modifier(
         Specification $specification,
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query,
         ResultModifier $modifier
-    )
-    {
+    ) {
         $this->prepareStubs($specification, $entityManager, $qb, $query);
         $query->execute()->willReturn($this->result);
 

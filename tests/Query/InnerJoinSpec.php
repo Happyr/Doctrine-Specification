@@ -1,4 +1,5 @@
 <?php
+
 namespace tests\Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;

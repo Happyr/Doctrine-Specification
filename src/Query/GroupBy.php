@@ -20,7 +20,7 @@ class GroupBy implements QueryModifier
      * @param string $field
      * @param string $dqlAlias
      */
-    public function __construct($field,  $dqlAlias = null)
+    public function __construct($field, $dqlAlias = null)
     {
         $this->field = $field;
         $this->dqlAlias = $dqlAlias;
