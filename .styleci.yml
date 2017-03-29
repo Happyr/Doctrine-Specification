@@ -1,1 +1,4 @@
 preset: symfony
+
+enabled:
+  - ordered_class_elements
