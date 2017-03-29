@@ -2,15 +2,13 @@
 
 namespace Happyr\DoctrineSpecification;
 
-use Doctrine\Common\Collections\Selectable;
-use Doctrine\Common\Persistence\ObjectRepository;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 
 /**
  * This interface should be used by an EntityRepository implementing the Specification pattern.
  */
-interface EntitySpecificationRepositoryInterface extends ObjectRepository, Selectable
+interface EntitySpecificationRepositoryInterface
 {
     /**
      * Get results when you match with a Specification.
