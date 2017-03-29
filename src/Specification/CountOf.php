@@ -24,7 +24,7 @@ class CountOf implements Specification
 
     /**
      * @param QueryBuilder $qb
-     * @param string $dqlAlias
+     * @param string       $dqlAlias
      *
      * @return string
      */
@@ -37,7 +37,7 @@ class CountOf implements Specification
 
     /**
      * @param QueryBuilder $qb
-     * @param string $dqlAlias
+     * @param string       $dqlAlias
      */
     public function modify(QueryBuilder $qb, $dqlAlias)
     {
