@@ -38,7 +38,7 @@ class IsActive extends BaseSpecification
     {
         return Spec::andX(
             Spec::eq('banned', false),
-            Spec::gt('lastLogin', new \DateTime('-6months'),
+            Spec::gt('lastLogin', new \DateTime('-6months'))
         );
     }
 }
