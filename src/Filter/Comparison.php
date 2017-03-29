@@ -36,12 +36,16 @@ class Comparison implements Filter
      */
     protected $dqlAlias;
 
+    /**
+     * @var array
+     */
     private static $operators = array(
         self::EQ, self::NEQ,
         self::LT, self::LTE,
         self::GT, self::GTE,
         self::LIKE,
     );
+
     /**
      * @var string
      */
