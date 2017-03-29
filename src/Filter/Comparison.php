@@ -21,13 +21,6 @@ class Comparison implements Filter
     const GTE = '>=';
     const LIKE = 'LIKE';
 
-    private static $operators = array(
-        self::EQ, self::NEQ,
-        self::LT, self::LTE,
-        self::GT, self::GTE,
-        self::LIKE,
-    );
-
     /**
      * @var string field
      */
@@ -42,6 +35,13 @@ class Comparison implements Filter
      * @var string dqlAlias
      */
     protected $dqlAlias;
+
+    private static $operators = array(
+        self::EQ, self::NEQ,
+        self::LT, self::LTE,
+        self::GT, self::GTE,
+        self::LIKE,
+    );
     /**
      * @var string
      */
