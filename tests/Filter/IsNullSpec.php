@@ -6,31 +6,30 @@ use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\IsNull;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * @mixin IsNull
  */
 class IsNullSpec extends ObjectBehavior
 {
-    private $field='foobar';
+    private $field = 'foobar';
 
     private $dqlAlias = 'a';
 
-    function let()
+    public function let()
     {
         $this->beConstructedWith($this->field, $this->dqlAlias);
     }
 
-    function it_is_an_expression()
+    public function it_is_an_expression()
     {
         $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Filter');
     }
 
     /**
-     * returns expression func object
+     * returns expression func object.
      */
-    function it_calls_null(QueryBuilder $qb, Expr $expr)
+    public function it_calls_null(QueryBuilder $qb, Expr $expr)
     {
         $expression = 'a.foobar is null';
 
@@ -40,7 +39,7 @@ class IsNullSpec extends ObjectBehavior
         $this->getFilter($qb, 'b')->shouldReturn($expression);
     }
 
-    function it_uses_dql_alias_if_passed(QueryBuilder $qb, Expr $expr)
+    public function it_uses_dql_alias_if_passed(QueryBuilder $qb, Expr $expr)
     {
         $dqlAlias = 'x';
         $this->beConstructedWith($this->field, null);

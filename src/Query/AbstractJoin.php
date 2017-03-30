@@ -37,13 +37,6 @@ abstract class AbstractJoin implements QueryModifier
     }
 
     /**
-     * Return a join type (ie a function of QueryBuilder) like: "join", "innerJoin", "leftJoin".
-     *
-     * @return string
-     */
-    abstract protected function getJoinType();
-
-    /**
      * @param QueryBuilder $qb
      * @param string       $dqlAlias
      */
@@ -56,4 +49,11 @@ abstract class AbstractJoin implements QueryModifier
         $join = $this->getJoinType();
         $qb->$join(sprintf('%s.%s', $dqlAlias, $this->field), $this->newAlias);
     }
+
+    /**
+     * Return a join type (ie a function of QueryBuilder) like: "join", "innerJoin", "leftJoin".
+     *
+     * @return string
+     */
+    abstract protected function getJoinType();
 }

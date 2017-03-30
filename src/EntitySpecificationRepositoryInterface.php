@@ -18,7 +18,7 @@ interface EntitySpecificationRepositoryInterface
      *
      * @return mixed[]
      */
-    function match($specification, Result\ResultModifier $modifier);
+    public function match($specification, Result\ResultModifier $modifier);
 
     /**
      * Get single result when you match with a Specification.
@@ -31,7 +31,7 @@ interface EntitySpecificationRepositoryInterface
      *
      * @return mixed
      */
-    function matchSingleResult($specification, Result\ResultModifier $modifier);
+    public function matchSingleResult($specification, Result\ResultModifier $modifier);
 
     /**
      * Get single result or null when you match with a Specification.
@@ -43,7 +43,7 @@ interface EntitySpecificationRepositoryInterface
      *
      * @return mixed|null
      */
-    function matchOneOrNullResult($specification, Result\ResultModifier $modifier);
+    public function matchOneOrNullResult($specification, Result\ResultModifier $modifier);
 
     /**
      * Prepare a Query with a Specification.
@@ -53,5 +53,5 @@ interface EntitySpecificationRepositoryInterface
      *
      * @return \Doctrine\ORM\Query
      */
-    function getQuery($specification, Result\ResultModifier $modifier);
+    public function getQuery($specification, Result\ResultModifier $modifier);
 }

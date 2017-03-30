@@ -7,28 +7,27 @@ use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\In;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * @mixin In
  */
 class InSpec extends ObjectBehavior
 {
-    private $field='foobar';
+    private $field = 'foobar';
 
-    private $value=array('bar', 'baz');
+    private $value = array('bar', 'baz');
 
-    function let()
+    public function let()
     {
         $this->beConstructedWith($this->field, $this->value, 'a');
     }
 
-    function it_is_an_expression()
+    public function it_is_an_expression()
     {
         $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Filter');
     }
 
-    function it_returns_expression_func_object(QueryBuilder $qb, ArrayCollection $parameters, Expr $expr)
+    public function it_returns_expression_func_object(QueryBuilder $qb, ArrayCollection $parameters, Expr $expr)
     {
         $dqlAlias = 'a';
         $qb->expr()->willReturn($expr);

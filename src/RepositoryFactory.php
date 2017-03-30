@@ -16,8 +16,8 @@ class RepositoryFactory implements \Doctrine\ORM\Repository\RepositoryFactory
     /**
      * Gets the repository for an entity class.
      *
-     * @param EntityManagerInterface $entityManager The EntityManager instance.
-     * @param string                 $entityName    The name of the entity.
+     * @param EntityManagerInterface $entityManager the EntityManager instance
+     * @param string                 $entityName    the name of the entity
      *
      * @return EntityRepository
      */
