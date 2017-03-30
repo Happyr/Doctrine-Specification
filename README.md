@@ -4,6 +4,7 @@
 [![Monthly Downloads](https://poser.pugx.org/happyr/doctrine-specification/d/monthly.png)](https://packagist.org/packages/happyr/doctrine-specification)
 [![Total Downloads](https://poser.pugx.org/happyr/doctrine-specification/downloads)](https://packagist.org/packages/happyr/doctrine-specification)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/44c425af-90f6-4c25-b789-4ece28b01a2b/mini.png)](https://insight.sensiolabs.com/projects/44c425af-90f6-4c25-b789-4ece28b01a2b)
+[![Quality Score](https://img.shields.io/scrutinizer/g/happyr/doctrine-specification.svg?style=flat-square)](https://scrutinizer-ci.com/g/happyr/doctrine-specification)
 
 This library gives you a new way for writing queries. Using the [Specification pattern][wiki_spec_pattern] you will
 get small Specification classes that are highly reusable.
