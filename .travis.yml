@@ -1,5 +1,14 @@
 language: php
 
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+branches:
+  except:
+    - /^analysis-.*$/
+    - /^patch-.*$/
+
 php:
   - 5.4
   - 5.5
@@ -8,17 +17,17 @@ php:
   - 7.1
   - hhvm
 
+env:
+  global:
+    - TEST_COMMAND="composer test"
+
 matrix:
   fast_finish: true
   allow_failures:
     - php: hhvm
 
-before_install:
-  - travis_retry composer self-update
-
 install:
-  - travis_retry composer install
+    - travis_retry composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction
 
 script:
-  - ./vendor/bin/phpspec run
-
+  - $TEST_COMMAND
