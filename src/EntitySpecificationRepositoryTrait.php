@@ -7,6 +7,7 @@ use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
+use Happyr\DoctrineSpecification\Result\ResultModifier;
 
 /**
  * This trait should be used by a class extending \Doctrine\ORM\EntityRepository.
@@ -21,12 +22,12 @@ trait EntitySpecificationRepositoryTrait
     /**
      * Get results when you match with a Specification.
      *
-     * @param Filter|QueryModifier  $specification
-     * @param Result\ResultModifier $modifier
+     * @param Filter|QueryModifier $specification
+     * @param ResultModifier       $modifier
      *
      * @return mixed[]
      */
-    public function match($specification, Result\ResultModifier $modifier = null)
+    public function match($specification, ResultModifier $modifier = null)
     {
         $query = $this->getQuery($specification, $modifier);
 
@@ -36,15 +37,15 @@ trait EntitySpecificationRepositoryTrait
     /**
      * Get single result when you match with a Specification.
      *
-     * @param Filter|QueryModifier  $specification
-     * @param Result\ResultModifier $modifier
+     * @param Filter|QueryModifier $specification
+     * @param ResultModifier       $modifier
      *
      * @throw Exception\NonUniqueException  If more than one result is found
      * @throw Exception\NoResultException   If no results found
      *
      * @return mixed
      */
-    public function matchSingleResult($specification, Result\ResultModifier $modifier = null)
+    public function matchSingleResult($specification, ResultModifier $modifier = null)
     {
         $query = $this->getQuery($specification, $modifier);
 
@@ -60,14 +61,14 @@ trait EntitySpecificationRepositoryTrait
     /**
      * Get single result or null when you match with a Specification.
      *
-     * @param Filter|QueryModifier  $specification
-     * @param Result\ResultModifier $modifier
+     * @param Filter|QueryModifier $specification
+     * @param ResultModifier       $modifier
      *
      * @throw Exception\NonUniqueException  If more than one result is found
      *
      * @return mixed|null
      */
-    public function matchOneOrNullResult($specification, Result\ResultModifier $modifier = null)
+    public function matchOneOrNullResult($specification, ResultModifier $modifier = null)
     {
         try {
             return $this->matchSingleResult($specification, $modifier);
@@ -79,12 +80,12 @@ trait EntitySpecificationRepositoryTrait
     /**
      * Prepare a Query with a Specification.
      *
-     * @param Filter|QueryModifier  $specification
-     * @param Result\ResultModifier $modifier
+     * @param Filter|QueryModifier $specification
+     * @param ResultModifier       $modifier
      *
      * @return \Doctrine\ORM\Query
      */
-    public function getQuery($specification, Result\ResultModifier $modifier = null)
+    public function getQuery($specification, ResultModifier $modifier = null)
     {
         $qb = $this->createQueryBuilder($this->alias);
         $this->applySpecification($qb, $specification);
