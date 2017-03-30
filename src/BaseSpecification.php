@@ -26,16 +26,6 @@ abstract class BaseSpecification implements Specification
     }
 
     /**
-     * Return all the specifications.
-     *
-     * @return Specification
-     */
-    protected function getSpec()
-    {
-        return;
-    }
-
-    /**
      * @param QueryBuilder $qb
      * @param string       $dqlAlias
      *
@@ -61,6 +51,16 @@ abstract class BaseSpecification implements Specification
         if ($spec instanceof QueryModifier) {
             $spec->modify($qb, $this->getAlias($dqlAlias));
         }
+    }
+
+    /**
+     * Return all the specifications.
+     *
+     * @return Specification
+     */
+    protected function getSpec()
+    {
+        return;
     }
 
     /**
