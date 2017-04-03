@@ -97,7 +97,7 @@ class Comparison implements Filter
             $qb->setParameter($paramName, (string)$this->value);
         } else {
             throw new InvalidArgumentException(sprintf(
-                'Imposable use value ov type "%s" us as query parameter.',
+                'Imposable use the value of type "%s" as query parameter.',
                 is_object($this->value) ? get_class($this->value) : gettype($this->value)
             ));
         }
