@@ -94,7 +94,7 @@ class Comparison implements Filter
         if (is_scalar($this->value)) {
             $qb->setParameter($paramName, $this->value);
         } elseif (is_object($this->value) && method_exists($this->value, '__toString')) { // is ValueObject
-            $qb->setParameter($paramName, (string)$this->value);
+            $qb->setParameter($paramName, (string) $this->value);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'Imposable use the value of type "%s" as query parameter.',
