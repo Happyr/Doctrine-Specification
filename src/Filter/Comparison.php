@@ -64,12 +64,11 @@ class Comparison implements Filter
     public function __construct($operator, $field, $value, $dqlAlias = null)
     {
         if (!in_array($operator, self::$operators)) {
-            throw new InvalidArgumentException(
-                sprintf('"%s" is not a valid comparison operator. Valid operators are: "%s"',
-                        $operator,
-                        implode(', ', self::$operators)
-                )
-            );
+            throw new InvalidArgumentException(sprintf(
+                '"%s" is not a valid comparison operator. Valid operators are: "%s"',
+                $operator,
+                implode(', ', self::$operators)
+            ));
         }
 
         $this->operator = $operator;
@@ -91,7 +90,17 @@ class Comparison implements Filter
         }
 
         $paramName = $this->getParameterName($qb);
-        $qb->setParameter($paramName, $this->value);
+
+        if (is_scalar($this->value)) {
+            $qb->setParameter($paramName, $this->value);
+        } elseif (is_object($this->value) && method_exists($this->value, '__toString')) { // is ValueObject
+            $qb->setParameter($paramName, (string)$this->value);
+        } else {
+            throw new InvalidArgumentException(sprintf(
+                'Imposable use value ov type "%s" us as query parameter.',
+                is_object($this->value) ? get_class($this->value) : gettype($this->value)
+            ));
+        }
 
         return (string) new DoctrineComparison(
             sprintf('%s.%s', $dqlAlias, $this->field),
