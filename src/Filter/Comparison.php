@@ -5,6 +5,7 @@ namespace Happyr\DoctrineSpecification\Filter;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
+use Happyr\DoctrineSpecification\ValueConverter;
 
 /**
  * Comparison class.
@@ -64,12 +65,11 @@ class Comparison implements Filter
     public function __construct($operator, $field, $value, $dqlAlias = null)
     {
         if (!in_array($operator, self::$operators)) {
-            throw new InvalidArgumentException(
-                sprintf('"%s" is not a valid comparison operator. Valid operators are: "%s"',
-                        $operator,
-                        implode(', ', self::$operators)
-                )
-            );
+            throw new InvalidArgumentException(sprintf(
+                '"%s" is not a valid comparison operator. Valid operators are: "%s"',
+                $operator,
+                implode(', ', self::$operators)
+            ));
         }
 
         $this->operator = $operator;
@@ -91,7 +91,7 @@ class Comparison implements Filter
         }
 
         $paramName = $this->getParameterName($qb);
-        $qb->setParameter($paramName, $this->value);
+        $qb->setParameter($paramName, ValueConverter::convertToDatabaseValue($this->value, $qb));
 
         return (string) new DoctrineComparison(
             sprintf('%s.%s', $dqlAlias, $this->field),
