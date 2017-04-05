@@ -93,12 +93,23 @@ class Comparison implements Filter
 
         if (is_scalar($this->value)) {
             $qb->setParameter($paramName, $this->value);
-        } elseif (is_object($this->value) && method_exists($this->value, '__toString')) { // is ValueObject
-            $qb->setParameter($paramName, (string) $this->value);
+
+        } elseif (is_object($this->value)) { // is ValueObject
+            /**
+             * This works only if class name is equal type name
+             * If type name is wrong throw exception
+             * @see Type::getType()
+             */
+            $class_name_parts = explode('\\', get_class($this->value));
+            $type_name = array_pop($class_name_parts);
+            $value = $qb->getEntityManager()->getConnection()->convertToDatabaseValue($this->value, $type_name);
+
+            $qb->setParameter($paramName, $value);
+
         } else {
             throw new InvalidArgumentException(sprintf(
                 'Imposable use the value of type "%s" as query parameter.',
-                is_object($this->value) ? get_class($this->value) : gettype($this->value)
+                gettype($this->value)
             ));
         }
 
