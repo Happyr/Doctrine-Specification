@@ -11,8 +11,7 @@ final class DBALTypesResolver
      *
      * @var array
      */
-    private static $_typesMap = array(
-    );
+    private static $typesMap = array();
 
     /**
      * Try get type for value.
@@ -28,8 +27,8 @@ final class DBALTypesResolver
         if (is_object($value)) { // maybe it's a ValueObject
             // try get type name from types map
             $className = get_class($value);
-            if (isset(self::$_typesMap[$className])) {
-                return Type::getType(self::$_typesMap[$className]);
+            if (isset(self::$typesMap[$className])) {
+                return Type::getType(self::$typesMap[$className]);
             }
 
             // use class name as type name
@@ -52,6 +51,6 @@ final class DBALTypesResolver
      */
     public static function addType($name, $className)
     {
-        self::$_typesMap[$className] = $name;
+        self::$typesMap[$className] = $name;
     }
 }
