@@ -4,8 +4,8 @@ namespace Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
-use Happyr\DoctrineSpecification\DBALTypesResolver;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
+use Happyr\DoctrineSpecification\ValueConverter;
 
 /**
  * Comparison class.
@@ -90,17 +90,8 @@ class Comparison implements Filter
             $dqlAlias = $this->dqlAlias;
         }
 
-        $value = $this->value;
-
-        if ($type = DBALTypesResolver::tryGetTypeForValue($this->value)) {
-            $value = $type->convertToDatabaseValue(
-                $value,
-                $qb->getEntityManager()->getConnection()->getDatabasePlatform()
-            );
-        }
-
         $paramName = $this->getParameterName($qb);
-        $qb->setParameter($paramName, $value);
+        $qb->setParameter($paramName, ValueConverter::convertToDatabaseValue($this->value, $qb));
 
         return (string) new DoctrineComparison(
             sprintf('%s.%s', $dqlAlias, $this->field),
