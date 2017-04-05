@@ -2,6 +2,7 @@
 
 namespace Happyr\DoctrineSpecification\Filter;
 
+use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
@@ -94,16 +95,16 @@ class Comparison implements Filter
         if (is_scalar($this->value) || $this->value instanceof \DateTime || $this->value instanceof \DateInterval) {
             $qb->setParameter($paramName, $this->value);
         } elseif (is_object($this->value)) { // is ValueObject
-            /**
-             * This works only if class name is equal type name.
-             * If type name is wrong throw exception.
-             *
-             * @see Type::getType()
-             */
+            // try get type name from class name
             $class_name_parts = explode('\\', get_class($this->value));
             $type_name = array_pop($class_name_parts);
-            $value = $qb->getEntityManager()->getConnection()->convertToDatabaseValue($this->value, $type_name);
 
+            // use object type as default
+            if (!array_key_exists($type_name, Type::getTypesMap())) {
+                $type_name = Type::OBJECT;
+            }
+
+            $value = $qb->getEntityManager()->getConnection()->convertToDatabaseValue($this->value, $type_name);
             $qb->setParameter($paramName, $value);
         } else {
             throw new InvalidArgumentException(sprintf(
