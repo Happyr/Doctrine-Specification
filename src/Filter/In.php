@@ -3,6 +3,7 @@
 namespace Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\ValueConverter;
 
 class In implements Filter
 {
@@ -47,8 +48,17 @@ class In implements Filter
             $dqlAlias = $this->dqlAlias;
         }
 
+        $value = $this->value;
+        if (is_array($value)) {
+            foreach ($value as $k => $v) {
+                $value[$k] = ValueConverter::convertToDatabaseValue($v, $qb);
+            }
+        } else {
+            $value = ValueConverter::convertToDatabaseValue($value, $qb);
+        }
+
         $paramName = $this->getParameterName($qb);
-        $qb->setParameter($paramName, $this->value);
+        $qb->setParameter($paramName, $value);
 
         return (string) $qb->expr()->in(
             sprintf('%s.%s', $dqlAlias, $this->field),
