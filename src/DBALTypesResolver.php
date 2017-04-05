@@ -47,10 +47,8 @@ abstract class DBALTypesResolver
     /**
      * Adds a custom type to the type map for resolve Value Object.
      *
-     * @param string $name      The name of the type.
-     * @param string $className The class name of the Value Object.
-     *
-     * @return void
+     * @param string $name      the name of the type.
+     * @param string $className the class name of the Value Object.
      */
     public static function addType($name, $className)
     {
