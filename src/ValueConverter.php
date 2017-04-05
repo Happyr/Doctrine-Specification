@@ -4,7 +4,7 @@ namespace Happyr\DoctrineSpecification;
 
 use Doctrine\ORM\QueryBuilder;
 
-abstract class ValueConverter
+final class ValueConverter
 {
     /**
      * @param mixed        $value

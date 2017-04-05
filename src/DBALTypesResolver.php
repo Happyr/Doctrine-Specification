@@ -4,7 +4,7 @@ namespace Happyr\DoctrineSpecification;
 
 use Doctrine\DBAL\Types\Type;
 
-abstract class DBALTypesResolver
+final class DBALTypesResolver
 {
     /**
      * The map of supported doctrine mapping types.
