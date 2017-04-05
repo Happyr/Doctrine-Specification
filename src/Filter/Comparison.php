@@ -95,11 +95,11 @@ class Comparison implements Filter
 
         if (is_object($this->value)) { // maybe it's a ValueObject
             // try get type name from class name
-            $class_name_parts = explode('\\', get_class($this->value));
-            $type_name = array_pop($class_name_parts);
+            $classNameParts = explode('\\', get_class($this->value));
+            $typeName = array_pop($classNameParts);
 
-            if (array_key_exists($type_name, Type::getTypesMap())) {
-                $value = $qb->getEntityManager()->getConnection()->convertToDatabaseValue($value, $type_name);
+            if (array_key_exists($typeName, Type::getTypesMap())) {
+                $value = $qb->getEntityManager()->getConnection()->convertToDatabaseValue($value, $typeName);
             }
         }
 
