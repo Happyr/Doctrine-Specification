@@ -91,27 +91,19 @@ class Comparison implements Filter
         }
 
         $paramName = $this->getParameterName($qb);
+        $value = $this->value;
 
-        if (is_scalar($this->value) || $this->value instanceof \DateTime || $this->value instanceof \DateInterval) {
-            $qb->setParameter($paramName, $this->value);
-        } elseif (is_object($this->value)) { // is ValueObject
+        if (is_object($this->value)) { // maybe it's a ValueObject
             // try get type name from class name
             $class_name_parts = explode('\\', get_class($this->value));
             $type_name = array_pop($class_name_parts);
 
-            // use object type as default
-            if (!array_key_exists($type_name, Type::getTypesMap())) {
-                $type_name = Type::OBJECT;
+            if (array_key_exists($type_name, Type::getTypesMap())) {
+                $value = $qb->getEntityManager()->getConnection()->convertToDatabaseValue($value, $type_name);
             }
-
-            $value = $qb->getEntityManager()->getConnection()->convertToDatabaseValue($this->value, $type_name);
-            $qb->setParameter($paramName, $value);
-        } else {
-            throw new InvalidArgumentException(sprintf(
-                'Imposable use the value of type "%s" as query parameter.',
-                gettype($this->value)
-            ));
         }
+
+        $qb->setParameter($paramName, $value);
 
         return (string) new DoctrineComparison(
             sprintf('%s.%s', $dqlAlias, $this->field),
