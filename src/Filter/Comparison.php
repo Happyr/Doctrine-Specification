@@ -91,7 +91,7 @@ class Comparison implements Filter
 
         $paramName = $this->getParameterName($qb);
 
-        if (is_scalar($this->value)) {
+        if (is_scalar($this->value) || $this->value instanceof \DateTime || $this->value instanceof \DateInterval) {
             $qb->setParameter($paramName, $this->value);
         } elseif (is_object($this->value)) { // is ValueObject
             /**
