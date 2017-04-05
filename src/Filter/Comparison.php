@@ -2,9 +2,9 @@
 
 namespace Happyr\DoctrineSpecification\Filter;
 
-use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
+use Happyr\DoctrineSpecification\DBALTypesResolver;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 
 /**
@@ -90,19 +90,16 @@ class Comparison implements Filter
             $dqlAlias = $this->dqlAlias;
         }
 
-        $paramName = $this->getParameterName($qb);
         $value = $this->value;
 
-        if (is_object($this->value)) { // maybe it's a ValueObject
-            // try get type name from class name
-            $classNameParts = explode('\\', get_class($this->value));
-            $typeName = array_pop($classNameParts);
-
-            if (array_key_exists($typeName, Type::getTypesMap())) {
-                $value = $qb->getEntityManager()->getConnection()->convertToDatabaseValue($value, $typeName);
-            }
+        if ($type = DBALTypesResolver::tryGetTypeForValue($this->value)) {
+            $value = $type->convertToDatabaseValue(
+                $value,
+                $qb->getEntityManager()->getConnection()->getDatabasePlatform()
+            );
         }
 
+        $paramName = $this->getParameterName($qb);
         $qb->setParameter($paramName, $value);
 
         return (string) new DoctrineComparison(
