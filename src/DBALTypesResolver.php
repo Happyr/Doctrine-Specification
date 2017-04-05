@@ -24,20 +24,24 @@ final class DBALTypesResolver
      */
     public static function tryGetTypeForValue($value)
     {
-        if (is_object($value)) { // maybe it's a ValueObject
-            // try get type name from types map
-            $className = get_class($value);
-            if (isset(self::$typesMap[$className])) {
-                return Type::getType(self::$typesMap[$className]);
-            }
+        if (!is_object($value)) {
+            return null;
+        }
 
-            // use class name as type name
-            $classNameParts = explode('\\', $className);
-            $typeName = array_pop($classNameParts);
+        // maybe it's a ValueObject
 
-            if (array_key_exists($typeName, Type::getTypesMap())) {
-                return Type::getType($typeName);
-            }
+        // try get type name from types map
+        $className = get_class($value);
+        if (isset(self::$typesMap[$className])) {
+            return Type::getType(self::$typesMap[$className]);
+        }
+
+        // use class name as type name
+        $classNameParts = explode('\\', $className);
+        $typeName = array_pop($classNameParts);
+
+        if (array_key_exists($typeName, Type::getTypesMap())) {
+            return Type::getType($typeName);
         }
 
         return null;
