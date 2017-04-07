@@ -124,6 +124,38 @@ trait EntitySpecificationRepositoryTrait
     }
 
     /**
+     * Get the number of results match with a Specification.
+     *
+     * @param Specification $specification
+     * @param int           $cacheLifetime
+     *
+     * @return int
+     */
+    public function countOf(Specification $specification, $cacheLifetime = 0)
+    {
+        if ($cacheLifetime > 0) {
+            $modifier = new ResultModifierCollection(new Cache($cacheLifetime), new AsSingleScalar());
+        } else {
+            $modifier = new AsSingleScalar();
+        }
+
+        return (int) $this->match(Spec::countOf($specification), $modifier);
+    }
+
+    /**
+     * Have matches with a Specification.
+     *
+     * @param Specification $specification
+     * @param int           $cacheLifetime
+     *
+     * @return bool
+     */
+    public function isSatisfiedBy(Specification $specification, $cacheLifetime = 0)
+    {
+        return (bool) $this->countOf($specification, $cacheLifetime);
+    }
+
+    /**
      * @param QueryBuilder         $queryBuilder
      * @param Filter|QueryModifier $specification
      * @param string               $alias
@@ -154,37 +186,5 @@ trait EntitySpecificationRepositoryTrait
         ) {
             $queryBuilder->andWhere($filter);
         }
-    }
-
-    /**
-     * Get the number of results match with a Specification
-     *
-     * @param Specification $specification
-     * @param int           $cacheLifetime
-     *
-     * @return int
-     */
-    public function countOf(Specification $specification, $cacheLifetime = 0)
-    {
-        if ($cacheLifetime > 0) {
-            $modifier = new ResultModifierCollection(new Cache($cacheLifetime), new AsSingleScalar());
-        } else {
-            $modifier = new AsSingleScalar();
-        }
-
-        return (int)$this->match(Spec::countOf($specification), $modifier);
-    }
-
-    /**
-     * Have matches with a Specification
-     *
-     * @param Specification $specification
-     * @param int           $cacheLifetime
-     *
-     * @return bool
-     */
-    public function isSatisfiedBy(Specification $specification, $cacheLifetime = 0)
-    {
-        return (bool)$this->countOf($specification, $cacheLifetime);
     }
 }

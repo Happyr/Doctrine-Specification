@@ -58,7 +58,7 @@ interface EntitySpecificationRepositoryInterface
     public function getQuery($specification, ResultModifier $modifier);
 
     /**
-     * Get the number of results match with a Specification
+     * Get the number of results match with a Specification.
      *
      * @param Specification $specification
      * @param int           $cacheLifetime
@@ -68,7 +68,7 @@ interface EntitySpecificationRepositoryInterface
     public function countOf(Specification $specification, $cacheLifetime = 0);
 
     /**
-     * Have matches with a Specification
+     * Have matches with a Specification.
      *
      * @param Specification $specification
      * @param int           $cacheLifetime
