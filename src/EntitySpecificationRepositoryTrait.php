@@ -4,10 +4,15 @@ namespace Happyr\DoctrineSpecification;
 
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
+use Happyr\DoctrineSpecification\Result\AsSingleScalar;
+use Happyr\DoctrineSpecification\Result\Cache;
 use Happyr\DoctrineSpecification\Result\ResultModifier;
+use Happyr\DoctrineSpecification\Result\ResultModifierCollection;
+use Happyr\DoctrineSpecification\Specification\Specification;
 
 /**
  * This trait should be used by a class extending \Doctrine\ORM\EntityRepository.
@@ -83,7 +88,7 @@ trait EntitySpecificationRepositoryTrait
      * @param Filter|QueryModifier $specification
      * @param ResultModifier       $modifier
      *
-     * @return \Doctrine\ORM\Query
+     * @return Query
      */
     public function getQuery($specification, ResultModifier $modifier = null)
     {
@@ -149,5 +154,37 @@ trait EntitySpecificationRepositoryTrait
         ) {
             $queryBuilder->andWhere($filter);
         }
+    }
+
+    /**
+     * Get the number of results match with a Specification
+     *
+     * @param Specification $specification
+     * @param int           $cacheLifetime
+     *
+     * @return int
+     */
+    public function countOf(Specification $specification, $cacheLifetime = 0)
+    {
+        if ($cacheLifetime > 0) {
+            $modifier = new ResultModifierCollection(new Cache($cacheLifetime), new AsSingleScalar());
+        } else {
+            $modifier = new AsSingleScalar();
+        }
+
+        return (int)$this->match(Spec::countOf($specification), $modifier);
+    }
+
+    /**
+     * Have matches with a Specification
+     *
+     * @param Specification $specification
+     * @param int           $cacheLifetime
+     *
+     * @return bool
+     */
+    public function isSatisfiedBy(Specification $specification, $cacheLifetime = 0)
+    {
+        return (bool)$this->countOf($specification, $cacheLifetime);
     }
 }
