@@ -171,13 +171,14 @@ class Spec
     }
 
     /**
-     * @param int $cacheLifetime How many seconds the cached entry is valid
+     * @param int  $cacheLifetime How many seconds the cached entry is valid
+     * @param bool $round         Round DateTime in query params
      *
      * @return Cache
      */
-    public static function cache($cacheLifetime)
+    public static function cache($cacheLifetime, $round = true)
     {
-        return new Cache($cacheLifetime);
+        return new Cache($cacheLifetime, $round);
     }
 
     /*
