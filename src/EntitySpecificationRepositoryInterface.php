@@ -5,7 +5,6 @@ namespace Happyr\DoctrineSpecification;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Result\ResultModifier;
-use Happyr\DoctrineSpecification\Specification\Specification;
 
 /**
  * This interface should be used by an EntityRepository implementing the Specification pattern.
@@ -56,24 +55,4 @@ interface EntitySpecificationRepositoryInterface
      * @return \Doctrine\ORM\Query
      */
     public function getQuery($specification, ResultModifier $modifier);
-
-    /**
-     * Get the number of results match with a Specification.
-     *
-     * @param Specification  $specification
-     * @param ResultModifier $modifier
-     *
-     * @return int
-     */
-    public function countOf(Specification $specification, ResultModifier $modifier);
-
-    /**
-     * Have matches with a Specification.
-     *
-     * @param Specification  $specification
-     * @param ResultModifier $modifier
-     *
-     * @return bool
-     */
-    public function isSatisfiedBy(Specification $specification, ResultModifier $modifier);
 }
