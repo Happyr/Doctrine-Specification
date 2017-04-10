@@ -2,7 +2,6 @@
 
 namespace Happyr\DoctrineSpecification;
 
-use Doctrine\ORM\Query;
 use Happyr\DoctrineSpecification\Result\AsSingleScalar;
 use Happyr\DoctrineSpecification\Result\ResultModifier;
 use Happyr\DoctrineSpecification\Result\ResultModifierCollection;
