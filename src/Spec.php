@@ -22,6 +22,7 @@ use Happyr\DoctrineSpecification\Query\OrderBy;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Result\AsSingleScalar;
 use Happyr\DoctrineSpecification\Result\Cache;
+use Happyr\DoctrineSpecification\Result\RoundTime;
 use Happyr\DoctrineSpecification\Specification\CountOf;
 use Happyr\DoctrineSpecification\Specification\Having;
 use Happyr\DoctrineSpecification\Specification\Specification;
@@ -171,14 +172,23 @@ class Spec
     }
 
     /**
-     * @param int  $cacheLifetime How many seconds the cached entry is valid
-     * @param bool $round         Round DateTime in query params
+     * @param int $cacheLifetime How many seconds the cached entry is valid
      *
      * @return Cache
      */
-    public static function cache($cacheLifetime, $round = true)
+    public static function cache($cacheLifetime)
     {
-        return new Cache($cacheLifetime, $round);
+        return new Cache($cacheLifetime);
+    }
+
+    /**
+     * @param int $roundSeconds How may seconds to round time
+     *
+     * @return RoundTime
+     */
+    public static function round($roundSeconds)
+    {
+        return new RoundTime($roundSeconds);
     }
 
     /*
