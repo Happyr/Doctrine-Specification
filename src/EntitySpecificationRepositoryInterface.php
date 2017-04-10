@@ -60,20 +60,20 @@ interface EntitySpecificationRepositoryInterface
     /**
      * Get the number of results match with a Specification.
      *
-     * @param Specification $specification
-     * @param int           $cacheLifetime
+     * @param Specification  $specification
+     * @param ResultModifier $modifier
      *
      * @return int
      */
-    public function countOf(Specification $specification, $cacheLifetime = 0);
+    public function countOf(Specification $specification, ResultModifier $modifier);
 
     /**
      * Have matches with a Specification.
      *
-     * @param Specification $specification
-     * @param int           $cacheLifetime
+     * @param Specification  $specification
+     * @param ResultModifier $modifier
      *
      * @return bool
      */
-    public function isSatisfiedBy(Specification $specification, $cacheLifetime = 0);
+    public function isSatisfiedBy(Specification $specification, ResultModifier $modifier);
 }

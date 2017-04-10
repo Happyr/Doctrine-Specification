@@ -9,7 +9,6 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Result\AsSingleScalar;
-use Happyr\DoctrineSpecification\Result\Cache;
 use Happyr\DoctrineSpecification\Result\ResultModifier;
 use Happyr\DoctrineSpecification\Result\ResultModifierCollection;
 use Happyr\DoctrineSpecification\Specification\Specification;
@@ -126,15 +125,15 @@ trait EntitySpecificationRepositoryTrait
     /**
      * Get the number of results match with a Specification.
      *
-     * @param Specification $specification
-     * @param int           $cacheLifetime
+     * @param Specification  $specification
+     * @param ResultModifier $modifier
      *
      * @return int
      */
-    public function countOf(Specification $specification, $cacheLifetime = 0)
+    public function countOf(Specification $specification, ResultModifier $modifier = null)
     {
-        if ($cacheLifetime > 0) {
-            $modifier = new ResultModifierCollection(new Cache($cacheLifetime), new AsSingleScalar());
+        if ($modifier instanceof ResultModifier) {
+            $modifier = new ResultModifierCollection($modifier, new AsSingleScalar());
         } else {
             $modifier = new AsSingleScalar();
         }
@@ -145,14 +144,14 @@ trait EntitySpecificationRepositoryTrait
     /**
      * Have matches with a Specification.
      *
-     * @param Specification $specification
-     * @param int           $cacheLifetime
+     * @param Specification  $specification
+     * @param ResultModifier $modifier
      *
      * @return bool
      */
-    public function isSatisfiedBy(Specification $specification, $cacheLifetime = 0)
+    public function isSatisfiedBy(Specification $specification, ResultModifier $modifier = null)
     {
-        return (bool) $this->countOf($specification, $cacheLifetime);
+        return (bool) $this->countOf($specification, $modifier);
     }
 
     /**
