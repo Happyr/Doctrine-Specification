@@ -12,12 +12,12 @@ use Happyr\DoctrineSpecification\Query\QueryModifier;
 class CountOf implements Specification
 {
     /**
-     * @var Filter[]|QueryModifier[] child
+     * @var Filter|QueryModifier child
      */
     private $child;
 
     /**
-     * @param Filter[]|QueryModifier[] $child
+     * @param Filter|QueryModifier $child
      */
     public function __construct($child)
     {

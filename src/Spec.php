@@ -333,7 +333,7 @@ class Spec
      */
 
     /**
-     * @param Filter[]|QueryModifier[] $spec
+     * @param Filter|QueryModifier $spec
      *
      * @return CountOf
      */
