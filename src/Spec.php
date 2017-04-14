@@ -19,6 +19,7 @@ use Happyr\DoctrineSpecification\Query\LeftJoin;
 use Happyr\DoctrineSpecification\Query\Limit;
 use Happyr\DoctrineSpecification\Query\Offset;
 use Happyr\DoctrineSpecification\Query\OrderBy;
+use Happyr\DoctrineSpecification\Query\Slice;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Result\AsSingleScalar;
 use Happyr\DoctrineSpecification\Result\Cache;
@@ -125,6 +126,17 @@ class Spec
     public static function offset($count)
     {
         return new Offset($count);
+    }
+
+    /**
+     * @param int $slice_size
+     * @param int $slice_number
+     *
+     * @return Slice
+     */
+    public static function Slice($slice_size, $slice_number = 1)
+    {
+        return new Slice($slice_size, $slice_number);
     }
 
     /**
