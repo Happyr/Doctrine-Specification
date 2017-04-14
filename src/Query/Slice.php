@@ -7,15 +7,15 @@ use Happyr\DoctrineSpecification\Logic\AndX;
 class Slice extends AndX
 {
     /**
-     * @param int $slice_size
-     * @param int $slice_number
+     * @param int $sliceSize
+     * @param int $sliceNumber
      */
-    public function __construct($slice_size, $slice_number = 1)
+    public function __construct($sliceSize, $sliceNumber = 1)
     {
-        if ($slice_number > 1) {
-            parent::__construct(new Limit($slice_size), new Offset(($slice_number - 1) * $slice_size));
+        if ($sliceNumber > 1) {
+            parent::__construct(new Limit($sliceSize), new Offset(($sliceNumber - 1) * $sliceSize));
         } else {
-            parent::__construct(new Limit($slice_size));
+            parent::__construct(new Limit($sliceSize));
         }
     }
 }

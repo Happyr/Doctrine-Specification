@@ -129,14 +129,14 @@ class Spec
     }
 
     /**
-     * @param int $slice_size
-     * @param int $slice_number
+     * @param int $sliceSize
+     * @param int $sliceNumber
      *
      * @return Slice
      */
-    public static function Slice($slice_size, $slice_number = 1)
+    public static function Slice($sliceSize, $sliceNumber = 1)
     {
-        return new Slice($slice_size, $slice_number);
+        return new Slice($sliceSize, $sliceNumber);
     }
 
     /**
