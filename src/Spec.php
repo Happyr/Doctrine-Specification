@@ -19,12 +19,12 @@ use Happyr\DoctrineSpecification\Query\LeftJoin;
 use Happyr\DoctrineSpecification\Query\Limit;
 use Happyr\DoctrineSpecification\Query\Offset;
 use Happyr\DoctrineSpecification\Query\OrderBy;
+use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Result\AsSingleScalar;
 use Happyr\DoctrineSpecification\Result\Cache;
 use Happyr\DoctrineSpecification\Specification\CountOf;
 use Happyr\DoctrineSpecification\Specification\Having;
-use Happyr\DoctrineSpecification\Specification\Specification;
 
 /**
  * Factory class for the specifications.
@@ -333,11 +333,11 @@ class Spec
      */
 
     /**
-     * @param Specification $spec
+     * @param Filter[]|QueryModifier[] $spec
      *
      * @return CountOf
      */
-    public static function countOf(Specification $spec)
+    public static function countOf($spec)
     {
         return new CountOf($spec);
     }
