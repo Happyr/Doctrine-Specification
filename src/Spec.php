@@ -22,7 +22,7 @@ use Happyr\DoctrineSpecification\Query\OrderBy;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Result\AsSingleScalar;
 use Happyr\DoctrineSpecification\Result\Cache;
-use Happyr\DoctrineSpecification\Result\RoundTime;
+use Happyr\DoctrineSpecification\Result\RoundDateTime;
 use Happyr\DoctrineSpecification\Specification\CountOf;
 use Happyr\DoctrineSpecification\Specification\Having;
 use Happyr\DoctrineSpecification\Specification\Specification;
@@ -184,11 +184,11 @@ class Spec
     /**
      * @param int $roundSeconds How may seconds to round time
      *
-     * @return RoundTime
+     * @return RoundDateTime
      */
     public static function round($roundSeconds)
     {
-        return new RoundTime($roundSeconds);
+        return new RoundDateTime($roundSeconds);
     }
 
     /*

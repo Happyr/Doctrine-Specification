@@ -8,7 +8,7 @@ use Doctrine\ORM\Query\Parameter;
 /**
  * Round DateTime to seconds in query params.
  */
-class RoundTime implements ResultModifier
+class RoundDateTime implements ResultModifier
 {
     /**
      * @var int How may seconds to round time
