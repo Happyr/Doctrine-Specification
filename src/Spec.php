@@ -186,7 +186,7 @@ class Spec
      *
      * @return RoundDateTime
      */
-    public static function round($roundSeconds)
+    public static function roundDateTimeParams($roundSeconds)
     {
         return new RoundDateTime($roundSeconds);
     }
