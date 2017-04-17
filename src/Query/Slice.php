@@ -2,20 +2,40 @@
 
 namespace Happyr\DoctrineSpecification\Query;
 
-use Happyr\DoctrineSpecification\Logic\AndX;
+use Doctrine\ORM\QueryBuilder;
 
-class Slice extends AndX
+class Slice implements QueryModifier
 {
+    /**
+     * @var int
+     */
+    private $sliceSize;
+
+    /**
+     * @var int
+     */
+    private $sliceNumber = 1;
+
     /**
      * @param int $sliceSize
      * @param int $sliceNumber
      */
     public function __construct($sliceSize, $sliceNumber = 1)
     {
-        if ($sliceNumber > 1) {
-            parent::__construct(new Limit($sliceSize), new Offset(($sliceNumber - 1) * $sliceSize));
-        } else {
-            parent::__construct(new Limit($sliceSize));
+        $this->sliceSize = $sliceSize;
+        $this->sliceNumber = $sliceNumber;
+    }
+
+    /**
+     * @param QueryBuilder $qb
+     * @param string       $dqlAlias
+     */
+    public function modify(QueryBuilder $qb, $dqlAlias)
+    {
+        $qb->setMaxResults($this->sliceSize);
+
+        if ($this->sliceNumber > 1) {
+            $qb->setFirstResult(($this->sliceNumber - 1) * $this->sliceSize);
         }
     }
 }
