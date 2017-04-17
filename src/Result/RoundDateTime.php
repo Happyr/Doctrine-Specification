@@ -6,7 +6,7 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Parameter;
 
 /**
- * Round DateTime to seconds in query params.
+ * Round a \DateTime to enable caching.
  */
 class RoundDateTime implements ResultModifier
 {
