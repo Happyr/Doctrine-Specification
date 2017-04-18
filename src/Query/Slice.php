@@ -14,13 +14,13 @@ class Slice implements QueryModifier
     /**
      * @var int
      */
-    private $sliceNumber = 1;
+    private $sliceNumber = 0;
 
     /**
      * @param int $sliceSize
      * @param int $sliceNumber
      */
-    public function __construct($sliceSize, $sliceNumber = 1)
+    public function __construct($sliceSize, $sliceNumber = 0)
     {
         $this->sliceSize = $sliceSize;
         $this->sliceNumber = $sliceNumber;
@@ -34,8 +34,8 @@ class Slice implements QueryModifier
     {
         $qb->setMaxResults($this->sliceSize);
 
-        if ($this->sliceNumber > 1) {
-            $qb->setFirstResult(($this->sliceNumber - 1) * $this->sliceSize);
+        if ($this->sliceNumber > 0) {
+            $qb->setFirstResult($this->sliceNumber * $this->sliceSize);
         }
     }
 }

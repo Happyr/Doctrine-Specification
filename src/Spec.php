@@ -134,7 +134,7 @@ class Spec
      *
      * @return Slice
      */
-    public static function slice($sliceSize, $sliceNumber = 1)
+    public static function slice($sliceSize, $sliceNumber = 0)
     {
         return new Slice($sliceSize, $sliceNumber);
     }
