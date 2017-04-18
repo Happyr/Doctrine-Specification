@@ -40,7 +40,7 @@ class RoundDateTimeSpec
         $datetimeParam->getType()->willReturn($type);
 
         $query->getParameters()->willReturn(new ArrayCollection([$scalarParam, $datetimeParam]));
-        $query->setParameter($name,  new \DateTime('15:00:00'), $type)->shouldBeCalled();
+        $query->setParameter($name, new \DateTime('15:00:00'), $type)->shouldBeCalled();
 
         $this->modify($query);
     }
