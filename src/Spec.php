@@ -24,6 +24,7 @@ use Happyr\DoctrineSpecification\Query\Slice;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Result\AsSingleScalar;
 use Happyr\DoctrineSpecification\Result\Cache;
+use Happyr\DoctrineSpecification\Result\RoundDateTime;
 use Happyr\DoctrineSpecification\Specification\CountOf;
 use Happyr\DoctrineSpecification\Specification\Having;
 
@@ -190,6 +191,16 @@ class Spec
     public static function cache($cacheLifetime)
     {
         return new Cache($cacheLifetime);
+    }
+
+    /**
+     * @param int $roundSeconds How may seconds to round time
+     *
+     * @return RoundDateTime
+     */
+    public static function roundDateTimeParams($roundSeconds)
+    {
+        return new RoundDateTime($roundSeconds);
     }
 
     /*
