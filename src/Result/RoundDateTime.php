@@ -32,8 +32,10 @@ class RoundDateTime implements ResultModifier
             /* @var $parameter Parameter */
             if ($parameter->getValue() instanceof \DateTimeInterface) {
                 // round down so that the results do not include data that should not be there.
-                $date = $parameter->getValue();
+                $date = clone $parameter->getValue();
                 $date->setTimestamp(floor($date->getTimestamp() / $this->roundSeconds) * $this->roundSeconds);
+
+                $query->setParameter($parameter->getName(), $date, $parameter->getType());
             }
         }
     }
