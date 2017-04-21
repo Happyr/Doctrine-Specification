@@ -1,8 +1,13 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
 namespace Happyr\DoctrineSpecification\ResultModifier;
-
-use Doctrine\ORM\AbstractQuery;
 
 class Cache implements ResultModifier
 {
@@ -20,10 +25,10 @@ class Cache implements ResultModifier
     }
 
     /**
-     * @param AbstractQuery $query
+     * @return int
      */
-    public function modify(AbstractQuery $query)
+    public function getCacheLifetime()
     {
-        $query->setResultCacheLifetime($this->cacheLifetime);
+        return $this->cacheLifetime;
     }
 }
