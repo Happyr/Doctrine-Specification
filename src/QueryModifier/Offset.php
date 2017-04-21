@@ -9,14 +9,12 @@
 
 namespace Happyr\DoctrineSpecification\QueryModifier;
 
-use Doctrine\ORM\QueryBuilder;
-
 class Offset implements QueryModifier
 {
     /**
-     * @var int offset
+     * @var int
      */
-    protected $offset;
+    private $offset;
 
     /**
      * @param int $offset
@@ -27,11 +25,10 @@ class Offset implements QueryModifier
     }
 
     /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @return int
      */
-    public function modify(QueryBuilder $qb, $dqlAlias)
+    public function getOffset()
     {
-        $qb->setFirstResult($this->offset);
+        return $this->offset;
     }
 }
