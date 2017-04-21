@@ -1,23 +1,34 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
 namespace Happyr\DoctrineSpecification\Filter;
 
-use Doctrine\ORM\QueryBuilder;
-
-class IsNotNull extends IsNull
+class IsNotNull implements Filter
 {
     /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
-     *
+     * @var string
+     */
+    protected $field;
+
+    /**
+     * @param string $field
+     */
+    public function __construct($field)
+    {
+        $this->field = $field;
+    }
+
+    /**
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    public function getField()
     {
-        if ($this->dqlAlias !== null) {
-            $dqlAlias = $this->dqlAlias;
-        }
-
-        return (string) $qb->expr()->isNotNull(sprintf('%s.%s', $dqlAlias, $this->field));
+        return $this->field;
     }
 }
