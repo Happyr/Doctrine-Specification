@@ -1,49 +1,37 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
 namespace Happyr\DoctrineSpecification\QueryModifier;
 
-use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Specification;
 
 class Having implements Specification
 {
     /**
-     * @var Filter|string child
+     * @var Filter child
      */
-    protected $child;
+    private $filter;
 
     /**
-     * @param Filter|string $child
+     * @param Filter $filter
      */
-    public function __construct($child)
+    public function __construct(Filter $filter)
     {
-        $this->child = $child;
+        $this->filter = $filter;
     }
 
     /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @return Filter
      */
-    public function modify(QueryBuilder $qb, $dqlAlias)
+    public function getFilter()
     {
-        if ($this->child instanceof QueryModifier) {
-            $this->child->modify($qb, $dqlAlias);
-        }
-    }
-
-    /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
-     *
-     * @return string
-     */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
-    {
-        if ($this->child instanceof Filter) {
-            $qb->having($this->child->getFilter($qb, $dqlAlias));
-        } else {
-            $qb->having($this->child);
-        }
+        return $this->filter;
     }
 }
