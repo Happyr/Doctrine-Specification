@@ -1,9 +1,14 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
 namespace Happyr\DoctrineSpecification;
 
-use Happyr\DoctrineSpecification\Filter\Filter;
-use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\ResultModifier\ResultModifier;
 
 /**
@@ -14,45 +19,35 @@ interface EntitySpecificationRepositoryInterface
     /**
      * Get results when you match with a Specification.
      *
-     * @param Filter|QueryModifier $specification
-     * @param ResultModifier       $modifier
+     * @param Specification  $specification
+     * @param ResultModifier $modifier
      *
      * @return mixed[]
      */
-    public function match($specification, ResultModifier $modifier);
+    public function match(Specification $specification, ResultModifier $modifier);
 
     /**
      * Get single result when you match with a Specification.
      *
-     * @param Filter|QueryModifier $specification
-     * @param ResultModifier       $modifier
+     * @param Specification  $specification
+     * @param ResultModifier $modifier
      *
-     * @throw Exception\NonUniqueException  If more than one result is found
-     * @throw Exception\NoResultException   If no results found
+     * @throw NonUniqueException If more than one result is found
+     * @throw NoResultException  If no results found
      *
      * @return mixed
      */
-    public function matchSingleResult($specification, ResultModifier $modifier);
+    public function matchSingleResult(Specification $specification, ResultModifier $modifier);
 
     /**
      * Get single result or null when you match with a Specification.
      *
-     * @param Filter|QueryModifier $specification
-     * @param ResultModifier       $modifier
+     * @param Specification  $specification
+     * @param ResultModifier $modifier
      *
-     * @throw Exception\NonUniqueException  If more than one result is found
+     * @throw NonUniqueException If more than one result is found
      *
      * @return mixed|null
      */
-    public function matchOneOrNullResult($specification, ResultModifier $modifier);
-
-    /**
-     * Prepare a Query with a Specification.
-     *
-     * @param Filter|QueryModifier $specification
-     * @param ResultModifier       $modifier
-     *
-     * @return \Doctrine\ORM\Query
-     */
-    public function getQuery($specification, ResultModifier $modifier);
+    public function matchOneOrNullResult(Specification $specification, ResultModifier $modifier);
 }

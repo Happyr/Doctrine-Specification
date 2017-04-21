@@ -1,9 +1,17 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
-namespace Happyr\DoctrineSpecification;
+namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Repository\RepositoryFactory as DoctrineRepositoryFactory;
 
 /**
  * Factory class for creating EntitySpecificationRepository instances.
@@ -11,7 +19,7 @@ use Doctrine\ORM\EntityRepository;
  * Provides an implementation of RepositoryFactory so that the
  * default repository type in Doctrine can easily be replaced.
  */
-class RepositoryFactory implements \Doctrine\ORM\Repository\RepositoryFactory
+class RepositoryFactory implements DoctrineRepositoryFactory
 {
     /**
      * Gets the repository for an entity class.

@@ -1,6 +1,13 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
-namespace Happyr\DoctrineSpecification;
+namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Common\Collections\Selectable;
