@@ -1,9 +1,13 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
 namespace Happyr\DoctrineSpecification\ResultModifier;
-
-use Doctrine\ORM\AbstractQuery;
-use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 
 class ResultModifierCollection implements ResultModifier
 {
@@ -13,29 +17,31 @@ class ResultModifierCollection implements ResultModifier
     private $children;
 
     /**
-     * Construct it with one or more instances of ResultModifier.
+     * Construct it with two or more instances of ResultModifier.
+     *
+     * @param ResultModifier $children1
+     * @param ResultModifier $children2
      */
-    public function __construct()
+    public function __construct(ResultModifier $children1, ResultModifier $children2)
     {
-        $this->children = func_get_args();
+        foreach (func_get_args() as $children) {
+            $this->addChildren($children);
+        }
     }
 
     /**
-     * @param AbstractQuery $query
+     * @param ResultModifier $children
      */
-    public function modify(AbstractQuery $query)
+    public function addChildren(ResultModifier $children)
     {
-        foreach ($this->children as $child) {
-            if (!$child instanceof ResultModifier) {
-                throw new InvalidArgumentException(
-                    sprintf(
-                        'Child passed to ResultModifierCollection must be an instance of Happyr\DoctrineSpecification\ResultModifier\ResultModifier, but instance of %s found',
-                        get_class($child)
-                    )
-                );
-            }
+        $this->children[] = $children;
+    }
 
-            $child->modify($query);
-        }
+    /**
+     * @return ResultModifier[]
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 }
