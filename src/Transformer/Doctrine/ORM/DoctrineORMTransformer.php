@@ -21,21 +21,23 @@ class DoctrineORMTransformer
     /**
      * @var QueryTransformerCollection
      */
-    private $q_transformer;
+    private $qTransformer;
 
     /**
      * @var QueryBuilderTransformerCollection
      */
-    private $qb_transformer;
+    private $qbTransformer;
 
     /**
-     * @param QueryTransformerCollection $q_transformer
-     * @param QueryBuilderTransformerCollection $qb_transformer
+     * @param QueryTransformerCollection $qTransformer
+     * @param QueryBuilderTransformerCollection $qbTransformer
      */
-    public function __construct(QueryTransformerCollection $q_transformer, QueryBuilderTransformerCollection $qb_transformer)
-    {
-        $this->q_transformer = $q_transformer;
-        $this->qb_transformer = $qb_transformer;
+    public function __construct(
+        QueryTransformerCollection $qTransformer,
+        QueryBuilderTransformerCollection $qbTransformer
+    ) {
+        $this->qTransformer = $qTransformer;
+        $this->qbTransformer = $qbTransformer;
     }
 
     /**
@@ -48,12 +50,12 @@ class DoctrineORMTransformer
      */
     public function transform(Specification $specification, ResultModifier $modifier = null, QueryBuilder $qb, $dqlAlias)
     {
-        $qb = $this->qb_transformer->transform($specification, $qb, $dqlAlias);
+        $qb = $this->qbTransformer->transform($specification, $qb, $dqlAlias);
 
         $query = $qb->getQuery();
 
         if ($modifier !== null) {
-            $query = $this->q_transformer->transform($modifier, $query);
+            $query = $this->qTransformer->transform($modifier, $query);
         }
 
         return $query;
