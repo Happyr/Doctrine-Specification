@@ -17,16 +17,19 @@ class CacheSpec extends ObjectBehavior
     {
         $this->beConstructedWith($this->lifetime);
     }
+    public function it_is_initializable()
+    {
+        $this->shouldHaveType('Happyr\DoctrineSpecification\ResultModifier\Cache');
+    }
+
 
     public function it_is_a_specification()
     {
         $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\ResultModifier\ResultModifier');
     }
 
-    public function it_caches_query_for_given_time(AbstractQuery $query)
+    public function it_should_return_field()
     {
-        $query->setResultCacheLifetime($this->lifetime)->shouldBeCalled();
-
-        $this->modify($query);
+        $this->getCacheLifetime()->shouldReturn($this->lifetime);
     }
 }
