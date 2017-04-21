@@ -1,80 +1,51 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
 namespace Happyr\DoctrineSpecification\Filter;
-
-use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ValueConverter;
 
 class In implements Filter
 {
     /**
-     * @var string field
+     * @var string
      */
-    protected $field;
+    private $field;
 
     /**
-     * @var mixed value
+     * @var mixed
      */
-    protected $value;
-
-    /**
-     * @var string dqlAlias
-     */
-    protected $dqlAlias;
+    private $value;
 
     /**
      * Make sure the $field has a value equals to $value.
      *
      * @param string $field
      * @param mixed  $value
-     * @param string $dqlAlias
      */
-    public function __construct($field, $value, $dqlAlias = null)
+    public function __construct($field, $value)
     {
         $this->field = $field;
         $this->value = $value;
-        $this->dqlAlias = $dqlAlias;
     }
 
     /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
-     *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    public function getField()
     {
-        if ($this->dqlAlias !== null) {
-            $dqlAlias = $this->dqlAlias;
-        }
-
-        $value = $this->value;
-        if (is_array($value)) {
-            foreach ($value as $k => $v) {
-                $value[$k] = ValueConverter::convertToDatabaseValue($v, $qb);
-            }
-        } else {
-            $value = ValueConverter::convertToDatabaseValue($value, $qb);
-        }
-
-        $paramName = $this->getParameterName($qb);
-        $qb->setParameter($paramName, $value);
-
-        return (string) $qb->expr()->in(
-            sprintf('%s.%s', $dqlAlias, $this->field),
-            sprintf(':%s', $paramName)
-        );
+        return $this->field;
     }
 
     /**
-     * Get a good unique parameter name.
-     *
-     * @param QueryBuilder $qb
-     *
-     * @return string
+     * @return mixed
      */
-    protected function getParameterName(QueryBuilder $qb)
+    public function getValue()
     {
-        return sprintf('in_%d', $qb->getParameters()->count());
+        return $this->value;
     }
 }
