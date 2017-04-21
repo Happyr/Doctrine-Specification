@@ -11,29 +11,31 @@ namespace Happyr\DoctrineSpecification\Filter;
 
 class Like extends Comparison
 {
-    const CONTAINS = '%%%s%%';
-    const ENDS_WITH = '%%%s';
-    const STARTS_WITH = '%s%%';
+    const ENDS_WITH = 1;
+    const STARTS_WITH = 2;
+    const CONTAINS = self::ENDS_WITH | self::STARTS_WITH;
+
+    /**
+     * @var int
+     */
+    private $format;
 
     /**
      * @param string $field
      * @param string $value
-     * @param string $format
+     * @param int $format
      */
     public function __construct($field, $value, $format = self::CONTAINS)
     {
-        $formattedValue = $this->formatValue($format, $value);
-        parent::__construct($field, $formattedValue);
+        $this->format = $format;
+        parent::__construct($field, $value);
     }
 
     /**
-     * @param string $format
-     * @param string $value
-     *
-     * @return string
+     * @return int
      */
-    private function formatValue($format, $value)
+    public function getFormat()
     {
-        return sprintf($format, $value);
+        return $this->format;
     }
 }

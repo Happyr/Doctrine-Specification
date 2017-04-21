@@ -24,7 +24,6 @@ abstract class ComparisonTransformer implements QueryBuilderTransformer
     const LTE = DoctrineComparison::LTE;
     const GT = DoctrineComparison::GT;
     const GTE = DoctrineComparison::GTE;
-    const LIKE = 'LIKE';
 
     /**
      * @var array
@@ -36,7 +35,6 @@ abstract class ComparisonTransformer implements QueryBuilderTransformer
         self::LTE,
         self::GT,
         self::GTE,
-        self::LIKE,
     ];
 
     /**
@@ -58,8 +56,9 @@ abstract class ComparisonTransformer implements QueryBuilderTransformer
         }
 
         $paramName = $this->getParameterName($qb);
+        $value = ValueConverter::convertToDatabaseValue($specification->getValue(), $qb);
 
-        $qb->setParameter($paramName, ValueConverter::convertToDatabaseValue($specification->getValue(), $qb));
+        $qb->setParameter($paramName, $value);
         $qb->andWhere((string) new DoctrineComparison(
             sprintf('%s.%s', $dqlAlias, $specification->getField()),
             $operator,
