@@ -49,5 +49,7 @@ class QueryBuilderTransformerCollection implements QueryBuilderTransformer
         foreach ($this->transformers as $transformer) {
             $qb = $transformer->transform($specification, $qb, $dqlAlias);
         }
+
+        return $qb;
     }
 }

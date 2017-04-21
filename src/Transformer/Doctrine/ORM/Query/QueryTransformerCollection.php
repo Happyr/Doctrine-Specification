@@ -48,5 +48,7 @@ class QueryTransformerCollection implements QueryTransformer
         foreach ($this->transformers as $transformer) {
             $query = $transformer->transform($modifier, $query);
         }
+
+        return $query;
     }
 }
