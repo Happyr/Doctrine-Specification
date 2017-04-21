@@ -11,13 +11,4 @@ namespace Happyr\DoctrineSpecification\QueryModifier;
 
 class Join extends AbstractJoin
 {
-    /**
-     * Return a join type (ie a function of QueryBuilder) like: "join", "innerJoin", "leftJoin".
-     *
-     * @return string
-     */
-    public function getJoinType()
-    {
-        return 'join';
-    }
 }

@@ -9,7 +9,7 @@
 
 namespace Happyr\DoctrineSpecification\QueryModifier;
 
-use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Filter\Filter;
 
 abstract class AbstractJoin implements QueryModifier
 {
@@ -21,43 +21,46 @@ abstract class AbstractJoin implements QueryModifier
     /**
      * @var string
      */
-    private $newAlias;
+    private $alias;
 
     /**
-     * @var string
+     * @var Filter|null
      */
-    private $dqlAlias;
+    private $with;
 
     /**
      * @param string $field
-     * @param string $newAlias
-     * @param string $dqlAlias
+     * @param string $alias
+     * @param Filter|null $with
      */
-    public function __construct($field, $newAlias, $dqlAlias = null)
+    public function __construct($field, $alias, Filter $with = null)
     {
         $this->field = $field;
-        $this->newAlias = $newAlias;
-        $this->dqlAlias = $dqlAlias;
+        $this->alias = $alias;
+        $this->with = $with;
     }
 
     /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
-     */
-    public function modify(QueryBuilder $qb, $dqlAlias)
-    {
-        if ($this->dqlAlias !== null) {
-            $dqlAlias = $this->dqlAlias;
-        }
-
-        $join = $this->getJoinType();
-        $qb->$join(sprintf('%s.%s', $dqlAlias, $this->field), $this->newAlias);
-    }
-
-    /**
-     * Return a join type (ie a function of QueryBuilder) like: "join", "innerJoin", "leftJoin".
-     *
      * @return string
      */
-    abstract public function getJoinType();
+    public function getField()
+    {
+        return $this->field;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->alias;
+    }
+
+    /**
+     * @return Filter|null
+     */
+    public function getWith()
+    {
+        return $this->with;
+    }
 }
