@@ -1,12 +1,34 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
 namespace Happyr\DoctrineSpecification\Logic;
 
-class AndX extends LogicX
+use Happyr\DoctrineSpecification\Specification;
+
+class AndX implements Specification
 {
-    public function __construct()
+    /**
+     * @var Specification[]
+     */
+    private $children;
+
+    /**
+     * Construct it with two or more instances of Specification.
+     *
+     * @param Specification $child1
+     * @param Specification $child2
+     */
+    public function __construct(Specification $child1, Specification $child2)
     {
-        parent::__construct(self::AND_X, func_get_args());
+        foreach (func_get_args() as $child) {
+            $this->andX($child);
+        }
     }
 
     /**
@@ -20,10 +42,18 @@ class AndX extends LogicX
      * $spec = Spec::andX(A, B, C);
      * </code>
      *
-     * @param |Happyr\DoctrineSpecification\Filter\Filter|\Happyr\DoctrineSpecification\Query\QueryModifier $child
+     * @param Specification $child
      */
-    public function andX($child)
+    public function andX(Specification $child)
     {
-        $this->append($child);
+        $this->children[] = $child;
+    }
+
+    /**
+     * @return Specification[]
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 }
