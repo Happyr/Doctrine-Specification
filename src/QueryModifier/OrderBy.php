@@ -9,47 +9,62 @@
 
 namespace Happyr\DoctrineSpecification\QueryModifier;
 
-use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 
 class OrderBy implements QueryModifier
 {
-    /**
-     * @var string field
-     */
-    protected $field;
+    const ASC = 'ASC';
+    const DESC = 'DESC';
 
     /**
-     * @var string order
+     * @var string
      */
-    protected $order;
+    private $field;
 
     /**
-     * @var string dqlAlias
+     * @var array
      */
-    protected $dqlAlias;
+    private static $orders = [
+        self::ASC,
+        self::DESC,
+    ];
 
     /**
-     * @param string      $field
-     * @param string      $order
-     * @param string|null $dqlAlias
+     * @var string
      */
-    public function __construct($field, $order = 'ASC', $dqlAlias = null)
+    private $order;
+
+    /**
+     * @param string $field
+     * @param string $order
+     */
+    public function __construct($field, $order = self::ASC)
     {
+        if (!in_array($order, self::$orders)) {
+            throw new InvalidArgumentException(sprintf(
+                '"%s" is not a valid order. Valid order are: "%s"',
+                $order,
+                implode(', ', self::$orders)
+            ));
+        }
+
         $this->field = $field;
         $this->order = $order;
-        $this->dqlAlias = $dqlAlias;
     }
 
     /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @return string
      */
-    public function modify(QueryBuilder $qb, $dqlAlias)
+    public function getField()
     {
-        if ($this->dqlAlias !== null) {
-            $dqlAlias = $this->dqlAlias;
-        }
+        return $this->field;
+    }
 
-        $qb->addOrderBy(sprintf('%s.%s', $dqlAlias, $this->field), $this->order);
+    /**
+     * @return string
+     */
+    public function getOrder()
+    {
+        return $this->order;
     }
 }
