@@ -20,6 +20,24 @@ class QueryTransformerCollection implements QueryTransformer
     private $transformers = [];
 
     /**
+     * @param QueryTransformer[] $transformers
+     */
+    public function __construct(array $transformers = [])
+    {
+        foreach ($transformers as $transformer) {
+            $this->addTransformer($transformer);
+        }
+    }
+
+    /**
+     * @param QueryTransformer $transformer
+     */
+    public function addTransformer(QueryTransformer $transformer)
+    {
+        $this->transformers[] = $transformer;
+    }
+
+    /**
      * @param ResultModifier $modifier
      * @param AbstractQuery  $query
      *

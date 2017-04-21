@@ -20,6 +20,24 @@ class QueryBuilderTransformerCollection implements QueryBuilderTransformer
     private $transformers = [];
 
     /**
+     * @param QueryBuilderTransformer[] $transformers
+     */
+    public function __construct(array $transformers = [])
+    {
+        foreach ($transformers as $transformer) {
+            $this->addTransformer($transformer);
+        }
+    }
+
+    /**
+     * @param QueryBuilderTransformer $transformer
+     */
+    public function addTransformer(QueryBuilderTransformer $transformer)
+    {
+        $this->transformers[] = $transformer;
+    }
+
+    /**
      * @param Specification $specification
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
