@@ -2,8 +2,6 @@
 
 namespace tests\Happyr\DoctrineSpecification\Filter;
 
-use Doctrine\ORM\Query\Expr;
-use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\IsNotNull;
 use PhpSpec\ObjectBehavior;
 
