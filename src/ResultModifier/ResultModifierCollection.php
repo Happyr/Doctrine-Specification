@@ -14,34 +14,34 @@ class ResultModifierCollection implements ResultModifier
     /**
      * @var ResultModifier[]
      */
-    private $children = [];
+    private $modifiers = [];
 
     /**
      * Construct it with two or more instances of ResultModifier.
      *
-     * @param ResultModifier $child1
-     * @param ResultModifier $child2
+     * @param ResultModifier $modifier1
+     * @param ResultModifier $modifier2
      */
-    public function __construct(ResultModifier $child1, ResultModifier $child2)
+    public function __construct(ResultModifier $modifier1, ResultModifier $modifier2)
     {
-        foreach (func_get_args() as $child) {
-            $this->addChild($child);
+        foreach (func_get_args() as $modifier) {
+            $this->addModifier($modifier);
         }
     }
 
     /**
-     * @param ResultModifier $child
+     * @param ResultModifier $modifier
      */
-    public function addChild(ResultModifier $child)
+    public function addModifier(ResultModifier $modifier)
     {
-        $this->children[] = $child;
+        $this->modifiers[] = $modifier;
     }
 
     /**
      * @return ResultModifier[]
      */
-    public function getChildren()
+    public function getModifiers()
     {
-        return $this->children;
+        return $this->modifiers;
     }
 }

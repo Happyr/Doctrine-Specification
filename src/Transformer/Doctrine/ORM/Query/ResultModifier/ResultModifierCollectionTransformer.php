@@ -39,7 +39,7 @@ class ResultModifierCollectionTransformer implements QueryTransformer
     public function transform(ResultModifier $modifier, AbstractQuery $query)
     {
         if ($modifier instanceof ResultModifierCollection) {
-            foreach ($modifier->getChildren() as $child) {
+            foreach ($modifier->getModifiers() as $child) {
                 $query = $this->collection->transform($child, $query);
             }
         }
