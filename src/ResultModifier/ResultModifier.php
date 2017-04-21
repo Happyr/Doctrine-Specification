@@ -1,13 +1,16 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
 namespace Happyr\DoctrineSpecification\ResultModifier;
 
-use Doctrine\ORM\AbstractQuery;
+use Happyr\DoctrineSpecification\Specification;
 
-interface ResultModifier
+interface ResultModifier extends Specification
 {
-    /**
-     * @param AbstractQuery $query
-     */
-    public function modify(AbstractQuery $query);
 }
