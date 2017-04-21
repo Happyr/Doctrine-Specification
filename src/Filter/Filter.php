@@ -1,16 +1,16 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
 namespace Happyr\DoctrineSpecification\Filter;
 
-use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Specification;
 
-interface Filter
+interface Filter extends Specification
 {
-    /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
-     *
-     * @return string
-     */
-    public function getFilter(QueryBuilder $qb, $dqlAlias);
 }

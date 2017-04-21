@@ -1,18 +1,22 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
 namespace Happyr\DoctrineSpecification\Filter;
 
-use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ValueConverter;
 
 /**
  * Comparison class.
  *
  * This is used when you need to compare two values
  */
-class Comparison implements Filter
+abstract class Comparison implements Filter
 {
     const EQ = '=';
     const NEQ = '<>';
@@ -25,27 +29,25 @@ class Comparison implements Filter
     /**
      * @var string field
      */
-    protected $field;
+    private $field;
 
     /**
      * @var string value
      */
-    protected $value;
-
-    /**
-     * @var string dqlAlias
-     */
-    protected $dqlAlias;
+    private $value;
 
     /**
      * @var array
      */
-    private static $operators = array(
-        self::EQ, self::NEQ,
-        self::LT, self::LTE,
-        self::GT, self::GTE,
+    private static $operators = [
+        self::EQ,
+        self::NEQ,
+        self::LT,
+        self::LTE,
+        self::GT,
+        self::GTE,
         self::LIKE,
-    );
+    ];
 
     /**
      * @var string
@@ -58,11 +60,10 @@ class Comparison implements Filter
      * @param string $operator
      * @param string $field
      * @param string $value
-     * @param string $dqlAlias
      *
      * @throws InvalidArgumentException
      */
-    public function __construct($operator, $field, $value, $dqlAlias = null)
+    public function __construct($operator, $field, $value)
     {
         if (!in_array($operator, self::$operators)) {
             throw new InvalidArgumentException(sprintf(
@@ -75,40 +76,29 @@ class Comparison implements Filter
         $this->operator = $operator;
         $this->field = $field;
         $this->value = $value;
-        $this->dqlAlias = $dqlAlias;
     }
 
     /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
-     *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    public function getField()
     {
-        if ($this->dqlAlias !== null) {
-            $dqlAlias = $this->dqlAlias;
-        }
-
-        $paramName = $this->getParameterName($qb);
-        $qb->setParameter($paramName, ValueConverter::convertToDatabaseValue($this->value, $qb));
-
-        return (string) new DoctrineComparison(
-            sprintf('%s.%s', $dqlAlias, $this->field),
-            $this->operator,
-            sprintf(':%s', $paramName)
-        );
+        return $this->field;
     }
 
     /**
-     * Get a good unique parameter name.
-     *
-     * @param QueryBuilder $qb
-     *
      * @return string
      */
-    protected function getParameterName(QueryBuilder $qb)
+    public function getValue()
     {
-        return sprintf('comparison_%d', $qb->getParameters()->count());
+        return $this->value;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperator()
+    {
+        return $this->operator;
     }
 }

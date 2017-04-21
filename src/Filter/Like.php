@@ -1,4 +1,11 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
 namespace Happyr\DoctrineSpecification\Filter;
 
@@ -12,12 +19,11 @@ class Like extends Comparison
      * @param string $field
      * @param string $value
      * @param string $format
-     * @param string $dqlAlias
      */
-    public function __construct($field, $value, $format = self::CONTAINS, $dqlAlias = null)
+    public function __construct($field, $value, $format = self::CONTAINS)
     {
         $formattedValue = $this->formatValue($format, $value);
-        parent::__construct(self::LIKE, $field, $formattedValue, $dqlAlias);
+        parent::__construct(self::LIKE, $field, $formattedValue);
     }
 
     /**
