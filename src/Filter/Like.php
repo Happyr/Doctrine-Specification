@@ -13,7 +13,7 @@ class Like extends Comparison
 {
     const ENDS_WITH = 1;
     const STARTS_WITH = 2;
-    const CONTAINS = self::ENDS_WITH | self::STARTS_WITH;
+    const CONTAINS = 3; // self::ENDS_WITH | self::STARTS_WITH
 
     /**
      * @var int
