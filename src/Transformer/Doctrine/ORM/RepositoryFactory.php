@@ -22,6 +22,19 @@ use Doctrine\ORM\Repository\RepositoryFactory as DoctrineRepositoryFactory;
 class RepositoryFactory implements DoctrineRepositoryFactory
 {
     /**
+     * @var DoctrineORMTransformer
+     */
+    private $transformer;
+
+    /**
+     * @param DoctrineORMTransformer $transformer
+     */
+    public function __construct(DoctrineORMTransformer $transformer)
+    {
+        $this->transformer = $transformer;
+    }
+
+    /**
      * Gets the repository for an entity class.
      *
      * @param EntityManagerInterface $entityManager the EntityManager instance
@@ -33,7 +46,8 @@ class RepositoryFactory implements DoctrineRepositoryFactory
     {
         return new EntitySpecificationRepository(
             $entityManager,
-            $entityManager->getClassMetadata($entityName)
+            $entityManager->getClassMetadata($entityName),
+            $this->transformer
         );
     }
 }

@@ -12,6 +12,7 @@ namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\NonUniqueResultException as HappyrNonUniqueResultException;
 use Happyr\DoctrineSpecification\Exception\NoResultException as HappyrNoResultException;
 use Happyr\DoctrineSpecification\ResultModifier\ResultModifier;
@@ -26,6 +27,11 @@ trait EntitySpecificationRepositoryTrait
      * @var string alias
      */
     private $alias = 'e';
+
+    /**
+     * @var DoctrineORMTransformer
+     */
+    private $transformer;
 
     /**
      * Get results when you match with a Specification.
@@ -77,7 +83,7 @@ trait EntitySpecificationRepositoryTrait
         try {
             return $this->matchSingleResult($specification, $modifier);
         } catch (HappyrNoResultException $e) {
-            return;
+            return null;
         }
     }
 
@@ -91,16 +97,15 @@ trait EntitySpecificationRepositoryTrait
      */
     public function getQuery(Specification $specification, ResultModifier $modifier = null)
     {
-        $qb = $this->createQueryBuilder($this->getAlias());
-        // TODO apply specification
-//        $this->applySpecification($qb, $specification);
-        $query = $qb->getQuery();
+        /* @var $qb QueryBuilder */
+        $qb = $this->createQueryBuilder($this->alias);
 
-        if ($modifier !== null) {
-//            $modifier->modify($query);
+        // apply specification
+        if ($this->transformer instanceof DoctrineORMTransformer) {
+            return $this->transformer->transform($specification, $modifier, $qb, $this->alias);
+        } else {
+            return $qb->getQuery();
         }
-
-        return $query;
     }
 
     /**
@@ -116,10 +121,14 @@ trait EntitySpecificationRepositoryTrait
     }
 
     /**
-     * @return string
+     * @param DoctrineORMTransformer $transformer
+     *
+     * @return self
      */
-    public function getAlias()
+    public function setTransformer(DoctrineORMTransformer $transformer)
     {
-        return $this->alias;
+        $this->transformer = $transformer;
+
+        return $this;
     }
 }

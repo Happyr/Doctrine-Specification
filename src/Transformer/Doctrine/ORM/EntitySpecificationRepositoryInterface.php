@@ -28,4 +28,18 @@ interface EntitySpecificationRepositoryInterface extends BaseEntitySpecification
      * @return Query
      */
     public function getQuery(Specification $specification, ResultModifier $modifier);
+
+    /**
+     * @param string $alias
+     *
+     * @return self
+     */
+    public function setAlias($alias);
+
+    /**
+     * @param DoctrineORMTransformer $transformer
+     *
+     * @return self
+     */
+    public function setTransformer(DoctrineORMTransformer $transformer);
 }
