@@ -9,7 +9,7 @@
 
 namespace tests\Happyr\DoctrineSpecification\QueryModifier;
 
-use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\QueryModifier\LeftJoin;
 use PhpSpec\ObjectBehavior;
 
@@ -18,9 +18,13 @@ use PhpSpec\ObjectBehavior;
  */
 class LeftJoinSpec extends ObjectBehavior
 {
+    private $field = 'user';
+
+    private $alias = 'authUser';
+
     public function let()
     {
-        $this->beConstructedWith('user', 'authUser', 'a');
+        $this->beConstructedWith($this->field, $this->alias, null);
     }
 
     public function it_is_initializable()
@@ -33,16 +37,24 @@ class LeftJoinSpec extends ObjectBehavior
         $this->shouldHaveType('Happyr\DoctrineSpecification\QueryModifier\QueryModifier');
     }
 
-    public function it_joins_with_default_dql_alias(QueryBuilder $qb)
+    public function it_should_return_field()
     {
-        $qb->leftJoin('a.user', 'authUser')->shouldBeCalled();
-        $this->modify($qb, 'a');
+        $this->getField()->shouldReturn($this->field);
     }
 
-    public function it_uses_local_alias_if_global_was_not_set(QueryBuilder $qb)
+    public function it_should_return_alias()
     {
-        $this->beConstructedWith('user', 'authUser');
-        $qb->leftJoin('b.user', 'authUser')->shouldBeCalled();
-        $this->modify($qb, 'b');
+        $this->getAlias()->shouldReturn($this->alias);
+    }
+
+    public function it_should_return_empty_with()
+    {
+        $this->getWith()->shouldReturn(null);
+    }
+
+    public function it_should_return_with(Filter $with)
+    {
+        $this->beConstructedWith($this->field, $this->alias, $with);
+        $this->getWith()->shouldReturn($with);
     }
 }
