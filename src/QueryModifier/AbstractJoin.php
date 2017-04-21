@@ -11,23 +11,20 @@ namespace Happyr\DoctrineSpecification\QueryModifier;
 
 use Doctrine\ORM\QueryBuilder;
 
-/**
- * @author Tobias Nyholm
- */
 abstract class AbstractJoin implements QueryModifier
 {
     /**
-     * @var string field
+     * @var string
      */
     private $field;
 
     /**
-     * @var string alias
+     * @var string
      */
     private $newAlias;
 
     /**
-     * @var string dqlAlias
+     * @var string
      */
     private $dqlAlias;
 
@@ -62,5 +59,5 @@ abstract class AbstractJoin implements QueryModifier
      *
      * @return string
      */
-    abstract protected function getJoinType();
+    abstract public function getJoinType();
 }
