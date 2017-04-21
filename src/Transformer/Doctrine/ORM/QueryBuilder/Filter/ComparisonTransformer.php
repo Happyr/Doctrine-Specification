@@ -11,32 +11,60 @@ namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Fil
 
 use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 use Happyr\DoctrineSpecification\Filter\Comparison;
-use Happyr\DoctrineSpecification\Specification;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ValueConverter;
 
-class ComparisonTransformer implements QueryBuilderTransformer
+abstract class ComparisonTransformer implements QueryBuilderTransformer
 {
+    const EQ = DoctrineComparison::EQ;
+    const NEQ = DoctrineComparison::NEQ;
+    const LT = DoctrineComparison::LT;
+    const LTE = DoctrineComparison::LTE;
+    const GT = DoctrineComparison::GT;
+    const GTE = DoctrineComparison::GTE;
+    const LIKE = 'LIKE';
+
     /**
-     * @param Specification $specification
+     * @var array
+     */
+    private static $operators = [
+        self::EQ,
+        self::NEQ,
+        self::LT,
+        self::LTE,
+        self::GT,
+        self::GTE,
+        self::LIKE,
+    ];
+
+    /**
+     * @param Comparison $specification
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
+     * @param string        $operator
      *
      * @return QueryBuilder
      */
-    public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
+    protected function compare(Comparison $specification, QueryBuilder $qb, $dqlAlias, $operator)
     {
-        if ($specification instanceof Comparison) {
-            $paramName = $this->getParameterName($qb);
-
-            $qb->setParameter($paramName, ValueConverter::convertToDatabaseValue($specification->getValue(), $qb));
-            $qb->andWhere((string) new DoctrineComparison(
-                sprintf('%s.%s', $dqlAlias, $specification->getField()),
-                $specification->getOperator(),
-                sprintf(':%s', $paramName)
+        if (!in_array($operator, self::$operators)) {
+            throw new InvalidArgumentException(sprintf(
+                '"%s" is not a valid comparison operator. Valid operators are: "%s"',
+                $operator,
+                implode(', ', self::$operators)
             ));
         }
+
+        $paramName = $this->getParameterName($qb);
+
+        $qb->setParameter($paramName, ValueConverter::convertToDatabaseValue($specification->getValue(), $qb));
+        $qb->andWhere((string) new DoctrineComparison(
+            sprintf('%s.%s', $dqlAlias, $specification->getField()),
+            $operator,
+            sprintf(':%s', $paramName)
+        ));
 
         return $qb;
     }

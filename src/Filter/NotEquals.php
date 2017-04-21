@@ -11,12 +11,4 @@ namespace Happyr\DoctrineSpecification\Filter;
 
 class NotEquals extends Comparison
 {
-    /**
-     * @param string $field
-     * @param string $value
-     */
-    public function __construct($field, $value)
-    {
-        parent::__construct(self::NEQ, $field, $value);
-    }
 }

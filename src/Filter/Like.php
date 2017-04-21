@@ -23,7 +23,7 @@ class Like extends Comparison
     public function __construct($field, $value, $format = self::CONTAINS)
     {
         $formattedValue = $this->formatValue($format, $value);
-        parent::__construct(self::LIKE, $field, $formattedValue);
+        parent::__construct($field, $formattedValue);
     }
 
     /**

@@ -9,8 +9,6 @@
 
 namespace Happyr\DoctrineSpecification\Filter;
 
-use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
-
 /**
  * Comparison class.
  *
@@ -18,14 +16,6 @@ use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
  */
 abstract class Comparison implements Filter
 {
-    const EQ = '=';
-    const NEQ = '<>';
-    const LT = '<';
-    const LTE = '<=';
-    const GT = '>';
-    const GTE = '>=';
-    const LIKE = 'LIKE';
-
     /**
      * @var string field
      */
@@ -37,43 +27,13 @@ abstract class Comparison implements Filter
     private $value;
 
     /**
-     * @var array
-     */
-    private static $operators = [
-        self::EQ,
-        self::NEQ,
-        self::LT,
-        self::LTE,
-        self::GT,
-        self::GTE,
-        self::LIKE,
-    ];
-
-    /**
-     * @var string
-     */
-    private $operator;
-
-    /**
      * Make sure the $field has a value equals to $value.
      *
-     * @param string $operator
      * @param string $field
      * @param string $value
-     *
-     * @throws InvalidArgumentException
      */
-    public function __construct($operator, $field, $value)
+    public function __construct($field, $value)
     {
-        if (!in_array($operator, self::$operators)) {
-            throw new InvalidArgumentException(sprintf(
-                '"%s" is not a valid comparison operator. Valid operators are: "%s"',
-                $operator,
-                implode(', ', self::$operators)
-            ));
-        }
-
-        $this->operator = $operator;
         $this->field = $field;
         $this->value = $value;
     }
@@ -92,13 +52,5 @@ abstract class Comparison implements Filter
     public function getValue()
     {
         return $this->value;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOperator()
-    {
-        return $this->operator;
     }
 }

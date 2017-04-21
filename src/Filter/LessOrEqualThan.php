@@ -11,12 +11,4 @@ namespace Happyr\DoctrineSpecification\Filter;
 
 class LessOrEqualThan extends Comparison
 {
-    /**
-     * @param string $field
-     * @param string $value
-     */
-    public function __construct($field, $value)
-    {
-        parent::__construct(self::LTE, $field, $value);
-    }
 }
