@@ -7,7 +7,7 @@ use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
-use Happyr\DoctrineSpecification\Result\ResultModifier;
+use Happyr\DoctrineSpecification\ResultModifier\ResultModifier;
 
 /**
  * This trait should be used by a class extending \Doctrine\ORM\EntityRepository.

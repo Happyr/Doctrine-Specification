@@ -1,6 +1,6 @@
 <?php
 
-namespace Happyr\DoctrineSpecification\Result;
+namespace Happyr\DoctrineSpecification\ResultModifier;
 
 use Doctrine\ORM\AbstractQuery;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
@@ -29,7 +29,7 @@ class ResultModifierCollection implements ResultModifier
             if (!$child instanceof ResultModifier) {
                 throw new InvalidArgumentException(
                     sprintf(
-                        'Child passed to ResultModifierCollection must be an instance of Happyr\DoctrineSpecification\Result\ResultModifier, but instance of %s found',
+                        'Child passed to ResultModifierCollection must be an instance of Happyr\DoctrineSpecification\ResultModifier\ResultModifier, but instance of %s found',
                         get_class($child)
                     )
                 );

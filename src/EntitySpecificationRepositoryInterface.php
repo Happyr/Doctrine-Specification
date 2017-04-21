@@ -4,7 +4,7 @@ namespace Happyr\DoctrineSpecification;
 
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
-use Happyr\DoctrineSpecification\Result\ResultModifier;
+use Happyr\DoctrineSpecification\ResultModifier\ResultModifier;
 
 /**
  * This interface should be used by an EntityRepository implementing the Specification pattern.

@@ -11,7 +11,7 @@ namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Result\ResultModifier;
+use Happyr\DoctrineSpecification\ResultModifier\ResultModifier;
 use Happyr\DoctrineSpecification\Specification;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\Query\QueryTransformerCollection;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollection;

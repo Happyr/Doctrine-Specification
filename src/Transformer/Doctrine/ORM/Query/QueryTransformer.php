@@ -10,7 +10,7 @@
 namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\Query;
 
 use Doctrine\ORM\AbstractQuery;
-use Happyr\DoctrineSpecification\Result\ResultModifier;
+use Happyr\DoctrineSpecification\ResultModifier\ResultModifier;
 
 interface QueryTransformer
 {

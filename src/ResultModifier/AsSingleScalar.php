@@ -1,6 +1,6 @@
 <?php
 
-namespace Happyr\DoctrineSpecification\Result;
+namespace Happyr\DoctrineSpecification\ResultModifier;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
