@@ -7,15 +7,15 @@
  * @license   http://opensource.org/licenses/MIT
  */
 
-namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier;
+namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Filter;
 
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\QueryModifier\QueryModifierCollection;
+use Happyr\DoctrineSpecification\Filter\FilterCollection;
 use Happyr\DoctrineSpecification\Specification;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollection;
 
-class QueryModifierCollectionTransformer implements QueryBuilderTransformer
+class FilterCollectionTransformer implements QueryBuilderTransformer
 {
     /**
      * @var QueryBuilderTransformerCollection
@@ -39,9 +39,9 @@ class QueryModifierCollectionTransformer implements QueryBuilderTransformer
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
-        if ($specification instanceof QueryModifierCollection) {
-            foreach ($specification->getModifiers() as $modifier) {
-                $qb = $this->collection->transform($modifier, $qb, $dqlAlias);
+        if ($specification instanceof FilterCollection) {
+            foreach ($specification->getFilters() as $filter) {
+                $qb = $this->collection->transform($filter, $qb, $dqlAlias);
             }
         }
 
