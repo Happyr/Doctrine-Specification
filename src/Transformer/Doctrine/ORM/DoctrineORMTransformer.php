@@ -54,12 +54,12 @@ class DoctrineORMTransformer
         QueryBuilder $qb,
         $dqlAlias
     ) {
-        $qb = $this->qbTransformer->transform($specification, $qb, $dqlAlias);
+        $this->qbTransformer->transform($specification, $qb, $dqlAlias);
 
         $query = $qb->getQuery();
 
         if ($modifier !== null) {
-            $query = $this->qTransformer->transform($modifier, $query);
+            $this->qTransformer->transform($modifier, $query);
         }
 
         return $query;
