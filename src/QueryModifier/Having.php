@@ -1,10 +1,10 @@
 <?php
 
-namespace Happyr\DoctrineSpecification\Specification;
+namespace Happyr\DoctrineSpecification\QueryModifier;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
-use Happyr\DoctrineSpecification\QueryModifier\QueryModifier;
+use Happyr\DoctrineSpecification\Specification;
 
 class Having implements Specification
 {
