@@ -16,8 +16,8 @@ interface QueryBuilderTransformer
 {
     /**
      * @param Specification $specification
-     * @param QueryBuilder $qb
-     * @param string $dqlAlias
+     * @param QueryBuilder  $qb
+     * @param string        $dqlAlias
      *
      * @return QueryBuilder
      */

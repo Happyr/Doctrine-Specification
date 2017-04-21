@@ -21,7 +21,7 @@ class QueryTransformerCollection implements QueryTransformer
 
     /**
      * @param ResultModifier $modifier
-     * @param AbstractQuery $query
+     * @param AbstractQuery  $query
      *
      * @return AbstractQuery
      */

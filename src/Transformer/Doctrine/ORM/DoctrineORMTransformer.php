@@ -29,7 +29,7 @@ class DoctrineORMTransformer
     private $qbTransformer;
 
     /**
-     * @param QueryTransformerCollection $qTransformer
+     * @param QueryTransformerCollection        $qTransformer
      * @param QueryBuilderTransformerCollection $qbTransformer
      */
     public function __construct(
@@ -41,15 +41,19 @@ class DoctrineORMTransformer
     }
 
     /**
-     * @param Specification $specification
+     * @param Specification       $specification
      * @param ResultModifier|null $modifier
-     * @param QueryBuilder $qb
-     * @param string $dqlAlias
+     * @param QueryBuilder        $qb
+     * @param string              $dqlAlias
      *
      * @return AbstractQuery
      */
-    public function transform(Specification $specification, ResultModifier $modifier = null, QueryBuilder $qb, $dqlAlias)
-    {
+    public function transform(
+        Specification $specification,
+        ResultModifier $modifier = null,
+        QueryBuilder $qb,
+        $dqlAlias
+    ) {
         $qb = $this->qbTransformer->transform($specification, $qb, $dqlAlias);
 
         $query = $qb->getQuery();
