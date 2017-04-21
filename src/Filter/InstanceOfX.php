@@ -1,43 +1,34 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
 namespace Happyr\DoctrineSpecification\Filter;
-
-use Doctrine\ORM\QueryBuilder;
 
 class InstanceOfX implements Filter
 {
     /**
-     * @var null|string dqlAlias
+     * @var string
      */
-    protected $dqlAlias;
+    private $value;
 
     /**
-     * @var string value
+     * @param string $value
      */
-    protected $value;
-
-    /**
-     * @param string      $value
-     * @param string|null $dqlAlias
-     */
-    public function __construct($value, $dqlAlias = null)
+    public function __construct($value)
     {
-        $this->dqlAlias = $dqlAlias;
         $this->value = $value;
     }
 
     /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
-     *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    public function getValue()
     {
-        if ($this->dqlAlias !== null) {
-            $dqlAlias = $this->dqlAlias;
-        }
-
-        return sprintf('%s INSTANCE OF %s', $dqlAlias, $this->value);
+        return $this->value;
     }
 }
