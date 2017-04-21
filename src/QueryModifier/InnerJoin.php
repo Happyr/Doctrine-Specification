@@ -1,6 +1,6 @@
 <?php
 
-namespace Happyr\DoctrineSpecification\Query;
+namespace Happyr\DoctrineSpecification\QueryModifier;
 
 class InnerJoin extends AbstractJoin
 {

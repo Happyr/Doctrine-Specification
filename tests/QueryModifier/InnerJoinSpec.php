@@ -1,15 +1,15 @@
 <?php
 
-namespace tests\Happyr\DoctrineSpecification\Query;
+namespace tests\Happyr\DoctrineSpecification\QueryModifier;
 
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Query\Join;
+use Happyr\DoctrineSpecification\QueryModifier\InnerJoin;
 use PhpSpec\ObjectBehavior;
 
 /**
- * @mixin Join
+ * @mixin InnerJoin
  */
-class JoinSpec extends ObjectBehavior
+class InnerJoinSpec extends ObjectBehavior
 {
     public function let()
     {
@@ -18,19 +18,19 @@ class JoinSpec extends ObjectBehavior
 
     public function it_is_a_specification()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Query\QueryModifier');
+        $this->shouldHaveType('Happyr\DoctrineSpecification\QueryModifier\QueryModifier');
     }
 
     public function it_joins_with_default_dql_alias(QueryBuilder $qb)
     {
-        $qb->join('a.user', 'authUser')->shouldBeCalled();
+        $qb->innerJoin('a.user', 'authUser')->shouldBeCalled();
         $this->modify($qb, 'a');
     }
 
     public function it_uses_local_alias_if_global_was_not_set(QueryBuilder $qb)
     {
         $this->beConstructedWith('user', 'authUser');
-        $qb->join('b.user', 'authUser')->shouldBeCalled();
+        $qb->innerJoin('b.user', 'authUser')->shouldBeCalled();
         $this->modify($qb, 'b');
     }
 }

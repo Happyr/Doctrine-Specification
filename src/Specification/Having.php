@@ -4,7 +4,7 @@ namespace Happyr\DoctrineSpecification\Specification;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
-use Happyr\DoctrineSpecification\Query\QueryModifier;
+use Happyr\DoctrineSpecification\QueryModifier\QueryModifier;
 
 class Having implements Specification
 {

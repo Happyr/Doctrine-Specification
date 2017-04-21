@@ -1,6 +1,6 @@
 <?php
 
-namespace Happyr\DoctrineSpecification\Query;
+namespace Happyr\DoctrineSpecification\QueryModifier;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
@@ -30,7 +30,7 @@ class QueryModifierCollection implements QueryModifier
             if (!$child instanceof QueryModifier) {
                 throw new InvalidArgumentException(
                     sprintf(
-                        'Child passed to QueryModifierCollection must be an instance of Happyr\DoctrineSpecification\Query\QueryModifier, but instance of %s found',
+                        'Child passed to QueryModifierCollection must be an instance of Happyr\DoctrineSpecification\QueryModifier\QueryModifier, but instance of %s found',
                         get_class($child)
                     )
                 );

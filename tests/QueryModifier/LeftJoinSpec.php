@@ -1,9 +1,9 @@
 <?php
 
-namespace tests\Happyr\DoctrineSpecification\Query;
+namespace tests\Happyr\DoctrineSpecification\QueryModifier;
 
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Query\LeftJoin;
+use Happyr\DoctrineSpecification\QueryModifier\LeftJoin;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -18,7 +18,7 @@ class LeftJoinSpec extends ObjectBehavior
 
     public function it_is_a_specification()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Query\QueryModifier');
+        $this->shouldHaveType('Happyr\DoctrineSpecification\QueryModifier\QueryModifier');
     }
 
     public function it_joins_with_default_dql_alias(QueryBuilder $qb)
