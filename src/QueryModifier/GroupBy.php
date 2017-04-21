@@ -14,34 +14,23 @@ use Doctrine\ORM\QueryBuilder;
 class GroupBy implements QueryModifier
 {
     /**
-     * @var int limit
+     * @var string
      */
-    protected $field;
-
-    /**
-     * @var string dqlAlias
-     */
-    protected $dqlAlias;
+    private $field;
 
     /**
      * @param string $field
-     * @param string $dqlAlias
      */
-    public function __construct($field, $dqlAlias = null)
+    public function __construct($field)
     {
         $this->field = $field;
-        $this->dqlAlias = $dqlAlias;
     }
 
     /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @return string
      */
-    public function modify(QueryBuilder $qb, $dqlAlias)
+    public function getField()
     {
-        if ($this->dqlAlias !== null) {
-            $dqlAlias = $this->dqlAlias;
-        }
-        $qb->addGroupBy(sprintf('%s.%s', $dqlAlias, $this->field));
+        return $this->field;
     }
 }
