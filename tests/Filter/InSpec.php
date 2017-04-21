@@ -1,4 +1,11 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
 namespace tests\Happyr\DoctrineSpecification\Filter;
 
@@ -17,6 +24,11 @@ class InSpec extends ObjectBehavior
     public function let()
     {
         $this->beConstructedWith($this->field, $this->value);
+    }
+
+    public function it_is_initializable()
+    {
+        $this->shouldHaveType('Happyr\DoctrineSpecification\Filter\In');
     }
 
     public function it_is_an_expression()

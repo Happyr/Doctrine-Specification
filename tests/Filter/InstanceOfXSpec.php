@@ -1,8 +1,14 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
 namespace tests\Happyr\DoctrineSpecification\Filter;
 
-use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\InstanceOfX;
 use PhpSpec\ObjectBehavior;
 
@@ -11,9 +17,11 @@ use PhpSpec\ObjectBehavior;
  */
 class InstanceOfXSpec extends ObjectBehavior
 {
+    private $value = 'My\Model';
+
     public function let()
     {
-        $this->beConstructedWith('My\Model', 'o');
+        $this->beConstructedWith($this->value);
     }
 
     public function it_is_initializable()
@@ -26,8 +34,8 @@ class InstanceOfXSpec extends ObjectBehavior
         $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Filter');
     }
 
-    public function it_returns_expression_func_object(QueryBuilder $qb)
+    public function it_should_return_value()
     {
-        $this->getFilter($qb, null)->shouldReturn('o INSTANCE OF My\Model');
+        $this->getValue()->shouldReturn($this->value);
     }
 }
