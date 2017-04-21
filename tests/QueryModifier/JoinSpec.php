@@ -16,6 +16,11 @@ class JoinSpec extends ObjectBehavior
         $this->beConstructedWith('user', 'authUser', 'a');
     }
 
+    public function it_is_initializable()
+    {
+        $this->shouldHaveType('Happyr\DoctrineSpecification\QueryModifier\Join');
+    }
+
     public function it_is_a_specification()
     {
         $this->shouldHaveType('Happyr\DoctrineSpecification\QueryModifier\QueryModifier');
