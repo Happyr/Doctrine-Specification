@@ -5,7 +5,7 @@ namespace Happyr\DoctrineSpecification\Filter;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
-use Happyr\DoctrineSpecification\ValueConverter;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ValueConverter;
 
 /**
  * Comparison class.

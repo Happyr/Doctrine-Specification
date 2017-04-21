@@ -1,6 +1,6 @@
 <?php
 
-namespace Happyr\DoctrineSpecification;
+namespace Happyr\DoctrineSpecification\Transformer\Doctrine;
 
 use Doctrine\DBAL\Types\Type;
 

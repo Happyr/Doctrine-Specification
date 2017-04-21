@@ -3,7 +3,7 @@
 namespace Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\ValueConverter;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ValueConverter;
 
 class In implements Filter
 {
