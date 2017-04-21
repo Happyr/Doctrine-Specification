@@ -17,33 +17,34 @@ class QueryModifierCollection implements QueryModifier
     /**
      * @var QueryModifier[]
      */
-    private $children;
+    private $modifiers;
 
     /**
-     * Construct it with one or more instances of QueryModifier.
+     * Construct it with two or more instances of QueryModifier.
+     *
+     * @param QueryModifier $modifier1
+     * @param QueryModifier $modifier2
      */
-    public function __construct()
+    public function __construct(QueryModifier $modifier1, QueryModifier $modifier2)
     {
-        $this->children = func_get_args();
+        foreach (func_get_args() as $modifier) {
+            $this->addModifier($modifier);
+        }
     }
 
     /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param QueryModifier $modifier
      */
-    public function modify(QueryBuilder $qb, $dqlAlias)
+    public function addModifier(QueryModifier $modifier)
     {
-        foreach ($this->children as $child) {
-            if (!$child instanceof QueryModifier) {
-                throw new InvalidArgumentException(
-                    sprintf(
-                        'Child passed to QueryModifierCollection must be an instance of Happyr\DoctrineSpecification\QueryModifier\QueryModifier, but instance of %s found',
-                        get_class($child)
-                    )
-                );
-            }
+        $this->modifiers[] = $modifier;
+    }
 
-            $child->modify($qb, $dqlAlias);
-        }
+    /**
+     * @return QueryModifier[]
+     */
+    public function getModifiers()
+    {
+        return $this->modifiers;
     }
 }
