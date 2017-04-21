@@ -9,14 +9,12 @@
 
 namespace Happyr\DoctrineSpecification\QueryModifier;
 
-use Doctrine\ORM\QueryBuilder;
-
 class Limit implements QueryModifier
 {
     /**
-     * @var int limit
+     * @var int
      */
-    protected $limit;
+    private $limit;
 
     /**
      * @param int $limit
@@ -27,11 +25,10 @@ class Limit implements QueryModifier
     }
 
     /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @return int
      */
-    public function modify(QueryBuilder $qb, $dqlAlias)
+    public function getLimit()
     {
-        $qb->setMaxResults($this->limit);
+        return $this->limit;
     }
 }

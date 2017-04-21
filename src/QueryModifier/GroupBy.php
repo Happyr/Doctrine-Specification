@@ -9,8 +9,6 @@
 
 namespace Happyr\DoctrineSpecification\QueryModifier;
 
-use Doctrine\ORM\QueryBuilder;
-
 class GroupBy implements QueryModifier
 {
     /**

@@ -10,9 +10,8 @@
 namespace Happyr\DoctrineSpecification\QueryModifier;
 
 use Happyr\DoctrineSpecification\Filter\Filter;
-use Happyr\DoctrineSpecification\Specification;
 
-class Having implements Specification
+class Having implements QueryModifier
 {
     /**
      * @var Filter child

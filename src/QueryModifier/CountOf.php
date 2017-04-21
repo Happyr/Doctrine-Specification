@@ -9,8 +9,6 @@
 
 namespace Happyr\DoctrineSpecification\QueryModifier;
 
-use Happyr\DoctrineSpecification\Specification;
-
-class CountOf implements Specification
+class CountOf implements QueryModifier
 {
 }
