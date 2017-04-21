@@ -41,7 +41,7 @@ class NotTransformer implements QueryBuilderTransformer
     {
         if ($specification instanceof Not) {
             // FIXME impossible implement in current architecture
-//            $qb = $this->collection->transform($specification, $qb, $dqlAlias);
+//            $qb = $this->collection->transform($specification->getFilter(), $qb, $dqlAlias);
         }
 
         return $qb;

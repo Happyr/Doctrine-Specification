@@ -17,21 +17,21 @@ class Not implements Specification
     /**
      * @var Filter
      */
-    private $child;
+    private $filter;
 
     /**
-     * @param Filter $expr
+     * @param Filter $filter
      */
-    public function __construct(Filter $expr)
+    public function __construct(Filter $filter)
     {
-        $this->child = $expr;
+        $this->filter = $filter;
     }
 
     /**
      * @return Filter
      */
-    public function getChild()
+    public function getFilter()
     {
-        return $this->child;
+        return $this->filter;
     }
 }
