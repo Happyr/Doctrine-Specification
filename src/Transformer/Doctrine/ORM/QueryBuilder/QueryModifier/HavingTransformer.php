@@ -12,23 +12,13 @@ namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Que
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\QueryModifier\Having;
 use Happyr\DoctrineSpecification\Specification;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollection;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollectionAware;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollectionAwareTrait;
 
-class HavingTransformer implements QueryBuilderTransformer
+class HavingTransformer implements QueryBuilderTransformerCollectionAware
 {
-    /**
-     * @var QueryBuilderTransformerCollection
-     */
-    private $collection;
-
-    /**
-     * @param QueryBuilderTransformerCollection $collection
-     */
-    public function __construct(QueryBuilderTransformerCollection $collection)
-    {
-        $this->collection = $collection;
-    }
+    use QueryBuilderTransformerCollectionAwareTrait;
 
     /**
      * @param Specification $specification
@@ -39,7 +29,7 @@ class HavingTransformer implements QueryBuilderTransformer
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
-        if ($specification instanceof Having) {
+        if ($specification instanceof Having && $this->collection instanceof QueryBuilderTransformerCollection) {
             // FIXME impossible implement in current architecture
 //            $qb->having($this->collection->transform($specification->getFilter(), $qb, $dqlAlias));
         }

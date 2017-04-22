@@ -12,23 +12,13 @@ namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Log
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Specification;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollection;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollectionAware;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollectionAwareTrait;
 
-class AndXTransformer implements QueryBuilderTransformer
+class AndXTransformer implements QueryBuilderTransformerCollectionAware
 {
-    /**
-     * @var QueryBuilderTransformerCollection
-     */
-    private $collection;
-
-    /**
-     * @param QueryBuilderTransformerCollection $collection
-     */
-    public function __construct(QueryBuilderTransformerCollection $collection)
-    {
-        $this->collection = $collection;
-    }
+    use QueryBuilderTransformerCollectionAwareTrait;
 
     /**
      * @param Specification $specification
@@ -39,7 +29,7 @@ class AndXTransformer implements QueryBuilderTransformer
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
-        if ($specification instanceof AndX) {
+        if ($specification instanceof AndX && $this->collection instanceof QueryBuilderTransformerCollection) {
             foreach ($specification->getChildren() as $child) {
                 $qb = $this->collection->transform($child, $qb, $dqlAlias);
             }

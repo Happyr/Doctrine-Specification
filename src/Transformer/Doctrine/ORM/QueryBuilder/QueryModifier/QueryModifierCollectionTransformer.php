@@ -12,23 +12,13 @@ namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Que
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\QueryModifier\QueryModifierCollection;
 use Happyr\DoctrineSpecification\Specification;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollection;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollectionAware;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollectionAwareTrait;
 
-class QueryModifierCollectionTransformer implements QueryBuilderTransformer
+class QueryModifierCollectionTransformer implements QueryBuilderTransformerCollectionAware
 {
-    /**
-     * @var QueryBuilderTransformerCollection
-     */
-    private $collection;
-
-    /**
-     * @param QueryBuilderTransformerCollection $collection
-     */
-    public function __construct(QueryBuilderTransformerCollection $collection)
-    {
-        $this->collection = $collection;
-    }
+    use QueryBuilderTransformerCollectionAwareTrait;
 
     /**
      * @param Specification $specification
@@ -39,7 +29,9 @@ class QueryModifierCollectionTransformer implements QueryBuilderTransformer
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
-        if ($specification instanceof QueryModifierCollection) {
+        if ($specification instanceof QueryModifierCollection &&
+            $this->collection instanceof QueryBuilderTransformerCollection
+        ) {
             foreach ($specification->getModifiers() as $modifier) {
                 $qb = $this->collection->transform($modifier, $qb, $dqlAlias);
             }

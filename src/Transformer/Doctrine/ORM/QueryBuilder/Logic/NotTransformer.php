@@ -12,23 +12,13 @@ namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Log
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Specification;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollection;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollectionAware;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollectionAwareTrait;
 
-class NotTransformer implements QueryBuilderTransformer
+class NotTransformer implements QueryBuilderTransformerCollectionAware
 {
-    /**
-     * @var QueryBuilderTransformerCollection
-     */
-    private $collection;
-
-    /**
-     * @param QueryBuilderTransformerCollection $collection
-     */
-    public function __construct(QueryBuilderTransformerCollection $collection)
-    {
-        $this->collection = $collection;
-    }
+    use QueryBuilderTransformerCollectionAwareTrait;
 
     /**
      * @param Specification $specification
@@ -39,7 +29,7 @@ class NotTransformer implements QueryBuilderTransformer
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
-        if ($specification instanceof Not) {
+        if ($specification instanceof Not && $this->collection instanceof QueryBuilderTransformerCollection) {
             // FIXME impossible implement in current architecture
 //            $qb = $this->collection->transform($specification->getFilter(), $qb, $dqlAlias);
         }

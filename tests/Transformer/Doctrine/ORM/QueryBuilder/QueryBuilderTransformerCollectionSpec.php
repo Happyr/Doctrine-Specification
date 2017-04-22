@@ -61,7 +61,7 @@ class QueryBuilderTransformerCollectionSpec extends ObjectBehavior
     {
         $this->beConstructedWith([
             new EqualsTransformer(),
-//            new FilterCollectionTransformer($this),
+            new FilterCollectionTransformer(),
             new GreaterOrEqualThanTransformer(),
             new GreaterThanTransformer(),
             new InstanceOfXTransformer(),
@@ -72,15 +72,15 @@ class QueryBuilderTransformerCollectionSpec extends ObjectBehavior
             new LessThanTransformer(),
             new LikeTransformer(),
             new NotEqualsTransformer(),
-//            new AndXTransformer($this),
-//            new NotTransformer($this),
-//            new OrXTransformer($this),
+            new AndXTransformer(),
+            new NotTransformer(),
+            new OrXTransformer(),
             new GroupByTransformer(),
-//            new HavingTransformer($this),
-//            new InnerJoinTransformer($this),
-//            new JoinTransformer($this),
-//            new LeftJoinTransformer($this),
-//            new QueryModifierCollectionTransformer($this),
+            new HavingTransformer(),
+            new InnerJoinTransformer(),
+            new JoinTransformer(),
+            new LeftJoinTransformer(),
+            new QueryModifierCollectionTransformer(),
             new CountOfTransformer(),
             new LimitTransformer(),
             new OffsetTransformer(),
@@ -91,7 +91,7 @@ class QueryBuilderTransformerCollectionSpec extends ObjectBehavior
     public function it_should_available_add_transformers()
     {
         $this->addTransformer(new EqualsTransformer());
-//        $this->addTransformer(new FilterCollectionTransformer($this));
+        $this->addTransformer(new FilterCollectionTransformer());
         $this->addTransformer(new GreaterOrEqualThanTransformer());
         $this->addTransformer(new GreaterThanTransformer());
         $this->addTransformer(new InstanceOfXTransformer());
@@ -102,15 +102,15 @@ class QueryBuilderTransformerCollectionSpec extends ObjectBehavior
         $this->addTransformer(new LessThanTransformer());
         $this->addTransformer(new LikeTransformer());
         $this->addTransformer(new NotEqualsTransformer());
-//        $this->addTransformer(new AndXTransformer($this));
-//        $this->addTransformer(new NotTransformer($this));
-//        $this->addTransformer(new OrXTransformer($this));
+        $this->addTransformer(new AndXTransformer());
+        $this->addTransformer(new NotTransformer());
+        $this->addTransformer(new OrXTransformer());
         $this->addTransformer(new GroupByTransformer());
-//        $this->addTransformer(new HavingTransformer($this));
-//        $this->addTransformer(new InnerJoinTransformer($this));
-//        $this->addTransformer(new JoinTransformer($this));
-//        $this->addTransformer(new LeftJoinTransformer($this));
-//        $this->addTransformer(new QueryModifierCollectionTransformer($this));
+        $this->addTransformer(new HavingTransformer());
+        $this->addTransformer(new InnerJoinTransformer());
+        $this->addTransformer(new JoinTransformer());
+        $this->addTransformer(new LeftJoinTransformer());
+        $this->addTransformer(new QueryModifierCollectionTransformer());
         $this->addTransformer(new CountOfTransformer());
         $this->addTransformer(new LimitTransformer());
         $this->addTransformer(new OffsetTransformer());

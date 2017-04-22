@@ -13,23 +13,13 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\QueryModifier\Join;
 use Happyr\DoctrineSpecification\Specification;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollection;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollectionAware;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollectionAwareTrait;
 
-class JoinTransformer implements QueryBuilderTransformer
+class JoinTransformer implements QueryBuilderTransformerCollectionAware
 {
-    /**
-     * @var QueryBuilderTransformerCollection
-     */
-    private $collection;
-
-    /**
-     * @param QueryBuilderTransformerCollection $collection
-     */
-    public function __construct(QueryBuilderTransformerCollection $collection)
-    {
-        $this->collection = $collection;
-    }
+    use QueryBuilderTransformerCollectionAwareTrait;
 
     /**
      * @param Specification $specification
@@ -43,7 +33,9 @@ class JoinTransformer implements QueryBuilderTransformer
         if ($specification instanceof Join) {
             $qb->join(sprintf('%s.%s', $dqlAlias, $specification->getField()), $specification->getAlias());
 
-            if ($specification->getWith() instanceof Filter) {
+            if ($specification->getWith() instanceof Filter &&
+                $this->collection instanceof QueryBuilderTransformerCollection
+            ) {
                 $qb = $this->collection->transform($specification->getField(), $qb, $specification->getAlias());
             }
         }
