@@ -20,11 +20,12 @@
         }
     ],
     "require": {
-        "php": ">=5.4",
-        "doctrine/orm": ">=2.2.3"
+        "php": ">=5.4"
     },
     "require-dev": {
-        "phpspec/phpspec": "~2.1"
+        "phpspec/phpspec": "~2.1",
+        "doctrine/orm": "~2.2",
+        "doctrine/mongodb-odm": "~1.0.0"
     },
     "autoload": {
         "psr-4": {
