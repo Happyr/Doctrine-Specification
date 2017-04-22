@@ -9,10 +9,14 @@
 
 namespace Happyr\DoctrineSpecification\QueryModifier;
 
+use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 use Happyr\DoctrineSpecification\Filter\Filter;
 
 abstract class AbstractJoin implements QueryModifier
 {
+    const ON = 'ON';
+    const WITH = 'WITH';
+
     /**
      * @var string
      */
@@ -26,18 +30,45 @@ abstract class AbstractJoin implements QueryModifier
     /**
      * @var Filter|null
      */
-    private $with;
+    private $condition;
+
+    /**
+     * @var int|null
+     */
+    private $conditionType;
+
+    /**
+     * @var array
+     */
+    private static $conditionTypes = [
+        self::ON,
+        self::WITH,
+    ];
 
     /**
      * @param string      $field
      * @param string      $alias
-     * @param Filter|null $with
+     * @param int|null    $conditionType
+     * @param Filter|null $condition
      */
-    public function __construct($field, $alias, Filter $with = null)
+    public function __construct($field, $alias, $conditionType = null, Filter $condition = null)
     {
+        if ($conditionType && !in_array($conditionType, self::$conditionTypes)) {
+            throw new InvalidArgumentException(sprintf(
+                '"%s" is not a valid condition type. Valid condition type are: "%s"',
+                $conditionType,
+                implode(', ', self::$conditionTypes)
+            ));
+        }
+
+        if ((!$conditionType && $condition) || ($conditionType && !$condition)) {
+            throw new InvalidArgumentException('Join specification must have a condition and condition type.');
+        }
+
         $this->field = $field;
         $this->alias = $alias;
-        $this->with = $with;
+        $this->condition = $condition;
+        $this->conditionType = $conditionType;
     }
 
     /**
@@ -59,8 +90,16 @@ abstract class AbstractJoin implements QueryModifier
     /**
      * @return Filter|null
      */
-    public function getWith()
+    public function getCondition()
     {
-        return $this->with;
+        return $this->condition;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getConditionType()
+    {
+        return $this->conditionType;
     }
 }

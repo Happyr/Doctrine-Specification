@@ -33,10 +33,10 @@ class InnerJoinTransformer implements QueryBuilderTransformerCollectionAware
         if ($specification instanceof InnerJoin) {
             $qb->innerJoin(sprintf('%s.%s', $dqlAlias, $specification->getField()), $specification->getAlias());
 
-            if ($specification->getWith() instanceof Filter &&
+            if ($specification->getCondition() instanceof Filter &&
                 $this->collection instanceof QueryBuilderTransformerCollection
             ) {
-                $qb = $this->collection->transform($specification->getField(), $qb, $specification->getAlias());
+                $qb = $this->collection->transform($specification->getCondition(), $qb, $specification->getAlias());
             }
         }
 

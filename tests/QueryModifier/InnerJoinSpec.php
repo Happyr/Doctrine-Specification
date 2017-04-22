@@ -24,7 +24,7 @@ class InnerJoinSpec extends ObjectBehavior
 
     public function let()
     {
-        $this->beConstructedWith($this->field, $this->alias, null);
+        $this->beConstructedWith($this->field, $this->alias, null, null);
     }
 
     public function it_is_initializable()
@@ -47,14 +47,27 @@ class InnerJoinSpec extends ObjectBehavior
         $this->getAlias()->shouldReturn($this->alias);
     }
 
-    public function it_should_return_empty_with()
+    public function it_should_return_empty_condition()
     {
-        $this->getWith()->shouldReturn(null);
+        $this->getCondition()->shouldReturn(null);
     }
 
-    public function it_should_return_with(Filter $with)
+    public function it_should_return_empty_condition_type()
     {
-        $this->beConstructedWith($this->field, $this->alias, $with);
-        $this->getWith()->shouldReturn($with);
+        $this->getConditionType()->shouldReturn(null);
+    }
+
+    public function it_should_on_condition(Filter $condition)
+    {
+        $this->beConstructedWith($this->field, $this->alias, InnerJoin::ON, $condition);
+        $this->getCondition()->shouldReturn($condition);
+        $this->getConditionType()->shouldReturn(InnerJoin::ON);
+    }
+
+    public function it_should_with_condition(Filter $condition)
+    {
+        $this->beConstructedWith($this->field, $this->alias, InnerJoin::WITH, $condition);
+        $this->getCondition()->shouldReturn($condition);
+        $this->getConditionType()->shouldReturn(InnerJoin::WITH);
     }
 }
