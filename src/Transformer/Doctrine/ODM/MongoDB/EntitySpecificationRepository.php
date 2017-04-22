@@ -24,9 +24,9 @@ class EntitySpecificationRepository extends DocumentRepository implements Entity
     use EntitySpecificationRepositoryTrait;
 
     /**
-     * @param DocumentManager               $dm          The DocumentManager to use.
-     * @param UnitOfWork                    $uow         The UnitOfWork to use.
-     * @param ClassMetadata                 $class       The class descriptor.
+     * @param DocumentManager               $dm          the DocumentManager to use
+     * @param UnitOfWork                    $uow         the UnitOfWork to use
+     * @param ClassMetadata                 $class       the class descriptor
      * @param DoctrineODMMongoDBTransformer $transformer The Specification transformer
      */
     public function __construct(

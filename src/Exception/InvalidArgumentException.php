@@ -12,7 +12,7 @@ namespace Happyr\DoctrineSpecification\Exception;
 class InvalidArgumentException extends \InvalidArgumentException
 {
     /**
-     * @param array $supported_formats
+     * @param array  $supported_formats
      * @param string $format
      *
      * @return self
@@ -27,7 +27,7 @@ class InvalidArgumentException extends \InvalidArgumentException
     }
 
     /**
-     * @param array $supported_types
+     * @param array  $supported_types
      * @param string $type
      *
      * @return self
@@ -50,7 +50,7 @@ class InvalidArgumentException extends \InvalidArgumentException
     }
 
     /**
-     * @param array $supported_types
+     * @param array  $supported_types
      * @param string $type
      *
      * @return self

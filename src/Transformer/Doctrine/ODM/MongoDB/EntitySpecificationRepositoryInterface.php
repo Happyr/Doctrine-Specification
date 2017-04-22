@@ -35,11 +35,10 @@ interface EntitySpecificationRepositoryInterface
      */
     public function matchSingleResult(Specification $specification);
 
-
     /**
      * Prepare a Query with a Specification.
      *
-     * @param Specification  $specification
+     * @param Specification $specification
      *
      * @return Builder
      */
