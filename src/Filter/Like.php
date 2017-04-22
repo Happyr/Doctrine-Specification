@@ -23,7 +23,7 @@ class Like extends Comparison
     /**
      * @param string $field
      * @param string $value
-     * @param int $format
+     * @param int    $format
      */
     public function __construct($field, $value, $format = self::CONTAINS)
     {

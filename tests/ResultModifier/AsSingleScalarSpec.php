@@ -9,8 +9,6 @@
 
 namespace tests\Happyr\DoctrineSpecification\ResultModifier;
 
-use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\Query;
 use Happyr\DoctrineSpecification\ResultModifier\AsSingleScalar;
 use PhpSpec\ObjectBehavior;
 

@@ -9,7 +9,6 @@
 
 namespace tests\Happyr\DoctrineSpecification\ResultModifier;
 
-use Doctrine\ORM\AbstractQuery;
 use Happyr\DoctrineSpecification\ResultModifier\Cache;
 use PhpSpec\ObjectBehavior;
 

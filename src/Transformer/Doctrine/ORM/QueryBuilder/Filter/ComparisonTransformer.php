@@ -38,10 +38,10 @@ abstract class ComparisonTransformer implements QueryBuilderTransformer
     ];
 
     /**
-     * @param Comparison $specification
-     * @param QueryBuilder  $qb
-     * @param string        $dqlAlias
-     * @param string        $operator
+     * @param Comparison   $specification
+     * @param QueryBuilder $qb
+     * @param string       $dqlAlias
+     * @param string       $operator
      *
      * @return QueryBuilder
      */
