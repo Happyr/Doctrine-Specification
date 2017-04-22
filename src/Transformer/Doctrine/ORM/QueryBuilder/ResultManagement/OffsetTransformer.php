@@ -21,7 +21,7 @@ class OffsetTransformer implements QueryBuilderTransformer
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
@@ -29,6 +29,6 @@ class OffsetTransformer implements QueryBuilderTransformer
             $qb->setFirstResult($specification->getOffset());
         }
 
-        return $qb;
+        return null;
     }
 }

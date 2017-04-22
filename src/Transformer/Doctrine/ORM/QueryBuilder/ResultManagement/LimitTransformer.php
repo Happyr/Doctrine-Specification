@@ -21,7 +21,7 @@ class LimitTransformer implements QueryBuilderTransformer
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
@@ -29,6 +29,6 @@ class LimitTransformer implements QueryBuilderTransformer
             $qb->setMaxResults($specification->getLimit());
         }
 
-        return $qb;
+        return null;
     }
 }

@@ -20,14 +20,14 @@ class LessThanTransformer extends ComparisonTransformer
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
         if ($specification instanceof LessThan) {
-            $qb = $this->compare($specification, $qb, $dqlAlias, self::LT);
+            return $this->getCondition($specification, $qb, $dqlAlias, self::LT);
         }
 
-        return $qb;
+        return null;
     }
 }

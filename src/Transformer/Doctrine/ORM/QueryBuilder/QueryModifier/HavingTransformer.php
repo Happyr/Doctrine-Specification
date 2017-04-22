@@ -25,15 +25,17 @@ class HavingTransformer implements QueryBuilderTransformerCollectionAware
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
-        if ($specification instanceof Having && $this->collection instanceof QueryBuilderTransformerCollection) {
-            // FIXME impossible implement in current architecture
-//            $qb->having($this->collection->transform($specification->getFilter(), $qb, $dqlAlias));
+        if ($specification instanceof Having &&
+            $this->collection instanceof QueryBuilderTransformerCollection &&
+            ($condition = $this->collection->transform($specification->getFilter(), $qb, $dqlAlias))
+        ) {
+            $qb->having($condition);
         }
 
-        return $qb;
+        return null;
     }
 }

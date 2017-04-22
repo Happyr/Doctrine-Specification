@@ -21,7 +21,7 @@ class CountOfTransformer implements QueryBuilderTransformer
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
@@ -29,6 +29,6 @@ class CountOfTransformer implements QueryBuilderTransformer
             $qb->select(sprintf('COUNT(%s)', $dqlAlias));
         }
 
-        return $qb;
+        return null;
     }
 }

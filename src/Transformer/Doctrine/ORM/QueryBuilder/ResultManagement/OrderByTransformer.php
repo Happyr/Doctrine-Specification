@@ -21,7 +21,7 @@ class OrderByTransformer implements QueryBuilderTransformer
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
@@ -32,6 +32,6 @@ class OrderByTransformer implements QueryBuilderTransformer
             );
         }
 
-        return $qb;
+        return null;
     }
 }

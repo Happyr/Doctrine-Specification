@@ -20,14 +20,14 @@ class NotEqualsTransformer extends ComparisonTransformer
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
         if ($specification instanceof NotEquals) {
-            $qb = $this->compare($specification, $qb, $dqlAlias, self::NEQ);
+            return $this->getCondition($specification, $qb, $dqlAlias, self::NEQ);
         }
 
-        return $qb;
+        return null;
     }
 }

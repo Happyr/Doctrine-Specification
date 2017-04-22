@@ -21,16 +21,16 @@ class IsNotNullTransformer implements QueryBuilderTransformer
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
         if ($specification instanceof IsNotNull) {
-            $qb->andWhere((string) $qb->expr()->isNotNull(
+            return (string) $qb->expr()->isNotNull(
                 sprintf('%s.%s', $dqlAlias, $specification->getField())
-            ));
+            );
         }
 
-        return $qb;
+        return null;
     }
 }

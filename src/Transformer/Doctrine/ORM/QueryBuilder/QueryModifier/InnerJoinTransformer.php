@@ -10,36 +10,33 @@
 namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier;
 
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\QueryModifier\InnerJoin;
 use Happyr\DoctrineSpecification\Specification;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollection;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollectionAware;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollectionAwareTrait;
 
-class InnerJoinTransformer implements QueryBuilderTransformerCollectionAware
+class InnerJoinTransformer extends AbstractJoinTransformer
 {
-    use QueryBuilderTransformerCollectionAwareTrait;
-
     /**
      * @param Specification $specification
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
         if ($specification instanceof InnerJoin) {
-            $qb->innerJoin(sprintf('%s.%s', $dqlAlias, $specification->getField()), $specification->getAlias());
-
-            if ($specification->getCondition() instanceof Filter &&
-                $this->collection instanceof QueryBuilderTransformerCollection
-            ) {
-                $qb = $this->collection->transform($specification->getCondition(), $qb, $specification->getAlias());
+            if ($condition = $this->getCondition($specification, $qb)) {
+                $qb->innerJoin(
+                    sprintf('%s.%s', $dqlAlias, $specification->getField()),
+                    $specification->getAlias(),
+                    $this->getConditionType($specification),
+                    $condition
+                );
+            } else {
+                $qb->innerJoin(sprintf('%s.%s', $dqlAlias, $specification->getField()), $specification->getAlias());
             }
         }
 
-        return $qb;
+        return null;
     }
 }

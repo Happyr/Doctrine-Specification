@@ -21,14 +21,14 @@ class InstanceOfXTransformer implements QueryBuilderTransformer
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
         if ($specification instanceof InstanceOfX) {
-            $qb->andWhere(sprintf('%s INSTANCE OF %s', $dqlAlias, $specification->getValue()));
+            return sprintf('%s INSTANCE OF %s', $dqlAlias, $specification->getValue());
         }
 
-        return $qb;
+        return null;
     }
 }

@@ -46,14 +46,16 @@ class QueryBuilderTransformerCollection implements QueryBuilderTransformer
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
         foreach ($this->transformers as $transformer) {
-            $qb = $transformer->transform($specification, $qb, $dqlAlias);
+            if ($condition = $transformer->transform($specification, $qb, $dqlAlias)) {
+                return $condition;
+            }
         }
 
-        return $qb;
+        return null;
     }
 }

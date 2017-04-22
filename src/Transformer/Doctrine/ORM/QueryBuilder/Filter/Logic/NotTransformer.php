@@ -25,15 +25,17 @@ class NotTransformer implements QueryBuilderTransformerCollectionAware
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
-        if ($specification instanceof Not && $this->collection instanceof QueryBuilderTransformerCollection) {
-            // FIXME impossible implement in current architecture
-//            $qb = $this->collection->transform($specification->getFilter(), $qb, $dqlAlias);
+        if ($specification instanceof Not &&
+            $this->collection instanceof QueryBuilderTransformerCollection &&
+            ($condition = $this->collection->transform($specification->getFilter(), $qb, $dqlAlias))
+        ) {
+            return $qb->expr()->not($condition);
         }
 
-        return $qb;
+        return null;
     }
 }

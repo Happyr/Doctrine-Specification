@@ -25,17 +25,22 @@ class OrXTransformer implements QueryBuilderTransformerCollectionAware
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
         if ($specification instanceof OrX && $this->collection instanceof QueryBuilderTransformerCollection) {
-            // FIXME impossible implement in current architecture
-//            foreach ($specification->getFilters() as $filter) {
-//                $qb = $this->collection->transform($filter, $qb, $dqlAlias);
-//            }
+            $orX = $qb->expr()->orX();
+
+            foreach ($specification->getFilters() as $filter) {
+                if ($condition = $this->collection->transform($filter, $qb, $dqlAlias)) {
+                    $orX->add($condition);
+                }
+            }
+
+            return $orX->count() ? (string) $orX : null;
         }
 
-        return $qb;
+        return null;
     }
 }

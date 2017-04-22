@@ -25,16 +25,22 @@ class AndXTransformer implements QueryBuilderTransformerCollectionAware
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
         if ($specification instanceof AndX && $this->collection instanceof QueryBuilderTransformerCollection) {
+            $andX = $qb->expr()->andX();
+
             foreach ($specification->getFilters() as $filter) {
-                $qb = $this->collection->transform($filter, $qb, $dqlAlias);
+                if ($condition = $this->collection->transform($filter, $qb, $dqlAlias)) {
+                    $andX->add($condition);
+                }
             }
+
+            return $andX->count() ? (string) $andX : null;
         }
 
-        return $qb;
+        return null;
     }
 }

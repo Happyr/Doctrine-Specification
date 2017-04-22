@@ -43,9 +43,9 @@ abstract class ComparisonTransformer implements QueryBuilderTransformer
      * @param string       $dqlAlias
      * @param string       $operator
      *
-     * @return QueryBuilder
+     * @return string
      */
-    protected function compare(Comparison $specification, QueryBuilder $qb, $dqlAlias, $operator)
+    protected function getCondition(Comparison $specification, QueryBuilder $qb, $dqlAlias, $operator)
     {
         if (!in_array($operator, self::$operators)) {
             throw new InvalidArgumentException(sprintf(
@@ -59,13 +59,12 @@ abstract class ComparisonTransformer implements QueryBuilderTransformer
         $value = ValueConverter::convertToDatabaseValue($specification->getValue(), $qb);
 
         $qb->setParameter($paramName, $value);
-        $qb->andWhere((string) new DoctrineComparison(
+
+        return (string) new DoctrineComparison(
             sprintf('%s.%s', $dqlAlias, $specification->getField()),
             $operator,
             sprintf(':%s', $paramName)
-        ));
-
-        return $qb;
+        );
     }
 
     /**

@@ -25,7 +25,7 @@ class QueryModifierCollectionTransformer implements QueryBuilderTransformerColle
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
@@ -33,10 +33,11 @@ class QueryModifierCollectionTransformer implements QueryBuilderTransformerColle
             $this->collection instanceof QueryBuilderTransformerCollection
         ) {
             foreach ($specification->getModifiers() as $modifier) {
-                $qb = $this->collection->transform($modifier, $qb, $dqlAlias);
+                // query modifiers not return a conditions
+                $this->collection->transform($modifier, $qb, $dqlAlias);
             }
         }
 
-        return $qb;
+        return null;
     }
 }

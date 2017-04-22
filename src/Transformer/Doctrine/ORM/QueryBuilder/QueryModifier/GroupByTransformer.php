@@ -21,7 +21,7 @@ class GroupByTransformer implements QueryBuilderTransformer
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
@@ -29,6 +29,6 @@ class GroupByTransformer implements QueryBuilderTransformer
             $qb->addGroupBy(sprintf('%s.%s', $dqlAlias, $specification->getField()));
         }
 
-        return $qb;
+        return null;
     }
 }

@@ -22,7 +22,7 @@ class InTransformer implements QueryBuilderTransformer
      * @param QueryBuilder  $qb
      * @param string        $dqlAlias
      *
-     * @return QueryBuilder
+     * @return string|null
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
@@ -39,13 +39,14 @@ class InTransformer implements QueryBuilderTransformer
             }
 
             $qb->setParameter($paramName, $value);
-            $qb->andWhere((string) $qb->expr()->in(
+
+            return (string) $qb->expr()->in(
                 sprintf('%s.%s', $dqlAlias, $specification->getField()),
                 sprintf(':%s', $paramName)
-            ));
+            );
         }
 
-        return $qb;
+        return null;
     }
 
     /**
