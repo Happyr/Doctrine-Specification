@@ -11,11 +11,10 @@ namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ODM\MongoDB;
 
 use Doctrine\ODM\MongoDB\Query\Builder;
 use Doctrine\ODM\MongoDB\Query\Query;
-use Happyr\DoctrineSpecification\ResultModifier\ResultModifier;
 use Happyr\DoctrineSpecification\Specification;
 
 /**
- * This trait should be used by a class extending \Doctrine\ORM\EntityRepository.
+ * This trait should be used by a class extending \Doctrine\ODM\MongoDB\DocumentRepository.
  */
 trait EntitySpecificationRepositoryTrait
 {
@@ -27,45 +26,42 @@ trait EntitySpecificationRepositoryTrait
     /**
      * Get results when you match with a Specification.
      *
-     * @param Specification  $specification
-     * @param ResultModifier $modifier
+     * @param Specification $specification
      *
      * @return mixed[]
      */
-    public function match(Specification $specification, ResultModifier $modifier = null)
+    public function match(Specification $specification)
     {
-        return $this->getQuery($specification, $modifier)->execute();
+        return $this->getQuery($specification)->execute();
     }
 
     /**
      * Get single result when you match with a Specification.
      *
-     * @param Specification  $specification
-     * @param ResultModifier $modifier
+     * @param Specification $specification
      *
      * @return mixed
      */
-    public function matchSingleResult(Specification $specification, ResultModifier $modifier = null)
+    public function matchSingleResult(Specification $specification)
     {
-        return $this->getQuery($specification, $modifier)->getSingleResult();
+        return $this->getQuery($specification)->getSingleResult();
     }
 
     /**
      * Prepare a Query with a Specification.
      *
-     * @param Specification  $specification
-     * @param ResultModifier $modifier
+     * @param Specification $specification
      *
      * @return Query
      */
-    public function getQuery(Specification $specification, ResultModifier $modifier = null)
+    public function getQuery(Specification $specification)
     {
         /* @var $qb Builder */
         $qb = $this->createQueryBuilder();
 
         // apply specification
         if ($this->transformer instanceof DoctrineODMMongoDBTransformer) {
-            return $this->transformer->transform($specification, $modifier, $qb);
+            return $this->transformer->transform($specification, $qb);
         } else {
             return $qb->getQuery();
         }

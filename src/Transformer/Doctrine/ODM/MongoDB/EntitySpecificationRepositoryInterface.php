@@ -10,44 +10,40 @@
 namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ODM\MongoDB;
 
 use Doctrine\ODM\MongoDB\Query\Builder;
-use Happyr\DoctrineSpecification\ResultModifier\ResultModifier;
 use Happyr\DoctrineSpecification\Specification;
 
 /**
- * This interface should be used by an EntityRepository implementing the Specification pattern.
+ * This interface should be used by an DocumentRepository implementing the Specification pattern.
  */
 interface EntitySpecificationRepositoryInterface
 {
     /**
      * Get results when you match with a Specification.
      *
-     * @param Specification  $specification
-     * @param ResultModifier $modifier
+     * @param Specification $specification
      *
      * @return mixed[]
      */
-    public function match(Specification $specification, ResultModifier $modifier = null);
+    public function match(Specification $specification);
 
     /**
      * Get single result when you match with a Specification.
      *
-     * @param Specification  $specification
-     * @param ResultModifier $modifier
+     * @param Specification $specification
      *
      * @return mixed
      */
-    public function matchSingleResult(Specification $specification, ResultModifier $modifier = null);
+    public function matchSingleResult(Specification $specification);
 
 
     /**
      * Prepare a Query with a Specification.
      *
      * @param Specification  $specification
-     * @param ResultModifier $modifier
      *
      * @return Builder
      */
-    public function getQuery(Specification $specification, ResultModifier $modifier = null);
+    public function getQuery(Specification $specification);
 
     /**
      * @param DoctrineODMMongoDBTransformer $transformer
