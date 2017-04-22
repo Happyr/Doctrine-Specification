@@ -30,7 +30,7 @@ class OrXTransformer implements QueryBuilderTransformerCollectionAware
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
         if ($specification instanceof OrX && $this->collection instanceof QueryBuilderTransformerCollection) {
-                // FIXME impossible implement in current architecture
+            // FIXME impossible implement in current architecture
 //            foreach ($specification->getChildren() as $child) {
 //                $qb = $this->collection->transform($child, $qb, $dqlAlias);
 //            }

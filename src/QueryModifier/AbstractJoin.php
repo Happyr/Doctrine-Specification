@@ -29,8 +29,8 @@ abstract class AbstractJoin implements QueryModifier
     private $with;
 
     /**
-     * @param string $field
-     * @param string $alias
+     * @param string      $field
+     * @param string      $alias
      * @param Filter|null $with
      */
     public function __construct($field, $alias, Filter $with = null)

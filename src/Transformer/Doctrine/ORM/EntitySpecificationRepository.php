@@ -23,9 +23,9 @@ class EntitySpecificationRepository extends EntityRepository implements EntitySp
     use EntitySpecificationRepositoryTrait;
 
     /**
-     * @param EntityManager          $em          The EntityManager to use.
-     * @param ClassMetadata          $class       The class descriptor.
-     * @param DoctrineORMTransformer $transformer The Specification transformer.
+     * @param EntityManager          $em          the EntityManager to use
+     * @param ClassMetadata          $class       the class descriptor
+     * @param DoctrineORMTransformer $transformer the Specification transformer
      */
     public function __construct($em, ClassMetadata $class, DoctrineORMTransformer $transformer)
     {
