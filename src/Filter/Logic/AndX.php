@@ -35,11 +35,11 @@ class AndX implements Filter
      * Append an other specification with a logic AND.
      *
      * <code>
-     * $spec = Spec::andX(A, B);
+     * $spec = new AndX(A, B);
      * $spec->andX(C);
      *
      * // We be the same as
-     * $spec = Spec::andX(A, B, C);
+     * $spec = new AndX(A, B, C);
      * </code>
      *
      * @param Filter $filter

@@ -9,7 +9,6 @@
 
 namespace Happyr\DoctrineSpecification\Filter\Logic;
 
-
 use Happyr\DoctrineSpecification\Filter\Filter;
 
 class OrX implements Filter
@@ -36,11 +35,11 @@ class OrX implements Filter
      * Append an other specification with a logic OR.
      *
      * <code>
-     * $spec = Spec::orX(A, B);
+     * $spec = new OrX(A, B);
      * $spec->orX(C);
      *
      * // We be the same as
-     * $spec = Spec::orX(A, B, C);
+     * $spec = new OrX(A, B, C);
      * </code>
      *
      * @param Filter $filter
