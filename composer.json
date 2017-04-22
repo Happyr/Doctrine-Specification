@@ -13,6 +13,10 @@
         {
             "name": "Kacper Gunia",
             "email": "kacper@gunia.me"
+        },
+        {
+            "name": "Peter Gribanov",
+            "email": "info@peter-gribanov.ru"
         }
     ],
     "require": {
