@@ -19,15 +19,11 @@ class AsSingleScalarTransformer implements QueryTransformer
     /**
      * @param ResultModifier $modifier
      * @param AbstractQuery  $query
-     *
-     * @return AbstractQuery
      */
     public function transform(ResultModifier $modifier, AbstractQuery $query)
     {
         if ($modifier instanceof AsSingleScalar) {
             $query->setHydrationMode(AbstractQuery::HYDRATE_SINGLE_SCALAR);
         }
-
-        return $query;
     }
 }

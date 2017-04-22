@@ -40,15 +40,11 @@ class QueryTransformerCollection implements QueryTransformer
     /**
      * @param ResultModifier $modifier
      * @param AbstractQuery  $query
-     *
-     * @return AbstractQuery
      */
     public function transform(ResultModifier $modifier, AbstractQuery $query)
     {
         foreach ($this->transformers as $transformer) {
-            $query = $transformer->transform($modifier, $query);
+            $transformer->transform($modifier, $query);
         }
-
-        return $query;
     }
 }

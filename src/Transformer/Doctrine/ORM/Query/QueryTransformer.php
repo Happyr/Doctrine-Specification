@@ -17,8 +17,6 @@ interface QueryTransformer
     /**
      * @param ResultModifier $modifier
      * @param AbstractQuery  $query
-     *
-     * @return AbstractQuery
      */
     public function transform(ResultModifier $modifier, AbstractQuery $query);
 }

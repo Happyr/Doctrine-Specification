@@ -19,15 +19,11 @@ class CacheTransformer implements QueryTransformer
     /**
      * @param ResultModifier $modifier
      * @param AbstractQuery  $query
-     *
-     * @return AbstractQuery
      */
     public function transform(ResultModifier $modifier, AbstractQuery $query)
     {
         if ($modifier instanceof Cache) {
             $query->setResultCacheLifetime($modifier->getCacheLifetime());
         }
-
-        return $query;
     }
 }
