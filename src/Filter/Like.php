@@ -9,6 +9,8 @@
 
 namespace Happyr\DoctrineSpecification\Filter;
 
+use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
+
 class Like extends Comparison
 {
     const ENDS_WITH = 1;
@@ -21,12 +23,29 @@ class Like extends Comparison
     private $format;
 
     /**
+     * @var array
+     */
+    private static $formats = [
+        self::ENDS_WITH,
+        self::STARTS_WITH,
+        self::CONTAINS,
+    ];
+
+    /**
      * @param string $field
      * @param string $value
      * @param int    $format
      */
     public function __construct($field, $value, $format = self::CONTAINS)
     {
+        if (!in_array($format, self::$formats)) {
+            throw new InvalidArgumentException(sprintf(
+                '"%s" is not a valid format. Valid format are: "%s"',
+                $format,
+                implode(', ', self::$formats)
+            ));
+        }
+
         $this->format = $format;
         parent::__construct($field, $value);
     }
