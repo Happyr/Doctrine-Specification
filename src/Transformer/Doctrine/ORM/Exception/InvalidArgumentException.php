@@ -14,7 +14,7 @@ use Happyr\DoctrineSpecification\Exception\InvalidArgumentException as BaseInval
 class InvalidArgumentException extends BaseInvalidArgumentException
 {
     /**
-     * @param array $supported_operators
+     * @param array  $supported_operators
      * @param string $operator
      *
      * @return self
