@@ -9,8 +9,6 @@
 
 namespace Happyr\DoctrineSpecification\ResultModifier;
 
-use Happyr\DoctrineSpecification\Specification;
-
-interface ResultModifier extends Specification
+interface ResultModifier
 {
 }
