@@ -10,7 +10,6 @@
 namespace tests\Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder;
 
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Filter\EqualsTransformer;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Filter\FilterCollectionTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Filter\GreaterOrEqualThanTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Filter\GreaterThanTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Filter\InstanceOfXTransformer;
@@ -20,10 +19,10 @@ use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Filter\Is
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Filter\LessOrEqualThanTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Filter\LessThanTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Filter\LikeTransformer;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Filter\Logic\AndXTransformer;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Filter\Logic\NotTransformer;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Filter\Logic\OrXTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Filter\NotEqualsTransformer;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Logic\AndXTransformer;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Logic\NotTransformer;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Logic\OrXTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollection;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier\GroupByTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier\HavingTransformer;
@@ -61,7 +60,6 @@ class QueryBuilderTransformerCollectionSpec extends ObjectBehavior
     {
         $this->beConstructedWith([
             new EqualsTransformer(),
-            new FilterCollectionTransformer(),
             new GreaterOrEqualThanTransformer(),
             new GreaterThanTransformer(),
             new InstanceOfXTransformer(),
@@ -91,7 +89,6 @@ class QueryBuilderTransformerCollectionSpec extends ObjectBehavior
     public function it_should_available_add_transformers()
     {
         $this->addTransformer(new EqualsTransformer());
-        $this->addTransformer(new FilterCollectionTransformer());
         $this->addTransformer(new GreaterOrEqualThanTransformer());
         $this->addTransformer(new GreaterThanTransformer());
         $this->addTransformer(new InstanceOfXTransformer());
