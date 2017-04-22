@@ -7,16 +7,16 @@
  * @license   http://opensource.org/licenses/MIT
  */
 
-namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Logic;
+namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Filter\Logic;
 
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Logic\Not;
+use Happyr\DoctrineSpecification\Filter\Logic\AndX;
 use Happyr\DoctrineSpecification\Specification;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollection;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollectionAware;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollectionAwareTrait;
 
-class NotTransformer implements QueryBuilderTransformerCollectionAware
+class AndXTransformer implements QueryBuilderTransformerCollectionAware
 {
     use QueryBuilderTransformerCollectionAwareTrait;
 
@@ -29,9 +29,10 @@ class NotTransformer implements QueryBuilderTransformerCollectionAware
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
-        if ($specification instanceof Not && $this->collection instanceof QueryBuilderTransformerCollection) {
-            // FIXME impossible implement in current architecture
-//            $qb = $this->collection->transform($specification->getFilter(), $qb, $dqlAlias);
+        if ($specification instanceof AndX && $this->collection instanceof QueryBuilderTransformerCollection) {
+            foreach ($specification->getFilters() as $filter) {
+                $qb = $this->collection->transform($filter, $qb, $dqlAlias);
+            }
         }
 
         return $qb;

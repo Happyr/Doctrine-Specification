@@ -7,12 +7,11 @@
  * @license   http://opensource.org/licenses/MIT
  */
 
-namespace Happyr\DoctrineSpecification\Logic;
+namespace Happyr\DoctrineSpecification\Filter\Logic;
 
 use Happyr\DoctrineSpecification\Filter\Filter;
-use Happyr\DoctrineSpecification\Specification;
 
-class Not implements Specification
+class Not implements Filter
 {
     /**
      * @var Filter

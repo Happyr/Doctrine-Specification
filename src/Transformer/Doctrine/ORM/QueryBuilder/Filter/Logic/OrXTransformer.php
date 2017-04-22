@@ -7,10 +7,10 @@
  * @license   http://opensource.org/licenses/MIT
  */
 
-namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Logic;
+namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Filter\Logic;
 
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Logic\OrX;
+use Happyr\DoctrineSpecification\Filter\Logic\OrX;
 use Happyr\DoctrineSpecification\Specification;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollection;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollectionAware;
@@ -31,8 +31,8 @@ class OrXTransformer implements QueryBuilderTransformerCollectionAware
     {
         if ($specification instanceof OrX && $this->collection instanceof QueryBuilderTransformerCollection) {
             // FIXME impossible implement in current architecture
-//            foreach ($specification->getChildren() as $child) {
-//                $qb = $this->collection->transform($child, $qb, $dqlAlias);
+//            foreach ($specification->getFilters() as $filter) {
+//                $qb = $this->collection->transform($filter, $qb, $dqlAlias);
 //            }
         }
 
