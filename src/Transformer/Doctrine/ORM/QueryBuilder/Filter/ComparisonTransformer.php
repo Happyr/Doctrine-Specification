@@ -11,8 +11,8 @@ namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Fil
 
 use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 use Happyr\DoctrineSpecification\Filter\Comparison;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\Exception\InvalidArgumentException;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ValueConverter;
 
@@ -48,11 +48,7 @@ abstract class ComparisonTransformer implements QueryBuilderTransformer
     protected function getCondition(Comparison $specification, QueryBuilder $qb, $dqlAlias, $operator)
     {
         if (!in_array($operator, self::$operators)) {
-            throw new InvalidArgumentException(sprintf(
-                '"%s" is not a valid comparison operator. Valid operators are: "%s"',
-                $operator,
-                implode(', ', self::$operators)
-            ));
+            throw InvalidArgumentException::invalidComparisonOperator(self::$operators, $operator);
         }
 
         $paramName = $this->getParameterName($qb);

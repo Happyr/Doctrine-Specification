@@ -54,15 +54,11 @@ abstract class AbstractJoin implements QueryModifier
     public function __construct($field, $alias, $conditionType = null, Filter $condition = null)
     {
         if ($conditionType && !in_array($conditionType, self::$conditionTypes)) {
-            throw new InvalidArgumentException(sprintf(
-                '"%s" is not a valid condition type. Valid condition type are: "%s"',
-                $conditionType,
-                implode(', ', self::$conditionTypes)
-            ));
+            throw InvalidArgumentException::invalidJoinConditionType(self::$conditionTypes, $conditionType);
         }
 
         if ((!$conditionType && $condition) || ($conditionType && !$condition)) {
-            throw new InvalidArgumentException('Join specification must have a condition and condition type.');
+            throw InvalidArgumentException::joinRequireConditionAndConditionType();
         }
 
         $this->field = $field;

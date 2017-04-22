@@ -39,11 +39,7 @@ class Like extends Comparison
     public function __construct($field, $value, $format = self::CONTAINS)
     {
         if (!in_array($format, self::$formats)) {
-            throw new InvalidArgumentException(sprintf(
-                '"%s" is not a valid format. Valid format are: "%s"',
-                $format,
-                implode(', ', self::$formats)
-            ));
+            throw InvalidArgumentException::invalidLikeFormat(self::$formats, $format);
         }
 
         $this->format = $format;

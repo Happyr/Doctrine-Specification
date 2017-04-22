@@ -42,11 +42,7 @@ class OrderBy implements Specification
     public function __construct($field, $order = self::ASC)
     {
         if (!in_array($order, self::$orders)) {
-            throw new InvalidArgumentException(sprintf(
-                '"%s" is not a valid order. Valid order are: "%s"',
-                $order,
-                implode(', ', self::$orders)
-            ));
+            throw InvalidArgumentException::invalidOrderType(self::$orders, $order);
         }
 
         $this->field = $field;
