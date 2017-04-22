@@ -7,10 +7,10 @@
  * @license   http://opensource.org/licenses/MIT
  */
 
-namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier;
+namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\ResultManagement;
 
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\QueryModifier\OrderBy;
+use Happyr\DoctrineSpecification\ResultManagement\OrderBy;
 use Happyr\DoctrineSpecification\Specification;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformer;
 

@@ -7,9 +7,11 @@
  * @license   http://opensource.org/licenses/MIT
  */
 
-namespace Happyr\DoctrineSpecification\QueryModifier;
+namespace Happyr\DoctrineSpecification\ResultManagement;
 
-class Limit implements QueryModifier
+use Happyr\DoctrineSpecification\Specification;
+
+class Limit implements Specification
 {
     /**
      * @var int

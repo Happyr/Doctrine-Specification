@@ -7,9 +7,11 @@
  * @license   http://opensource.org/licenses/MIT
  */
 
-namespace Happyr\DoctrineSpecification\QueryModifier;
+namespace Happyr\DoctrineSpecification\ResultManagement;
 
-class Offset implements QueryModifier
+use Happyr\DoctrineSpecification\Specification;
+
+class Offset implements Specification
 {
     /**
      * @var int

@@ -7,8 +7,10 @@
  * @license   http://opensource.org/licenses/MIT
  */
 
-namespace Happyr\DoctrineSpecification\QueryModifier;
+namespace Happyr\DoctrineSpecification\ResultManagement;
 
-class CountOf implements QueryModifier
+use Happyr\DoctrineSpecification\Specification;
+
+class CountOf implements Specification
 {
 }

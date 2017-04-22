@@ -7,11 +7,12 @@
  * @license   http://opensource.org/licenses/MIT
  */
 
-namespace Happyr\DoctrineSpecification\QueryModifier;
+namespace Happyr\DoctrineSpecification\ResultManagement;
 
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
+use Happyr\DoctrineSpecification\Specification;
 
-class OrderBy implements QueryModifier
+class OrderBy implements Specification
 {
     const ASC = 'ASC';
     const DESC = 'DESC';

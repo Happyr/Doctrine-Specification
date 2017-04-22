@@ -25,16 +25,16 @@ use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Logic\And
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Logic\NotTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\Logic\OrXTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformerCollection;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier\CountOfTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier\GroupByTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier\HavingTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier\InnerJoinTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier\JoinTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier\LeftJoinTransformer;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier\LimitTransformer;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier\OffsetTransformer;
-use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier\OrderByTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier\QueryModifierCollectionTransformer;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\ResultManagement\CountOfTransformer;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\ResultManagement\LimitTransformer;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\ResultManagement\OffsetTransformer;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\ResultManagement\OrderByTransformer;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -75,16 +75,16 @@ class QueryBuilderTransformerCollectionSpec extends ObjectBehavior
 //            new AndXTransformer($this),
 //            new NotTransformer($this),
 //            new OrXTransformer($this),
-            new CountOfTransformer(),
             new GroupByTransformer(),
 //            new HavingTransformer($this),
 //            new InnerJoinTransformer($this),
 //            new JoinTransformer($this),
 //            new LeftJoinTransformer($this),
+//            new QueryModifierCollectionTransformer($this),
+            new CountOfTransformer(),
             new LimitTransformer(),
             new OffsetTransformer(),
             new OrderByTransformer(),
-//            new QueryModifierCollectionTransformer($this),
         ]);
     }
 
@@ -105,15 +105,15 @@ class QueryBuilderTransformerCollectionSpec extends ObjectBehavior
 //        $this->addTransformer(new AndXTransformer($this));
 //        $this->addTransformer(new NotTransformer($this));
 //        $this->addTransformer(new OrXTransformer($this));
-        $this->addTransformer(new CountOfTransformer());
         $this->addTransformer(new GroupByTransformer());
 //        $this->addTransformer(new HavingTransformer($this));
 //        $this->addTransformer(new InnerJoinTransformer($this));
 //        $this->addTransformer(new JoinTransformer($this));
 //        $this->addTransformer(new LeftJoinTransformer($this));
+//        $this->addTransformer(new QueryModifierCollectionTransformer($this));
+        $this->addTransformer(new CountOfTransformer());
         $this->addTransformer(new LimitTransformer());
         $this->addTransformer(new OffsetTransformer());
         $this->addTransformer(new OrderByTransformer());
-//        $this->addTransformer(new QueryModifierCollectionTransformer($this));
     }
 }

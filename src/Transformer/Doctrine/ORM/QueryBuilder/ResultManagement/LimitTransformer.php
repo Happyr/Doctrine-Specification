@@ -7,10 +7,10 @@
  * @license   http://opensource.org/licenses/MIT
  */
 
-namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier;
+namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\ResultManagement;
 
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\QueryModifier\Limit;
+use Happyr\DoctrineSpecification\ResultManagement\Limit;
 use Happyr\DoctrineSpecification\Specification;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformer;
 

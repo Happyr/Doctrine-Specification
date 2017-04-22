@@ -7,14 +7,14 @@
  * @license   http://opensource.org/licenses/MIT
  */
 
-namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryModifier;
+namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\ResultManagement;
 
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\QueryModifier\CountOf;
+use Happyr\DoctrineSpecification\ResultManagement\Offset;
 use Happyr\DoctrineSpecification\Specification;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\QueryBuilderTransformer;
 
-class CountOfTransformer implements QueryBuilderTransformer
+class OffsetTransformer implements QueryBuilderTransformer
 {
     /**
      * @param Specification $specification
@@ -25,8 +25,8 @@ class CountOfTransformer implements QueryBuilderTransformer
      */
     public function transform(Specification $specification, QueryBuilder $qb, $dqlAlias)
     {
-        if ($specification instanceof CountOf) {
-            $qb->select(sprintf('COUNT(%s)', $dqlAlias));
+        if ($specification instanceof Offset) {
+            $qb->setFirstResult($specification->getOffset());
         }
 
         return $qb;
