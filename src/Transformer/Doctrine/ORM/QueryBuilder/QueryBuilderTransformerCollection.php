@@ -35,6 +35,10 @@ class QueryBuilderTransformerCollection implements QueryBuilderTransformer
     public function addTransformer(QueryBuilderTransformer $transformer)
     {
         $this->transformers[] = $transformer;
+
+        if ($transformer instanceof QueryBuilderTransformerCollectionAware) {
+            $transformer->setCollection($this);
+        }
     }
 
     /**
