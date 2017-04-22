@@ -19,15 +19,11 @@ class CountOfTransformer implements QueryBuilderTransformer
     /**
      * @param Specification $specification
      * @param Builder       $qb
-     *
-     * @return string|null
      */
     public function transform(Specification $specification, Builder $qb)
     {
         if ($specification instanceof CountOf) {
             $qb->count();
         }
-
-        return null;
     }
 }

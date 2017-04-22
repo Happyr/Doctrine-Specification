@@ -19,15 +19,11 @@ class OffsetTransformer implements QueryBuilderTransformer
     /**
      * @param Specification $specification
      * @param Builder       $qb
-     *
-     * @return string|null
      */
     public function transform(Specification $specification, Builder $qb)
     {
         if ($specification instanceof Offset) {
             $qb->skip($specification->getOffset());
         }
-
-        return null;
     }
 }

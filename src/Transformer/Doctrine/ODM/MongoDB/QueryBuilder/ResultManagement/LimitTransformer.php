@@ -19,15 +19,11 @@ class LimitTransformer implements QueryBuilderTransformer
     /**
      * @param Specification $specification
      * @param Builder       $qb
-     *
-     * @return string|null
      */
     public function transform(Specification $specification, Builder $qb)
     {
         if ($specification instanceof Limit) {
             $qb->limit($specification->getLimit());
         }
-
-        return null;
     }
 }

@@ -15,12 +15,8 @@ use Happyr\DoctrineSpecification\Specification;
 interface QueryBuilderTransformer
 {
     /**
-     * Return a condition string or NULL if the specification is not a filter.
-     *
      * @param Specification $specification
      * @param Builder       $qb
-     *
-     * @return string|null
      */
     public function transform(Specification $specification, Builder $qb);
 }
