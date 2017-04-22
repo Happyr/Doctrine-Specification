@@ -9,7 +9,9 @@
 
 namespace Happyr\DoctrineSpecification\Transformer\Doctrine\ODM\MongoDB;
 
+use Doctrine\MongoDB\Query\Query;
 use Doctrine\ODM\MongoDB\Query\Builder;
+use Happyr\DoctrineSpecification\ResultModifier\ResultModifier;
 use Happyr\DoctrineSpecification\Specification;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ODM\MongoDB\QueryBuilder\QueryBuilderTransformerCollection;
 
@@ -29,15 +31,16 @@ class DoctrineODMMongoDBTransformer
     }
 
     /**
-     * @param Specification $specification
-     * @param Builder       $qb
+     * @param Specification       $specification
+     * @param ResultModifier|null $modifier
+     * @param Builder             $qb
      *
-     * @return Builder
+     * @return Query
      */
-    public function transform(Specification $specification, Builder $qb)
+    public function transform(Specification $specification, ResultModifier $modifier = null, Builder $qb)
     {
         $this->transformer->transform($specification, $qb);
 
-        return $qb;
+        return $qb->getQuery();
     }
 }
