@@ -24,11 +24,11 @@ class CacheSpec extends ObjectBehavior
     {
         $this->beConstructedWith($this->lifetime);
     }
+
     public function it_is_initializable()
     {
         $this->shouldHaveType('Happyr\DoctrineSpecification\ResultModifier\Cache');
     }
-
 
     public function it_is_a_specification()
     {

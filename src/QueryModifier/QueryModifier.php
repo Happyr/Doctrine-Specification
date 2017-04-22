@@ -9,6 +9,8 @@
 
 namespace Happyr\DoctrineSpecification\QueryModifier;
 
-interface QueryModifier
+use Happyr\DoctrineSpecification\Specification;
+
+interface QueryModifier extends Specification
 {
 }
