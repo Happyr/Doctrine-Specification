@@ -20,7 +20,7 @@ class LimitTransformer implements QueryBuilderTransformer
      * @param Specification $specification
      * @param Builder       $qb
      *
-     * @return Builder
+     * @return string|null
      */
     public function transform(Specification $specification, Builder $qb)
     {
@@ -28,6 +28,6 @@ class LimitTransformer implements QueryBuilderTransformer
             $qb->limit($specification->getLimit());
         }
 
-        return $qb;
+        return null;
     }
 }

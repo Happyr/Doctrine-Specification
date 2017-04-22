@@ -20,7 +20,7 @@ class OrderByTransformer implements QueryBuilderTransformer
      * @param Specification $specification
      * @param Builder       $qb
      *
-     * @return Builder
+     * @return string|null
      */
     public function transform(Specification $specification, Builder $qb)
     {
@@ -28,6 +28,6 @@ class OrderByTransformer implements QueryBuilderTransformer
             $qb->sort($specification->getField(), $specification->getOrder());
         }
 
-        return $qb;
+        return null;
     }
 }

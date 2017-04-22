@@ -20,7 +20,7 @@ class CountOfTransformer implements QueryBuilderTransformer
      * @param Specification $specification
      * @param Builder       $qb
      *
-     * @return Builder
+     * @return string|null
      */
     public function transform(Specification $specification, Builder $qb)
     {
@@ -28,6 +28,6 @@ class CountOfTransformer implements QueryBuilderTransformer
             $qb->count();
         }
 
-        return $qb;
+        return null;
     }
 }

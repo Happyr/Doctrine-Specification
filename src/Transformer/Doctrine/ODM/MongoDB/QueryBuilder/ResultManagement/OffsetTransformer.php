@@ -20,7 +20,7 @@ class OffsetTransformer implements QueryBuilderTransformer
      * @param Specification $specification
      * @param Builder       $qb
      *
-     * @return Builder
+     * @return string|null
      */
     public function transform(Specification $specification, Builder $qb)
     {
@@ -28,6 +28,6 @@ class OffsetTransformer implements QueryBuilderTransformer
             $qb->skip($specification->getOffset());
         }
 
-        return $qb;
+        return null;
     }
 }
