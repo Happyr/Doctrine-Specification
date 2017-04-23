@@ -1,8 +1,8 @@
 <?php
 
-namespace tests\Happyr\DoctrineSpecification\Query;
+namespace tests\Happyr\DoctrineSpecification\ResultManagement;
 
-use Happyr\DoctrineSpecification\Query\Slice;
+use Happyr\DoctrineSpecification\ResultManagement\Slice;
 use PhpSpec\ObjectBehavior;
 
 /**

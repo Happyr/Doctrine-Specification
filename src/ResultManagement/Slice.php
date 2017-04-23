@@ -1,10 +1,11 @@
 <?php
 
-namespace Happyr\DoctrineSpecification\Query;
+namespace Happyr\DoctrineSpecification\ResultManagement;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Specification;
 
-class Slice implements QueryModifier
+class Slice implements Specification
 {
     /**
      * @var int
