@@ -1,5 +1,8 @@
 language: php
 
+services:
+  - mongodb
+
 cache:
   directories:
     - $HOME/.composer/cache
