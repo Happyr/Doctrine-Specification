@@ -29,11 +29,11 @@ class SliceSpec extends ObjectBehavior
 
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Filter\Slice');
+        $this->shouldHaveType('Happyr\DoctrineSpecification\ResultManagement\Slice');
     }
 
     public function it_is_a_specification()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Query\QueryModifier');
+        $this->shouldHaveType('Happyr\DoctrineSpecification\Specification');
     }
 }
