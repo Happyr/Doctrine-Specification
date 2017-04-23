@@ -34,6 +34,7 @@ use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\ResultMan
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\ResultManagement\LimitTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\ResultManagement\OffsetTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\ResultManagement\OrderByTransformer;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\QueryBuilder\ResultManagement\SliceTransformer;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -83,6 +84,7 @@ class QueryBuilderTransformerCollectionSpec extends ObjectBehavior
             new LimitTransformer(),
             new OffsetTransformer(),
             new OrderByTransformer(),
+            new SliceTransformer(),
         ]);
     }
 
@@ -112,5 +114,6 @@ class QueryBuilderTransformerCollectionSpec extends ObjectBehavior
         $this->addTransformer(new LimitTransformer());
         $this->addTransformer(new OffsetTransformer());
         $this->addTransformer(new OrderByTransformer());
+        $this->addTransformer(new SliceTransformer());
     }
 }

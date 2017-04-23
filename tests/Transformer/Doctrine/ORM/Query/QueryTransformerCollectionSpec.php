@@ -13,6 +13,7 @@ use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\Query\QueryTransformer
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\Query\ResultModifier\AsArrayTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\Query\ResultModifier\AsSingleScalarTransformer;
 use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\Query\ResultModifier\CacheTransformer;
+use Happyr\DoctrineSpecification\Transformer\Doctrine\ORM\Query\ResultModifier\RoundDateTimeTransformer;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -41,6 +42,7 @@ class QueryTransformerCollectionSpec extends ObjectBehavior
             new AsArrayTransformer(),
             new AsSingleScalarTransformer(),
             new CacheTransformer(),
+            new RoundDateTimeTransformer(),
         ]);
     }
 
@@ -49,5 +51,6 @@ class QueryTransformerCollectionSpec extends ObjectBehavior
         $this->addTransformer(new AsArrayTransformer());
         $this->addTransformer(new AsSingleScalarTransformer());
         $this->addTransformer(new CacheTransformer());
+        $this->addTransformer(new RoundDateTimeTransformer());
     }
 }
