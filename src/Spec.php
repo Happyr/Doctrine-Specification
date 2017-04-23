@@ -242,6 +242,11 @@ class Spec
     {
         return new In($field, $value, $dqlAlias);
     }
+	
+    public static function notIn($field, $value, $dqlAlias = null)
+    {
+        return new Not(new In($field, $value, $dqlAlias));
+    }
 
     /**
      * @param string $field
