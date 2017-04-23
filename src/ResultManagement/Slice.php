@@ -1,8 +1,14 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm <tobias@happyr.com>
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
 namespace Happyr\DoctrineSpecification\ResultManagement;
 
-use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Specification;
 
 class Slice implements Specification
@@ -28,15 +34,18 @@ class Slice implements Specification
     }
 
     /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @return int
      */
-    public function modify(QueryBuilder $qb, $dqlAlias)
+    public function getSliceSize()
     {
-        $qb->setMaxResults($this->sliceSize);
+        return $this->sliceSize;
+    }
 
-        if ($this->sliceNumber > 0) {
-            $qb->setFirstResult($this->sliceNumber * $this->sliceSize);
-        }
+    /**
+     * @return int
+     */
+    public function getSliceNumber()
+    {
+        return $this->sliceNumber;
     }
 }
