@@ -9,9 +9,6 @@
 
 namespace Happyr\DoctrineSpecification\ResultModifier;
 
-use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\Query\Parameter;
-
 /**
  * Round a \DateTime to enable caching.
  */
@@ -31,19 +28,10 @@ class RoundDateTime implements ResultModifier
     }
 
     /**
-     * @param AbstractQuery $query
+     * @return int
      */
-    public function modify(AbstractQuery $query)
+    public function getRoundSeconds()
     {
-        foreach ($query->getParameters() as $parameter) {
-            /* @var $parameter Parameter */
-            if ($parameter->getValue() instanceof \DateTimeInterface) {
-                // round down so that the results do not include data that should not be there.
-                $date = clone $parameter->getValue();
-                $date = $date->setTimestamp(floor($date->getTimestamp() / $this->roundSeconds) * $this->roundSeconds);
-
-                $query->setParameter($parameter->getName(), $date, $parameter->getType());
-            }
-        }
+        return $this->roundSeconds;
     }
 }
