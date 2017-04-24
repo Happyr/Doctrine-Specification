@@ -1,58 +1,67 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm <tobias@happyr.com>
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
-namespace tests\Happyr\DoctrineSpecification\Spec;
+namespace tests\Happyr\DoctrineSpecification\Filter;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Like;
 use PhpSpec\ObjectBehavior;
 
+/**
+ * @mixin Like
+ */
 class LikeSpec extends ObjectBehavior
 {
     private $field = 'foo';
 
     private $value = 'bar';
 
+    private $format = Like::CONTAINS;
+
     public function let()
     {
-        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, 'dqlAlias');
+        $this->beConstructedWith($this->field, $this->value, $this->format);
+    }
+
+    public function it_is_initializable()
+    {
+        $this->shouldHaveType('Happyr\DoctrineSpecification\Filter\Like');
     }
 
     public function it_is_a_specification()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Specification\Specification');
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Filter');
     }
 
-    public function it_surrounds_with_wildcards_when_using_contains(QueryBuilder $qb, ArrayCollection $parameters)
+    public function it_should_return_field()
     {
-        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, 'dqlAlias');
-        $qb->getParameters()->willReturn($parameters);
-        $parameters->count()->willReturn(1);
-
-        $qb->setParameter('comparison_1', '%bar%')->shouldBeCalled();
-
-        $this->match($qb, null);
+        $this->getField()->shouldReturn($this->field);
     }
 
-    public function it_starts_with_wildcard_when_using_ends_with(QueryBuilder $qb, ArrayCollection $parameters)
+    public function it_should_return_value()
     {
-        $this->beConstructedWith($this->field, $this->value, Like::ENDS_WITH, 'dqlAlias');
-        $qb->getParameters()->willReturn($parameters);
-        $parameters->count()->willReturn(1);
-
-        $qb->setParameter('comparison_1', '%bar')->shouldBeCalled();
-
-        $this->match($qb, null);
+        $this->getValue()->shouldReturn($this->value);
     }
 
-    public function it_ends_with_wildcard_when_using_starts_with(QueryBuilder $qb, ArrayCollection $parameters)
+    public function it_should_return_format()
     {
-        $this->beConstructedWith($this->field, $this->value, Like::STARTS_WITH, 'dqlAlias');
-        $qb->getParameters()->willReturn($parameters);
-        $parameters->count()->willReturn(1);
+        $this->getFormat()->shouldReturn($this->format);
+    }
 
-        $qb->setParameter('comparison_1', 'bar%')->shouldBeCalled();
+    public function it_should_return_format_ends_with()
+    {
+        $this->beConstructedWith($this->field, $this->value, Like::ENDS_WITH);
+        $this->getFormat()->shouldReturn(Like::ENDS_WITH);
+    }
 
-        $this->match($qb, null);
+    public function it_should_return_format_starts_with()
+    {
+        $this->beConstructedWith($this->field, $this->value, Like::STARTS_WITH);
+        $this->getFormat()->shouldReturn(Like::STARTS_WITH);
     }
 }

@@ -1,33 +1,56 @@
 <?php
+/**
+ * Doctrine Specification.
+ *
+ * @author    Tobias Nyholm <tobias@happyr.com>
+ * @copyright Copyright (c) 2014, Tobias Nyholm
+ * @license   http://opensource.org/licenses/MIT
+ */
 
 namespace Happyr\DoctrineSpecification\Filter;
 
+use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
+
 class Like extends Comparison
 {
-    const CONTAINS = '%%%s%%';
-    const ENDS_WITH = '%%%s';
-    const STARTS_WITH = '%s%%';
+    const ENDS_WITH = 1;
+    const STARTS_WITH = 2;
+    const CONTAINS = 3; // self::ENDS_WITH | self::STARTS_WITH
+
+    /**
+     * @var int
+     */
+    private $format;
+
+    /**
+     * @var array
+     */
+    private static $formats = [
+        self::ENDS_WITH,
+        self::STARTS_WITH,
+        self::CONTAINS,
+    ];
 
     /**
      * @param string $field
      * @param string $value
-     * @param string $format
-     * @param string $dqlAlias
+     * @param int    $format
      */
-    public function __construct($field, $value, $format = self::CONTAINS, $dqlAlias = null)
+    public function __construct($field, $value, $format = self::CONTAINS)
     {
-        $formattedValue = $this->formatValue($format, $value);
-        parent::__construct(self::LIKE, $field, $formattedValue, $dqlAlias);
+        if (!in_array($format, self::$formats)) {
+            throw InvalidArgumentException::invalidLikeFormat(self::$formats, $format);
+        }
+
+        $this->format = $format;
+        parent::__construct($field, $value);
     }
 
     /**
-     * @param string $format
-     * @param string $value
-     *
-     * @return string
+     * @return int
      */
-    private function formatValue($format, $value)
+    public function getFormat()
     {
-        return sprintf($format, $value);
+        return $this->format;
     }
 }
