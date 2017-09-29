@@ -15,44 +15,44 @@ interface EntitySpecificationRepositoryInterface
      * Get results when you match with a Specification.
      *
      * @param Filter|QueryModifier $specification
-     * @param ResultModifier       $modifier
+     * @param ResultModifier|null  $modifier
      *
      * @return mixed[]
      */
-    public function match($specification, ResultModifier $modifier);
+    public function match($specification, ResultModifier $modifier = null);
 
     /**
      * Get single result when you match with a Specification.
      *
      * @param Filter|QueryModifier $specification
-     * @param ResultModifier       $modifier
+     * @param ResultModifier|null  $modifier
      *
      * @throw Exception\NonUniqueException  If more than one result is found
      * @throw Exception\NoResultException   If no results found
      *
      * @return mixed
      */
-    public function matchSingleResult($specification, ResultModifier $modifier);
+    public function matchSingleResult($specification, ResultModifier $modifier = null);
 
     /**
      * Get single result or null when you match with a Specification.
      *
      * @param Filter|QueryModifier $specification
-     * @param ResultModifier       $modifier
+     * @param ResultModifier|null  $modifier
      *
      * @throw Exception\NonUniqueException  If more than one result is found
      *
      * @return mixed|null
      */
-    public function matchOneOrNullResult($specification, ResultModifier $modifier);
+    public function matchOneOrNullResult($specification, ResultModifier $modifier = null);
 
     /**
      * Prepare a Query with a Specification.
      *
      * @param Filter|QueryModifier $specification
-     * @param ResultModifier       $modifier
+     * @param ResultModifier|null  $modifier
      *
      * @return \Doctrine\ORM\Query
      */
-    public function getQuery($specification, ResultModifier $modifier);
+    public function getQuery($specification, ResultModifier $modifier = null);
 }
