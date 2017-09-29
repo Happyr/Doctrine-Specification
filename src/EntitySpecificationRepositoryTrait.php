@@ -23,7 +23,7 @@ trait EntitySpecificationRepositoryTrait
      * Get results when you match with a Specification.
      *
      * @param Filter|QueryModifier $specification
-     * @param ResultModifier       $modifier
+     * @param ResultModifier|null  $modifier
      *
      * @return mixed[]
      */
@@ -38,7 +38,7 @@ trait EntitySpecificationRepositoryTrait
      * Get single result when you match with a Specification.
      *
      * @param Filter|QueryModifier $specification
-     * @param ResultModifier       $modifier
+     * @param ResultModifier|null  $modifier
      *
      * @throw Exception\NonUniqueException  If more than one result is found
      * @throw Exception\NoResultException   If no results found
@@ -62,7 +62,7 @@ trait EntitySpecificationRepositoryTrait
      * Get single result or null when you match with a Specification.
      *
      * @param Filter|QueryModifier $specification
-     * @param ResultModifier       $modifier
+     * @param ResultModifier|null  $modifier
      *
      * @throw Exception\NonUniqueException  If more than one result is found
      *
@@ -81,7 +81,7 @@ trait EntitySpecificationRepositoryTrait
      * Prepare a Query with a Specification.
      *
      * @param Filter|QueryModifier $specification
-     * @param ResultModifier       $modifier
+     * @param ResultModifier|null  $modifier
      *
      * @return \Doctrine\ORM\Query
      */
