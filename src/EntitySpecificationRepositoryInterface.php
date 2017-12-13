@@ -64,5 +64,5 @@ interface EntitySpecificationRepositoryInterface
      *
      * @return QueryBuilder
      */
-    public function getQueryBuilder($specification, $alias = null)
+    public function getQueryBuilder($specification, $alias = null);
 }
