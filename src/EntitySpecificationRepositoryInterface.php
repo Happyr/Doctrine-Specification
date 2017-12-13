@@ -5,6 +5,8 @@ namespace Happyr\DoctrineSpecification;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Result\ResultModifier;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * This interface should be used by an EntityRepository implementing the Specification pattern.
@@ -52,7 +54,15 @@ interface EntitySpecificationRepositoryInterface
      * @param Filter|QueryModifier $specification
      * @param ResultModifier       $modifier
      *
-     * @return \Doctrine\ORM\Query
+     * @return Query
      */
     public function getQuery($specification, ResultModifier $modifier);
+
+    /**
+     * @param Filter|QueryModifier $specification
+     * @param string|null          $alias
+     *
+     * @return QueryBuilder
+     */
+    public function getQueryBuilder($specification, $alias = null)
 }
