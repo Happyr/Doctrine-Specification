@@ -2,11 +2,11 @@
 
 namespace Happyr\DoctrineSpecification;
 
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Result\ResultModifier;
-use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 
 /**
  * This interface should be used by an EntityRepository implementing the Specification pattern.
