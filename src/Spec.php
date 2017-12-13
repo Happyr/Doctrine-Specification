@@ -19,9 +19,11 @@ use Happyr\DoctrineSpecification\Query\LeftJoin;
 use Happyr\DoctrineSpecification\Query\Limit;
 use Happyr\DoctrineSpecification\Query\Offset;
 use Happyr\DoctrineSpecification\Query\OrderBy;
+use Happyr\DoctrineSpecification\Query\Slice;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Result\AsSingleScalar;
 use Happyr\DoctrineSpecification\Result\Cache;
+use Happyr\DoctrineSpecification\Result\RoundDateTime;
 use Happyr\DoctrineSpecification\Specification\CountOf;
 use Happyr\DoctrineSpecification\Specification\Having;
 use Happyr\DoctrineSpecification\Specification\Specification;
@@ -128,6 +130,17 @@ class Spec
     }
 
     /**
+     * @param int $sliceSize
+     * @param int $sliceNumber
+     *
+     * @return Slice
+     */
+    public static function slice($sliceSize, $sliceNumber = 0)
+    {
+        return new Slice($sliceSize, $sliceNumber);
+    }
+
+    /**
      * @param string      $field
      * @param string      $order
      * @param string|null $dqlAlias
@@ -178,6 +191,16 @@ class Spec
     public static function cache($cacheLifetime)
     {
         return new Cache($cacheLifetime);
+    }
+
+    /**
+     * @param int $roundSeconds How may seconds to round time
+     *
+     * @return RoundDateTime
+     */
+    public static function roundDateTimeParams($roundSeconds)
+    {
+        return new RoundDateTime($roundSeconds);
     }
 
     /*
