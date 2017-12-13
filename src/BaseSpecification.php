@@ -70,7 +70,7 @@ abstract class BaseSpecification implements Specification
      */
     private function getAlias($dqlAlias)
     {
-        if ($this->dqlAlias !== null) {
+        if (null !== $this->dqlAlias) {
             return $this->dqlAlias;
         }
 
