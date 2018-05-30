@@ -21,6 +21,7 @@ class Comparison implements Filter
     const GT = '>';
     const GTE = '>=';
     const LIKE = 'LIKE';
+    const MEMBER_OF = 'MEMBER OF';
 
     /**
      * @var string field
@@ -44,7 +45,7 @@ class Comparison implements Filter
         self::EQ, self::NEQ,
         self::LT, self::LTE,
         self::GT, self::GTE,
-        self::LIKE,
+        self::LIKE, self::MEMBER_OF
     );
 
     /**
@@ -93,11 +94,21 @@ class Comparison implements Filter
         $paramName = $this->getParameterName($qb);
         $qb->setParameter($paramName, ValueConverter::convertToDatabaseValue($this->value, $qb));
 
-        return (string) new DoctrineComparison(
-            sprintf('%s.%s', $dqlAlias, $this->field),
-            $this->operator,
-            sprintf(':%s', $paramName)
-        );
+        if ($this->operator === self::MEMBER_OF){
+            return (string) new DoctrineComparison(
+                sprintf(':%s', $paramName),
+                $this->operator,
+                sprintf('%s.%s', $dqlAlias, $this->field)
+            );
+        }
+        else {
+            return (string) new DoctrineComparison(
+                sprintf('%s.%s', $dqlAlias, $this->field),
+                $this->operator,
+                sprintf(':%s', $paramName)
+            );
+        }
+
     }
 
     /**

@@ -9,6 +9,8 @@ use Happyr\DoctrineSpecification\Filter\InstanceOfX;
 use Happyr\DoctrineSpecification\Filter\IsNotNull;
 use Happyr\DoctrineSpecification\Filter\IsNull;
 use Happyr\DoctrineSpecification\Filter\Like;
+use Happyr\DoctrineSpecification\Filter\MemberOf;
+use Happyr\DoctrineSpecification\Filter\MemberOfX;
 use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
@@ -349,6 +351,30 @@ class Spec
     public static function instanceOfX($value, $dqlAlias = null)
     {
         return new InstanceOfX($value, $dqlAlias);
+    }
+
+    /**
+     * @param string $field
+     * @param string $value
+     * @param string $dqlAlias
+     *
+     * @return Comparison
+     */
+    public static function memberOf($field, $value, $dqlAlias = null)
+    {
+        return new MemberOf($field, $value, $dqlAlias = null);
+        return new Comparison(Comparison::MEMBER_OF, $field, $value, $dqlAlias);
+    }
+
+    /**
+     * @param string $value
+     * @param null   $dqlAlias
+     *
+     * @return MemberOfX
+     */
+    public static function memberOfX($value, $dqlAlias = null)
+    {
+        return new MemberOfX($value, $dqlAlias);
     }
 
     /*
