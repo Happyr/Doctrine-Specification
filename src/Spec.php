@@ -14,6 +14,7 @@ use Happyr\DoctrineSpecification\Filter\MemberOfX;
 use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
+use Happyr\DoctrineSpecification\Query\AddSelect;
 use Happyr\DoctrineSpecification\Query\GroupBy;
 use Happyr\DoctrineSpecification\Query\InnerJoin;
 use Happyr\DoctrineSpecification\Query\Join;
@@ -163,6 +164,16 @@ class Spec
     public static function groupBy($field, $dqlAlias = null)
     {
         return new GroupBy($field, $dqlAlias);
+    }
+
+    /**
+     * @param string $alias
+     *
+     * @return AddSelect
+     */
+    public static function addSelect($alias)
+    {
+        return new AddSelect($alias);
     }
 
     /*
