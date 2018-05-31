@@ -11,6 +11,7 @@ use Happyr\DoctrineSpecification\Filter\IsNull;
 use Happyr\DoctrineSpecification\Filter\Like;
 use Happyr\DoctrineSpecification\Filter\MemberOf;
 use Happyr\DoctrineSpecification\Filter\MemberOfX;
+use Happyr\DoctrineSpecification\Filter\Size;
 use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
@@ -378,14 +379,16 @@ class Spec
     }
 
     /**
+     * @param string $field
+     * @param string $operator
      * @param string $value
-     * @param null   $dqlAlias
+     * @param string $dqlAlias
      *
-     * @return MemberOfX
+     * @return Size
      */
-    public static function memberOfX($value, $dqlAlias = null)
+    public static function size($field, $operator, $value, $dqlAlias = null)
     {
-        return new MemberOfX($value, $dqlAlias);
+        return new Size($field, $operator, $value, $dqlAlias);
     }
 
     /*
