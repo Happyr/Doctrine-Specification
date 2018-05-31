@@ -23,7 +23,6 @@ class AddSelect implements QueryModifier
 
     public function modify(QueryBuilder $qb, $dqlAlias)
     {
-        // TODO: Implement modify() method.
         $qb->addSelect($this->alias);
     }
 
