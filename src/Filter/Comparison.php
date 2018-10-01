@@ -111,7 +111,6 @@ class Comparison implements Filter
                 sprintf(':%s', $paramName)
             );
         }
-
     }
 
     /**

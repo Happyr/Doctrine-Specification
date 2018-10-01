@@ -2,7 +2,6 @@
 
 namespace Happyr\DoctrineSpecification\Query;
 
-
 use Doctrine\ORM\QueryBuilder;
 
 class AddSelect implements QueryModifier
@@ -11,7 +10,6 @@ class AddSelect implements QueryModifier
 
     public function __construct($alias)
     {
-
         $this->alias = $alias;
     }
 

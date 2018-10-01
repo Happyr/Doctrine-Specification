@@ -374,7 +374,6 @@ class Spec
     public static function memberOf($field, $value, $dqlAlias = null)
     {
         return new MemberOf($field, $value, $dqlAlias = null);
-        return new Comparison(Comparison::MEMBER_OF, $field, $value, $dqlAlias);
     }
 
     /**

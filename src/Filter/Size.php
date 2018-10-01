@@ -52,5 +52,4 @@ class Size implements Filter
         $operator = $this->operator;
         return new \Doctrine\ORM\Query\Expr\Comparison($leftExpr, $operator, $rightExpr);
     }
-
 }
