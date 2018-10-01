@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: patrick
- * Date: 31/05/18
- * Time: 11:30
- */
 
 namespace Happyr\DoctrineSpecification\Query;
 
@@ -25,5 +19,4 @@ class AddSelect implements QueryModifier
     {
         $qb->addSelect($this->alias);
     }
-
 }

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: patrick
- * Date: 31/05/18
- * Time: 14:10
- */
 
 namespace Happyr\DoctrineSpecification\Filter;
 
@@ -33,8 +27,8 @@ class Size implements Filter
 
     /**
      * @param string      $field
-     * @param string    $operator
-     * @param string $value
+     * @param string      $operator
+     * @param string      $value
      * @param string|null $dqlAlias
      */
     public function __construct($field, $operator, $value, $dqlAlias = null)

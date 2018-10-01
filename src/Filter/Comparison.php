@@ -45,11 +45,11 @@ class Comparison implements Filter
         self::EQ, self::NEQ,
         self::LT, self::LTE,
         self::GT, self::GTE,
-        self::LIKE, self::MEMBER_OF
+        self::LIKE, self::MEMBER_OF,
     );
 
     private static $rightToLeftComparisons = array(
-        self::MEMBER_OF
+        self::MEMBER_OF,
     );
 
     /**
@@ -91,21 +91,20 @@ class Comparison implements Filter
      */
     public function getFilter(QueryBuilder $qb, $dqlAlias)
     {
-        if ($this->dqlAlias !== null) {
+        if (null !== $this->dqlAlias) {
             $dqlAlias = $this->dqlAlias;
         }
 
         $paramName = $this->getParameterName($qb);
         $qb->setParameter($paramName, ValueConverter::convertToDatabaseValue($this->value, $qb));
 
-        if (in_array($this->operator, self::$rightToLeftComparisons)){
+        if (in_array($this->operator, self::$rightToLeftComparisons)) {
             return (string) new DoctrineComparison(
                 sprintf(':%s', $paramName),
                 $this->operator,
                 sprintf('%s.%s', $dqlAlias, $this->field)
             );
-        }
-        else {
+        } else {
             return (string) new DoctrineComparison(
                 sprintf('%s.%s', $dqlAlias, $this->field),
                 $this->operator,

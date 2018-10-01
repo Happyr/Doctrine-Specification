@@ -10,7 +10,6 @@ use Happyr\DoctrineSpecification\Filter\IsNotNull;
 use Happyr\DoctrineSpecification\Filter\IsNull;
 use Happyr\DoctrineSpecification\Filter\Like;
 use Happyr\DoctrineSpecification\Filter\MemberOf;
-use Happyr\DoctrineSpecification\Filter\MemberOfX;
 use Happyr\DoctrineSpecification\Filter\Size;
 use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Logic\Not;
