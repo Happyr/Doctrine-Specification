@@ -48,6 +48,10 @@ class Comparison implements Filter
         self::LIKE, self::MEMBER_OF
     );
 
+    private static $rightToLeftComparisons = array(
+        self::MEMBER_OF
+    );
+
     /**
      * @var string
      */
@@ -94,7 +98,7 @@ class Comparison implements Filter
         $paramName = $this->getParameterName($qb);
         $qb->setParameter($paramName, ValueConverter::convertToDatabaseValue($this->value, $qb));
 
-        if ($this->operator === self::MEMBER_OF){
+        if (in_array($this->operator, self::$rightToLeftComparisons)){
             return (string) new DoctrineComparison(
                 sprintf(':%s', $paramName),
                 $this->operator,
