@@ -15,12 +15,19 @@ use Happyr\DoctrineSpecification\ValueConverter;
 class Comparison implements Filter
 {
     const EQ = '=';
+
     const NEQ = '<>';
+
     const LT = '<';
+
     const LTE = '<=';
+
     const GT = '>';
+
     const GTE = '>=';
+
     const LIKE = 'LIKE';
+
     const MEMBER_OF = 'MEMBER OF';
 
     /**

@@ -20,6 +20,7 @@ class Size implements Filter
      * @var string value
      */
     protected $value;
+
     /**
      * @var string
      */
@@ -50,6 +51,7 @@ class Size implements Filter
         $leftExpr = sprintf('size(%s.%s)', $dqlAlias, $this->field);
         $rightExpr = $this->value;
         $operator = $this->operator;
+
         return new \Doctrine\ORM\Query\Expr\Comparison($leftExpr, $operator, $rightExpr);
     }
 }
