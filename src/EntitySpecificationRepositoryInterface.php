@@ -55,4 +55,14 @@ interface EntitySpecificationRepositoryInterface
      * @return \Doctrine\ORM\Query
      */
     public function getQuery($specification, ResultModifier $modifier);
+
+    /**
+     * Iterate results when you match with a Specification.
+     *
+     * @param Filter|QueryModifier $specification
+     * @param ResultModifier       $modifier
+     *
+     * @return mixed[]
+     */
+    public function iterate($specification, ResultModifier $modifier);
 }
