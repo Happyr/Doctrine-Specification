@@ -13,6 +13,7 @@ use Happyr\DoctrineSpecification\Specification\Specification;
 class LogicX implements Specification
 {
     const AND_X = 'andX';
+
     const OR_X = 'orX';
 
     /**

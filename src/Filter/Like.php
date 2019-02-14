@@ -5,7 +5,9 @@ namespace Happyr\DoctrineSpecification\Filter;
 class Like extends Comparison
 {
     const CONTAINS = '%%%s%%';
+
     const ENDS_WITH = '%%%s';
+
     const STARTS_WITH = '%s%%';
 
     /**
