@@ -42,7 +42,7 @@ abstract class AbstractJoin implements QueryModifier
      */
     public function modify(QueryBuilder $qb, $dqlAlias)
     {
-        if ($this->dqlAlias !== null) {
+        if (null !== $this->dqlAlias) {
             $dqlAlias = $this->dqlAlias;
         }
 
