@@ -99,6 +99,21 @@ trait EntitySpecificationRepositoryTrait
     }
 
     /**
+     * Iterate results when you match with a Specification.
+     *
+     * @param Filter|QueryModifier $specification
+     * @param ResultModifier       $modifier
+     *
+     * @return mixed[]|\Generator
+     */
+    public function iterate($specification, ResultModifier $modifier)
+    {
+        foreach ($this->getQuery($specification, $modifier)->iterate() as $row) {
+            yield current($row);
+        }
+    }
+
+    /**
      * @param string $alias
      *
      * @return $this
