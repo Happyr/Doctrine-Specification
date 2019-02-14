@@ -22,7 +22,9 @@ use Prophecy\Argument;
 class EntitySpecificationRepositorySpec extends ObjectBehavior
 {
     private $alias = 'e';
+
     private $expression = 'expression';
+
     private $result = 'result';
 
     public function let(EntityManager $entityManager, ClassMetadata $classMetadata)

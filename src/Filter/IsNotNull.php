@@ -14,7 +14,7 @@ class IsNotNull extends IsNull
      */
     public function getFilter(QueryBuilder $qb, $dqlAlias)
     {
-        if ($this->dqlAlias !== null) {
+        if (null !== $this->dqlAlias) {
             $dqlAlias = $this->dqlAlias;
         }
 
