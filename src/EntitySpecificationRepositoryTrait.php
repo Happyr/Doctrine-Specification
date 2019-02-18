@@ -91,7 +91,7 @@ trait EntitySpecificationRepositoryTrait
         $this->applySpecification($qb, $specification);
         $query = $qb->getQuery();
 
-        if ($modifier !== null) {
+        if (null !== $modifier) {
             $modifier->modify($query);
         }
 
