@@ -100,6 +100,20 @@ trait EntitySpecificationRepositoryTrait
     }
 
     /**
+     * @param Filter|QueryModifier $specification
+     * @param string|null          $alias
+     *
+     * @return QueryBuilder
+     */
+    public function getQueryBuilder($specification, $alias = null)
+    {
+        $qb = $this->createQueryBuilder($alias ?: $this->getAlias());
+        $this->applySpecification($qb, $specification, $alias);
+
+        return $qb;
+    }
+
+    /**
      * @param string $alias
      *
      * @return $this
