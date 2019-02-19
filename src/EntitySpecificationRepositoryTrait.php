@@ -4,6 +4,7 @@ namespace Happyr\DoctrineSpecification;
 
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
@@ -83,7 +84,7 @@ trait EntitySpecificationRepositoryTrait
      * @param Filter|QueryModifier $specification
      * @param ResultModifier       $modifier
      *
-     * @return \Doctrine\ORM\Query
+     * @return Query
      */
     public function getQuery($specification, ResultModifier $modifier = null)
     {
@@ -96,6 +97,20 @@ trait EntitySpecificationRepositoryTrait
         }
 
         return $query;
+    }
+
+    /**
+     * @param Filter|QueryModifier $specification
+     * @param string|null          $alias
+     *
+     * @return QueryBuilder
+     */
+    public function getQueryBuilder($specification, $alias = null)
+    {
+        $qb = $this->createQueryBuilder($alias ?: $this->getAlias());
+        $this->applySpecification($qb, $specification, $alias);
+
+        return $qb;
     }
 
     /**

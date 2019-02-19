@@ -155,7 +155,7 @@ class AdvertRepository extends EntityRepository
 {
     protected function filterAdvertsWeShouldClose($qb)
     {
-        return $qb
+        $qb
             ->andWhere('r.ended = 0')
             ->andWhere(
                 $qb->expr()->orX(
@@ -170,7 +170,7 @@ class AdvertRepository extends EntityRepository
 
     protected function filterOwnedByCompany($qb, Company $company)
     {
-        return $qb
+        $qb
             ->join('company', 'c')
             ->andWhere('c.id = :company_id')
             ->setParameter('company_id', $company->getId())
