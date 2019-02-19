@@ -3,6 +3,8 @@
 namespace Happyr\DoctrineSpecification\Specification;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Query\QueryModifier;
 
 /**
  * @author Tobias Nyholm
@@ -10,14 +12,14 @@ use Doctrine\ORM\QueryBuilder;
 class CountOf implements Specification
 {
     /**
-     * @var Specification child
+     * @var Filter|QueryModifier child
      */
     private $child;
 
     /**
-     * @param Specification $child
+     * @param Filter|QueryModifier $child
      */
-    public function __construct(Specification $child)
+    public function __construct($child)
     {
         $this->child = $child;
     }
@@ -32,7 +34,11 @@ class CountOf implements Specification
     {
         $qb->select(sprintf('COUNT(%s)', $dqlAlias));
 
-        return $this->child->getFilter($qb, $dqlAlias);
+        if ($this->child instanceof Filter) {
+            return $this->child->getFilter($qb, $dqlAlias);
+        }
+
+        return '';
     }
 
     /**
@@ -41,6 +47,8 @@ class CountOf implements Specification
      */
     public function modify(QueryBuilder $qb, $dqlAlias)
     {
-        $this->child->modify($qb, $dqlAlias);
+        if ($this->child instanceof QueryModifier) {
+            $this->child->modify($qb, $dqlAlias);
+        }
     }
 }
