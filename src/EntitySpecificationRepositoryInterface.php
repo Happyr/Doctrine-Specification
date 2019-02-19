@@ -2,6 +2,8 @@
 
 namespace Happyr\DoctrineSpecification;
 
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Result\ResultModifier;
@@ -52,7 +54,15 @@ interface EntitySpecificationRepositoryInterface
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @return \Doctrine\ORM\Query
+     * @return Query
      */
     public function getQuery($specification, ResultModifier $modifier = null);
+
+    /**
+     * @param Filter|QueryModifier $specification
+     * @param string|null          $alias
+     *
+     * @return QueryBuilder
+     */
+    public function getQueryBuilder($specification, $alias = null);
 }
