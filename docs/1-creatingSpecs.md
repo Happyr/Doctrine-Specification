@@ -13,7 +13,7 @@ however recommended to use the `Specification` interface at all times.
 The `getFilter` function is where the action happens. You are most probably to return a `$qb->expr()->xxx()` of some kind. Or you may
 choose to return null. Consider this `ImageIsNullFilter`
 
-``` php
+```php
 public function getFilter(QueryBuilder $qb, $dqlAlias)
 {
     if ($this->dqlAlias !== null) {
@@ -60,7 +60,7 @@ this class you don't need to bother with `getFilter` or `modify`. You need to do
 
 Consider the following example.
 
-``` php
+```php
 use Happyr\DoctrineSpecification\BaseSpecification;
 use Happyr\DoctrineSpecification\Spec;
 
