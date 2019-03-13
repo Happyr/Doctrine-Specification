@@ -50,7 +50,7 @@ doing the query builder work over and over again.)
 
 This is an example of how you use the lib. Say that you want to fetch some Adverts and close them. We should select all Adverts that have their `endDate` in the past. If `endDate` is null make it 4 weeks after the `startDate`.
 
-``` php
+```php
 // Not using the lib
 $qb = $this->em->getRepository('HappyrRecruitmentBundle:Advert')
     ->createQueryBuilder('r');
@@ -71,7 +71,7 @@ return $qb->where('r.ended = 0')
     ->getResult();
 ```
 
-``` php
+```php
 // Using the lib
 $spec = Spec::andX(
     Spec::eq('ended', 0),
@@ -92,7 +92,7 @@ Yes, it looks pretty much the same. But the later is reusable. Say you want anot
 
 #### Doctrine Specification
 
-``` php
+```php
 class AdvertsWeShouldClose extends BaseSpecification
 {
     public function getSpec()
@@ -150,7 +150,7 @@ class SomeService
 
 If you were about to do the same thing with only the QueryBuilder it would look like this:
 
-``` php
+```php
 class AdvertRepository extends EntityRepository
 {
     protected function filterAdvertsWeShouldClose($qb)
