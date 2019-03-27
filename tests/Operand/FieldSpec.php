@@ -11,7 +11,7 @@ use PhpSpec\ObjectBehavior;
  */
 class FieldSpec extends ObjectBehavior
 {
-    private $fieldName = 'foobar';
+    private $fieldName = 'foo';
 
     public function let()
     {
@@ -31,7 +31,7 @@ class FieldSpec extends ObjectBehavior
     public function it_is_transformable(QueryBuilder $qb)
     {
         $dqlAlias = 'a';
-        $expression = sprintf('%s.%s', $dqlAlias, $this->fieldName);
+        $expression = 'a.foo';
 
         $this->transform($qb, $dqlAlias)->shouldReturn($expression);
     }
