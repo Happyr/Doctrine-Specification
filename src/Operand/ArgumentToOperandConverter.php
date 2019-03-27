@@ -16,7 +16,7 @@ class ArgumentToOperandConverter
      *
      * @return Operand
      */
-    public function convertField($argument)
+    public static function convertField($argument)
     {
         if ($argument instanceof Operand) {
             return $argument;
@@ -32,7 +32,7 @@ class ArgumentToOperandConverter
      *
      * @return Operand
      */
-    public function convertValue($argument)
+    public static function convertValue($argument)
     {
         if ($argument instanceof Operand) {
             return $argument;
@@ -48,7 +48,7 @@ class ArgumentToOperandConverter
      *
      * @return bool
      */
-    public function isAllOperands(array $arguments)
+    public static function isAllOperands(array $arguments)
     {
         foreach ($arguments as $argument) {
             if (!($argument instanceof Operand)) {
@@ -68,27 +68,27 @@ class ArgumentToOperandConverter
      *
      * @return Operand[]
      */
-    public function convert(array $arguments)
+    public static function convert(array $arguments)
     {
         if (!$arguments) {
             return [];
         }
 
         // always try convert the first argument to the field operand
-        $field = $this->convertField(array_shift($arguments));
+        $field = self::convertField(array_shift($arguments));
 
         if (!$arguments) {
             return [$field];
         }
 
         // always try convert the last argument to the value operand
-        $value = $this->convertValue(array_pop($arguments));
+        $value = self::convertValue(array_pop($arguments));
 
         if (!$arguments) {
             return [$field, $value];
         }
 
-        if (!$this->isAllOperands($arguments)) {
+        if (!self::isAllOperands($arguments)) {
             throw new NotConvertibleException('You passed arguments not all of which are operands.');
         }
 
