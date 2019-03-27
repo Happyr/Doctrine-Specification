@@ -12,6 +12,8 @@ use Happyr\DoctrineSpecification\Filter\Like;
 use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
+use Happyr\DoctrineSpecification\Operand\Field;
+use Happyr\DoctrineSpecification\Operand\Value;
 use Happyr\DoctrineSpecification\Query\GroupBy;
 use Happyr\DoctrineSpecification\Query\InnerJoin;
 use Happyr\DoctrineSpecification\Query\Join;
@@ -373,5 +375,30 @@ class Spec
     public static function having($spec)
     {
         return new Having($spec);
+    }
+
+    /*
+     * Operands
+     */
+
+    /**
+     * @param string $fieldName
+     *
+     * @return Field
+     */
+    public static function field($fieldName)
+    {
+        return new Field($fieldName);
+    }
+
+    /**
+     * @param mixed        $value
+     * @param integer|null $valueType
+     *
+     * @return Value
+     */
+    public static function value($value, $valueType = null)
+    {
+        return new Value($value, $valueType);
     }
 }
