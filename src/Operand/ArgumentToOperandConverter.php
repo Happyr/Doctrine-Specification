@@ -4,6 +4,9 @@ namespace Happyr\DoctrineSpecification\Operand;
 
 use Happyr\DoctrineSpecification\Exception\NotConvertibleException;
 
+/**
+ * This service is intended for backward compatibility and may be removed in the future.
+ */
 class ArgumentToOperandConverter
 {
     /**
