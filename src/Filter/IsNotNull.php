@@ -3,6 +3,7 @@
 namespace Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
 
 class IsNotNull extends IsNull
 {
@@ -18,6 +19,8 @@ class IsNotNull extends IsNull
             $dqlAlias = $this->dqlAlias;
         }
 
-        return (string) $qb->expr()->isNotNull(sprintf('%s.%s', $dqlAlias, $this->field));
+        $field = ArgumentToOperandConverter::convertField($this->field);
+
+        return (string) $qb->expr()->isNotNull($field->transform($qb, $dqlAlias));
     }
 }

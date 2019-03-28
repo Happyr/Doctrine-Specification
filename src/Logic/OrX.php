@@ -2,6 +2,9 @@
 
 namespace Happyr\DoctrineSpecification\Logic;
 
+use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Query\QueryModifier;
+
 class OrX extends LogicX
 {
     public function __construct()
@@ -20,7 +23,7 @@ class OrX extends LogicX
      * $spec = Spec::orX(A, B, C);
      * </code>
      *
-     * @param |Happyr\DoctrineSpecification\Filter\Filter|\Happyr\DoctrineSpecification\Query\QueryModifier $child
+     * @param Filter|QueryModifier $child
      */
     public function orX($child)
     {

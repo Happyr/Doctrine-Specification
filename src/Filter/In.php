@@ -3,31 +3,32 @@
 namespace Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\ValueConverter;
+use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
+use Happyr\DoctrineSpecification\Operand\Operand;
 
 class In implements Filter
 {
     /**
-     * @var string field
+     * @var Operand|string
      */
     protected $field;
 
     /**
-     * @var mixed value
+     * @var Operand|mixed
      */
     protected $value;
 
     /**
-     * @var string dqlAlias
+     * @var string
      */
     protected $dqlAlias;
 
     /**
      * Make sure the $field has a value equals to $value.
      *
-     * @param string $field
-     * @param mixed  $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      */
     public function __construct($field, $value, $dqlAlias = null)
     {
@@ -48,33 +49,12 @@ class In implements Filter
             $dqlAlias = $this->dqlAlias;
         }
 
-        $value = $this->value;
-        if (is_array($value)) {
-            foreach ($value as $k => $v) {
-                $value[$k] = ValueConverter::convertToDatabaseValue($v, $qb);
-            }
-        } else {
-            $value = ValueConverter::convertToDatabaseValue($value, $qb);
-        }
-
-        $paramName = $this->getParameterName($qb);
-        $qb->setParameter($paramName, $value);
+        $field = ArgumentToOperandConverter::convertField($this->field);
+        $value = ArgumentToOperandConverter::convertValue($this->value);
 
         return (string) $qb->expr()->in(
-            sprintf('%s.%s', $dqlAlias, $this->field),
-            sprintf(':%s', $paramName)
+            $field->transform($qb, $dqlAlias),
+            $value->transform($qb, $dqlAlias)
         );
-    }
-
-    /**
-     * Get a good unique parameter name.
-     *
-     * @param QueryBuilder $qb
-     *
-     * @return string
-     */
-    protected function getParameterName(QueryBuilder $qb)
-    {
-        return sprintf('in_%d', $qb->getParameters()->count());
     }
 }

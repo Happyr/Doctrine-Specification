@@ -13,7 +13,9 @@ use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
 use Happyr\DoctrineSpecification\Operand\Field;
+use Happyr\DoctrineSpecification\Operand\Operand;
 use Happyr\DoctrineSpecification\Operand\Value;
+use Happyr\DoctrineSpecification\Operand\Values;
 use Happyr\DoctrineSpecification\Query\GroupBy;
 use Happyr\DoctrineSpecification\Query\InnerJoin;
 use Happyr\DoctrineSpecification\Query\Join;
@@ -210,8 +212,8 @@ class Spec
      */
 
     /**
-     * @param string      $field
-     * @param string|null $dqlAlias
+     * @param Operand|string $field
+     * @param string|null    $dqlAlias
      *
      * @return IsNull
      */
@@ -221,8 +223,8 @@ class Spec
     }
 
     /**
-     * @param string      $field
-     * @param string|null $dqlAlias
+     * @param Operand|string $field
+     * @param string|null    $dqlAlias
      *
      * @return IsNotNull
      */
@@ -258,9 +260,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @return Comparison
      */
@@ -270,9 +272,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @return Comparison
      */
@@ -282,9 +284,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @return Comparison
      */
@@ -294,9 +296,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @return Comparison
      */
@@ -306,9 +308,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @return Comparison
      */
@@ -318,9 +320,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @return Comparison
      */
@@ -330,10 +332,10 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $format
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param string         $value
+     * @param string         $format
+     * @param string|null    $dqlAlias
      *
      * @return Like
      */
@@ -343,8 +345,8 @@ class Spec
     }
 
     /**
-     * @param string $value
-     * @param null   $dqlAlias
+     * @param Operand|string $value
+     * @param string|null    $dqlAlias
      *
      * @return InstanceOfX
      */
@@ -400,5 +402,16 @@ class Spec
     public static function value($value, $valueType = null)
     {
         return new Value($value, $valueType);
+    }
+
+    /**
+     * @param array           $values
+     * @param int|string|null $valueType
+     *
+     * @return Values
+     */
+    public static function values($values, $valueType = null)
+    {
+        return new Values($values, $valueType);
     }
 }

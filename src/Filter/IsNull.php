@@ -3,22 +3,24 @@
 namespace Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
+use Happyr\DoctrineSpecification\Operand\Operand;
 
 class IsNull implements Filter
 {
     /**
-     * @var string field
+     * @var Operand|string
      */
     protected $field;
 
     /**
-     * @var null|string dqlAlias
+     * @var string|null
      */
     protected $dqlAlias;
 
     /**
-     * @param string      $field
-     * @param string|null $dqlAlias
+     * @param Operand|string $field
+     * @param string|null    $dqlAlias
      */
     public function __construct($field, $dqlAlias = null)
     {
@@ -38,6 +40,8 @@ class IsNull implements Filter
             $dqlAlias = $this->dqlAlias;
         }
 
-        return (string) $qb->expr()->isNull(sprintf('%s.%s', $dqlAlias, $this->field));
+        $field = ArgumentToOperandConverter::convertField($this->field);
+
+        return (string) $qb->expr()->isNull($field->transform($qb, $dqlAlias));
     }
 }

@@ -5,12 +5,12 @@ namespace Happyr\DoctrineSpecification\Operand;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\ValueConverter;
 
-class Value implements Operand
+class Values implements Operand
 {
     /**
-     * @var mixed
+     * @var array
      */
-    private $value;
+    private $values;
 
     /**
      * @var int|string|null
@@ -18,12 +18,12 @@ class Value implements Operand
     private $valueType;
 
     /**
-     * @param mixed           $value
+     * @param array           $values
      * @param int|string|null $valueType PDO::PARAM_* or \Doctrine\DBAL\Types\Type::* constant
      */
-    public function __construct($value, $valueType = null)
+    public function __construct($values, $valueType = null)
     {
-        $this->value = $value;
+        $this->values = $values;
         $this->valueType = $valueType;
     }
 
@@ -35,9 +35,13 @@ class Value implements Operand
      */
     public function transform(QueryBuilder $qb, $dqlAlias)
     {
+        $values = $this->values;
+        foreach ($values as $k => $v) {
+            $values[$k] = ValueConverter::convertToDatabaseValue($v, $qb);
+        }
+
         $paramName = sprintf('comparison_%d', $qb->getParameters()->count());
-        $value = ValueConverter::convertToDatabaseValue($this->value, $qb);
-        $qb->setParameter($paramName, $value, $this->valueType);
+        $qb->setParameter($paramName, $values, $this->valueType);
 
         return sprintf(':%s', $paramName);
     }

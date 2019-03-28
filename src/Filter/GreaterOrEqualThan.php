@@ -2,12 +2,14 @@
 
 namespace Happyr\DoctrineSpecification\Filter;
 
+use Happyr\DoctrineSpecification\Operand\Operand;
+
 class GreaterOrEqualThan extends Comparison
 {
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      */
     public function __construct($field, $value, $dqlAlias = null)
     {
