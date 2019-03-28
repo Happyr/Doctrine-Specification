@@ -392,8 +392,8 @@ class Spec
     }
 
     /**
-     * @param mixed        $value
-     * @param integer|null $valueType
+     * @param mixed           $value
+     * @param int|string|null $valueType
      *
      * @return Value
      */
