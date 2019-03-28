@@ -50,4 +50,9 @@ class ComparisonSpec extends ObjectBehavior
     {
         $this->shouldThrow('Happyr\DoctrineSpecification\Exception\InvalidArgumentException')->during('__construct', array('==', 'age', 18, null));
     }
+
+    public function it_not_support_like_operator()
+    {
+        $this->shouldThrow('Happyr\DoctrineSpecification\Exception\InvalidArgumentException')->during('__construct', array('like', 'name', 'Tobias%', null));
+    }
 }
