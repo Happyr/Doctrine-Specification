@@ -345,8 +345,8 @@ class Spec
     }
 
     /**
-     * @param Operand|string $value
-     * @param string|null    $dqlAlias
+     * @param string      $value
+     * @param string|null $dqlAlias
      *
      * @return InstanceOfX
      */

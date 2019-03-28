@@ -3,24 +3,22 @@
 namespace Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
-use Happyr\DoctrineSpecification\Operand\Operand;
 
 class InstanceOfX implements Filter
 {
     /**
+     * @var string
+     */
+    private $value;
+
+    /**
      * @var string|null
      */
-    protected $dqlAlias;
+    private $dqlAlias;
 
     /**
-     * @var Operand|string
-     */
-    protected $value;
-
-    /**
-     * @param Operand|string $value
-     * @param string|null    $dqlAlias
+     * @param string      $value
+     * @param string|null $dqlAlias
      */
     public function __construct($value, $dqlAlias = null)
     {
@@ -40,8 +38,6 @@ class InstanceOfX implements Filter
             $dqlAlias = $this->dqlAlias;
         }
 
-        $value = ArgumentToOperandConverter::convertValue($this->value);
-
-        return sprintf('%s INSTANCE OF %s', $dqlAlias, $value->transform($qb, $dqlAlias));
+        return sprintf('%s INSTANCE OF %s', $dqlAlias, $this->value);
     }
 }
