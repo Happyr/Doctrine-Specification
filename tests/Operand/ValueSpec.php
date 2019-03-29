@@ -46,7 +46,7 @@ class ValueSpec extends ObjectBehavior
 
     public function it_is_transformable_dbal_type(QueryBuilder $qb, ArrayCollection $parameters)
     {
-        $valueType = Type::DATETIME_IMMUTABLE;
+        $valueType = Type::DATE;
         $this->beConstructedWith($this->value, $valueType);
 
         $qb->getParameters()->willReturn($parameters);
