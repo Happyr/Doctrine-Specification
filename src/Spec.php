@@ -13,6 +13,7 @@ use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
 use Happyr\DoctrineSpecification\Operand\Field;
+use Happyr\DoctrineSpecification\Operand\LikePattern;
 use Happyr\DoctrineSpecification\Operand\Operand;
 use Happyr\DoctrineSpecification\Operand\Value;
 use Happyr\DoctrineSpecification\Operand\Values;
@@ -413,5 +414,16 @@ class Spec
     public static function values($values, $valueType = null)
     {
         return new Values($values, $valueType);
+    }
+
+    /**
+     * @param string $value
+     * @param string $format
+     *
+     * @return LikePattern
+     */
+    public static function likePattern($value, $format = LikePattern::CONTAINS)
+    {
+        return new LikePattern($value, $format);
     }
 }
