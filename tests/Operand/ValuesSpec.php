@@ -22,7 +22,7 @@ class ValuesSpec extends ObjectBehavior
         $this->beConstructedWith($this->values, $this->valueType);
     }
 
-    public function it_is_a_value()
+    public function it_is_a_values()
     {
         $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Values');
     }

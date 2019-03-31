@@ -21,7 +21,7 @@ class LikePatternSpec extends ObjectBehavior
         $this->beConstructedWith($this->value, $this->format);
     }
 
-    public function it_is_a_value()
+    public function it_is_a_like_pattern()
     {
         $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\LikePattern');
     }

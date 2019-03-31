@@ -19,6 +19,11 @@ class CountOfSpec extends ObjectBehavior
         $this->beConstructedWith(null);
     }
 
+    public function it_is_a_CountOf()
+    {
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Specification\CountOf');
+    }
+
     public function it_is_a_specification()
     {
         $this->shouldHaveType('Happyr\DoctrineSpecification\Specification\Specification');
@@ -53,14 +58,14 @@ class CountOfSpec extends ObjectBehavior
         $field = 'group';
         $value = 'foo';
         $dqlAlias = 'a';
-        $parameters_count = 0;
-        $paramName = 'comparison_'.$parameters_count;
+        $parametersCount = 0;
+        $paramName = 'comparison_'.$parametersCount;
 
         $this->beConstructedWith(new Equals($field, $value, $dqlAlias));
 
         $qb->select(sprintf('COUNT(%s)', $dqlAlias))->shouldBeCalled();
         $qb->getParameters()->willReturn(new ArrayCollection());
-        $qb->setParameter($paramName, $value)->shouldBeCalled();
+        $qb->setParameter($paramName, $value, null)->shouldBeCalled();
 
         $this->getFilter($qb, $dqlAlias)->shouldBe(sprintf('%s.%s = :%s', $dqlAlias, $field, $paramName));
         $this->modify($qb, $dqlAlias);
