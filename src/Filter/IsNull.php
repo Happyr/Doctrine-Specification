@@ -40,7 +40,7 @@ class IsNull implements Filter
             $dqlAlias = $this->dqlAlias;
         }
 
-        $field = ArgumentToOperandConverter::convertField($this->field);
+        $field = ArgumentToOperandConverter::toField($this->field);
 
         return (string) $qb->expr()->isNull($field->transform($qb, $dqlAlias));
     }

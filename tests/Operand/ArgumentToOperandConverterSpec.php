@@ -20,22 +20,22 @@ class ArgumentToOperandConverterSpec extends ObjectBehavior
 
     public function it_not_convert_operand_to_field(Operand $operand)
     {
-        $this->convertField($operand)->shouldReturn($operand);
+        $this->toField($operand)->shouldReturn($operand);
     }
 
     public function it_convert_argument_to_field()
     {
-        $this->convertField('foo')->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Field');
+        $this->toField('foo')->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Field');
     }
 
     public function it_not_convert_operand_to_value(Operand $operand)
     {
-        $this->convertValue($operand)->shouldReturn($operand);
+        $this->toValue($operand)->shouldReturn($operand);
     }
 
     public function it_convert_argument_to_value()
     {
-        $this->convertValue('foo')->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Value');
+        $this->toValue('foo')->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Value');
     }
 
     public function it_is_all_arguments_a_operands(Operand $first, Operand $second)

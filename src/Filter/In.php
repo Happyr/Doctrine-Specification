@@ -49,8 +49,8 @@ class In implements Filter
             $dqlAlias = $this->dqlAlias;
         }
 
-        $field = ArgumentToOperandConverter::convertField($this->field);
-        $value = ArgumentToOperandConverter::convertValue($this->value);
+        $field = ArgumentToOperandConverter::toField($this->field);
+        $value = ArgumentToOperandConverter::toValue($this->value);
 
         return (string) $qb->expr()->in(
             $field->transform($qb, $dqlAlias),

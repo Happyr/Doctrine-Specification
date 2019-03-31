@@ -94,8 +94,8 @@ class Comparison implements Filter
             $dqlAlias = $this->dqlAlias;
         }
 
-        $field = ArgumentToOperandConverter::convertField($this->field);
-        $value = ArgumentToOperandConverter::convertValue($this->value);
+        $field = ArgumentToOperandConverter::toField($this->field);
+        $value = ArgumentToOperandConverter::toValue($this->value);
 
         return (string) new DoctrineComparison(
             $field->transform($qb, $dqlAlias),

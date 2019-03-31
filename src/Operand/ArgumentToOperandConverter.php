@@ -16,7 +16,7 @@ class ArgumentToOperandConverter
      *
      * @return Operand
      */
-    public static function convertField($argument)
+    public static function toField($argument)
     {
         if ($argument instanceof Operand) {
             return $argument;
@@ -32,7 +32,7 @@ class ArgumentToOperandConverter
      *
      * @return Operand
      */
-    public static function convertValue($argument)
+    public static function toValue($argument)
     {
         if ($argument instanceof Operand) {
             return $argument;
@@ -75,14 +75,14 @@ class ArgumentToOperandConverter
         }
 
         // always try convert the first argument to the field operand
-        $field = self::convertField(array_shift($arguments));
+        $field = self::toField(array_shift($arguments));
 
         if (!$arguments) {
             return [$field];
         }
 
         // always try convert the last argument to the value operand
-        $value = self::convertValue(array_pop($arguments));
+        $value = self::toValue(array_pop($arguments));
 
         if (!$arguments) {
             return [$field, $value];

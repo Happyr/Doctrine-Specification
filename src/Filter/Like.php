@@ -59,7 +59,7 @@ class Like implements Filter
             $dqlAlias = $this->dqlAlias;
         }
 
-        $field = ArgumentToOperandConverter::convertField($this->field);
+        $field = ArgumentToOperandConverter::toField($this->field);
 
         $field = $field->transform($qb, $dqlAlias);
         $value = $this->value->transform($qb, $dqlAlias);
