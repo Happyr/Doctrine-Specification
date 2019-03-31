@@ -2,6 +2,7 @@
 
 The `Comparison` no longer supports the operator `LIKE`. Use the `Like` filter.
 The `Like` filter no longer expands the `Comparison` base filter.
+The `IsNotNull` filter no longer expands the `IsNull` base filter.
 
 # Upgrade from 0.7 to 0.8
 

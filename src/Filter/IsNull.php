@@ -11,12 +11,12 @@ class IsNull implements Filter
     /**
      * @var Operand|string
      */
-    protected $field;
+    private $field;
 
     /**
      * @var string|null
      */
-    protected $dqlAlias;
+    private $dqlAlias;
 
     /**
      * @param Operand|string $field

@@ -4,9 +4,30 @@ namespace Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
+use Happyr\DoctrineSpecification\Operand\Operand;
 
-class IsNotNull extends IsNull
+class IsNotNull implements Filter
 {
+    /**
+     * @var Operand|string
+     */
+    private $field;
+
+    /**
+     * @var string|null
+     */
+    private $dqlAlias;
+
+    /**
+     * @param Operand|string $field
+     * @param string|null    $dqlAlias
+     */
+    public function __construct($field, $dqlAlias = null)
+    {
+        $this->field = $field;
+        $this->dqlAlias = $dqlAlias;
+    }
+
     /**
      * @param QueryBuilder $qb
      * @param string       $dqlAlias
