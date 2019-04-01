@@ -174,8 +174,8 @@ $spec = Spec::lt(Spec::field('price_current'), Spec::field('price_old'));
 You can compare fields of different entities:
 
 ```php
-// DQL: a.email < u.email
-$spec = Spec::lt(Spec::field('email', 'a'), Spec::field('email', 'u));
+// DQL: a.email = u.email
+$spec = Spec::eq(Spec::field('email', 'a'), Spec::field('email', 'u));
 ```
 
 You can also customize data type values:
