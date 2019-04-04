@@ -27,7 +27,7 @@ class ComparisonSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 18)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
 
         $comparison = $this->getFilter($qb, null);
 
@@ -41,7 +41,7 @@ class ComparisonSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 18)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
 
         $this->getFilter($qb, 'x')->shouldReturn('x.age > :comparison_10');
     }
@@ -49,5 +49,10 @@ class ComparisonSpec extends ObjectBehavior
     public function it_validates_operator()
     {
         $this->shouldThrow('Happyr\DoctrineSpecification\Exception\InvalidArgumentException')->during('__construct', array('==', 'age', 18, null));
+    }
+
+    public function it_not_support_like_operator()
+    {
+        $this->shouldThrow('Happyr\DoctrineSpecification\Exception\InvalidArgumentException')->during('__construct', array('like', 'name', 'Tobias%', null));
     }
 }

@@ -157,3 +157,35 @@ public function anyFunction()
 }
 
 ```
+
+# Comparison operands
+
+All a comparison operations in the filters consist of the left operand, operator and the right operand. As default the
+left operand can be a entity field, and the right operand a value. This is a simple and effective mechanic to solve the
+standard tasks.
+But operands can be not only scalar values. You can use objects that implement the
+`Happyr\DoctrineSpecification\Operand\Operand` interface. For example, you can compare two fields:
+
+```php
+// DQL: e.price_current < e.price_old
+$spec = Spec::lt(Spec::field('price_current'), Spec::field('price_old'));
+```
+
+You can compare fields of different entities:
+
+```php
+// DQL: a.email = u.email
+$spec = Spec::eq(Spec::field('email', 'a'), Spec::field('email', 'u));
+```
+
+You can also customize data type values:
+
+```php
+// DQL: e.day > :day
+$spec = Spec::gt('day', Spec::value($day, Type::DATE));
+```
+
+```php
+// DQL: e.day IN (:days)
+$spec = Spec::in('day', Spec::values($days, Type::DATE));
+```
