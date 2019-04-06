@@ -60,7 +60,6 @@ class SelectHiddenAsSpec extends ObjectBehavior
 
         $this->beConstructedWith($value, $this->alias);
 
-
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
