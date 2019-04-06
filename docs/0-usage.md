@@ -189,3 +189,32 @@ $spec = Spec::gt('day', Spec::value($day, Type::DATE));
 // DQL: e.day IN (:days)
 $spec = Spec::in('day', Spec::values($days, Type::DATE));
 ```
+
+# Customize selection
+
+Sometimes we need to customize the selection. To do this, we can use `select` and `addSelect` query modifiers. Example
+of selection single field:
+
+```php
+// DQL: SELECT e.email FROM ...
+Spec::select('email')
+// or
+Spec::select(Spec::field('email'))
+```
+
+Add single field in the selected set:
+
+```php
+// DQL: SELECT e, u.email FROM ...
+Spec::addSelect(Spec::field('email', $dqlAlias))
+```
+
+Add one more custom fields in the selected set:
+
+```php
+// DQL: SELECT e.title, e.cover, u.name, u.avatar FROM ...
+Spec::andX(
+    Spec::select('title', 'cover'),
+    Spec::addSelect(Spec::field('name', $dqlAlias), Spec::field('avatar', $dqlAlias))
+)
+```
