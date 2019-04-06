@@ -47,7 +47,7 @@ class PlatformFunction implements Operand
      */
     public function __construct($functionName, $arguments = [])
     {
-        if (func_num_args() === 2) {
+        if (2 === func_num_args()) {
             $this->functionName = $functionName;
             $this->arguments = (array) $arguments;
         } else {

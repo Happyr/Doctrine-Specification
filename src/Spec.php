@@ -57,6 +57,17 @@ use Happyr\DoctrineSpecification\Specification\Having;
  */
 class Spec
 {
+    /**
+     * @param string $name
+     * @param array  $arguments
+     *
+     * @return PlatformFunction
+     */
+    public static function __callStatic($name, array $arguments = [])
+    {
+        return self::fun($name, $arguments);
+    }
+
     /*
      * Logic
      */
@@ -457,16 +468,5 @@ class Spec
         $arguments = func_get_args();
 
         return new PlatformFunction(array_shift($arguments), $arguments);
-    }
-
-    /**
-     * @param string $name
-     * @param array  $arguments
-     *
-     * @return PlatformFunction
-     */
-    public static function __callStatic($name, array $arguments = [])
-    {
-        return self::fun($name, $arguments);
     }
 }
