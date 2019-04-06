@@ -12,6 +12,12 @@ use Happyr\DoctrineSpecification\Filter\Like;
 use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
+use Happyr\DoctrineSpecification\Operand\BitAnd;
+use Happyr\DoctrineSpecification\Operand\BitLeftShift;
+use Happyr\DoctrineSpecification\Operand\BitNot;
+use Happyr\DoctrineSpecification\Operand\BitOr;
+use Happyr\DoctrineSpecification\Operand\BitRightShift;
+use Happyr\DoctrineSpecification\Operand\BitXor;
 use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\LikePattern;
 use Happyr\DoctrineSpecification\Operand\Operand;
@@ -425,5 +431,74 @@ class Spec
     public static function likePattern($value, $format = LikePattern::CONTAINS)
     {
         return new LikePattern($value, $format);
+    }
+
+    /*
+     * Bitwise operands
+     */
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return BitAnd
+     */
+    public static function bAnd($field, $value)
+    {
+        return new BitAnd($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return BitOr
+     */
+    public static function bOr($field, $value)
+    {
+        return new BitOr($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return BitXor
+     */
+    public static function bXor($field, $value)
+    {
+        return new BitXor($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return BitLeftShift
+     */
+    public static function bLs($field, $value)
+    {
+        return new BitLeftShift($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return BitRightShift
+     */
+    public static function bRs($field, $value)
+    {
+        return new BitRightShift($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     *
+     * @return BitNot
+     */
+    public static function bNot($field)
+    {
+        return new BitNot($field);
     }
 }
