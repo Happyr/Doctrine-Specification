@@ -12,9 +12,14 @@ use Happyr\DoctrineSpecification\Filter\Like;
 use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
+use Happyr\DoctrineSpecification\Operand\Add;
+use Happyr\DoctrineSpecification\Operand\Div;
 use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\LikePattern;
+use Happyr\DoctrineSpecification\Operand\Mod;
+use Happyr\DoctrineSpecification\Operand\Mul;
 use Happyr\DoctrineSpecification\Operand\Operand;
+use Happyr\DoctrineSpecification\Operand\Sub;
 use Happyr\DoctrineSpecification\Operand\Value;
 use Happyr\DoctrineSpecification\Operand\Values;
 use Happyr\DoctrineSpecification\Query\GroupBy;
@@ -425,5 +430,64 @@ class Spec
     public static function likePattern($value, $format = LikePattern::CONTAINS)
     {
         return new LikePattern($value, $format);
+    }
+
+    /*
+     * Arithmetic operands
+     */
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return Add
+     */
+    public static function add($field, $value)
+    {
+        return new Add($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return Sub
+     */
+    public static function sub($field, $value)
+    {
+        return new Sub($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return Mul
+     */
+    public static function mul($field, $value)
+    {
+        return new Mul($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return Div
+     */
+    public static function div($field, $value)
+    {
+        return new Div($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return Mod
+     */
+    public static function mod($field, $value)
+    {
+        return new Mod($field, $value);
     }
 }

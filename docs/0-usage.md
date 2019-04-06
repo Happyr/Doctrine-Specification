@@ -189,3 +189,26 @@ $spec = Spec::gt('day', Spec::value($day, Type::DATE));
 // DQL: e.day IN (:days)
 $spec = Spec::in('day', Spec::values($days, Type::DATE));
 ```
+
+# Arithmetic operands
+
+You can use arithmetic operations in specifications such as `-`, `+`, `*`, `/`, `%`. For example, select users with a
+score greater than  `$user_score`:
+
+```
+// DQL: e.posts_count + e.likes_count > :user_score
+$spec = Spec::gt(Spec::add(Spec::field('posts_count'), Spec::field('likes_count')), $user_score);
+```
+
+You can put arithmetic operations in each other:
+
+```php
+// DQL: ((e.price_old - e.price_current) / (e.price_current / 100)) > :discount
+$spec = Spec::gt(
+    Spec::div(
+        Spec::sub(Spec::field('price_old'), Spec::field('price_current')),
+        Spec::div(Spec::field('price_current'), Spec::value(100))
+    ),
+    Spec::value($discount)
+);
+```
