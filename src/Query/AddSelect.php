@@ -2,13 +2,16 @@
 
 namespace Happyr\DoctrineSpecification\Query;
 
+use Doctrine\ORM\QueryBuilder;
+
 class AddSelect extends AbstractSelect
 {
     /**
-     * @return string
+     * @param QueryBuilder $qb
+     * @param string[]     $selections
      */
-    protected function getSelectType()
+    protected function modifySelection(QueryBuilder $qb, array $selections)
     {
-        return 'addSelect';
+        $qb->addSelect($selections);
     }
 }

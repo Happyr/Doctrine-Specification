@@ -33,14 +33,12 @@ abstract class AbstractSelect implements QueryModifier
             $selections[] = $selection->transform($qb, $dqlAlias);
         }
 
-        $type = $this->getSelectType();
-        $qb->$type($selections);
+        $this->modifySelection($qb, $selections);
     }
 
     /**
-     * Return a select type (ie a function of QueryBuilder) like: "select", "addSelect".
-     *
-     * @return string
+     * @param QueryBuilder $qb
+     * @param string[]     $selections
      */
-    abstract protected function getSelectType();
+    abstract protected function modifySelection(QueryBuilder $qb, array $selections);
 }
