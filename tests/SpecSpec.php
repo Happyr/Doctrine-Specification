@@ -39,4 +39,9 @@ class SpecSpec extends ObjectBehavior
     {
         $this->selectHiddenAs('foo', 'bar')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Query\Selection\SelectHiddenAs');
     }
+
+    public function it_creates_alias_operand()
+    {
+        $this->alias('foo')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Operand\Alias');
+    }
 }

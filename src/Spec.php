@@ -12,6 +12,7 @@ use Happyr\DoctrineSpecification\Filter\Like;
 use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
+use Happyr\DoctrineSpecification\Operand\Alias;
 use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\LikePattern;
 use Happyr\DoctrineSpecification\Operand\Operand;
@@ -486,5 +487,15 @@ class Spec
     public static function likePattern($value, $format = LikePattern::CONTAINS)
     {
         return new LikePattern($value, $format);
+    }
+
+    /**
+     * @param string $alias
+     *
+     * @return Alias
+     */
+    public static function alias($alias)
+    {
+        return new Alias($alias);
     }
 }

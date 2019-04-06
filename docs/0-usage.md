@@ -252,3 +252,13 @@ Spec::select(Spec::selectAs(
     'discount'
 ))
 ```
+
+Use aliases in conditions to search a cheap products:
+
+```php
+// DQL: SELECT e.price_current price FROM ... WHERE price < :low_cost_limit
+Spec::andX(
+    Spec::select(Spec::selectAs('price_current', 'price')),
+    Spec::lt(Spec::alias('price'), $low_cost_limit)
+)
+```
