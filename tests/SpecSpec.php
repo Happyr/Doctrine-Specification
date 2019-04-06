@@ -24,4 +24,9 @@ class SpecSpec extends ObjectBehavior
     {
         $this->addSelect('foo')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Query\AddSelect');
     }
+
+    public function it_creates_select_entity_selection()
+    {
+        $this->selectEntity('u')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Query\Selection\SelectEntity');
+    }
 }

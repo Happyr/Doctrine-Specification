@@ -218,3 +218,10 @@ Spec::andX(
     Spec::addSelect(Spec::field('name', $dqlAlias), Spec::field('avatar', $dqlAlias))
 )
 ```
+
+Add single entry in the selected set:
+
+```php
+// DQL: SELECT e, u FROM ...
+Spec::addSelect(Spec::selectEntity($dqlAlias))
+```

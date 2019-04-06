@@ -27,6 +27,7 @@ use Happyr\DoctrineSpecification\Query\Offset;
 use Happyr\DoctrineSpecification\Query\OrderBy;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Query\Select;
+use Happyr\DoctrineSpecification\Query\Selection\SelectEntity;
 use Happyr\DoctrineSpecification\Query\Slice;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Result\AsSingleScalar;
@@ -192,6 +193,16 @@ class Spec
     public static function addSelect($field)
     {
         return new AddSelect(func_get_args());
+    }
+
+    /**
+     * @param string $dqlAlias
+     *
+     * @return SelectEntity
+     */
+    public static function selectEntity($dqlAlias)
+    {
+        return new SelectEntity($dqlAlias);
     }
 
     /*
