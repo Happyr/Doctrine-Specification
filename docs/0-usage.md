@@ -204,12 +204,12 @@ $spec = Spec::eq(Spec::bAnd('access', UserAccess::READ), UserAccess::READ);
 You can put bitwise operations in each other. For example, select not readed mails:
 
 ```php
-// DQL: (m.status & (~ 0100)) = 0100
+// DQL: (m.status & (~ 0100)) = m.status
 $spec = Spec::eq(
     Spec::bAnd(
         Spec::field('status'),
         Spec::bNot(Spec::value(MailStatus::READED))
     ),
-    Spec::value(MailStatus::READED)
+    Spec::field('status')
 );
 ```
