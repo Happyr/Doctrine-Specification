@@ -29,4 +29,14 @@ class SpecSpec extends ObjectBehavior
     {
         $this->selectEntity('u')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Query\Selection\SelectEntity');
     }
+
+    public function it_creates_select_as_selection()
+    {
+        $this->selectAs('foo', 'bar')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Query\Selection\SelectAs');
+    }
+
+    public function it_creates_select_hidden_as_selection()
+    {
+        $this->selectHiddenAs('foo', 'bar')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Query\Selection\SelectHiddenAs');
+    }
 }

@@ -27,7 +27,9 @@ use Happyr\DoctrineSpecification\Query\Offset;
 use Happyr\DoctrineSpecification\Query\OrderBy;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Query\Select;
+use Happyr\DoctrineSpecification\Query\Selection\SelectAs;
 use Happyr\DoctrineSpecification\Query\Selection\SelectEntity;
+use Happyr\DoctrineSpecification\Query\Selection\SelectHiddenAs;
 use Happyr\DoctrineSpecification\Query\Slice;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Result\AsSingleScalar;
@@ -203,6 +205,28 @@ class Spec
     public static function selectEntity($dqlAlias)
     {
         return new SelectEntity($dqlAlias);
+    }
+
+    /**
+     * @param Filter|Operand|string $expression
+     * @param string                $alias
+     *
+     * @return SelectAs
+     */
+    public static function selectAs($expression, $alias)
+    {
+        return new SelectAs($expression, $alias);
+    }
+
+    /**
+     * @param Filter|Operand|string $expression
+     * @param string                $alias
+     *
+     * @return SelectHiddenAs
+     */
+    public static function selectHiddenAs($expression, $alias)
+    {
+        return new SelectHiddenAs($expression, $alias);
     }
 
     /*

@@ -225,3 +225,30 @@ Add single entry in the selected set:
 // DQL: SELECT e, u FROM ...
 Spec::addSelect(Spec::selectEntity($dqlAlias))
 ```
+
+Use aliases for selection fields:
+
+```php
+// DQL: SELECT e.name AS author FROM ...
+Spec::select(Spec::selectAs(Spec::field('name'), 'author'))
+```
+
+Add single hidden field in the selected set:
+
+```php
+// DQL: SELECT e, u.name HIDDEN author FROM ...
+Spec::addSelect(Spec::selectHiddenAs(Spec::field('email', $dqlAlias), 'author')))
+```
+
+Use expression in selection for add product discount to the result:
+
+```php
+// DQL: SELECT (e.price_old is not null and e.price_current < e.price_old) discount FROM ...
+Spec::select(Spec::selectAs(
+    Spec::andX(
+        Spec::isNotNull('price_old'),
+        Spec::lt(Spec::field('price_current'), Spec::field('price_old'))
+    ),
+    'discount'
+))
+```
