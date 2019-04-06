@@ -236,14 +236,14 @@ Spec::select(Spec::selectAs(Spec::field('name'), 'author'))
 Add single hidden field in the selected set:
 
 ```php
-// DQL: SELECT e, u.name HIDDEN author FROM ...
+// DQL: SELECT e, u.name AS HIDDEN author FROM ...
 Spec::addSelect(Spec::selectHiddenAs(Spec::field('email', $dqlAlias), 'author')))
 ```
 
 Use expression in selection for add product discount to the result:
 
 ```php
-// DQL: SELECT (e.price_old is not null and e.price_current < e.price_old) discount FROM ...
+// DQL: SELECT (e.price_old is not null and e.price_current < e.price_old) AS discount FROM ...
 Spec::select(Spec::selectAs(
     Spec::andX(
         Spec::isNotNull('price_old'),
@@ -256,7 +256,7 @@ Spec::select(Spec::selectAs(
 Use aliases in conditions to search a cheap products:
 
 ```php
-// DQL: SELECT e.price_current price FROM ... WHERE price < :low_cost_limit
+// DQL: SELECT e.price_current AS price FROM ... WHERE price < :low_cost_limit
 Spec::andX(
     Spec::select(Spec::selectAs('price_current', 'price')),
     Spec::lt(Spec::alias('price'), $low_cost_limit)
