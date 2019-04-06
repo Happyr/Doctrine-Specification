@@ -10,7 +10,7 @@ class PlatformFunction implements Operand
     /**
      * @var string[]
      */
-    private static $doctrine_functions = [
+    private static $doctrineFunctions = [
         'IDENTITY',
         'ABS',
         'CONCAT',
@@ -65,7 +65,7 @@ class PlatformFunction implements Operand
      */
     public function transform(QueryBuilder $qb, $dqlAlias)
     {
-        if (!in_array(strtoupper($this->functionName), self::$doctrine_functions) &&
+        if (!in_array(strtoupper($this->functionName), self::$doctrineFunctions) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomStringFunction($this->functionName) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomNumericFunction($this->functionName) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomDatetimeFunction($this->functionName)
