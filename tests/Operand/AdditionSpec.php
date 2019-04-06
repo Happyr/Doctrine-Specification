@@ -4,14 +4,14 @@ namespace tests\Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Operand\Mod;
+use Happyr\DoctrineSpecification\Operand\Addition;
 use Happyr\DoctrineSpecification\Operand\Field;
 use PhpSpec\ObjectBehavior;
 
 /**
- * @mixin Mod
+ * @mixin Addition
  */
-class ModSpec extends ObjectBehavior
+class AdditionSpec extends ObjectBehavior
 {
     private $field = 'foo';
 
@@ -22,9 +22,9 @@ class ModSpec extends ObjectBehavior
         $this->beConstructedWith($this->field, $this->value);
     }
 
-    public function it_is_a_mod()
+    public function it_is_a_add()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Mod');
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Addition');
     }
 
     public function it_is_a_operand()
@@ -39,12 +39,12 @@ class ModSpec extends ObjectBehavior
 
         $qb->setParameter('comparison_10', $this->value, null)->shouldBeCalled();
 
-        $this->transform($qb, 'a')->shouldReturn('(a.foo % :comparison_10)');
+        $this->transform($qb, 'a')->shouldReturn('(a.foo + :comparison_10)');
     }
 
     public function it_is_transformable_add_fields(QueryBuilder $qb)
     {
         $this->beConstructedWith(new Field('foo'), new Field('bar'));
-        $this->transform($qb, 'a')->shouldReturn('(a.foo % a.bar)');
+        $this->transform($qb, 'a')->shouldReturn('(a.foo + a.bar)');
     }
 }

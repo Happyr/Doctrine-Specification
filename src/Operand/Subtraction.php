@@ -2,7 +2,7 @@
 
 namespace Happyr\DoctrineSpecification\Operand;
 
-class Div extends Arithmetic
+class Subtraction extends Arithmetic
 {
     /**
      * @param Operand|string $field
@@ -10,6 +10,6 @@ class Div extends Arithmetic
      */
     public function __construct($field, $value)
     {
-        parent::__construct(self::DIV, $field, $value);
+        parent::__construct(self::SUB, $field, $value);
     }
 }

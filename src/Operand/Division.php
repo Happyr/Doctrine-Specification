@@ -2,7 +2,7 @@
 
 namespace Happyr\DoctrineSpecification\Operand;
 
-class Mul extends Arithmetic
+class Division extends Arithmetic
 {
     /**
      * @param Operand|string $field
@@ -10,6 +10,6 @@ class Mul extends Arithmetic
      */
     public function __construct($field, $value)
     {
-        parent::__construct(self::MUL, $field, $value);
+        parent::__construct(self::DIV, $field, $value);
     }
 }

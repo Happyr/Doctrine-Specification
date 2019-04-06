@@ -12,14 +12,14 @@ use Happyr\DoctrineSpecification\Filter\Like;
 use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
-use Happyr\DoctrineSpecification\Operand\Add;
-use Happyr\DoctrineSpecification\Operand\Div;
+use Happyr\DoctrineSpecification\Operand\Addition;
+use Happyr\DoctrineSpecification\Operand\Division;
 use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\LikePattern;
-use Happyr\DoctrineSpecification\Operand\Mod;
-use Happyr\DoctrineSpecification\Operand\Mul;
+use Happyr\DoctrineSpecification\Operand\Modulo;
+use Happyr\DoctrineSpecification\Operand\Multiplication;
 use Happyr\DoctrineSpecification\Operand\Operand;
-use Happyr\DoctrineSpecification\Operand\Sub;
+use Happyr\DoctrineSpecification\Operand\Subtraction;
 use Happyr\DoctrineSpecification\Operand\Value;
 use Happyr\DoctrineSpecification\Operand\Values;
 use Happyr\DoctrineSpecification\Query\GroupBy;
@@ -440,54 +440,54 @@ class Spec
      * @param Operand|string $field
      * @param Operand|mixed  $value
      *
-     * @return Add
+     * @return Addition
      */
     public static function add($field, $value)
     {
-        return new Add($field, $value);
+        return new Addition($field, $value);
     }
 
     /**
      * @param Operand|string $field
      * @param Operand|mixed  $value
      *
-     * @return Sub
+     * @return Subtraction
      */
     public static function sub($field, $value)
     {
-        return new Sub($field, $value);
+        return new Subtraction($field, $value);
     }
 
     /**
      * @param Operand|string $field
      * @param Operand|mixed  $value
      *
-     * @return Mul
+     * @return Multiplication
      */
     public static function mul($field, $value)
     {
-        return new Mul($field, $value);
+        return new Multiplication($field, $value);
     }
 
     /**
      * @param Operand|string $field
      * @param Operand|mixed  $value
      *
-     * @return Div
+     * @return Division
      */
     public static function div($field, $value)
     {
-        return new Div($field, $value);
+        return new Division($field, $value);
     }
 
     /**
      * @param Operand|string $field
      * @param Operand|mixed  $value
      *
-     * @return Mod
+     * @return Modulo
      */
     public static function mod($field, $value)
     {
-        return new Mod($field, $value);
+        return new Modulo($field, $value);
     }
 }

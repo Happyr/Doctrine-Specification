@@ -4,14 +4,14 @@ namespace tests\Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Operand\Div;
+use Happyr\DoctrineSpecification\Operand\Division;
 use Happyr\DoctrineSpecification\Operand\Field;
 use PhpSpec\ObjectBehavior;
 
 /**
- * @mixin Div
+ * @mixin Division
  */
-class DivSpec extends ObjectBehavior
+class DivisionSpec extends ObjectBehavior
 {
     private $field = 'foo';
 
@@ -24,7 +24,7 @@ class DivSpec extends ObjectBehavior
 
     public function it_is_a_div()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Div');
+        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Division');
     }
 
     public function it_is_a_operand()

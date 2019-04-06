@@ -2,7 +2,7 @@
 
 namespace Happyr\DoctrineSpecification\Operand;
 
-class Sub extends Arithmetic
+class Modulo extends Arithmetic
 {
     /**
      * @param Operand|string $field
@@ -10,6 +10,6 @@ class Sub extends Arithmetic
      */
     public function __construct($field, $value)
     {
-        parent::__construct(self::SUB, $field, $value);
+        parent::__construct(self::MOD, $field, $value);
     }
 }
