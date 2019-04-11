@@ -8,27 +8,42 @@ use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 class PlatformFunction implements Operand
 {
     /**
+     * Doctrine internal functions.
+     *
+     * @see \Doctrine\ORM\Query\Parser
+     *
      * @var string[]
      */
     private static $doctrineFunctions = [
-        'IDENTITY',
-        'ABS',
-        'CONCAT',
-        'CURRENT_DATE',
-        'CURRENT_TIME',
-        'CURRENT_TIMESTAMP',
-        'LENGTH',
-        'LOCATE',
-        'LOWER',
-        'MOD',
-        'SIZE',
-        'SQRT',
-        'SUBSTRING',
-        'TRIM',
-        'UPPER',
-        'DATE_ADD',
-        'DATE_SUB',
-        'DATE_DIFF',
+        // String functions
+        'concat',
+        'substring',
+        'trim',
+        'lower',
+        'upper',
+        'identity',
+        // Numeric functions
+        'length',
+        'locate',
+        'abs',
+        'sqrt',
+        'mod',
+        'size',
+        'date_diff',
+        'bit_and',
+        'bit_or',
+        // Aggregate functions
+        'min',
+        'max',
+        'avg',
+        'sum',
+        'count',
+        // Datetime functions
+        'current_date',
+        'current_time',
+        'current_timestamp',
+        'date_add',
+        'date_sub',
     ];
 
     /**
@@ -65,7 +80,7 @@ class PlatformFunction implements Operand
      */
     public function transform(QueryBuilder $qb, $dqlAlias)
     {
-        if (!in_array(strtoupper($this->functionName), self::$doctrineFunctions) &&
+        if (!in_array(strtolower($this->functionName), self::$doctrineFunctions) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomStringFunction($this->functionName) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomNumericFunction($this->functionName) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomDatetimeFunction($this->functionName)
