@@ -32,7 +32,7 @@ class CountOf implements Specification
      */
     public function getFilter(QueryBuilder $qb, $dqlAlias)
     {
-        $qb->select(sprintf('COUNT(%s)', $dqlAlias));
+        $qb->select($qb->expr()->count($dqlAlias));
 
         if ($this->child instanceof Filter) {
             return $this->child->getFilter($qb, $dqlAlias);
