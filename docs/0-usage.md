@@ -74,7 +74,7 @@ class DefaultController extends Controller
 There is a few different ways of using a `Specification`. You might use the `Spec` factory which probably is the most
 convenient one. (At least it reduces the number of imports.)
 
-``` php
+```php
 use Happyr\DoctrineSpecification\Spec;
 
 // ...
@@ -86,7 +86,7 @@ $objects= $this->getEntityManager()
 
 You may of course use the specification classes directly.
 
-``` php
+```php
 use Happyr\DoctrineSpecification\Comparison\GreaterThan;
 
 // ...
@@ -100,7 +100,7 @@ $objects= $this->getEntityManager()
 Some specifications inherits from the `Comparison` specification (ie `Equals`, `GreaterThan`, `LessOrEqualThan`). You may choose to
 interact with directly with the `Comparison` class.
 
-``` php
+```php
 
 use Happyr\DoctrineSpecification\Comparison\Comparison;
 
