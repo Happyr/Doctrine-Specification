@@ -91,4 +91,14 @@ interface EntitySpecificationRepositoryInterface
      * @return QueryBuilder
      */
     public function getQueryBuilder($specification, $alias = null);
+
+    /**
+     * Iterate results when you match with a Specification.
+     *
+     * @param Filter|QueryModifier $specification
+     * @param ResultModifier|null  $modifier
+     *
+     * @return mixed[]
+     */
+    public function iterate($specification, ResultModifier $modifier = null);
 }
