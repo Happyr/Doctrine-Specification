@@ -30,17 +30,4 @@ trait EntitySpecificationRepositoryCounterTrait
 
         return (int) $this->match(Spec::countOf($specification), $modifier);
     }
-
-    /**
-     * Have matches with a Specification.
-     *
-     * @param Specification  $specification
-     * @param ResultModifier $modifier
-     *
-     * @return bool
-     */
-    public function isSatisfiedBy(Specification $specification, ResultModifier $modifier = null)
-    {
-        return (bool) $this->countOf($specification, $modifier);
-    }
 }
