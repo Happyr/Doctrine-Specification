@@ -167,6 +167,100 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->shouldThrow('Happyr\DoctrineSpecification\Exception\NonUniqueResultException')->duringMatchSingleResult($specification);
     }
 
+    public function it_matches_a_single_scalar_result_without_result_modifier(
+        Specification $specification,
+        EntityManager $entityManager,
+        QueryBuilder $qb,
+        AbstractQuery $query
+    ) {
+        $singleScalarResult = '1';
+
+        $this->prepareStubs($specification, $entityManager, $qb, $query);
+
+        $specification->modify($qb, $this->alias)->shouldBeCalled();
+
+        $query->getSingleScalarResult()->willReturn($singleScalarResult);
+
+        $this->matchSingleScalarResult($specification)->shouldReturn($singleScalarResult);
+    }
+
+    public function it_throws_exception_when_expecting_single_scalar_result_finding_none_without_result_modifier(
+        Specification $specification,
+        EntityManager $entityManager,
+        QueryBuilder $qb,
+        AbstractQuery $query
+    ) {
+        $this->prepareStubs($specification, $entityManager, $qb, $query);
+
+        $specification->modify($qb, $this->alias)->shouldBeCalled();
+
+        $query->getSingleScalarResult()->willThrow(new NoResultException());
+
+        $this->shouldThrow('Happyr\DoctrineSpecification\Exception\NoResultException')->duringMatchSingleScalarResult($specification);
+    }
+
+    public function it_throws_exception_when_expecting_single_scalar_result_finding_multiple_without_result_modifier(
+        Specification $specification,
+        EntityManager $entityManager,
+        QueryBuilder $qb,
+        AbstractQuery $query
+    ) {
+        $this->prepareStubs($specification, $entityManager, $qb, $query);
+
+        $specification->modify($qb, $this->alias)->shouldBeCalled();
+
+        $query->getSingleScalarResult()->willThrow(new NonUniqueResultException());
+
+        $this->shouldThrow('Happyr\DoctrineSpecification\Exception\NonUniqueResultException')->duringMatchSingleScalarResult($specification);
+    }
+
+    public function it_matches_a_scalar_result_when_expecting_one_or_null_without_result_modifier(
+        Specification $specification,
+        EntityManager $entityManager,
+        QueryBuilder $qb,
+        AbstractQuery $query
+    ) {
+        $scalarResult = ['1', '2', '3'];
+
+        $this->prepareStubs($specification, $entityManager, $qb, $query);
+
+        $specification->modify($qb, $this->alias)->shouldBeCalled();
+
+        $query->getScalarResult()->willReturn($scalarResult);
+
+        $this->matchScalarResult($specification)->shouldReturn($scalarResult);
+    }
+
+    public function it_throws_exception_when_expecting_scalar_result_finding_none_without_result_modifier(
+        Specification $specification,
+        EntityManager $entityManager,
+        QueryBuilder $qb,
+        AbstractQuery $query
+    ) {
+        $this->prepareStubs($specification, $entityManager, $qb, $query);
+
+        $specification->modify($qb, $this->alias)->shouldBeCalled();
+
+        $query->getScalarResult()->willThrow(new NoResultException());
+
+        $this->shouldThrow('Happyr\DoctrineSpecification\Exception\NoResultException')->duringMatchScalarResult($specification);
+    }
+
+    public function it_throws_exception_when_expecting_scalar_result_finding_multiple_without_result_modifier(
+        Specification $specification,
+        EntityManager $entityManager,
+        QueryBuilder $qb,
+        AbstractQuery $query
+    ) {
+        $this->prepareStubs($specification, $entityManager, $qb, $query);
+
+        $specification->modify($qb, $this->alias)->shouldBeCalled();
+
+        $query->getScalarResult()->willThrow(new NonUniqueResultException());
+
+        $this->shouldThrow('Happyr\DoctrineSpecification\Exception\NonUniqueResultException')->duringMatchScalarResult($specification);
+    }
+
     public function it_matches_a_single_result_when_expecting_one_or_null_without_result_modifier(
         Specification $specification,
         EntityManager $entityManager,
