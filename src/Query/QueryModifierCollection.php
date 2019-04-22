@@ -29,8 +29,7 @@ class QueryModifierCollection implements QueryModifier
         foreach ($this->children as $child) {
             if (!$child instanceof QueryModifier) {
                 throw new InvalidArgumentException(sprintf(
-                    'Child passed to %s must be an instance of %s, but instance of %s found',
-                    QueryModifierCollection::class,
+                    'Child passed to QueryModifierCollection must be an instance of %s, but instance of %s found',
                     QueryModifier::class,
                     get_class($child)
                 ));

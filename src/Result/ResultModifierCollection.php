@@ -28,8 +28,7 @@ class ResultModifierCollection implements ResultModifier
         foreach ($this->children as $child) {
             if (!$child instanceof ResultModifier) {
                 throw new InvalidArgumentException(sprintf(
-                    'Child passed to %s must be an instance of %s, but instance of %s found',
-                    ResultModifierCollection::class,
+                    'Child passed to ResultModifierCollection must be an instance of %s, but instance of %s found',
                     ResultModifier::class,
                     get_class($child)
                 ));
