@@ -3,21 +3,20 @@
 namespace Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Query\Selection\Selection;
 
-class Field implements Operand, Selection
+class Alias implements Operand
 {
     /**
      * @var string
      */
-    private $fieldName = '';
+    private $alias = '';
 
     /**
-     * @param string $fieldName
+     * @param string $alias
      */
-    public function __construct($fieldName)
+    public function __construct($alias)
     {
-        $this->fieldName = $fieldName;
+        $this->alias = $alias;
     }
 
     /**
@@ -28,6 +27,6 @@ class Field implements Operand, Selection
      */
     public function transform(QueryBuilder $qb, $dqlAlias)
     {
-        return sprintf('%s.%s', $dqlAlias, $this->fieldName);
+        return $this->alias;
     }
 }
