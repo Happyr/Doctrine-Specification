@@ -8,7 +8,9 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
+use Happyr\DoctrineSpecification\Result\AsSingleScalar;
 use Happyr\DoctrineSpecification\Result\ResultModifier;
+use Happyr\DoctrineSpecification\Result\ResultModifierCollection;
 
 /**
  * This trait should be used by a class extending \Doctrine\ORM\EntityRepository.
@@ -76,6 +78,25 @@ trait EntitySpecificationRepositoryTrait
         } catch (Exception\NoResultException $e) {
             return;
         }
+    }
+
+    /**
+     * Get the number of results match with a Specification.
+     *
+     * @param Filter|QueryModifier $specification
+     * @param ResultModifier       $modifier
+     *
+     * @return int
+     */
+    public function countOf($specification, ResultModifier $modifier = null)
+    {
+        if ($modifier instanceof ResultModifier) {
+            $modifier = new ResultModifierCollection($modifier, new AsSingleScalar());
+        } else {
+            $modifier = new AsSingleScalar();
+        }
+
+        return (int) $this->match(Spec::countOf($specification), $modifier);
     }
 
     /**

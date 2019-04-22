@@ -49,6 +49,16 @@ interface EntitySpecificationRepositoryInterface
     public function matchOneOrNullResult($specification, ResultModifier $modifier = null);
 
     /**
+     * Get the number of results match with a Specification.
+     *
+     * @param Filter|QueryModifier $specification
+     * @param ResultModifier       $modifier
+     *
+     * @return int
+     */
+    public function countOf($specification, ResultModifier $modifier = null);
+
+    /**
      * Prepare a Query with a Specification.
      *
      * @param Filter|QueryModifier $specification
