@@ -4,6 +4,7 @@ namespace tests\Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\Field;
+use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Query\Select;
 use PhpSpec\ObjectBehavior;
 
@@ -19,12 +20,12 @@ class SelectSpec extends ObjectBehavior
 
     public function it_is_a_select()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Query\Select');
+        $this->shouldBeAnInstanceOf(Select::class);
     }
 
     public function it_is_a_specification()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Query\QueryModifier');
+        $this->shouldHaveType(QueryModifier::class);
     }
 
     public function it_select_single_filed(QueryBuilder $qb)

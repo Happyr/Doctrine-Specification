@@ -13,7 +13,7 @@ class ArgumentToSelectionConverterSpec extends ObjectBehavior
 {
     public function it_is_a_converter()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Query\Selection\ArgumentToSelectionConverter');
+        $this->shouldBeAnInstanceOf(ArgumentToSelectionConverter::class);
     }
 
     public function it_not_convert_field_to_selection(Field $field)
@@ -23,6 +23,6 @@ class ArgumentToSelectionConverterSpec extends ObjectBehavior
 
     public function it_convert_argument_to_field()
     {
-        $this->toSelection('foo')->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Field');
+        $this->toSelection('foo')->shouldBeAnInstanceOf(Field::class);
     }
 }

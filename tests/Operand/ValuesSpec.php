@@ -5,6 +5,7 @@ namespace tests\Happyr\DoctrineSpecification\Operand;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Operand\Operand;
 use Happyr\DoctrineSpecification\Operand\Values;
 use PhpSpec\ObjectBehavior;
 
@@ -24,12 +25,12 @@ class ValuesSpec extends ObjectBehavior
 
     public function it_is_a_values()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Values');
+        $this->shouldBeAnInstanceOf(Values::class);
     }
 
     public function it_is_a_operand()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Operand');
+        $this->shouldBeAnInstanceOf(Operand::class);
     }
 
     public function it_is_transformable(QueryBuilder $qb, ArrayCollection $parameters)

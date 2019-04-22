@@ -202,8 +202,8 @@ trait EntitySpecificationRepositoryTrait
         if (!$specification instanceof QueryModifier && !$specification instanceof Filter) {
             throw new \InvalidArgumentException(sprintf(
                 'Expected argument of type "%s" or "%s", "%s" given.',
-                'Happyr\DoctrineSpecification\Query\QueryModifier',
-                'Happyr\DoctrineSpecification\Filter\Filter',
+                QueryModifier::class,
+                Filter::class,
                 is_object($specification) ? get_class($specification) : gettype($specification)
             ));
         }

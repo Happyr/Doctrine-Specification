@@ -3,6 +3,7 @@
 namespace tests\Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\InstanceOfX;
 use PhpSpec\ObjectBehavior;
 
@@ -18,12 +19,12 @@ class InstanceOfXSpec extends ObjectBehavior
 
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Filter\InstanceOfX');
+        $this->shouldHaveType(InstanceOfX::class);
     }
 
     public function it_is_an_expression()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Filter');
+        $this->shouldBeAnInstanceOf(Filter::class);
     }
 
     public function it_returns_expression_func_object(QueryBuilder $qb)

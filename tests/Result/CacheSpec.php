@@ -4,6 +4,7 @@ namespace tests\Happyr\DoctrineSpecification\Result;
 
 use Doctrine\ORM\AbstractQuery;
 use Happyr\DoctrineSpecification\Result\Cache;
+use Happyr\DoctrineSpecification\Result\ResultModifier;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -20,7 +21,7 @@ class CacheSpec extends ObjectBehavior
 
     public function it_is_a_specification()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Result\ResultModifier');
+        $this->shouldBeAnInstanceOf(ResultModifier::class);
     }
 
     public function it_caches_query_for_given_time(AbstractQuery $query)

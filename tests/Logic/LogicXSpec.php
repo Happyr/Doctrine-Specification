@@ -23,7 +23,7 @@ class LogicXSpec extends ObjectBehavior
 
     public function it_is_a_specification()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Specification\Specification');
+        $this->shouldHaveType(Specification::class);
     }
 
     public function it_modifies_all_child_queries(QueryBuilder $queryBuilder, Specification $specificationA, Specification $specificationB)
