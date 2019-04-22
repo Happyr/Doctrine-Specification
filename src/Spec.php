@@ -12,10 +12,15 @@ use Happyr\DoctrineSpecification\Filter\Like;
 use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
+use Happyr\DoctrineSpecification\Operand\Addition;
+use Happyr\DoctrineSpecification\Operand\Division;
 use Happyr\DoctrineSpecification\Operand\Alias;
 use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\LikePattern;
+use Happyr\DoctrineSpecification\Operand\Modulo;
+use Happyr\DoctrineSpecification\Operand\Multiplication;
 use Happyr\DoctrineSpecification\Operand\Operand;
+use Happyr\DoctrineSpecification\Operand\Subtraction;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction;
 use Happyr\DoctrineSpecification\Operand\Value;
 use Happyr\DoctrineSpecification\Operand\Values;
@@ -525,6 +530,65 @@ class Spec
     public static function likePattern($value, $format = LikePattern::CONTAINS)
     {
         return new LikePattern($value, $format);
+    }
+
+    /*
+     * Arithmetic operands
+     */
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return Addition
+     */
+    public static function add($field, $value)
+    {
+        return new Addition($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return Subtraction
+     */
+    public static function sub($field, $value)
+    {
+        return new Subtraction($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return Multiplication
+     */
+    public static function mul($field, $value)
+    {
+        return new Multiplication($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return Division
+     */
+    public static function div($field, $value)
+    {
+        return new Division($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return Modulo
+     */
+    public static function mod($field, $value)
+    {
+        return new Modulo($field, $value);
     }
 
     /**
