@@ -12,12 +12,14 @@ use Happyr\DoctrineSpecification\Filter\Like;
 use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
+use Happyr\DoctrineSpecification\Operand\Alias;
 use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\LikePattern;
 use Happyr\DoctrineSpecification\Operand\Operand;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction;
 use Happyr\DoctrineSpecification\Operand\Value;
 use Happyr\DoctrineSpecification\Operand\Values;
+use Happyr\DoctrineSpecification\Query\AddSelect;
 use Happyr\DoctrineSpecification\Query\GroupBy;
 use Happyr\DoctrineSpecification\Query\InnerJoin;
 use Happyr\DoctrineSpecification\Query\Join;
@@ -26,6 +28,10 @@ use Happyr\DoctrineSpecification\Query\Limit;
 use Happyr\DoctrineSpecification\Query\Offset;
 use Happyr\DoctrineSpecification\Query\OrderBy;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
+use Happyr\DoctrineSpecification\Query\Select;
+use Happyr\DoctrineSpecification\Query\Selection\SelectAs;
+use Happyr\DoctrineSpecification\Query\Selection\SelectEntity;
+use Happyr\DoctrineSpecification\Query\Selection\SelectHiddenAs;
 use Happyr\DoctrineSpecification\Query\Slice;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Result\AsSingleScalar;
@@ -204,6 +210,62 @@ class Spec
     public static function groupBy($field, $dqlAlias = null)
     {
         return new GroupBy($field, $dqlAlias);
+    }
+
+    /*
+     * Selection
+     */
+
+    /**
+     * @param mixed $field
+     *
+     * @return Select
+     */
+    public static function select($field)
+    {
+        return new Select(func_get_args());
+    }
+
+    /**
+     * @param mixed $field
+     *
+     * @return AddSelect
+     */
+    public static function addSelect($field)
+    {
+        return new AddSelect(func_get_args());
+    }
+
+    /**
+     * @param string $dqlAlias
+     *
+     * @return SelectEntity
+     */
+    public static function selectEntity($dqlAlias)
+    {
+        return new SelectEntity($dqlAlias);
+    }
+
+    /**
+     * @param Filter|Operand|string $expression
+     * @param string                $alias
+     *
+     * @return SelectAs
+     */
+    public static function selectAs($expression, $alias)
+    {
+        return new SelectAs($expression, $alias);
+    }
+
+    /**
+     * @param Filter|Operand|string $expression
+     * @param string                $alias
+     *
+     * @return SelectHiddenAs
+     */
+    public static function selectHiddenAs($expression, $alias)
+    {
+        return new SelectHiddenAs($expression, $alias);
     }
 
     /*
@@ -476,5 +538,15 @@ class Spec
         $arguments = func_get_args();
 
         return new PlatformFunction(array_shift($arguments), $arguments);
+    }
+
+    /**
+     * @param string $alias
+     *
+     * @return Alias
+     */
+    public static function alias($alias)
+    {
+        return new Alias($alias);
     }
 }
