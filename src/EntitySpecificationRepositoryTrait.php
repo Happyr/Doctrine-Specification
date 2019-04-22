@@ -97,8 +97,6 @@ trait EntitySpecificationRepositoryTrait
             return $query->getSingleScalarResult();
         } catch (NonUniqueResultException $e) {
             throw new Exception\NonUniqueResultException($e->getMessage(), $e->getCode(), $e);
-        } catch (NoResultException $e) {
-            throw new Exception\NoResultException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -117,13 +115,7 @@ trait EntitySpecificationRepositoryTrait
     {
         $query = $this->getQuery($specification, $modifier);
 
-        try {
-            return $query->getScalarResult();
-        } catch (NonUniqueResultException $e) {
-            throw new Exception\NonUniqueResultException($e->getMessage(), $e->getCode(), $e);
-        } catch (NoResultException $e) {
-            throw new Exception\NoResultException($e->getMessage(), $e->getCode(), $e);
-        }
+        return $query->getScalarResult();
     }
 
     /**
@@ -136,9 +128,7 @@ trait EntitySpecificationRepositoryTrait
      */
     public function getQuery($specification, ResultModifier $modifier = null)
     {
-        $qb = $this->createQueryBuilder($this->alias);
-        $this->applySpecification($qb, $specification);
-        $query = $qb->getQuery();
+        $query = $this->getQueryBuilder($specification)->getQuery();
 
         if (null !== $modifier) {
             $modifier->modify($query);
