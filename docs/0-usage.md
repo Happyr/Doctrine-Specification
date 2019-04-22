@@ -190,6 +190,29 @@ $spec = Spec::gt('day', Spec::value($day, Type::DATE));
 $spec = Spec::in('day', Spec::values($days, Type::DATE));
 ```
 
+Use functions:
+
+```php
+// DQL: SIZE(e.products) > 2
+Spec::gt(Spec::SIZE('products'), 2);
+// or
+Spec::gt(Spec::fun('SIZE', 'products'), 2);
+// or
+Spec::gt(Spec::fun('SIZE', Spec::field('products')), 2);
+```
+
+Nested functions:
+
+```php
+// DQL: TRIM(LOWER(e.email)) = :email
+Spec::eq(Spec::TRIM(Spec::LOWER('email')), trim(strtolower($email)));
+// or
+Spec::eq(
+    Spec::fun('TRIM', Spec::fun('LOWER', Spec::field('email'))),
+    trim(strtolower($email))
+);
+```
+
 # Customize selection
 
 Sometimes we need to customize the selection. To do this, we can use `select` and `addSelect` query modifiers. Example
