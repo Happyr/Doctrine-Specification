@@ -5,7 +5,10 @@ namespace tests\Happyr\DoctrineSpecification\Operand;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
+use Happyr\DoctrineSpecification\Exception\NotConvertibleException;
 use Happyr\DoctrineSpecification\Operand\Field;
+use Happyr\DoctrineSpecification\Operand\Operand;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction;
 use PhpSpec\ObjectBehavior;
 
@@ -25,12 +28,12 @@ class PlatformFunctionSpec extends ObjectBehavior
 
     public function it_is_a_platform_function()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\PlatformFunction');
+        $this->shouldBeAnInstanceOf(PlatformFunction::class);
     }
 
     public function it_is_a_operand()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Operand');
+        $this->shouldBeAnInstanceOf(Operand::class);
     }
 
     public function it_is_transformable_doctrine_function(QueryBuilder $qb)
@@ -125,15 +128,13 @@ class PlatformFunctionSpec extends ObjectBehavior
         $configuration->getCustomDatetimeFunction($functionName)->willReturn(null);
 
         $this->beConstructedWith($functionName, 'foo');
-        $this->shouldThrow('Happyr\DoctrineSpecification\Exception\InvalidArgumentException')
-            ->during('transform', array($qb, 'a'));
+        $this->shouldThrow(InvalidArgumentException::class)->during('transform', array($qb, 'a'));
     }
 
     public function it_is_transformable_not_convertible(QueryBuilder $qb)
     {
         $this->beConstructedWith('concat', ['foo', 'bar', 'baz']);
 
-        $this->shouldThrow('Happyr\DoctrineSpecification\Exception\NotConvertibleException')
-            ->during('transform', array($qb, 'a'));
+        $this->shouldThrow(NotConvertibleException::class)->during('transform', array($qb, 'a'));
     }
 }

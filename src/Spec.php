@@ -103,7 +103,7 @@ class Spec
     public static function andX()
     {
         $args = func_get_args();
-        $reflection = new \ReflectionClass('Happyr\DoctrineSpecification\Logic\AndX');
+        $reflection = new \ReflectionClass(AndX::class);
 
         return $reflection->newInstanceArgs($args);
     }
@@ -114,7 +114,7 @@ class Spec
     public static function orX()
     {
         $args = func_get_args();
-        $reflection = new \ReflectionClass('Happyr\DoctrineSpecification\Logic\OrX');
+        $reflection = new \ReflectionClass(OrX::class);
 
         return $reflection->newInstanceArgs($args);
     }

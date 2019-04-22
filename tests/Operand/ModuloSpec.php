@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\Modulo;
 use Happyr\DoctrineSpecification\Operand\Field;
+use Happyr\DoctrineSpecification\Operand\Operand;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -24,12 +25,12 @@ class ModuloSpec extends ObjectBehavior
 
     public function it_is_a_mod()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Modulo');
+        $this->shouldBeAnInstanceOf(Modulo::class);
     }
 
     public function it_is_a_operand()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Operand');
+        $this->shouldBeAnInstanceOf(Operand::class);
     }
 
     public function it_is_transformable(QueryBuilder $qb, ArrayCollection $parameters)

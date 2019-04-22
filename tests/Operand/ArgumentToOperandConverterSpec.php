@@ -2,6 +2,7 @@
 
 namespace tests\Happyr\DoctrineSpecification\Operand;
 
+use Happyr\DoctrineSpecification\Exception\NotConvertibleException;
 use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
 use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\Operand;
@@ -15,7 +16,7 @@ class ArgumentToOperandConverterSpec extends ObjectBehavior
 {
     public function it_is_a_converter()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter');
+        $this->shouldBeAnInstanceOf(ArgumentToOperandConverter::class);
     }
 
     public function it_not_convert_operand_to_field(Operand $operand)
@@ -25,7 +26,7 @@ class ArgumentToOperandConverterSpec extends ObjectBehavior
 
     public function it_convert_argument_to_field()
     {
-        $this->toField('foo')->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Field');
+        $this->toField('foo')->shouldBeAnInstanceOf(Field::class);
     }
 
     public function it_not_convert_operand_to_value(Operand $operand)
@@ -35,7 +36,7 @@ class ArgumentToOperandConverterSpec extends ObjectBehavior
 
     public function it_convert_argument_to_value()
     {
-        $this->toValue('foo')->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Value');
+        $this->toValue('foo')->shouldBeAnInstanceOf(Value::class);
     }
 
     public function it_is_all_arguments_a_operands(Operand $first, Operand $second)
@@ -104,7 +105,7 @@ class ArgumentToOperandConverterSpec extends ObjectBehavior
 
     public function it_is_not_convertible_arguments(Field $field, Operand $operand, Value $value)
     {
-        $this->shouldThrow('Happyr\DoctrineSpecification\Exception\NotConvertibleException')
+        $this->shouldThrow(NotConvertibleException::class)
             ->duringConvert(array($field, $operand, 'foo', $value));
     }
 

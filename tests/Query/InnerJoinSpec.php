@@ -4,6 +4,7 @@ namespace tests\Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Query\InnerJoin;
+use Happyr\DoctrineSpecification\Query\QueryModifier;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -18,7 +19,7 @@ class InnerJoinSpec extends ObjectBehavior
 
     public function it_is_a_specification()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Query\QueryModifier');
+        $this->shouldHaveType(QueryModifier::class);
     }
 
     public function it_joins_with_default_dql_alias(QueryBuilder $qb)

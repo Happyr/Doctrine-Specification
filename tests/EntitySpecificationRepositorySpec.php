@@ -5,10 +5,13 @@ namespace tests\Happyr\DoctrineSpecification;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\NonUniqueResultException as DoctrineNonUniqueResultException;
+use Doctrine\ORM\NoResultException as DoctrineNoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\EntitySpecificationRepository;
+use Happyr\DoctrineSpecification\Exception\NonUniqueResultException;
+use Happyr\DoctrineSpecification\Exception\NoResultException;
+use Happyr\DoctrineSpecification\Exception\UnexpectedResultException;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Result\ResultModifier;
@@ -147,9 +150,9 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
 
         $specification->modify($qb, $this->alias)->shouldBeCalled();
 
-        $query->getSingleResult()->willThrow(new NoResultException());
+        $query->getSingleResult()->willThrow(new DoctrineNoResultException());
 
-        $this->shouldThrow('Happyr\DoctrineSpecification\Exception\NoResultException')->duringMatchSingleResult($specification);
+        $this->shouldThrow(NoResultException::class)->duringMatchSingleResult($specification);
     }
 
     public function it_throws_exception_when_expecting_single_result_finding_multiple_without_result_modifier(
@@ -162,9 +165,9 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
 
         $specification->modify($qb, $this->alias)->shouldBeCalled();
 
-        $query->getSingleResult()->willThrow(new NonUniqueResultException());
+        $query->getSingleResult()->willThrow(new DoctrineNonUniqueResultException());
 
-        $this->shouldThrow('Happyr\DoctrineSpecification\Exception\NonUniqueResultException')->duringMatchSingleResult($specification);
+        $this->shouldThrow(NonUniqueResultException::class)->duringMatchSingleResult($specification);
     }
 
     public function it_matches_a_single_scalar_result_without_result_modifier(
@@ -194,9 +197,9 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
 
         $specification->modify($qb, $this->alias)->shouldBeCalled();
 
-        $query->getSingleScalarResult()->willThrow(new NonUniqueResultException());
+        $query->getSingleScalarResult()->willThrow(new DoctrineNonUniqueResultException());
 
-        $this->shouldThrow('Happyr\DoctrineSpecification\Exception\NonUniqueResultException')->duringMatchSingleScalarResult($specification);
+        $this->shouldThrow(NonUniqueResultException::class)->duringMatchSingleScalarResult($specification);
     }
 
     public function it_matches_a_scalar_result_when_expecting_one_or_null_without_result_modifier(
@@ -243,9 +246,9 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
 
         $specification->modify($qb, $this->alias)->shouldBeCalled();
 
-        $query->getSingleResult()->willThrow(new NonUniqueResultException());
+        $query->getSingleResult()->willThrow(new DoctrineNonUniqueResultException());
 
-        $this->shouldThrow('Happyr\DoctrineSpecification\Exception\NonUniqueResultException')->duringMatchOneOrNullResult($specification);
+        $this->shouldThrow(NonUniqueResultException::class)->duringMatchOneOrNullResult($specification);
     }
 
     public function it_throws_exception_when_expecting_one_or_null_finding_multiple_without_result_modifier(
@@ -258,9 +261,9 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
 
         $specification->modify($qb, $this->alias)->shouldBeCalled();
 
-        $query->getSingleResult()->willThrow(new NonUniqueResultException());
+        $query->getSingleResult()->willThrow(new DoctrineNonUniqueResultException());
 
-        $this->shouldThrow('Happyr\DoctrineSpecification\Exception\UnexpectedResultException')->duringMatchOneOrNullResult($specification);
+        $this->shouldThrow(UnexpectedResultException::class)->duringMatchOneOrNullResult($specification);
     }
 
     public function it_matches_a_specification_with_result_modifier(

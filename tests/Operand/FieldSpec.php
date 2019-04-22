@@ -4,6 +4,7 @@ namespace tests\Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\Field;
+use Happyr\DoctrineSpecification\Operand\Operand;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -20,12 +21,12 @@ class FieldSpec extends ObjectBehavior
 
     public function it_is_a_field()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Field');
+        $this->shouldBeAnInstanceOf(Field::class);
     }
 
     public function it_is_a_operand()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Operand');
+        $this->shouldBeAnInstanceOf(Operand::class);
     }
 
     public function it_is_transformable(QueryBuilder $qb)

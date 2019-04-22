@@ -2,6 +2,25 @@
 
 namespace tests\Happyr\DoctrineSpecification;
 
+use Happyr\DoctrineSpecification\Logic\LogicX;
+use Happyr\DoctrineSpecification\Operand\Addition;
+use Happyr\DoctrineSpecification\Operand\Alias;
+use Happyr\DoctrineSpecification\Operand\BitAnd;
+use Happyr\DoctrineSpecification\Operand\BitLeftShift;
+use Happyr\DoctrineSpecification\Operand\BitNot;
+use Happyr\DoctrineSpecification\Operand\BitOr;
+use Happyr\DoctrineSpecification\Operand\BitRightShift;
+use Happyr\DoctrineSpecification\Operand\BitXor;
+use Happyr\DoctrineSpecification\Operand\Division;
+use Happyr\DoctrineSpecification\Operand\Modulo;
+use Happyr\DoctrineSpecification\Operand\Multiplication;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction;
+use Happyr\DoctrineSpecification\Operand\Subtraction;
+use Happyr\DoctrineSpecification\Query\AddSelect;
+use Happyr\DoctrineSpecification\Query\Select;
+use Happyr\DoctrineSpecification\Query\Selection\SelectAs;
+use Happyr\DoctrineSpecification\Query\Selection\SelectEntity;
+use Happyr\DoctrineSpecification\Query\Selection\SelectHiddenAs;
 use Happyr\DoctrineSpecification\Spec;
 use PhpSpec\ObjectBehavior;
 
@@ -12,101 +31,101 @@ class SpecSpec extends ObjectBehavior
 {
     public function it_creates_an_x_specification()
     {
-        $this->andX()->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Logic\LogicX');
+        $this->andX()->shouldReturnAnInstanceOf(LogicX::class);
     }
 
     public function it_creates_add_operand()
     {
-        $this->add('foo', 'bar')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Operand\Addition');
+        $this->add('foo', 'bar')->shouldReturnAnInstanceOf(Addition::class);
     }
 
     public function it_creates_sub_operand()
     {
-        $this->sub('foo', 'bar')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Operand\Subtraction');
+        $this->sub('foo', 'bar')->shouldReturnAnInstanceOf(Subtraction::class);
     }
 
     public function it_creates_mul_operand()
     {
-        $this->mul('foo', 'bar')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Operand\Multiplication');
+        $this->mul('foo', 'bar')->shouldReturnAnInstanceOf(Multiplication::class);
     }
 
     public function it_creates_div_operand()
     {
-        $this->div('foo', 'bar')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Operand\Division');
+        $this->div('foo', 'bar')->shouldReturnAnInstanceOf(Division::class);
     }
 
     public function it_creates_mod_operand()
     {
-        $this->mod('foo', 'bar')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Operand\Modulo');
+        $this->mod('foo', 'bar')->shouldReturnAnInstanceOf(Modulo::class);
     }
 
     public function it_create_bit_and_operand()
     {
-        $this->bAnd('foo', 'bar')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Operand\BitAnd');
+        $this->bAnd('foo', 'bar')->shouldReturnAnInstanceOf(BitAnd::class);
     }
 
     public function it_create_bit_or_operand()
     {
-        $this->bOr('foo', 'bar')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Operand\BitOr');
+        $this->bOr('foo', 'bar')->shouldReturnAnInstanceOf(BitOr::class);
     }
 
     public function it_create_bit_xor_operand()
     {
-        $this->bXor('foo', 'bar')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Operand\BitXor');
+        $this->bXor('foo', 'bar')->shouldReturnAnInstanceOf(BitXor::class);
     }
 
     public function it_create_bit_left_shift_operand()
     {
-        $this->bLs('foo', 'bar')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Operand\BitLeftShift');
+        $this->bLs('foo', 'bar')->shouldReturnAnInstanceOf(BitLeftShift::class);
     }
 
     public function it_create_bit_right_shift_operand()
     {
-        $this->bRs('foo', 'bar')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Operand\BitRightShift');
+        $this->bRs('foo', 'bar')->shouldReturnAnInstanceOf(BitRightShift::class);
     }
 
     public function it_create_bit_not_operand()
     {
-        $this->bNot('foo')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Operand\BitNot');
+        $this->bNot('foo')->shouldReturnAnInstanceOf(BitNot::class);
     }
 
     public function it_creates_an_function()
     {
-        $this->fun('UPPER', 'foo')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Operand\PlatformFunction');
+        $this->fun('UPPER', 'foo')->shouldReturnAnInstanceOf(PlatformFunction::class);
     }
 
     public function it_creates_an_magic_function()
     {
-        $this->__callStatic('UPPER', ['foo'])->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Operand\PlatformFunction');
+        $this->__callStatic('UPPER', ['foo'])->shouldReturnAnInstanceOf(PlatformFunction::class);
     }
 
     public function it_creates_select_query_modifier()
     {
-        $this->select('foo')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Query\Select');
+        $this->select('foo')->shouldReturnAnInstanceOf(Select::class);
     }
 
     public function it_creates_add_select_query_modifier()
     {
-        $this->addSelect('foo')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Query\AddSelect');
+        $this->addSelect('foo')->shouldReturnAnInstanceOf(AddSelect::class);
     }
 
     public function it_creates_select_entity_selection()
     {
-        $this->selectEntity('u')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Query\Selection\SelectEntity');
+        $this->selectEntity('u')->shouldReturnAnInstanceOf(SelectEntity::class);
     }
 
     public function it_creates_select_as_selection()
     {
-        $this->selectAs('foo', 'bar')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Query\Selection\SelectAs');
+        $this->selectAs('foo', 'bar')->shouldReturnAnInstanceOf(SelectAs::class);
     }
 
     public function it_creates_select_hidden_as_selection()
     {
-        $this->selectHiddenAs('foo', 'bar')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Query\Selection\SelectHiddenAs');
+        $this->selectHiddenAs('foo', 'bar')->shouldReturnAnInstanceOf(SelectHiddenAs::class);
     }
 
     public function it_creates_alias_operand()
     {
-        $this->alias('foo')->shouldReturnAnInstanceOf('Happyr\DoctrineSpecification\Operand\Alias');
+        $this->alias('foo')->shouldReturnAnInstanceOf(Alias::class);
     }
 }

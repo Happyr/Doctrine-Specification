@@ -4,6 +4,7 @@ namespace tests\Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\IsNotNull;
 use PhpSpec\ObjectBehavior;
 
@@ -23,7 +24,7 @@ class IsNotNullSpec extends ObjectBehavior
 
     public function it_is_an_expression()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Filter');
+        $this->shouldBeAnInstanceOf(Filter::class);
     }
 
     /**

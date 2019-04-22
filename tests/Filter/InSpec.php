@@ -5,6 +5,7 @@ namespace tests\Happyr\DoctrineSpecification\Filter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\In;
 use PhpSpec\ObjectBehavior;
 
@@ -24,7 +25,7 @@ class InSpec extends ObjectBehavior
 
     public function it_is_an_expression()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Filter\Filter');
+        $this->shouldBeAnInstanceOf(Filter::class);
     }
 
     public function it_returns_expression_func_object(QueryBuilder $qb, ArrayCollection $parameters, Expr $expr)

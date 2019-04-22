@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\BitLeftShift;
 use Happyr\DoctrineSpecification\Operand\Field;
+use Happyr\DoctrineSpecification\Operand\Operand;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -24,12 +25,12 @@ class BitLeftShiftSpec extends ObjectBehavior
 
     public function it_is_a_bit_left_shift()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\BitLeftShift');
+        $this->shouldBeAnInstanceOf(BitLeftShift::class);
     }
 
     public function it_is_a_operand()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Operand');
+        $this->shouldBeAnInstanceOf(Operand::class);
     }
 
     public function it_is_transformable(QueryBuilder $qb, ArrayCollection $parameters)

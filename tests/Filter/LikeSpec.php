@@ -5,6 +5,7 @@ namespace tests\Happyr\DoctrineSpecification\Spec;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Like;
+use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
 
 class LikeSpec extends ObjectBehavior
@@ -20,7 +21,7 @@ class LikeSpec extends ObjectBehavior
 
     public function it_is_a_specification()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Specification\Specification');
+        $this->shouldHaveType(Specification::class);
     }
 
     public function it_surrounds_with_wildcards_when_using_contains(QueryBuilder $qb, ArrayCollection $parameters)

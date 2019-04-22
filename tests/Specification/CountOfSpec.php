@@ -7,6 +7,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Equals;
 use Happyr\DoctrineSpecification\Query\GroupBy;
 use Happyr\DoctrineSpecification\Specification\CountOf;
+use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -21,12 +22,12 @@ class CountOfSpec extends ObjectBehavior
 
     public function it_is_a_CountOf()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Specification\CountOf');
+        $this->shouldBeAnInstanceOf(CountOf::class);
     }
 
     public function it_is_a_specification()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Specification\Specification');
+        $this->shouldHaveType(Specification::class);
     }
 
     public function it_count_of_all(QueryBuilder $qb)

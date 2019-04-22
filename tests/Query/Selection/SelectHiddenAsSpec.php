@@ -8,6 +8,7 @@ use Happyr\DoctrineSpecification\Filter\Equals;
 use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\Value;
 use Happyr\DoctrineSpecification\Query\Selection\SelectHiddenAs;
+use Happyr\DoctrineSpecification\Query\Selection\Selection;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -26,12 +27,12 @@ class SelectHiddenAsSpec extends ObjectBehavior
 
     public function it_is_a_select_as()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Query\Selection\SelectHiddenAs');
+        $this->shouldBeAnInstanceOf(SelectHiddenAs::class);
     }
 
     public function it_is_a_selection()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Query\Selection\Selection');
+        $this->shouldBeAnInstanceOf(Selection::class);
     }
 
     public function it_is_transformable(QueryBuilder $qb)

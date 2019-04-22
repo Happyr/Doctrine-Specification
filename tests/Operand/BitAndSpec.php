@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\BitAnd;
 use Happyr\DoctrineSpecification\Operand\Field;
+use Happyr\DoctrineSpecification\Operand\Operand;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -24,12 +25,12 @@ class BitAndSpec extends ObjectBehavior
 
     public function it_is_a_bit_and()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\BitAnd');
+        $this->shouldBeAnInstanceOf(BitAnd::class);
     }
 
     public function it_is_a_operand()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Operand');
+        $this->shouldBeAnInstanceOf(Operand::class);
     }
 
     public function it_is_transformable(QueryBuilder $qb, ArrayCollection $parameters)

@@ -4,6 +4,7 @@ namespace tests\Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Operand\Operand;
 use Happyr\DoctrineSpecification\Operand\Subtraction;
 use Happyr\DoctrineSpecification\Operand\Field;
 use PhpSpec\ObjectBehavior;
@@ -24,12 +25,12 @@ class SubtractionSpec extends ObjectBehavior
 
     public function it_is_a_sub()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Subtraction');
+        $this->shouldBeAnInstanceOf(Subtraction::class);
     }
 
     public function it_is_a_operand()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Operand\Operand');
+        $this->shouldBeAnInstanceOf(Operand::class);
     }
 
     public function it_is_transformable(QueryBuilder $qb, ArrayCollection $parameters)
