@@ -14,14 +14,17 @@ use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
 use Happyr\DoctrineSpecification\Operand\Addition;
 use Happyr\DoctrineSpecification\Operand\Division;
+use Happyr\DoctrineSpecification\Operand\Alias;
 use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\LikePattern;
 use Happyr\DoctrineSpecification\Operand\Modulo;
 use Happyr\DoctrineSpecification\Operand\Multiplication;
 use Happyr\DoctrineSpecification\Operand\Operand;
 use Happyr\DoctrineSpecification\Operand\Subtraction;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction;
 use Happyr\DoctrineSpecification\Operand\Value;
 use Happyr\DoctrineSpecification\Operand\Values;
+use Happyr\DoctrineSpecification\Query\AddSelect;
 use Happyr\DoctrineSpecification\Query\GroupBy;
 use Happyr\DoctrineSpecification\Query\InnerJoin;
 use Happyr\DoctrineSpecification\Query\Join;
@@ -30,6 +33,10 @@ use Happyr\DoctrineSpecification\Query\Limit;
 use Happyr\DoctrineSpecification\Query\Offset;
 use Happyr\DoctrineSpecification\Query\OrderBy;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
+use Happyr\DoctrineSpecification\Query\Select;
+use Happyr\DoctrineSpecification\Query\Selection\SelectAs;
+use Happyr\DoctrineSpecification\Query\Selection\SelectEntity;
+use Happyr\DoctrineSpecification\Query\Selection\SelectHiddenAs;
 use Happyr\DoctrineSpecification\Query\Slice;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Result\AsSingleScalar;
@@ -40,9 +47,46 @@ use Happyr\DoctrineSpecification\Specification\Having;
 
 /**
  * Factory class for the specifications.
+ *
+ * @method static PlatformFunction CONCAT($str1, $str2)
+ * @method static PlatformFunction SUBSTRING($str, $start, $length = null) Return substring of given string.
+ * @method static PlatformFunction TRIM($str) Trim the string by the given trim char, defaults to whitespaces.
+ * @method static PlatformFunction LOWER($str) Returns the string lowercased.
+ * @method static PlatformFunction UPPER($str) Return the upper-case of the given string.
+ * @method static PlatformFunction IDENTITY($expression, $fieldMapping = null) Retrieve the foreign key column of association of the owning side
+ * @method static PlatformFunction LENGTH($str) Returns the length of the given string
+ * @method static PlatformFunction LOCATE($needle, $haystack, $offset = 0) Locate the first occurrence of the substring in the string.
+ * @method static PlatformFunction ABS($expression)
+ * @method static PlatformFunction SQRT($q) Return the square-root of q.
+ * @method static PlatformFunction MOD($a, $b) Return a MOD b.
+ * @method static PlatformFunction SIZE($collection) Return the number of elements in the specified collection
+ * @method static PlatformFunction DATE_DIFF($date1, $date2) Calculate the difference in days between date1-date2.
+ * @method static PlatformFunction BIT_AND($a, $b)
+ * @method static PlatformFunction BIT_OR($a, $b)
+ * @method static PlatformFunction MIN($a)
+ * @method static PlatformFunction MAX($a)
+ * @method static PlatformFunction AVG($a)
+ * @method static PlatformFunction SUM($a)
+ * @method static PlatformFunction COUNT($a)
+ * @method static PlatformFunction CURRENT_DATE() Return the current date
+ * @method static PlatformFunction CURRENT_TIME() Returns the current time
+ * @method static PlatformFunction CURRENT_TIMESTAMP() Returns a timestamp of the current date and time.
+ * @method static PlatformFunction DATE_ADD($date, $days, $unit) Add the number of days to a given date. (Supported units are DAY, MONTH)
+ * @method static PlatformFunction DATE_SUB($date, $days, $unit) Substract the number of days from a given date. (Supported units are DAY, MONTH)
  */
 class Spec
 {
+    /**
+     * @param string $name
+     * @param array  $arguments
+     *
+     * @return PlatformFunction
+     */
+    public static function __callStatic($name, array $arguments = [])
+    {
+        return self::fun($name, $arguments);
+    }
+
     /*
      * Logic
      */
@@ -171,6 +215,62 @@ class Spec
     public static function groupBy($field, $dqlAlias = null)
     {
         return new GroupBy($field, $dqlAlias);
+    }
+
+    /*
+     * Selection
+     */
+
+    /**
+     * @param mixed $field
+     *
+     * @return Select
+     */
+    public static function select($field)
+    {
+        return new Select(func_get_args());
+    }
+
+    /**
+     * @param mixed $field
+     *
+     * @return AddSelect
+     */
+    public static function addSelect($field)
+    {
+        return new AddSelect(func_get_args());
+    }
+
+    /**
+     * @param string $dqlAlias
+     *
+     * @return SelectEntity
+     */
+    public static function selectEntity($dqlAlias)
+    {
+        return new SelectEntity($dqlAlias);
+    }
+
+    /**
+     * @param Filter|Operand|string $expression
+     * @param string                $alias
+     *
+     * @return SelectAs
+     */
+    public static function selectAs($expression, $alias)
+    {
+        return new SelectAs($expression, $alias);
+    }
+
+    /**
+     * @param Filter|Operand|string $expression
+     * @param string                $alias
+     *
+     * @return SelectHiddenAs
+     */
+    public static function selectHiddenAs($expression, $alias)
+    {
+        return new SelectHiddenAs($expression, $alias);
     }
 
     /*
@@ -489,5 +589,28 @@ class Spec
     public static function mod($field, $value)
     {
         return new Modulo($field, $value);
+    }
+
+    /**
+     * @param string $functionName
+     * @param mixed  $arguments
+     *
+     * @return PlatformFunction
+     */
+    public static function fun($functionName, $arguments = [])
+    {
+        $arguments = func_get_args();
+
+        return new PlatformFunction(array_shift($arguments), $arguments);
+    }
+
+    /**
+     * @param string $alias
+     *
+     * @return Alias
+     */
+    public static function alias($alias)
+    {
+        return new Alias($alias);
     }
 }
