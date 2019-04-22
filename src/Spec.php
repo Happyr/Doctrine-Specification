@@ -644,6 +644,7 @@ class Spec
     {
         return new BitLeftShift($field, $value);
     }
+
     /**
      * @param Operand|string $field
      * @param Operand|mixed  $value
