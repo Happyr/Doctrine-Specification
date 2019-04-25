@@ -22,9 +22,9 @@ class OrderBy implements QueryModifier
     protected $dqlAlias;
 
     /**
-     * @param string      $field
-     * @param string      $order
-     * @param string|null $dqlAlias
+     * @param string           $field
+     * @param string           $order
+     * @param string|bool|null $dqlAlias
      */
     public function __construct($field, $order = 'ASC', $dqlAlias = null)
     {
@@ -39,10 +39,14 @@ class OrderBy implements QueryModifier
      */
     public function modify(QueryBuilder $qb, $dqlAlias)
     {
-        if (null !== $this->dqlAlias) {
-            $dqlAlias = $this->dqlAlias;
-        }
+        if (false === $this->dqlAlias) {
+            $qb->addOrderBy(sprintf('%s', $this->field), $this->order);
+        } else {
+            if (null !== $this->dqlAlias) {
+                $dqlAlias = $this->dqlAlias;
+            }
 
-        $qb->addOrderBy(sprintf('%s.%s', $dqlAlias, $this->field), $this->order);
+            $qb->addOrderBy(sprintf('%s.%s', $dqlAlias, $this->field), $this->order);
+        }
     }
 }

@@ -17,8 +17,8 @@ class GroupBy implements QueryModifier
     protected $dqlAlias;
 
     /**
-     * @param string $field
-     * @param string $dqlAlias
+     * @param string           $field
+     * @param string|bool|null $dqlAlias
      */
     public function __construct($field, $dqlAlias = null)
     {
@@ -32,9 +32,14 @@ class GroupBy implements QueryModifier
      */
     public function modify(QueryBuilder $qb, $dqlAlias)
     {
-        if (null !== $this->dqlAlias) {
-            $dqlAlias = $this->dqlAlias;
+        if (false === $this->dqlAlias) {
+            $qb->addGroupBy(sprintf('%s', $this->field));
+        } else {
+            if (null !== $this->dqlAlias) {
+                $dqlAlias = $this->dqlAlias;
+            }
+
+            $qb->addGroupBy(sprintf('%s.%s', $dqlAlias, $this->field));
         }
-        $qb->addGroupBy(sprintf('%s.%s', $dqlAlias, $this->field));
     }
 }
