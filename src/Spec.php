@@ -45,6 +45,7 @@ use Happyr\DoctrineSpecification\Query\Selection\SelectEntity;
 use Happyr\DoctrineSpecification\Query\Selection\SelectHiddenAs;
 use Happyr\DoctrineSpecification\Query\Slice;
 use Happyr\DoctrineSpecification\Result\AsArray;
+use Happyr\DoctrineSpecification\Result\AsScalar;
 use Happyr\DoctrineSpecification\Result\AsSingleScalar;
 use Happyr\DoctrineSpecification\Result\Cache;
 use Happyr\DoctrineSpecification\Result\RoundDateTime;
@@ -297,6 +298,14 @@ class Spec
     public static function asSingleScalar()
     {
         return new AsSingleScalar();
+    }
+
+    /**
+     * @return AsScalar
+     */
+    public static function asScalar()
+    {
+        return new AsScalar();
     }
 
     /**
