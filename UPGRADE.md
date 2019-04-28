@@ -1,3 +1,9 @@
+# Upgrade from 0.8 to 1.0
+
+The `Comparison` no longer supports the operator `LIKE`. Use the `Like` filter.
+The `Like` filter no longer expands the `Comparison` base filter.
+The `IsNotNull` filter no longer expands the `IsNull` base filter.
+
 # Upgrade from 0.7 to 0.8
 
 The `CountOf` specification not expect a `Specification` as argument.

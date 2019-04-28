@@ -79,6 +79,46 @@ trait EntitySpecificationRepositoryTrait
     }
 
     /**
+     * Get single scalar result when you match with a Specification.
+     *
+     * @param Filter|QueryModifier $specification
+     * @param ResultModifier|null  $modifier
+     *
+     * @throw Exception\NonUniqueException  If more than one result is found
+     * @throw Exception\NoResultException   If no results found
+     *
+     * @return mixed
+     */
+    public function matchSingleScalarResult($specification, ResultModifier $modifier = null)
+    {
+        $query = $this->getQuery($specification, $modifier);
+
+        try {
+            return $query->getSingleScalarResult();
+        } catch (NonUniqueResultException $e) {
+            throw new Exception\NonUniqueResultException($e->getMessage(), $e->getCode(), $e);
+        }
+    }
+
+    /**
+     * Get scalar result when you match with a Specification.
+     *
+     * @param Filter|QueryModifier $specification
+     * @param ResultModifier|null  $modifier
+     *
+     * @throw Exception\NonUniqueException  If more than one result is found
+     * @throw Exception\NoResultException   If no results found
+     *
+     * @return mixed
+     */
+    public function matchScalarResult($specification, ResultModifier $modifier = null)
+    {
+        $query = $this->getQuery($specification, $modifier);
+
+        return $query->getScalarResult();
+    }
+
+    /**
      * Prepare a Query with a Specification.
      *
      * @param Filter|QueryModifier $specification
@@ -88,9 +128,7 @@ trait EntitySpecificationRepositoryTrait
      */
     public function getQuery($specification, ResultModifier $modifier = null)
     {
-        $qb = $this->createQueryBuilder($this->alias);
-        $this->applySpecification($qb, $specification);
-        $query = $qb->getQuery();
+        $query = $this->getQueryBuilder($specification)->getQuery();
 
         if (null !== $modifier) {
             $modifier->modify($query);
@@ -111,6 +149,21 @@ trait EntitySpecificationRepositoryTrait
         $this->applySpecification($qb, $specification, $alias);
 
         return $qb;
+    }
+
+    /**
+     * Iterate results when you match with a Specification.
+     *
+     * @param Filter|QueryModifier $specification
+     * @param ResultModifier|null  $modifier
+     *
+     * @return mixed[]|\Generator
+     */
+    public function iterate($specification, ResultModifier $modifier = null)
+    {
+        foreach ($this->getQuery($specification, $modifier)->iterate() as $row) {
+            yield current($row);
+        }
     }
 
     /**
@@ -149,8 +202,8 @@ trait EntitySpecificationRepositoryTrait
         if (!$specification instanceof QueryModifier && !$specification instanceof Filter) {
             throw new \InvalidArgumentException(sprintf(
                 'Expected argument of type "%s" or "%s", "%s" given.',
-                'Happyr\DoctrineSpecification\Query\QueryModifier',
-                'Happyr\DoctrineSpecification\Filter\Filter',
+                QueryModifier::class,
+                Filter::class,
                 is_object($specification) ? get_class($specification) : gettype($specification)
             ));
         }

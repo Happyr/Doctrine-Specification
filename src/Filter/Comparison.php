@@ -5,7 +5,8 @@ namespace Happyr\DoctrineSpecification\Filter;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
-use Happyr\DoctrineSpecification\ValueConverter;
+use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
+use Happyr\DoctrineSpecification\Operand\Operand;
 
 /**
  * Comparison class.
@@ -26,20 +27,18 @@ class Comparison implements Filter
 
     const GTE = '>=';
 
-    const LIKE = 'LIKE';
-
     /**
-     * @var string field
+     * @var Operand|string
      */
     protected $field;
 
     /**
-     * @var string value
+     * @var Operand|string
      */
     protected $value;
 
     /**
-     * @var string dqlAlias
+     * @var string
      */
     protected $dqlAlias;
 
@@ -50,7 +49,6 @@ class Comparison implements Filter
         self::EQ, self::NEQ,
         self::LT, self::LTE,
         self::GT, self::GTE,
-        self::LIKE,
     );
 
     /**
@@ -61,10 +59,10 @@ class Comparison implements Filter
     /**
      * Make sure the $field has a value equals to $value.
      *
-     * @param string $operator
-     * @param string $field
-     * @param string $value
-     * @param string $dqlAlias
+     * @param string         $operator
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @throws InvalidArgumentException
      */
@@ -96,25 +94,13 @@ class Comparison implements Filter
             $dqlAlias = $this->dqlAlias;
         }
 
-        $paramName = $this->getParameterName($qb);
-        $qb->setParameter($paramName, ValueConverter::convertToDatabaseValue($this->value, $qb));
+        $field = ArgumentToOperandConverter::toField($this->field);
+        $value = ArgumentToOperandConverter::toValue($this->value);
 
         return (string) new DoctrineComparison(
-            sprintf('%s.%s', $dqlAlias, $this->field),
+            $field->transform($qb, $dqlAlias),
             $this->operator,
-            sprintf(':%s', $paramName)
+            $value->transform($qb, $dqlAlias)
         );
-    }
-
-    /**
-     * Get a good unique parameter name.
-     *
-     * @param QueryBuilder $qb
-     *
-     * @return string
-     */
-    protected function getParameterName(QueryBuilder $qb)
-    {
-        return sprintf('comparison_%d', $qb->getParameters()->count());
     }
 }

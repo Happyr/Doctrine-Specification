@@ -12,6 +12,25 @@ use Happyr\DoctrineSpecification\Filter\Like;
 use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
+use Happyr\DoctrineSpecification\Operand\Addition;
+use Happyr\DoctrineSpecification\Operand\Alias;
+use Happyr\DoctrineSpecification\Operand\BitAnd;
+use Happyr\DoctrineSpecification\Operand\BitLeftShift;
+use Happyr\DoctrineSpecification\Operand\BitNot;
+use Happyr\DoctrineSpecification\Operand\BitOr;
+use Happyr\DoctrineSpecification\Operand\BitRightShift;
+use Happyr\DoctrineSpecification\Operand\BitXor;
+use Happyr\DoctrineSpecification\Operand\Division;
+use Happyr\DoctrineSpecification\Operand\Field;
+use Happyr\DoctrineSpecification\Operand\LikePattern;
+use Happyr\DoctrineSpecification\Operand\Modulo;
+use Happyr\DoctrineSpecification\Operand\Multiplication;
+use Happyr\DoctrineSpecification\Operand\Operand;
+use Happyr\DoctrineSpecification\Operand\Subtraction;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction;
+use Happyr\DoctrineSpecification\Operand\Value;
+use Happyr\DoctrineSpecification\Operand\Values;
+use Happyr\DoctrineSpecification\Query\AddSelect;
 use Happyr\DoctrineSpecification\Query\GroupBy;
 use Happyr\DoctrineSpecification\Query\InnerJoin;
 use Happyr\DoctrineSpecification\Query\Join;
@@ -20,6 +39,10 @@ use Happyr\DoctrineSpecification\Query\Limit;
 use Happyr\DoctrineSpecification\Query\Offset;
 use Happyr\DoctrineSpecification\Query\OrderBy;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
+use Happyr\DoctrineSpecification\Query\Select;
+use Happyr\DoctrineSpecification\Query\Selection\SelectAs;
+use Happyr\DoctrineSpecification\Query\Selection\SelectEntity;
+use Happyr\DoctrineSpecification\Query\Selection\SelectHiddenAs;
 use Happyr\DoctrineSpecification\Query\Slice;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Result\AsScalar;
@@ -31,9 +54,46 @@ use Happyr\DoctrineSpecification\Specification\Having;
 
 /**
  * Factory class for the specifications.
+ *
+ * @method static PlatformFunction CONCAT($str1, $str2)
+ * @method static PlatformFunction SUBSTRING($str, $start, $length = null) Return substring of given string.
+ * @method static PlatformFunction TRIM($str) Trim the string by the given trim char, defaults to whitespaces.
+ * @method static PlatformFunction LOWER($str) Returns the string lowercased.
+ * @method static PlatformFunction UPPER($str) Return the upper-case of the given string.
+ * @method static PlatformFunction IDENTITY($expression, $fieldMapping = null) Retrieve the foreign key column of association of the owning side
+ * @method static PlatformFunction LENGTH($str) Returns the length of the given string
+ * @method static PlatformFunction LOCATE($needle, $haystack, $offset = 0) Locate the first occurrence of the substring in the string.
+ * @method static PlatformFunction ABS($expression)
+ * @method static PlatformFunction SQRT($q) Return the square-root of q.
+ * @method static PlatformFunction MOD($a, $b) Return a MOD b.
+ * @method static PlatformFunction SIZE($collection) Return the number of elements in the specified collection
+ * @method static PlatformFunction DATE_DIFF($date1, $date2) Calculate the difference in days between date1-date2.
+ * @method static PlatformFunction BIT_AND($a, $b)
+ * @method static PlatformFunction BIT_OR($a, $b)
+ * @method static PlatformFunction MIN($a)
+ * @method static PlatformFunction MAX($a)
+ * @method static PlatformFunction AVG($a)
+ * @method static PlatformFunction SUM($a)
+ * @method static PlatformFunction COUNT($a)
+ * @method static PlatformFunction CURRENT_DATE() Return the current date
+ * @method static PlatformFunction CURRENT_TIME() Returns the current time
+ * @method static PlatformFunction CURRENT_TIMESTAMP() Returns a timestamp of the current date and time.
+ * @method static PlatformFunction DATE_ADD($date, $days, $unit) Add the number of days to a given date. (Supported units are DAY, MONTH)
+ * @method static PlatformFunction DATE_SUB($date, $days, $unit) Substract the number of days from a given date. (Supported units are DAY, MONTH)
  */
 class Spec
 {
+    /**
+     * @param string $name
+     * @param array  $arguments
+     *
+     * @return PlatformFunction
+     */
+    public static function __callStatic($name, array $arguments = [])
+    {
+        return self::fun($name, $arguments);
+    }
+
     /*
      * Logic
      */
@@ -44,7 +104,7 @@ class Spec
     public static function andX()
     {
         $args = func_get_args();
-        $reflection = new \ReflectionClass('Happyr\DoctrineSpecification\Logic\AndX');
+        $reflection = new \ReflectionClass(AndX::class);
 
         return $reflection->newInstanceArgs($args);
     }
@@ -55,7 +115,7 @@ class Spec
     public static function orX()
     {
         $args = func_get_args();
-        $reflection = new \ReflectionClass('Happyr\DoctrineSpecification\Logic\OrX');
+        $reflection = new \ReflectionClass(OrX::class);
 
         return $reflection->newInstanceArgs($args);
     }
@@ -165,6 +225,62 @@ class Spec
     }
 
     /*
+     * Selection
+     */
+
+    /**
+     * @param mixed $field
+     *
+     * @return Select
+     */
+    public static function select($field)
+    {
+        return new Select(func_get_args());
+    }
+
+    /**
+     * @param mixed $field
+     *
+     * @return AddSelect
+     */
+    public static function addSelect($field)
+    {
+        return new AddSelect(func_get_args());
+    }
+
+    /**
+     * @param string $dqlAlias
+     *
+     * @return SelectEntity
+     */
+    public static function selectEntity($dqlAlias)
+    {
+        return new SelectEntity($dqlAlias);
+    }
+
+    /**
+     * @param Filter|Operand|string $expression
+     * @param string                $alias
+     *
+     * @return SelectAs
+     */
+    public static function selectAs($expression, $alias)
+    {
+        return new SelectAs($expression, $alias);
+    }
+
+    /**
+     * @param Filter|Operand|string $expression
+     * @param string                $alias
+     *
+     * @return SelectHiddenAs
+     */
+    public static function selectHiddenAs($expression, $alias)
+    {
+        return new SelectHiddenAs($expression, $alias);
+    }
+
+    /*
      * Result modifier
      */
 
@@ -217,8 +333,8 @@ class Spec
      */
 
     /**
-     * @param string      $field
-     * @param string|null $dqlAlias
+     * @param Operand|string $field
+     * @param string|null    $dqlAlias
      *
      * @return IsNull
      */
@@ -228,8 +344,8 @@ class Spec
     }
 
     /**
-     * @param string      $field
-     * @param string|null $dqlAlias
+     * @param Operand|string $field
+     * @param string|null    $dqlAlias
      *
      * @return IsNotNull
      */
@@ -265,9 +381,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @return Comparison
      */
@@ -277,9 +393,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @return Comparison
      */
@@ -289,9 +405,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @return Comparison
      */
@@ -301,9 +417,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @return Comparison
      */
@@ -313,9 +429,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @return Comparison
      */
@@ -325,9 +441,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @return Comparison
      */
@@ -337,10 +453,10 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $format
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param string         $value
+     * @param string         $format
+     * @param string|null    $dqlAlias
      *
      * @return Like
      */
@@ -350,8 +466,8 @@ class Spec
     }
 
     /**
-     * @param string $value
-     * @param null   $dqlAlias
+     * @param string      $value
+     * @param string|null $dqlAlias
      *
      * @return InstanceOfX
      */
@@ -382,5 +498,203 @@ class Spec
     public static function having($spec)
     {
         return new Having($spec);
+    }
+
+    /*
+     * Operands
+     */
+
+    /**
+     * @param string $fieldName
+     *
+     * @return Field
+     */
+    public static function field($fieldName)
+    {
+        return new Field($fieldName);
+    }
+
+    /**
+     * @param mixed           $value
+     * @param int|string|null $valueType
+     *
+     * @return Value
+     */
+    public static function value($value, $valueType = null)
+    {
+        return new Value($value, $valueType);
+    }
+
+    /**
+     * @param array           $values
+     * @param int|string|null $valueType
+     *
+     * @return Values
+     */
+    public static function values($values, $valueType = null)
+    {
+        return new Values($values, $valueType);
+    }
+
+    /**
+     * @param string $value
+     * @param string $format
+     *
+     * @return LikePattern
+     */
+    public static function likePattern($value, $format = LikePattern::CONTAINS)
+    {
+        return new LikePattern($value, $format);
+    }
+
+    /*
+     * Arithmetic operands
+     */
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return Addition
+     */
+    public static function add($field, $value)
+    {
+        return new Addition($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return Subtraction
+     */
+    public static function sub($field, $value)
+    {
+        return new Subtraction($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return Multiplication
+     */
+    public static function mul($field, $value)
+    {
+        return new Multiplication($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return Division
+     */
+    public static function div($field, $value)
+    {
+        return new Division($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return Modulo
+     */
+    public static function mod($field, $value)
+    {
+        return new Modulo($field, $value);
+    }
+
+    /*
+     * Bitwise operands
+     */
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return BitAnd
+     */
+    public static function bAnd($field, $value)
+    {
+        return new BitAnd($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return BitOr
+     */
+    public static function bOr($field, $value)
+    {
+        return new BitOr($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return BitXor
+     */
+    public static function bXor($field, $value)
+    {
+        return new BitXor($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return BitLeftShift
+     */
+    public static function bLs($field, $value)
+    {
+        return new BitLeftShift($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     *
+     * @return BitRightShift
+     */
+    public static function bRs($field, $value)
+    {
+        return new BitRightShift($field, $value);
+    }
+
+    /**
+     * @param Operand|string $field
+     *
+     * @return BitNot
+     */
+    public static function bNot($field)
+    {
+        return new BitNot($field);
+    }
+
+    /**
+     * @param string $functionName
+     * @param mixed  $arguments
+     *
+     * @return PlatformFunction
+     */
+    public static function fun($functionName, $arguments = [])
+    {
+        $arguments = func_get_args();
+
+        return new PlatformFunction(array_shift($arguments), $arguments);
+    }
+
+    /**
+     * @param string $alias
+     *
+     * @return Alias
+     */
+    public static function alias($alias)
+    {
+        return new Alias($alias);
     }
 }

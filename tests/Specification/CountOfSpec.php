@@ -7,6 +7,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Equals;
 use Happyr\DoctrineSpecification\Query\GroupBy;
 use Happyr\DoctrineSpecification\Specification\CountOf;
+use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -19,9 +20,14 @@ class CountOfSpec extends ObjectBehavior
         $this->beConstructedWith(null);
     }
 
+    public function it_is_a_CountOf()
+    {
+        $this->shouldBeAnInstanceOf(CountOf::class);
+    }
+
     public function it_is_a_specification()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Specification\Specification');
+        $this->shouldHaveType(Specification::class);
     }
 
     public function it_count_of_all(QueryBuilder $qb)
@@ -53,14 +59,14 @@ class CountOfSpec extends ObjectBehavior
         $field = 'group';
         $value = 'foo';
         $dqlAlias = 'a';
-        $parameters_count = 0;
-        $paramName = 'comparison_'.$parameters_count;
+        $parametersCount = 0;
+        $paramName = 'comparison_'.$parametersCount;
 
         $this->beConstructedWith(new Equals($field, $value, $dqlAlias));
 
         $qb->select(sprintf('COUNT(%s)', $dqlAlias))->shouldBeCalled();
         $qb->getParameters()->willReturn(new ArrayCollection());
-        $qb->setParameter($paramName, $value)->shouldBeCalled();
+        $qb->setParameter($paramName, $value, null)->shouldBeCalled();
 
         $this->getFilter($qb, $dqlAlias)->shouldBe(sprintf('%s.%s = :%s', $dqlAlias, $field, $paramName));
         $this->modify($qb, $dqlAlias);

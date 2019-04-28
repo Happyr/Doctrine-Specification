@@ -21,7 +21,7 @@ class RoundDateTimeSpec
 
     public function it_is_a_specification()
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Result\RoundDateTime');
+        $this->shouldBeAnInstanceOf(RoundDateTime::class);
     }
 
     public function it_round_date_time_in_query_parameters_for_given_time(

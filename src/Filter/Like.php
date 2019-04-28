@@ -2,34 +2,68 @@
 
 namespace Happyr\DoctrineSpecification\Filter;
 
-class Like extends Comparison
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
+use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
+use Happyr\DoctrineSpecification\Operand\LikePattern;
+use Happyr\DoctrineSpecification\Operand\Operand;
+
+class Like implements Filter
 {
-    const CONTAINS = '%%%s%%';
+    const CONTAINS = LikePattern::CONTAINS;
 
-    const ENDS_WITH = '%%%s';
+    const ENDS_WITH = LikePattern::ENDS_WITH;
 
-    const STARTS_WITH = '%s%%';
+    const STARTS_WITH = LikePattern::STARTS_WITH;
 
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $format
-     * @param string $dqlAlias
+     * @var Operand|string
      */
-    public function __construct($field, $value, $format = self::CONTAINS, $dqlAlias = null)
+    private $field;
+
+    /**
+     * @var LikePattern
+     */
+    private $value;
+
+    /**
+     * @var string
+     */
+    private $dqlAlias;
+
+    /**
+     * @param Operand|string     $field
+     * @param LikePattern|string $value
+     * @param string             $format
+     * @param string|null        $dqlAlias
+     */
+    public function __construct($field, $value, $format = LikePattern::CONTAINS, $dqlAlias = null)
     {
-        $formattedValue = $this->formatValue($format, $value);
-        parent::__construct(self::LIKE, $field, $formattedValue, $dqlAlias);
+        if (!($value instanceof LikePattern)) {
+            $value = new LikePattern($value, $format);
+        }
+        $this->field = $field;
+        $this->value = $value;
+        $this->dqlAlias = $dqlAlias;
     }
 
     /**
-     * @param string $format
-     * @param string $value
+     * @param QueryBuilder $qb
+     * @param string       $dqlAlias
      *
      * @return string
      */
-    private function formatValue($format, $value)
+    public function getFilter(QueryBuilder $qb, $dqlAlias)
     {
-        return sprintf($format, $value);
+        if (null !== $this->dqlAlias) {
+            $dqlAlias = $this->dqlAlias;
+        }
+
+        $field = ArgumentToOperandConverter::toField($this->field);
+
+        $field = $field->transform($qb, $dqlAlias);
+        $value = $this->value->transform($qb, $dqlAlias);
+
+        return (string) new DoctrineComparison($field, 'LIKE', $value);
     }
 }

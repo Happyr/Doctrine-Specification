@@ -49,6 +49,32 @@ interface EntitySpecificationRepositoryInterface
     public function matchOneOrNullResult($specification, ResultModifier $modifier = null);
 
     /**
+     * Get single scalar result when you match with a Specification.
+     *
+     * @param Filter|QueryModifier $specification
+     * @param ResultModifier|null  $modifier
+     *
+     * @throw Exception\NonUniqueException  If more than one result is found
+     * @throw Exception\NoResultException   If no results found
+     *
+     * @return mixed
+     */
+    public function matchSingleScalarResult($specification, ResultModifier $modifier = null);
+
+    /**
+     * Get scalar result when you match with a Specification.
+     *
+     * @param Filter|QueryModifier $specification
+     * @param ResultModifier|null  $modifier
+     *
+     * @throw Exception\NonUniqueException  If more than one result is found
+     * @throw Exception\NoResultException   If no results found
+     *
+     * @return mixed
+     */
+    public function matchScalarResult($specification, ResultModifier $modifier = null);
+
+    /**
      * Prepare a Query with a Specification.
      *
      * @param Filter|QueryModifier $specification
@@ -65,4 +91,14 @@ interface EntitySpecificationRepositoryInterface
      * @return QueryBuilder
      */
     public function getQueryBuilder($specification, $alias = null);
+
+    /**
+     * Iterate results when you match with a Specification.
+     *
+     * @param Filter|QueryModifier $specification
+     * @param ResultModifier|null  $modifier
+     *
+     * @return mixed[]
+     */
+    public function iterate($specification, ResultModifier $modifier = null);
 }

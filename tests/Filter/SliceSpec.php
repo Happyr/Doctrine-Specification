@@ -3,6 +3,7 @@
 namespace tests\Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Query\Slice;
 use PhpSpec\ObjectBehavior;
 
@@ -23,7 +24,7 @@ class SliceSpec extends ObjectBehavior
 
     public function it_is_a_specification()
     {
-        $this->shouldHaveType('Happyr\DoctrineSpecification\Query\QueryModifier');
+        $this->shouldHaveType(QueryModifier::class);
     }
 
     public function it_slice_with_zero_index(QueryBuilder $qb)

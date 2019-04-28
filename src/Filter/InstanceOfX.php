@@ -7,14 +7,14 @@ use Doctrine\ORM\QueryBuilder;
 class InstanceOfX implements Filter
 {
     /**
-     * @var null|string dqlAlias
+     * @var string
      */
-    protected $dqlAlias;
+    private $value;
 
     /**
-     * @var string value
+     * @var string|null
      */
-    protected $value;
+    private $dqlAlias;
 
     /**
      * @param string      $value

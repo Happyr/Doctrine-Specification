@@ -28,12 +28,11 @@ class QueryModifierCollection implements QueryModifier
     {
         foreach ($this->children as $child) {
             if (!$child instanceof QueryModifier) {
-                throw new InvalidArgumentException(
-                    sprintf(
-                        'Child passed to QueryModifierCollection must be an instance of Happyr\DoctrineSpecification\Query\QueryModifier, but instance of %s found',
-                        get_class($child)
-                    )
-                );
+                throw new InvalidArgumentException(sprintf(
+                    'Child passed to QueryModifierCollection must be an instance of %s, but instance of %s found',
+                    QueryModifier::class,
+                    get_class($child)
+                ));
             }
 
             $child->modify($qb, $dqlAlias);

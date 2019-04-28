@@ -17,7 +17,7 @@ class LogicX implements Specification
     const OR_X = 'orX';
 
     /**
-     * @var Filter[]|QueryModifier[] children
+     * @var Filter[]|QueryModifier[]
      */
     private $children;
 
@@ -46,17 +46,14 @@ class LogicX implements Specification
      */
     public function getFilter(QueryBuilder $qb, $dqlAlias)
     {
-        return call_user_func_array(
-            array($qb->expr(), $this->expression),
-            array_map(
-                function ($spec) use ($qb, $dqlAlias) {
-                    if ($spec instanceof Filter) {
-                        return $spec->getFilter($qb, $dqlAlias);
-                    }
-                },
-                $this->children
-            )
-        );
+        $children = [];
+        foreach ($this->children as $spec) {
+            if ($spec instanceof Filter) {
+                $children[] = $spec->getFilter($qb, $dqlAlias);
+            }
+        }
+
+        return call_user_func_array(array($qb->expr(), $this->expression), $children);
     }
 
     /**
@@ -75,7 +72,7 @@ class LogicX implements Specification
     /**
      * Add another child to this logic tree.
      *
-     * @param |Happyr\DoctrineSpecification\Filter\Filter|\Happyr\DoctrineSpecification\Query\QueryModifier $child
+     * @param Filter|QueryModifier $child
      */
     protected function append($child)
     {
