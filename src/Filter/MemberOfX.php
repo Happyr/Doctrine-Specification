@@ -1,0 +1,43 @@
+<?php
+
+namespace Happyr\DoctrineSpecification\Filter;
+
+use Doctrine\ORM\QueryBuilder;
+
+class MemberOfX implements Filter
+{
+    /**
+     * @var string
+     */
+    private $value;
+
+    /**
+     * @var string|null
+     */
+    private $dqlAlias;
+
+    /**
+     * @param string      $value
+     * @param string|null $dqlAlias
+     */
+    public function __construct($value, $dqlAlias = null)
+    {
+        $this->dqlAlias = $dqlAlias;
+        $this->value = $value;
+    }
+
+    /**
+     * @param QueryBuilder $qb
+     * @param string       $dqlAlias
+     *
+     * @return string
+     */
+    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    {
+        if (null !== $this->dqlAlias) {
+            $dqlAlias = $this->dqlAlias;
+        }
+
+        return sprintf('%s MEMBER OF %s', $dqlAlias, $this->value);
+    }
+}
