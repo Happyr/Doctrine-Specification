@@ -2,6 +2,7 @@
 
 namespace tests\Happyr\DoctrineSpecification;
 
+use Happyr\DoctrineSpecification\Filter\MemberOfX;
 use Happyr\DoctrineSpecification\Logic\LogicX;
 use Happyr\DoctrineSpecification\Operand\Addition;
 use Happyr\DoctrineSpecification\Operand\Alias;
@@ -147,5 +148,10 @@ class SpecSpec extends ObjectBehavior
     public function it_creates_alias_operand()
     {
         $this->alias('foo')->shouldReturnAnInstanceOf(Alias::class);
+    }
+
+    public function it_creates_member_of_filter()
+    {
+        $this->memberOfX('foo')->shouldReturnAnInstanceOf(MemberOfX::class);
     }
 }

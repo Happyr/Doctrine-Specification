@@ -3,25 +3,31 @@
 namespace Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Operand\Alias;
+use Happyr\DoctrineSpecification\Operand\Field;
 
 class GroupBy implements QueryModifier
 {
     /**
-     * @var int limit
+     * @var Field|Alias
      */
     protected $field;
 
     /**
-     * @var string dqlAlias
+     * @var string
      */
     protected $dqlAlias;
 
     /**
-     * @param string $field
-     * @param string $dqlAlias
+     * @param Field|Alias|string $field
+     * @param string             $dqlAlias
      */
     public function __construct($field, $dqlAlias = null)
     {
+        if (!($field instanceof Field) && !($field instanceof Alias)) {
+            $field = new Field($field);
+        }
+
         $this->field = $field;
         $this->dqlAlias = $dqlAlias;
     }
@@ -35,6 +41,7 @@ class GroupBy implements QueryModifier
         if (null !== $this->dqlAlias) {
             $dqlAlias = $this->dqlAlias;
         }
-        $qb->addGroupBy(sprintf('%s.%s', $dqlAlias, $this->field));
+
+        $qb->addGroupBy($this->field->transform($qb, $dqlAlias));
     }
 }
