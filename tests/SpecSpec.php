@@ -132,6 +132,6 @@ class SpecSpec extends ObjectBehavior
 
     public function it_creates_member_of_filter()
     {
-        $this->memberOfX('foo')->shouldReturnAnInstanceOf(MemberOfX::class);
+        $this->memberOfX('foo', 'bar')->shouldReturnAnInstanceOf(MemberOfX::class);
     }
 }
