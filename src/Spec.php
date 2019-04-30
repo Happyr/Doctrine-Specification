@@ -91,6 +91,14 @@ class Spec
      */
     public static function __callStatic($name, array $arguments = [])
     {
+        // allow use array in arguments of static function
+        // Spec::DATE_DIFF([$date1, $date2]);
+        // is equal
+        // Spec::DATE_DIFF($date1, $date2);
+        if (count($arguments) === 1 && is_array(current($arguments))) {
+            $arguments = current($arguments);
+        }
+
         return self::fun($name, $arguments);
     }
 
@@ -676,6 +684,13 @@ class Spec
     }
 
     /**
+     * Call DQL function.
+     *
+     * Usage:
+     *  Spec::fun('CURRENT_DATE')
+     *  Spec::fun('DATE_DIFF', $date1, $date2)
+     *  Spec::fun('DATE_DIFF', [$date1, $date2])
+     *
      * @param string $functionName
      * @param mixed  $arguments
      *

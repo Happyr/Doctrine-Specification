@@ -114,6 +114,11 @@ class SpecSpec extends ObjectBehavior
         $this->__callStatic('CONCAT', ['a', 'b'])->shouldReturnAnInstanceOf(PlatformFunction::class);
     }
 
+    public function it_creates_an_magic_function_many_args_inner()
+    {
+        $this->__callStatic('CONCAT', [['a', 'b']])->shouldReturnAnInstanceOf(PlatformFunction::class);
+    }
+
     public function it_creates_select_query_modifier()
     {
         $this->select('foo')->shouldReturnAnInstanceOf(Select::class);
