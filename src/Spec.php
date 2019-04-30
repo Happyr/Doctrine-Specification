@@ -683,9 +683,14 @@ class Spec
      */
     public static function fun($functionName, $arguments = [])
     {
-        $arguments = func_get_args();
+        if (2 === func_num_args()) {
+            $arguments = (array) $arguments;
+        } else {
+            $arguments = func_get_args();
+            $functionName = array_shift($arguments);
+        }
 
-        return new PlatformFunction(array_shift($arguments), $arguments);
+        return new PlatformFunction($functionName, $arguments);
     }
 
     /**
