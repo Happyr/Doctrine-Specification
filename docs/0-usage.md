@@ -214,7 +214,7 @@ $spec = Spec::gt(
     ),
     Spec::value($discount)
 );
-
+```
 
 # Bitwise operands
 
@@ -238,6 +238,7 @@ $spec = Spec::eq(
     ),
     Spec::field('status')
 );
+```
 
 # Functions
 
@@ -260,6 +261,31 @@ Spec::eq(
     Spec::fun('TRIM', Spec::fun('LOWER', Spec::field('email'))),
     trim(strtolower($email))
 );
+```
+
+Without arguments:
+
+```php
+Spec::CURRENT_DATE();
+Spec::fun('CURRENT_DATE');
+```
+
+With one argument:
+
+```php
+Spec::LENGTH('email');
+Spec::LENGTH(['email']);
+Spec::fun('LENGTH', 'email');
+Spec::fun('LENGTH', ['email']);
+```
+
+With several arguments:
+
+```php
+Spec::DATE_DIFF('create_at', $date);
+Spec::DATE_DIFF(['create_at', $date]);
+Spec::fun('DATE_DIFF', 'create_at', $date);
+Spec::fun('DATE_DIFF', ['create_at', $date]);
 ```
 
 # Customize selection

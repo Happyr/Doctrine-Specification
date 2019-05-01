@@ -54,6 +54,16 @@ class PlatformFunctionSpec extends ObjectBehavior
         $this->transform($qb, $dqlAlias)->shouldReturn($expression);
     }
 
+    public function it_is_transformable_many_arguments_as_array(QueryBuilder $qb)
+    {
+        $dqlAlias = 'a';
+        $expression = 'concat(a.foo, a.bar)';
+
+        $this->beConstructedWith('concat', [new Field('foo'), new Field('bar')]);
+
+        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+    }
+
     public function it_is_transformable_custom_string_function(
         QueryBuilder $qb,
         EntityManagerInterface $em,
