@@ -96,7 +96,7 @@ class Spec
         // Spec::DATE_DIFF([$date1, $date2]);
         // is equal
         // Spec::DATE_DIFF($date1, $date2);
-        if (count($arguments) === 1 && is_array(current($arguments))) {
+        if (1 === count($arguments) && is_array(current($arguments))) {
             $arguments = current($arguments);
         }
 
@@ -486,14 +486,15 @@ class Spec
     }
 
     /**
-     * @param string      $value
-     * @param string|null $dqlAlias
+     * @param Operand|string $value
+     * @param Operand|string $field
+     * @param string|null    $dqlAlias
      *
      * @return MemberOfX
      */
-    public static function memberOfX($value, $dqlAlias = null)
+    public static function memberOfX($value, $field, $dqlAlias = null)
     {
-        return new MemberOfX($value, $dqlAlias);
+        return new MemberOfX($value, $field, $dqlAlias);
     }
 
     /*
