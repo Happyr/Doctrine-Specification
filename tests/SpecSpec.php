@@ -92,12 +92,32 @@ class SpecSpec extends ObjectBehavior
 
     public function it_creates_an_function()
     {
-        $this->fun('UPPER', 'foo')->shouldReturnAnInstanceOf(PlatformFunction::class);
+        $this->fun('UPPER', 'arg')->shouldReturnAnInstanceOf(PlatformFunction::class);
+    }
+
+    public function it_creates_an_function_with_many_args()
+    {
+        $this->fun('CONCAT', 'a', 'b')->shouldReturnAnInstanceOf(PlatformFunction::class);
+    }
+
+    public function it_creates_an_function_with_many_args_as_array()
+    {
+        $this->fun('CONCAT', ['a', 'b'])->shouldReturnAnInstanceOf(PlatformFunction::class);
     }
 
     public function it_creates_an_magic_function()
     {
-        $this->__callStatic('UPPER', ['foo'])->shouldReturnAnInstanceOf(PlatformFunction::class);
+        $this->__callStatic('UPPER', ['arg'])->shouldReturnAnInstanceOf(PlatformFunction::class);
+    }
+
+    public function it_creates_an_magic_function_many_args()
+    {
+        $this->__callStatic('CONCAT', ['a', 'b'])->shouldReturnAnInstanceOf(PlatformFunction::class);
+    }
+
+    public function it_creates_an_magic_function_many_args_inner()
+    {
+        $this->__callStatic('CONCAT', [['a', 'b']])->shouldReturnAnInstanceOf(PlatformFunction::class);
     }
 
     public function it_creates_select_query_modifier()
