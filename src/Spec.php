@@ -96,7 +96,7 @@ class Spec
         // Spec::DATE_DIFF([$date1, $date2]);
         // is equal
         // Spec::DATE_DIFF($date1, $date2);
-        if (count($arguments) === 1 && is_array(current($arguments))) {
+        if (1 === count($arguments) && is_array(current($arguments))) {
             $arguments = current($arguments);
         }
 
