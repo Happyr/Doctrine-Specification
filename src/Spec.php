@@ -478,15 +478,15 @@ class Spec
     }
 
     /**
-     * @param Operand|string $field
      * @param Operand|string $value
+     * @param Operand|string $field
      * @param string|null    $dqlAlias
      *
      * @return MemberOfX
      */
-    public static function memberOfX($field, $value, $dqlAlias = null)
+    public static function memberOfX($value, $field, $dqlAlias = null)
     {
-        return new MemberOfX($field, $value, $dqlAlias);
+        return new MemberOfX($value, $field, $dqlAlias);
     }
 
     /*

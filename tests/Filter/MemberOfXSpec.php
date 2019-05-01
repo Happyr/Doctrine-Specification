@@ -17,7 +17,7 @@ class MemberOfXSpec extends ObjectBehavior
 {
     public function let()
     {
-        $this->beConstructedWith('age', 18, 'a');
+        $this->beConstructedWith(18, 'age', 'a');
     }
 
     public function it_is_initializable()

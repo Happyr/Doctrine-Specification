@@ -24,14 +24,14 @@ class MemberOfX implements Filter
     private $dqlAlias;
 
     /**
-     * @param Operand|string $field
      * @param Operand|string $value
+     * @param Operand|string $field
      * @param string|null    $dqlAlias
      */
-    public function __construct($field, $value, $dqlAlias = null)
+    public function __construct($value, $field, $dqlAlias = null)
     {
-        $this->field = $field;
         $this->value = $value;
+        $this->field = $field;
         $this->dqlAlias = $dqlAlias;
     }
 
