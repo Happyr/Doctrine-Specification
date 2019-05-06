@@ -33,6 +33,7 @@ use Happyr\DoctrineSpecification\Operand\Value;
 use Happyr\DoctrineSpecification\Operand\Values;
 use Happyr\DoctrineSpecification\Query\AddSelect;
 use Happyr\DoctrineSpecification\Query\GroupBy;
+use Happyr\DoctrineSpecification\Query\IndexBy;
 use Happyr\DoctrineSpecification\Query\InnerJoin;
 use Happyr\DoctrineSpecification\Query\Join;
 use Happyr\DoctrineSpecification\Query\LeftJoin;
@@ -177,6 +178,17 @@ class Spec
     public static function innerJoin($field, $newAlias, $dqlAlias = null)
     {
         return new InnerJoin($field, $newAlias, $dqlAlias);
+    }
+
+    /**
+     * @param string $field
+     * @param string $dqlAlias
+     *
+     * @return IndexBy
+     */
+    public static function indexBy($field, $dqlAlias = null)
+    {
+        return new IndexBy($field, $dqlAlias);
     }
 
     /**
