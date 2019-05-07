@@ -3,6 +3,7 @@
 namespace Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Operand\Field;
 
 /**
  * Class IndexBy.
@@ -10,9 +11,9 @@ use Doctrine\ORM\QueryBuilder;
 class IndexBy implements QueryModifier
 {
     /**
-     * Field name.
+     * Field.
      *
-     * @var string
+     * @var Field
      */
     private $field;
 
@@ -26,11 +27,14 @@ class IndexBy implements QueryModifier
     /**
      * IndexBy constructor.
      *
-     * @param string $field    Field name for indexing
-     * @param string $dqlAlias DQL alias of field
+     * @param Field|string $field    Field name for indexing
+     * @param string       $dqlAlias DQL alias of field
      */
     public function __construct($field, $dqlAlias = null)
     {
+        if (!($field instanceof Field)) {
+            $field = new Field($field);
+        }
         $this->field = $field;
         $this->dqlAlias = $dqlAlias;
     }
@@ -44,6 +48,6 @@ class IndexBy implements QueryModifier
             $dqlAlias = $this->dqlAlias;
         }
 
-        $qb->indexBy($dqlAlias, sprintf('%s.%s', $dqlAlias, $this->field));
+        $qb->indexBy($dqlAlias, $this->field->transform($qb, $dqlAlias));
     }
 }
