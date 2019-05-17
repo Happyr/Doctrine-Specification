@@ -48,5 +48,7 @@ class Having implements Specification
         } else {
             $qb->having($this->child);
         }
+
+        return '';
     }
 }
