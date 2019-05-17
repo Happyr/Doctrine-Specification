@@ -8,14 +8,14 @@ use Happyr\DoctrineSpecification\Filter\Filter;
 class Having implements QueryModifier
 {
     /**
-     * @var Filter|string
+     * @var Filter
      */
     private $filter;
 
     /**
-     * @param Filter|string $filter
+     * @param Filter $filter
      */
-    public function __construct($filter)
+    public function __construct(Filter $filter)
     {
         $this->filter = $filter;
     }
@@ -26,10 +26,6 @@ class Having implements QueryModifier
      */
     public function modify(QueryBuilder $qb, $dqlAlias)
     {
-        if ($this->filter instanceof Filter) {
-            $qb->having($this->filter->getFilter($qb, $dqlAlias));
-        } else {
-            $qb->having($this->filter);
-        }
+        $qb->having($this->filter->getFilter($qb, $dqlAlias));
     }
 }

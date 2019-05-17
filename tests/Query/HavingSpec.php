@@ -28,13 +28,7 @@ class HavingSpec extends ObjectBehavior
         $this->shouldHaveType(QueryModifier::class);
     }
 
-    public function it_add_string_filter_to_having(QueryBuilder $qb)
-    {
-        $qb->having('foo = :bar')->shouldBeCalled();
-        $this->modify($qb, 'a');
-    }
-
-    public function it_add_object_filter_to_having(QueryBuilder $qb, Filter $filter)
+    public function it_add_having(QueryBuilder $qb, Filter $filter)
     {
         $this->beConstructedWith($filter);
         $filter->getFilter($qb, 'a')->willReturn('foo = :bar');
