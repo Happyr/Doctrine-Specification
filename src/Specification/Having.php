@@ -6,6 +6,9 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 
+/**
+ * @deprecated Will be removed in 2.0. Use \Happyr\DoctrineSpecification\Query\Having instead.
+ */
 class Having implements Specification
 {
     /**
