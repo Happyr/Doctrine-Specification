@@ -13,9 +13,9 @@ use PhpSpec\ObjectBehavior;
  */
 class HavingSpec extends ObjectBehavior
 {
-    public function let()
+    public function let(Filter $filter)
     {
-        $this->beConstructedWith('foo = :bar');
+        $this->beConstructedWith($filter);
     }
 
     public function it_is_a_having()
