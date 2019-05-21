@@ -13,11 +13,18 @@ class Field implements Operand, Selection
     private $fieldName = '';
 
     /**
-     * @param string $fieldName
+     * @var string
      */
-    public function __construct($fieldName)
+    private $dqlAlias;
+
+    /**
+     * @param string      $fieldName
+     * @param string|null $dqlAlias
+     */
+    public function __construct($fieldName, $dqlAlias = null)
     {
         $this->fieldName = $fieldName;
+        $this->dqlAlias = $dqlAlias;
     }
 
     /**
@@ -28,6 +35,10 @@ class Field implements Operand, Selection
      */
     public function transform(QueryBuilder $qb, $dqlAlias)
     {
+        if (null !== $this->dqlAlias) {
+            $dqlAlias = $this->dqlAlias;
+        }
+
         return sprintf('%s.%s', $dqlAlias, $this->fieldName);
     }
 }
