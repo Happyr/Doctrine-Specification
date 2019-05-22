@@ -538,13 +538,14 @@ class Spec
      */
 
     /**
-     * @param string $fieldName
+     * @param string      $fieldName
+     * @param string|null $dqlAlias
      *
      * @return Field
      */
-    public static function field($fieldName)
+    public static function field($fieldName, $dqlAlias = null)
     {
-        return new Field($fieldName);
+        return new Field($fieldName, $dqlAlias);
     }
 
     /**
