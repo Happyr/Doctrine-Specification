@@ -12,12 +12,12 @@ use Happyr\DoctrineSpecification\Query\QueryModifier;
 class Having implements Specification
 {
     /**
-     * @var Filter|string child
+     * @var Filter|QueryModifier|string
      */
     protected $child;
 
     /**
-     * @param Filter|string $child
+     * @param Filter|QueryModifier|string $child
      */
     public function __construct($child)
     {

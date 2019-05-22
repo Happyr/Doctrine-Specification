@@ -524,7 +524,7 @@ class Spec
     }
 
     /**
-     * @param Filter|string $spec
+     * @param Filter $spec
      *
      * @return Having
      */
