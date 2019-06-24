@@ -56,7 +56,7 @@ abstract class BaseSpecification implements Specification
     /**
      * Return all the specifications.
      *
-     * @return Specification
+     * @return Filter|QueryModifier
      */
     protected function getSpec()
     {
