@@ -29,7 +29,7 @@ abstract class AbstractSelect implements QueryModifier
     {
         $selections = [];
         foreach ($this->selections as $selection) {
-            $selection = ArgumentToSelectionConverter::toSelection($selection);
+            $selection = ArgumentToSelectionConverter::toSelection($selection, $dqlAlias, $this);
             $selections[] = $selection->transform($qb, $dqlAlias);
         }
 
