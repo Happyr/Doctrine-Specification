@@ -13,9 +13,9 @@ class ArgumentToSelectionConverter
     /**
      * Convert the argument into the field operand if it is not an selection.
      *
-     * @param Selection|string  $argument
+     * @param Selection|string $argument
      * @param $dqlAlias
-     * @param AbstractSelect    $instance
+     * @param AbstractSelect $instance
      *
      * @return Selection
      */

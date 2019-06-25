@@ -18,6 +18,7 @@ class Field implements Operand, Selection
      * @var string
      */
     private $dqlAlias;
+
     /**
      * @var AbstractSelect
      */
@@ -49,6 +50,7 @@ class Field implements Operand, Selection
         if ($this->instance instanceof AddSelect) {
             return sprintf('%s', $this->fieldName);
         }
+
         return sprintf('%s.%s', $dqlAlias, $this->fieldName);
     }
 }
