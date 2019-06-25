@@ -24,11 +24,11 @@ class Field implements Operand, Selection
     private $instance;
 
     /**
-     * @param string $fieldName
-     * @param string|null $dqlAlias
-     * @param AbstractSelect|null $instance
+     * @param string                $fieldName
+     * @param string|null           $dqlAlias
+     * @param AbstractSelect|null   $instance
      */
-    public function __construct($fieldName, $dqlAlias = null, $instance=null)
+    public function __construct($fieldName, $dqlAlias = null, $instance = null)
     {
         $this->fieldName = $fieldName;
         $this->dqlAlias = $dqlAlias;
@@ -37,7 +37,7 @@ class Field implements Operand, Selection
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string $dqlAlias
      *
      * @return string
      */
