@@ -23,9 +23,6 @@ abstract class Bitwise implements Operand
     private static $operations = array(
         self::B_AND,
         self::B_OR,
-        self::B_XOR,
-        self::B_LS,
-        self::B_RS,
     );
 
     /**
@@ -71,12 +68,8 @@ abstract class Bitwise implements Operand
      */
     public function transform(QueryBuilder $qb, $dqlAlias)
     {
-        $field = ArgumentToOperandConverter::toField($this->field);
-        $value = ArgumentToOperandConverter::toValue($this->value);
+        $function = self::B_AND === $this->operation ? 'BIT_AND' : 'BIT_OR';
 
-        $field = $field->transform($qb, $dqlAlias);
-        $value = $value->transform($qb, $dqlAlias);
-
-        return sprintf('(%s %s %s)', $field, $this->operation, $value);
+        return (new PlatformFunction($function, $this->field, $this->value))->transform($qb, $dqlAlias);
     }
 }
