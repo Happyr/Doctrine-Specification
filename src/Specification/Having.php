@@ -6,15 +6,18 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 
+/**
+ * @deprecated Will be removed in 2.0. Use \Happyr\DoctrineSpecification\Query\Having instead.
+ */
 class Having implements Specification
 {
     /**
-     * @var Filter|string child
+     * @var Filter|QueryModifier|string
      */
     protected $child;
 
     /**
-     * @param Filter|string $child
+     * @param Filter|QueryModifier|string $child
      */
     public function __construct($child)
     {
@@ -45,5 +48,7 @@ class Having implements Specification
         } else {
             $qb->having($this->child);
         }
+
+        return '';
     }
 }
