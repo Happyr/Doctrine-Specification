@@ -40,12 +40,12 @@ class BitOrSpec extends ObjectBehavior
 
         $qb->setParameter('comparison_10', $this->value, null)->shouldBeCalled();
 
-        $this->transform($qb, 'a')->shouldReturn('(a.foo | :comparison_10)');
+        $this->transform($qb, 'a')->shouldReturn('BIT_OR(a.foo, :comparison_10)');
     }
 
     public function it_is_transformable_add_fields(QueryBuilder $qb)
     {
         $this->beConstructedWith(new Field('foo'), new Field('bar'));
-        $this->transform($qb, 'a')->shouldReturn('(a.foo | a.bar)');
+        $this->transform($qb, 'a')->shouldReturn('BIT_OR(a.foo, a.bar)');
     }
 }

@@ -7,11 +7,7 @@ use Happyr\DoctrineSpecification\Logic\LogicX;
 use Happyr\DoctrineSpecification\Operand\Addition;
 use Happyr\DoctrineSpecification\Operand\Alias;
 use Happyr\DoctrineSpecification\Operand\BitAnd;
-use Happyr\DoctrineSpecification\Operand\BitLeftShift;
-use Happyr\DoctrineSpecification\Operand\BitNot;
 use Happyr\DoctrineSpecification\Operand\BitOr;
-use Happyr\DoctrineSpecification\Operand\BitRightShift;
-use Happyr\DoctrineSpecification\Operand\BitXor;
 use Happyr\DoctrineSpecification\Operand\Division;
 use Happyr\DoctrineSpecification\Operand\Modulo;
 use Happyr\DoctrineSpecification\Operand\Multiplication;
@@ -68,26 +64,6 @@ class SpecSpec extends ObjectBehavior
     public function it_create_bit_or_operand()
     {
         $this->bOr('foo', 'bar')->shouldReturnAnInstanceOf(BitOr::class);
-    }
-
-    public function it_create_bit_xor_operand()
-    {
-        $this->bXor('foo', 'bar')->shouldReturnAnInstanceOf(BitXor::class);
-    }
-
-    public function it_create_bit_left_shift_operand()
-    {
-        $this->bLs('foo', 'bar')->shouldReturnAnInstanceOf(BitLeftShift::class);
-    }
-
-    public function it_create_bit_right_shift_operand()
-    {
-        $this->bRs('foo', 'bar')->shouldReturnAnInstanceOf(BitRightShift::class);
-    }
-
-    public function it_create_bit_not_operand()
-    {
-        $this->bNot('foo')->shouldReturnAnInstanceOf(BitNot::class);
     }
 
     public function it_creates_an_function()
