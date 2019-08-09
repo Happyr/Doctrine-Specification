@@ -16,7 +16,6 @@ php:
   - 7.1
   - 7.2
   - 7.3
-  - hhvm
 
 env:
   global:
@@ -24,8 +23,6 @@ env:
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - php: hhvm
 
 install:
     - travis_retry composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction
