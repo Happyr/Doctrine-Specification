@@ -33,6 +33,12 @@ class Having implements Specification
         if ($this->child instanceof QueryModifier) {
             $this->child->modify($qb, $dqlAlias);
         }
+
+        if ($this->child instanceof Filter) {
+            $qb->having($this->child->getFilter($qb, $dqlAlias));
+        } else {
+            $qb->having($this->child);
+        }
     }
 
     /**
@@ -43,12 +49,6 @@ class Having implements Specification
      */
     public function getFilter(QueryBuilder $qb, $dqlAlias)
     {
-        if ($this->child instanceof Filter) {
-            $qb->having($this->child->getFilter($qb, $dqlAlias));
-        } else {
-            $qb->having($this->child);
-        }
-
-        return '';
+        return;
     }
 }
