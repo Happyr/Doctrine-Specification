@@ -9,20 +9,20 @@ branches:
     - /^analysis-.*$/
     - /^patch-.*$/
 
-php:
-  - 5.5
-  - 5.6
-  - 7.0
-  - 7.1
-  - 7.2
-  - 7.3
-
 env:
   global:
     - TEST_COMMAND="composer test"
 
 matrix:
   fast_finish: true
+  include:
+    - php: 7.3
+    - php: 7.2
+    - php: 7.1
+    - php: 7.0
+    - php: 5.6
+    - php: 5.5
+      dist: trusty
 
 install:
     - travis_retry composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction
