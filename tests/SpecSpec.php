@@ -8,6 +8,7 @@ use Happyr\DoctrineSpecification\Operand\Addition;
 use Happyr\DoctrineSpecification\Operand\Alias;
 use Happyr\DoctrineSpecification\Operand\BitAnd;
 use Happyr\DoctrineSpecification\Operand\BitOr;
+use Happyr\DoctrineSpecification\Operand\CountDistinct;
 use Happyr\DoctrineSpecification\Operand\Division;
 use Happyr\DoctrineSpecification\Operand\Modulo;
 use Happyr\DoctrineSpecification\Operand\Multiplication;
@@ -35,6 +36,11 @@ class SpecSpec extends ObjectBehavior
     public function it_creates_distinct()
     {
         $this->distinct()->shouldReturnAnInstanceOf(Distinct::class);
+    }
+
+    public function it_creates_count_distinct()
+    {
+        $this->countDistinct('foo')->shouldReturnAnInstanceOf(CountDistinct::class);
     }
 
     public function it_creates_add_operand()

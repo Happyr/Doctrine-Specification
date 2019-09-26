@@ -21,6 +21,7 @@ use Happyr\DoctrineSpecification\Operand\BitNot;
 use Happyr\DoctrineSpecification\Operand\BitOr;
 use Happyr\DoctrineSpecification\Operand\BitRightShift;
 use Happyr\DoctrineSpecification\Operand\BitXor;
+use Happyr\DoctrineSpecification\Operand\CountDistinct;
 use Happyr\DoctrineSpecification\Operand\Division;
 use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\LikePattern;
@@ -588,6 +589,16 @@ class Spec
     public static function likePattern($value, $format = LikePattern::CONTAINS)
     {
         return new LikePattern($value, $format);
+    }
+
+    /**
+     * @param Operand|string $field
+     *
+     * @return CountDistinct
+     */
+    public static function countDistinct($field)
+    {
+        return new CountDistinct($field);
     }
 
     /*
