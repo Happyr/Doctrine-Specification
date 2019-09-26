@@ -14,6 +14,7 @@ use Happyr\DoctrineSpecification\Operand\Multiplication;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction;
 use Happyr\DoctrineSpecification\Operand\Subtraction;
 use Happyr\DoctrineSpecification\Query\AddSelect;
+use Happyr\DoctrineSpecification\Query\Distinct;
 use Happyr\DoctrineSpecification\Query\Select;
 use Happyr\DoctrineSpecification\Query\Selection\SelectAs;
 use Happyr\DoctrineSpecification\Query\Selection\SelectEntity;
@@ -29,6 +30,11 @@ class SpecSpec extends ObjectBehavior
     public function it_creates_an_x_specification()
     {
         $this->andX()->shouldReturnAnInstanceOf(LogicX::class);
+    }
+
+    public function it_creates_distinct()
+    {
+        $this->distinct()->shouldReturnAnInstanceOf(Distinct::class);
     }
 
     public function it_creates_add_operand()

@@ -32,6 +32,7 @@ use Happyr\DoctrineSpecification\Operand\PlatformFunction;
 use Happyr\DoctrineSpecification\Operand\Value;
 use Happyr\DoctrineSpecification\Operand\Values;
 use Happyr\DoctrineSpecification\Query\AddSelect;
+use Happyr\DoctrineSpecification\Query\Distinct;
 use Happyr\DoctrineSpecification\Query\GroupBy;
 use Happyr\DoctrineSpecification\Query\IndexBy;
 use Happyr\DoctrineSpecification\Query\InnerJoin;
@@ -243,6 +244,14 @@ class Spec
     public static function groupBy($field, $dqlAlias = null)
     {
         return new GroupBy($field, $dqlAlias);
+    }
+
+    /**
+     * @return Distinct
+     */
+    public static function distinct()
+    {
+        return new Distinct();
     }
 
     /*
