@@ -3,9 +3,7 @@
 namespace tests\Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\Distinct;
-use Happyr\DoctrineSpecification\Query\Having;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use PhpSpec\ObjectBehavior;
 

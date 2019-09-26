@@ -2,7 +2,6 @@
 
 namespace tests\Happyr\DoctrineSpecification\Operand;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\CountDistinct;
 use Happyr\DoctrineSpecification\Operand\Operand;
