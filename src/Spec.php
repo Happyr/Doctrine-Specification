@@ -21,6 +21,7 @@ use Happyr\DoctrineSpecification\Operand\BitNot;
 use Happyr\DoctrineSpecification\Operand\BitOr;
 use Happyr\DoctrineSpecification\Operand\BitRightShift;
 use Happyr\DoctrineSpecification\Operand\BitXor;
+use Happyr\DoctrineSpecification\Operand\CountDistinct;
 use Happyr\DoctrineSpecification\Operand\Division;
 use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\LikePattern;
@@ -32,6 +33,7 @@ use Happyr\DoctrineSpecification\Operand\PlatformFunction;
 use Happyr\DoctrineSpecification\Operand\Value;
 use Happyr\DoctrineSpecification\Operand\Values;
 use Happyr\DoctrineSpecification\Query\AddSelect;
+use Happyr\DoctrineSpecification\Query\Distinct;
 use Happyr\DoctrineSpecification\Query\GroupBy;
 use Happyr\DoctrineSpecification\Query\IndexBy;
 use Happyr\DoctrineSpecification\Query\InnerJoin;
@@ -243,6 +245,14 @@ class Spec
     public static function groupBy($field, $dqlAlias = null)
     {
         return new GroupBy($field, $dqlAlias);
+    }
+
+    /**
+     * @return Distinct
+     */
+    public static function distinct()
+    {
+        return new Distinct();
     }
 
     /*
@@ -579,6 +589,16 @@ class Spec
     public static function likePattern($value, $format = LikePattern::CONTAINS)
     {
         return new LikePattern($value, $format);
+    }
+
+    /**
+     * @param Operand|string $field
+     *
+     * @return CountDistinct
+     */
+    public static function countDistinct($field)
+    {
+        return new CountDistinct($field);
     }
 
     /*
