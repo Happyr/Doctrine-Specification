@@ -9,10 +9,6 @@ branches:
     - /^analysis-.*$/
     - /^patch-.*$/
 
-env:
-  global:
-    - TEST_COMMAND="composer test"
-
 matrix:
   fast_finish: true
   include:
