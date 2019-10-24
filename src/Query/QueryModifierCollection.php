@@ -17,6 +17,7 @@ class QueryModifierCollection implements QueryModifier
      */
     public function __construct()
     {
+        // NEXT_MAJOR: use variable-length argument lists (...$children)
         $this->children = func_get_args();
     }
 

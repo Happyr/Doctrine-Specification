@@ -9,6 +9,7 @@ class OrX extends LogicX
 {
     public function __construct()
     {
+        // NEXT_MAJOR: use variable-length argument lists (...$children)
         parent::__construct(self::OR_X, func_get_args());
     }
 

@@ -18,6 +18,7 @@ abstract class AbstractSelect implements QueryModifier
      */
     public function __construct($field)
     {
+        // NEXT_MAJOR: use variable-length argument lists (...$fields)
         $this->selections = is_array($field) ? $field : func_get_args();
     }
 

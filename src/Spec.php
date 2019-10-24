@@ -115,6 +115,7 @@ class Spec
      */
     public static function andX()
     {
+        // NEXT_MAJOR: use variable-length argument lists (...$specs)
         $args = func_get_args();
         $reflection = new \ReflectionClass(AndX::class);
 
@@ -126,6 +127,7 @@ class Spec
      */
     public static function orX()
     {
+        // NEXT_MAJOR: use variable-length argument lists (...$specs)
         $args = func_get_args();
         $reflection = new \ReflectionClass(OrX::class);
 
@@ -266,6 +268,7 @@ class Spec
      */
     public static function select($field)
     {
+        // NEXT_MAJOR: use variable-length argument lists (...$fields)
         return new Select(func_get_args());
     }
 
@@ -276,6 +279,7 @@ class Spec
      */
     public static function addSelect($field)
     {
+        // NEXT_MAJOR: use variable-length argument lists (...$fields)
         return new AddSelect(func_get_args());
     }
 
@@ -744,6 +748,7 @@ class Spec
      */
     public static function fun($functionName, $arguments = [])
     {
+        // NEXT_MAJOR: use variable-length argument lists ($functionName, ...$arguments)
         if (2 === func_num_args()) {
             $arguments = (array) $arguments;
         } else {

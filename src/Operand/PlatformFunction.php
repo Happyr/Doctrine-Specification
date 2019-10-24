@@ -62,6 +62,7 @@ class PlatformFunction implements Operand
      */
     public function __construct($functionName, $arguments = [])
     {
+        // NEXT_MAJOR: use variable-length argument lists ($functionName, ...$arguments)
         if (2 === func_num_args()) {
             $this->functionName = $functionName;
             $this->arguments = (array) $arguments;
