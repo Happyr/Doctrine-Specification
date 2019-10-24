@@ -29,10 +29,12 @@ class RoundDateTime implements ResultModifier
     public function modify(AbstractQuery $query)
     {
         foreach ($query->getParameters() as $parameter) {
-            /* @var $parameter Parameter */
-            if ($parameter->getValue() instanceof \DateTimeInterface) {
+            if ($parameter instanceof Parameter &&
+                ($value = $parameter->getValue()) &&
+                $value instanceof \DateTimeInterface
+            ) {
                 // round down so that the results do not include data that should not be there.
-                $date = clone $parameter->getValue();
+                $date = new \DateTimeImmutable('now', $value->getTimezone());
                 $date = $date->setTimestamp(floor($date->getTimestamp() / $this->roundSeconds) * $this->roundSeconds);
 
                 $query->setParameter($parameter->getName(), $date, $parameter->getType());
