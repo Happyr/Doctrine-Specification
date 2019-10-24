@@ -544,6 +544,12 @@ class Spec
      */
     public static function having($spec)
     {
+        if (!($spec instanceof Filter)) {
+            @trigger_error('Using "'.(is_object($spec) ? get_class($spec) : gettype($spec)).'" as argument in '.__METHOD__.' method is deprecated since version 1.1 and will not be possible in 2.0.', E_USER_DEPRECATED);
+        }
+
+        // NEXT_MAJOR: use here \Happyr\DoctrineSpecification\Query\Having
+
         return new Having($spec);
     }
 
