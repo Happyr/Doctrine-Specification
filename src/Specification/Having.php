@@ -49,6 +49,6 @@ class Having implements Specification
      */
     public function getFilter(QueryBuilder $qb, $dqlAlias)
     {
-        return;
+        return '';
     }
 }

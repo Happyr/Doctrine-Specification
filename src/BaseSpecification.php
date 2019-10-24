@@ -38,7 +38,7 @@ abstract class BaseSpecification implements Specification
             return $spec->getFilter($qb, $this->getAlias($dqlAlias));
         }
 
-        return;
+        return '';
     }
 
     /**
@@ -56,11 +56,11 @@ abstract class BaseSpecification implements Specification
     /**
      * Return all the specifications.
      *
-     * @return Filter|QueryModifier
+     * @return Filter|QueryModifier|null
      */
     protected function getSpec()
     {
-        return;
+        return null;
     }
 
     /**

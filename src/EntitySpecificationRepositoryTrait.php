@@ -74,7 +74,7 @@ trait EntitySpecificationRepositoryTrait
         try {
             return $this->matchSingleResult($specification, $modifier);
         } catch (Exception\NoResultException $e) {
-            return;
+            return null;
         }
     }
 
@@ -213,7 +213,7 @@ trait EntitySpecificationRepositoryTrait
         }
 
         if ($specification instanceof Filter
-            && $filter = (string) $specification->getFilter($queryBuilder, $alias ?: $this->getAlias())
+            && $filter = $specification->getFilter($queryBuilder, $alias ?: $this->getAlias())
         ) {
             $queryBuilder->andWhere($filter);
         }
