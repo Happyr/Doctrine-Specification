@@ -115,10 +115,16 @@ class Spec
      */
     public static function andX()
     {
-        $args = func_get_args();
-        $reflection = new \ReflectionClass(AndX::class);
+        $spec = (new \ReflectionClass(AndX::class))->newInstanceArgs(func_get_args());
 
-        return $reflection->newInstanceArgs($args);
+        // hook for PHPStan
+        if (!($spec instanceof AndX)) {
+            throw new \RuntimeException(
+                sprintf('The specification must be an instance of "%s", but got "%s".', AndX::class, get_class($spec))
+            );
+        }
+
+        return $spec;
     }
 
     /**
@@ -126,10 +132,16 @@ class Spec
      */
     public static function orX()
     {
-        $args = func_get_args();
-        $reflection = new \ReflectionClass(OrX::class);
+        $spec = (new \ReflectionClass(OrX::class))->newInstanceArgs(func_get_args());
 
-        return $reflection->newInstanceArgs($args);
+        // hook for PHPStan
+        if (!($spec instanceof OrX)) {
+            throw new \RuntimeException(
+                sprintf('The specification must be an instance of "%s", but got "%s".', OrX::class, get_class($spec))
+            );
+        }
+
+        return $spec;
     }
 
     /**

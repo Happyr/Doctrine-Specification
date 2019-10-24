@@ -48,8 +48,8 @@ class LogicX implements Specification
     {
         $children = [];
         foreach ($this->children as $spec) {
-            if ($spec instanceof Filter) {
-                $children[] = $spec->getFilter($qb, $dqlAlias);
+            if ($spec instanceof Filter && $filter = $spec->getFilter($qb, $dqlAlias)) {
+                $children[] = $filter;
             }
         }
 
