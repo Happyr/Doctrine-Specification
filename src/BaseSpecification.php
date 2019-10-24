@@ -60,6 +60,8 @@ abstract class BaseSpecification implements Specification
      */
     protected function getSpec()
     {
+        @trigger_error('Using the default implementation of '.__METHOD__.' method is deprecated since version 1.1 and this method will be marked as abstract in 2.0. You must overwrite this implementation.', E_USER_DEPRECATED);
+
         return;
     }
 
