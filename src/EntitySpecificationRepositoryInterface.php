@@ -98,7 +98,7 @@ interface EntitySpecificationRepositoryInterface
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @return mixed[]
+     * @return \Traversable
      */
     public function iterate($specification, ResultModifier $modifier = null);
 }

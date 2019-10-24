@@ -157,7 +157,7 @@ trait EntitySpecificationRepositoryTrait
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @return mixed[]|\Generator
+     * @return \Traversable
      */
     public function iterate($specification, ResultModifier $modifier = null)
     {
