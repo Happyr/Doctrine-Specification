@@ -38,7 +38,7 @@ abstract class BaseSpecification implements Specification
             return $spec->getFilter($qb, $this->getAlias($dqlAlias));
         }
 
-        return;
+        return '';
     }
 
     /**
@@ -56,13 +56,13 @@ abstract class BaseSpecification implements Specification
     /**
      * Return all the specifications.
      *
-     * @return Filter|QueryModifier
+     * @return Filter|QueryModifier|null
      */
     protected function getSpec()
     {
         @trigger_error('Using the default implementation of '.__METHOD__.' method is deprecated since version 1.1 and this method will be marked as abstract in 2.0. You must overwrite this implementation.', E_USER_DEPRECATED);
 
-        return;
+        return null;
     }
 
     /**
