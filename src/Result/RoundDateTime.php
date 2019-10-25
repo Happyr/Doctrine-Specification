@@ -34,8 +34,8 @@ class RoundDateTime implements ResultModifier
                 $value instanceof \DateTimeInterface
             ) {
                 // round down so that the results do not include data that should not be there.
-                $date = new \DateTimeImmutable('now', $value->getTimezone());
-                $date = $date->setTimestamp(floor($date->getTimestamp() / $this->roundSeconds) * $this->roundSeconds);
+                $uts = (int) (floor($value->getTimestamp() / $this->roundSeconds) * $this->roundSeconds);
+                $date = (new \DateTimeImmutable('now', $value->getTimezone()))->setTimestamp($uts);
 
                 $query->setParameter($parameter->getName(), $date, $parameter->getType());
             }
