@@ -88,8 +88,8 @@ class PlatformFunction implements Operand
             throw new InvalidArgumentException(sprintf('"%s" is not a valid function name.', $this->functionName));
         }
 
-        $arguments = ArgumentToOperandConverter::convert($this->arguments);
-        foreach ($arguments as $key => $argument) {
+        $arguments = [];
+        foreach (ArgumentToOperandConverter::convert($this->arguments) as $key => $argument) {
             $arguments[$key] = $argument->transform($qb, $dqlAlias);
         }
 

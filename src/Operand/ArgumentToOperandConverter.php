@@ -88,13 +88,15 @@ class ArgumentToOperandConverter
             return [$field, $value];
         }
 
-        if (!self::isAllOperands($arguments)) {
-            throw new NotConvertibleException('You passed arguments not all of which are operands.');
+        $result = [$field];
+        foreach ($arguments as $argument) {
+            if (!($argument instanceof Operand)) {
+                throw new NotConvertibleException('You passed arguments not all of which are operands.');
+            }
+            $result[] = $argument;
         }
+        $result[] = $value;
 
-        array_unshift($arguments, $field);
-        array_push($arguments, $value);
-
-        return $arguments;
+        return $result;
     }
 }
