@@ -53,7 +53,15 @@ class LogicX implements Specification
             }
         }
 
-        return call_user_func_array(array($qb->expr(), $this->expression), $children);
+        $expression = [$qb->expr(), $this->expression];
+
+        if (!is_callable($expression)) {
+            throw new \InvalidArgumentException(
+                sprintf('Undefined "%s" method in "%s" class.', $this->expression, get_class($qb->expr()))
+            );
+        }
+
+        return call_user_func_array($expression, $children);
     }
 
     /**
