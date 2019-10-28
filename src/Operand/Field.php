@@ -35,7 +35,7 @@ class Field implements Operand, Selection
      */
     public function transform(QueryBuilder $qb, $dqlAlias)
     {
-        if (null !== $this->dqlAlias) {
+        if ($this->dqlAlias !== null) {
             $dqlAlias = $this->dqlAlias;
         }
 

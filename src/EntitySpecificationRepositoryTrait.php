@@ -130,7 +130,7 @@ trait EntitySpecificationRepositoryTrait
     {
         $query = $this->getQueryBuilder($specification)->getQuery();
 
-        if (null !== $modifier) {
+        if ($modifier !== null) {
             $modifier->modify($query);
         }
 
@@ -195,7 +195,7 @@ trait EntitySpecificationRepositoryTrait
      */
     protected function applySpecification(QueryBuilder $queryBuilder, $specification = null, $alias = null)
     {
-        if (null === $specification) {
+        if ($specification === null) {
             return;
         }
 

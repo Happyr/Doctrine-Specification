@@ -45,7 +45,7 @@ class In implements Filter
      */
     public function getFilter(QueryBuilder $qb, $dqlAlias)
     {
-        if (null !== $this->dqlAlias) {
+        if ($this->dqlAlias !== null) {
             $dqlAlias = $this->dqlAlias;
         }
 

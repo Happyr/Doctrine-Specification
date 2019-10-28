@@ -68,7 +68,7 @@ abstract class Bitwise implements Operand
      */
     public function transform(QueryBuilder $qb, $dqlAlias)
     {
-        $function = self::B_AND === $this->operation ? 'BIT_AND' : 'BIT_OR';
+        $function = $this->operation === self::B_AND ? 'BIT_AND' : 'BIT_OR';
 
         return (new PlatformFunction($function, $this->field, $this->value))->transform($qb, $dqlAlias);
     }

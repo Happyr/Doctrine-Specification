@@ -99,7 +99,7 @@ class Spec
         // Spec::DATE_DIFF([$date1, $date2]);
         // is equal
         // Spec::DATE_DIFF($date1, $date2);
-        if (1 === count($arguments) && is_array(current($arguments))) {
+        if (count($arguments) === 1 && is_array(current($arguments))) {
             $arguments = current($arguments);
         }
 
@@ -756,7 +756,7 @@ class Spec
      */
     public static function fun($functionName, $arguments = [])
     {
-        if (2 === func_num_args()) {
+        if (func_num_args() === 2) {
             $arguments = (array) $arguments;
         } else {
             $arguments = func_get_args();

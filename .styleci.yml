@@ -1,4 +1,7 @@
 preset: symfony
 
 enabled:
-  - ordered_class_elements
+    - ordered_class_elements
+
+disabled:
+    - yoda_style

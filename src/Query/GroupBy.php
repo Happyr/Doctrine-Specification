@@ -38,7 +38,7 @@ class GroupBy implements QueryModifier
      */
     public function modify(QueryBuilder $qb, $dqlAlias)
     {
-        if (null !== $this->dqlAlias) {
+        if ($this->dqlAlias !== null) {
             $dqlAlias = $this->dqlAlias;
         }
 
