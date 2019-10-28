@@ -32,16 +32,14 @@ class RoundDateTimeSpec extends ObjectBehavior
     ) {
         $name = 'now';
         $type = 'datetime';
-        $date = new \DateTime('15:55:34');
+        $actual = new \DateTime('15:55:34');
+        $expected = new \DateTimeImmutable('15:00:00');
 
-        $scalarParam->getValue()->willReturn('foo');
-
-        $datetimeParam->getValue()->willReturn($date);
-        $datetimeParam->getName()->willReturn($name);
-        $datetimeParam->getType()->willReturn($type);
-
-        $query->getParameters()->willReturn(new ArrayCollection([$scalarParam, $datetimeParam]));
-        $query->setParameter($name, new \DateTime('15:00:00'), $type)->shouldBeCalled();
+        $query->getParameters()->willReturn(new ArrayCollection([
+            new Parameter('status', 'active'), // scalar param
+            new Parameter($name,$actual, $type),
+        ]));
+        $query->setParameter($name, $expected, $type)->shouldBeCalled();
 
         $this->modify($query);
     }
