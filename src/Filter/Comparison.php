@@ -38,7 +38,7 @@ class Comparison implements Filter
     protected $value;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $dqlAlias;
 
