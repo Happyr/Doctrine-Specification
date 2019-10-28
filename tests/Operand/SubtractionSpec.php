@@ -4,9 +4,9 @@ namespace tests\Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\Operand;
 use Happyr\DoctrineSpecification\Operand\Subtraction;
-use Happyr\DoctrineSpecification\Operand\Field;
 use PhpSpec\ObjectBehavior;
 
 /**
