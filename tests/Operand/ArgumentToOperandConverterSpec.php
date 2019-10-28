@@ -41,24 +41,24 @@ class ArgumentToOperandConverterSpec extends ObjectBehavior
 
     public function it_is_all_arguments_a_operands(Operand $first, Operand $second)
     {
-        $arguments = array($first, $second);
+        $arguments = [$first, $second];
         $this->isAllOperands($arguments)->shouldReturn(true);
     }
 
     public function it_is_not_all_arguments_a_operands(Operand $first, Operand $second)
     {
-        $arguments = array($first, 'foo', $second);
+        $arguments = [$first, 'foo', $second];
         $this->isAllOperands($arguments)->shouldReturn(false);
     }
 
     public function it_no_nothing_to_convert()
     {
-        $this->convert(array())->shouldReturn([]);
+        $this->convert([])->shouldReturn([]);
     }
 
     public function it_a_convertible_field()
     {
-        $subject = $this->convert(array('foo'));
+        $subject = $this->convert(['foo']);
         $subject->shouldBeArray();
         $subject->shouldHaveCount(1);
         $subject->shouldHaveField();
@@ -66,12 +66,12 @@ class ArgumentToOperandConverterSpec extends ObjectBehavior
 
     public function it_a_already_converted_field(Operand $field)
     {
-        $this->convert(array($field))->shouldReturn(array($field));
+        $this->convert([$field])->shouldReturn([$field]);
     }
 
     public function it_a_convertible_field_and_value()
     {
-        $subject = $this->convert(array('foo', 'bar'));
+        $subject = $this->convert(['foo', 'bar']);
         $subject->shouldBeArray();
         $subject->shouldHaveCount(2);
         $subject->shouldHaveField();
@@ -80,12 +80,12 @@ class ArgumentToOperandConverterSpec extends ObjectBehavior
 
     public function it_a_already_converted_value(Operand $field, Operand $value)
     {
-        $this->convert(array($field, $value))->shouldReturn(array($field, $value));
+        $this->convert([$field, $value])->shouldReturn([$field, $value]);
     }
 
     public function it_a_already_converted_value2(Operand $value)
     {
-        $subject = $this->convert(array('foo', $value));
+        $subject = $this->convert(['foo', $value]);
         $subject->shouldBeArray();
         $subject->shouldHaveCount(2);
         $subject->shouldHaveField();
@@ -94,7 +94,7 @@ class ArgumentToOperandConverterSpec extends ObjectBehavior
 
     public function it_a_convertible_arguments(Operand $first, Operand $second)
     {
-        $subject = $this->convert(array('foo', $first, $second, 'bar'));
+        $subject = $this->convert(['foo', $first, $second, 'bar']);
         $subject->shouldBeArray();
         $subject->shouldHaveCount(4);
         $subject->shouldHaveField();
@@ -106,12 +106,12 @@ class ArgumentToOperandConverterSpec extends ObjectBehavior
     public function it_is_not_convertible_arguments(Field $field, Operand $operand, Value $value)
     {
         $this->shouldThrow(NotConvertibleException::class)
-            ->duringConvert(array($field, $operand, 'foo', $value));
+            ->duringConvert([$field, $operand, 'foo', $value]);
     }
 
     public function getMatchers()
     {
-        return array(
+        return [
             'haveField' => function ($subject) {
                 return $subject[0] instanceof Field;
             },
@@ -121,6 +121,6 @@ class ArgumentToOperandConverterSpec extends ObjectBehavior
             'haveOperandAt' => function ($subject, $position) {
                 return $subject[$position] instanceof Operand;
             },
-        );
+        ];
     }
 }

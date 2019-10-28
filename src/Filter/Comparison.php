@@ -45,11 +45,11 @@ class Comparison implements Filter
     /**
      * @var array
      */
-    private static $operators = array(
+    private static $operators = [
         self::EQ, self::NEQ,
         self::LT, self::LTE,
         self::GT, self::GTE,
-    );
+    ];
 
     /**
      * @var string

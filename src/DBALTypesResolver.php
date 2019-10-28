@@ -11,7 +11,7 @@ final class DBALTypesResolver
      *
      * @var array
      */
-    private static $typesMap = array();
+    private static $typesMap = [];
 
     /**
      * Try get type for value.
