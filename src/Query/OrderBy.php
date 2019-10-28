@@ -19,7 +19,7 @@ class OrderBy implements QueryModifier
     protected $order;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $dqlAlias;
 

@@ -38,7 +38,7 @@ class Comparison implements Filter
     protected $value;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $dqlAlias;
 
@@ -68,7 +68,7 @@ class Comparison implements Filter
      */
     public function __construct($operator, $field, $value, $dqlAlias = null)
     {
-        if (!in_array($operator, self::$operators)) {
+        if (!in_array($operator, self::$operators, true)) {
             throw new InvalidArgumentException(sprintf(
                 '"%s" is not a valid comparison operator. Valid operators are: "%s"',
                 $operator,

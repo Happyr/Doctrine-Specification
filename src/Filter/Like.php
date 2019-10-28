@@ -27,7 +27,7 @@ class Like implements Filter
     private $value;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $dqlAlias;
 

@@ -14,13 +14,13 @@ class GroupBy implements QueryModifier
     protected $field;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $dqlAlias;
 
     /**
      * @param Field|Alias|string $field
-     * @param string             $dqlAlias
+     * @param string|null        $dqlAlias
      */
     public function __construct($field, $dqlAlias = null)
     {
