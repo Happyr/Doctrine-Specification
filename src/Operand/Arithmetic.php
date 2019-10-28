@@ -20,13 +20,13 @@ abstract class Arithmetic implements Operand
     /**
      * @var string[]
      */
-    private static $operations = array(
+    private static $operations = [
         self::ADD,
         self::SUB,
         self::MUL,
         self::DIV,
         self::MOD,
-    );
+    ];
 
     /**
      * @var string
