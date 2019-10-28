@@ -37,7 +37,7 @@ class RoundDateTimeSpec extends ObjectBehavior
 
         $query->getParameters()->willReturn(new ArrayCollection([
             new Parameter('status', 'active'), // scalar param
-            new Parameter($name,$actual, $type),
+            new Parameter($name, $actual, $type),
         ]));
         $query->setParameter($name, $expected, $type)->shouldBeCalled();
 
