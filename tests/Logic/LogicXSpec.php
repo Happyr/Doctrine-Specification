@@ -18,7 +18,7 @@ class LogicXSpec extends ObjectBehavior
 
     public function let(Specification $specificationA, Specification $specificationB)
     {
-        $this->beConstructedWith(self::EXPRESSION, array($specificationA, $specificationB));
+        $this->beConstructedWith(self::EXPRESSION, [$specificationA, $specificationB]);
     }
 
     public function it_is_a_specification()
@@ -51,7 +51,7 @@ class LogicXSpec extends ObjectBehavior
 
     public function it_supports_expressions(QueryBuilder $qb, Expr $expression, Filter $exprA, Filter $exprB, $x, $y)
     {
-        $this->beConstructedWith(self::EXPRESSION, array($exprA, $exprB));
+        $this->beConstructedWith(self::EXPRESSION, [$exprA, $exprB]);
 
         $dqlAlias = 'a';
 
