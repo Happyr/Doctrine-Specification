@@ -6,11 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Parameter;
 use Happyr\DoctrineSpecification\Result\RoundDateTime;
+use PhpSpec\ObjectBehavior;
 
 /**
  * @mixin RoundDateTime
  */
-class RoundDateTimeSpec
+class RoundDateTimeSpec extends ObjectBehavior
 {
     private $roundSeconds = 3600;
 
