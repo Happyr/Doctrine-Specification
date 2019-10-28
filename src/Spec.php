@@ -161,9 +161,9 @@ class Spec
      */
 
     /**
-     * @param string $field
-     * @param string $newAlias
-     * @param string $dqlAlias
+     * @param string      $field
+     * @param string      $newAlias
+     * @param string|null $dqlAlias
      *
      * @return Join
      */
@@ -173,9 +173,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $newAlias
-     * @param string $dqlAlias
+     * @param string      $field
+     * @param string      $newAlias
+     * @param string|null $dqlAlias
      *
      * @return LeftJoin
      */
@@ -185,9 +185,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $newAlias
-     * @param string $dqlAlias
+     * @param string      $field
+     * @param string      $newAlias
+     * @param string|null $dqlAlias
      *
      * @return InnerJoin
      */
@@ -197,8 +197,8 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $dqlAlias
+     * @param Field|string $field
+     * @param string|null  $dqlAlias
      *
      * @return IndexBy
      */
@@ -239,9 +239,9 @@ class Spec
     }
 
     /**
-     * @param string      $field
-     * @param string      $order
-     * @param string|null $dqlAlias
+     * @param Field|Alias|string $field
+     * @param string             $order
+     * @param string|null        $dqlAlias
      *
      * @return OrderBy
      */
@@ -251,8 +251,8 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $dqlAlias
+     * @param Field|Alias|string $field
+     * @param string|null        $dqlAlias
      *
      * @return GroupBy
      */
@@ -404,9 +404,9 @@ class Spec
     /**
      * Make sure the $field has a value equals to $value.
      *
-     * @param string $field
-     * @param mixed  $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @return In
      */
@@ -416,9 +416,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param mixed  $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @return Not
      */
@@ -500,10 +500,10 @@ class Spec
     }
 
     /**
-     * @param Operand|string $field
-     * @param string         $value
-     * @param string         $format
-     * @param string|null    $dqlAlias
+     * @param Operand|string     $field
+     * @param LikePattern|string $value
+     * @param string             $format
+     * @param string|null        $dqlAlias
      *
      * @return Like
      */

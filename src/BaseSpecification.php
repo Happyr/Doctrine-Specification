@@ -13,12 +13,12 @@ use Happyr\DoctrineSpecification\Specification\Specification;
 abstract class BaseSpecification implements Specification
 {
     /**
-     * @var string|null dqlAlias
+     * @var string|null
      */
-    private $dqlAlias = null;
+    private $dqlAlias;
 
     /**
-     * @param string $dqlAlias
+     * @param string|null $dqlAlias
      */
     public function __construct($dqlAlias = null)
     {

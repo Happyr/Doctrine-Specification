@@ -22,8 +22,8 @@ class InstanceOfX implements Filter
      */
     public function __construct($value, $dqlAlias = null)
     {
-        $this->dqlAlias = $dqlAlias;
         $this->value = $value;
+        $this->dqlAlias = $dqlAlias;
     }
 
     /**
