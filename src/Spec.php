@@ -550,7 +550,7 @@ class Spec
     }
 
     /**
-     * @param Filter $spec
+     * @param Filter|QueryModifier|string $spec
      *
      * @return Having
      */
