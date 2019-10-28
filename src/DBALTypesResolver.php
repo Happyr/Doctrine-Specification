@@ -40,7 +40,7 @@ final class DBALTypesResolver
         $classNameParts = explode('\\', str_replace('_', '\\', $className));
         $typeName = array_pop($classNameParts);
 
-        if ($typeName !== null && array_key_exists($typeName, Type::getTypesMap())) {
+        if (null !== $typeName && array_key_exists($typeName, Type::getTypesMap())) {
             return Type::getType($typeName);
         }
 
