@@ -19,7 +19,7 @@ class Value implements Operand
 
     /**
      * @param mixed           $value
-     * @param int|string|null $valueType PDO::PARAM_* or \Doctrine\DBAL\Types\Type::* constant
+     * @param int|string|null $valueType \PDO::PARAM_* or \Doctrine\DBAL\Types\Type::* constant
      */
     public function __construct($value, $valueType = null)
     {

@@ -10,24 +10,24 @@ use Doctrine\ORM\QueryBuilder;
 abstract class AbstractJoin implements QueryModifier
 {
     /**
-     * @var string field
+     * @var string
      */
     private $field;
 
     /**
-     * @var string alias
+     * @var string
      */
     private $newAlias;
 
     /**
-     * @var string dqlAlias
+     * @var string|null
      */
     private $dqlAlias;
 
     /**
-     * @param string $field
-     * @param string $newAlias
-     * @param string $dqlAlias
+     * @param string      $field
+     * @param string      $newAlias
+     * @param string|null $dqlAlias
      */
     public function __construct($field, $newAlias, $dqlAlias = null)
     {

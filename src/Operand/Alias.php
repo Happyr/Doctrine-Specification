@@ -9,7 +9,7 @@ class Alias implements Operand
     /**
      * @var string
      */
-    private $alias = '';
+    private $alias;
 
     /**
      * @param string $alias

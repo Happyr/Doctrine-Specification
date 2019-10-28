@@ -10,10 +10,10 @@ class Field implements Operand, Selection
     /**
      * @var string
      */
-    private $fieldName = '';
+    private $fieldName;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $dqlAlias;
 
