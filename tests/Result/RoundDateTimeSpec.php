@@ -25,11 +25,8 @@ class RoundDateTimeSpec extends ObjectBehavior
         $this->shouldBeAnInstanceOf(RoundDateTime::class);
     }
 
-    public function it_round_date_time_in_query_parameters_for_given_time(
-        AbstractQuery $query,
-        Parameter $scalarParam,
-        Parameter $datetimeParam
-    ) {
+    public function it_round_date_time_in_query_parameters_for_given_time(AbstractQuery $query)
+    {
         $name = 'now';
         $type = 'datetime';
         $actual = new \DateTime('15:55:34');
