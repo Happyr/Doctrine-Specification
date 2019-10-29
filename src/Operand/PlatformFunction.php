@@ -89,8 +89,8 @@ class PlatformFunction implements Operand
         }
 
         $arguments = [];
-        foreach (ArgumentToOperandConverter::convert($this->arguments) as $key => $argument) {
-            $arguments[$key] = $argument->transform($qb, $dqlAlias);
+        foreach (ArgumentToOperandConverter::convert($this->arguments) as $argument) {
+            $arguments[] = $argument->transform($qb, $dqlAlias);
         }
 
         return sprintf('%s(%s)', $this->functionName, implode(', ', $arguments));
