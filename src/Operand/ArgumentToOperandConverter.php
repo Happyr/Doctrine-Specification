@@ -83,7 +83,7 @@ class ArgumentToOperandConverter
                 throw new NotConvertibleException('You passed arguments not all of which are operands.');
             }
 
-            $result[$i] = $argument;
+            $result[] = $argument;
         }
 
         return $result;
