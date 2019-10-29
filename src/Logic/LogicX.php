@@ -34,7 +34,7 @@ class LogicX implements Specification
      * @param string                   $expression
      * @param Filter[]|QueryModifier[] $children
      */
-    public function __construct($expression, array $children = array())
+    public function __construct($expression, array $children = [])
     {
         $this->expression = $expression;
         $this->children = $children;

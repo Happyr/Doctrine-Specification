@@ -138,13 +138,13 @@ class PlatformFunctionSpec extends ObjectBehavior
         $configuration->getCustomDatetimeFunction($functionName)->willReturn(null);
 
         $this->beConstructedWith($functionName, 'foo');
-        $this->shouldThrow(InvalidArgumentException::class)->during('transform', array($qb, 'a'));
+        $this->shouldThrow(InvalidArgumentException::class)->during('transform', [$qb, 'a']);
     }
 
     public function it_is_transformable_not_convertible(QueryBuilder $qb)
     {
         $this->beConstructedWith('concat', ['foo', 'bar', 'baz']);
 
-        $this->shouldThrow(NotConvertibleException::class)->during('transform', array($qb, 'a'));
+        $this->shouldThrow(NotConvertibleException::class)->during('transform', [$qb, 'a']);
     }
 }

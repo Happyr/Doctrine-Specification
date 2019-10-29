@@ -16,7 +16,7 @@ class InSpec extends ObjectBehavior
 {
     private $field = 'foobar';
 
-    private $value = array('bar', 'baz');
+    private $value = ['bar', 'baz'];
 
     public function let()
     {

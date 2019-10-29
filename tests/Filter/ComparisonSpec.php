@@ -50,11 +50,11 @@ class ComparisonSpec extends ObjectBehavior
 
     public function it_validates_operator()
     {
-        $this->shouldThrow(InvalidArgumentException::class)->during('__construct', array('==', 'age', 18, null));
+        $this->shouldThrow(InvalidArgumentException::class)->during('__construct', ['==', 'age', 18, null]);
     }
 
     public function it_not_support_like_operator()
     {
-        $this->shouldThrow(InvalidArgumentException::class)->during('__construct', array('like', 'name', 'Tobias%', null));
+        $this->shouldThrow(InvalidArgumentException::class)->during('__construct', ['like', 'name', 'Tobias%', null]);
     }
 }

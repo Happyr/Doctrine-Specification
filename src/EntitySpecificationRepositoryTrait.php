@@ -188,7 +188,7 @@ trait EntitySpecificationRepositoryTrait
 
     /**
      * @param QueryBuilder                    $queryBuilder
-     * @param Filter|QueryModifier|null|mixed $specification
+     * @param Filter|QueryModifier|mixed|null $specification
      * @param string                          $alias
      *
      * @throws \InvalidArgumentException

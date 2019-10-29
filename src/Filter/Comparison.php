@@ -2,8 +2,8 @@
 
 namespace Happyr\DoctrineSpecification\Filter;
 
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
+use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
 use Happyr\DoctrineSpecification\Operand\Operand;
@@ -47,11 +47,11 @@ class Comparison implements Filter
     /**
      * @var array
      */
-    private static $operators = array(
+    private static $operators = [
         self::EQ, self::NEQ,
         self::LT, self::LTE,
         self::GT, self::GTE,
-    );
+    ];
 
     /**
      * @var string
