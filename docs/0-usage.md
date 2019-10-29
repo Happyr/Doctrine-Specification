@@ -216,30 +216,6 @@ $spec = Spec::gt(
 );
 ```
 
-# Bitwise operands
-
-You can use bitwise operations in specifications such as `&`, `|`, `^`, `<<`, `>>`, `~`.
-
-For example, check the access for reading something with a bit mask:
-
-```php
-// DQL: (u.access & 0100) = 0100
-$spec = Spec::eq(Spec::bAnd('access', UserAccess::READ), UserAccess::READ);
-```
-
-You can put bitwise operations in each other. For example, select not readed mails:
-
-```php
-// DQL: (m.status & (~ 0100)) = m.status
-$spec = Spec::eq(
-    Spec::bAnd(
-        Spec::field('status'),
-        Spec::bNot(Spec::value(MailStatus::READED))
-    ),
-    Spec::field('status')
-);
-```
-
 # Functions
 
 ```php
