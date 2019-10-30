@@ -20,10 +20,10 @@ abstract class Bitwise implements Operand
     /**
      * @var string[]
      */
-    private static $operations = array(
+    private static $operations = [
         self::B_AND,
         self::B_OR,
-    );
+    ];
 
     /**
      * @var string

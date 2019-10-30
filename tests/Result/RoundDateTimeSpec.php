@@ -6,11 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Parameter;
 use Happyr\DoctrineSpecification\Result\RoundDateTime;
+use PhpSpec\ObjectBehavior;
 
 /**
  * @mixin RoundDateTime
  */
-class RoundDateTimeSpec
+class RoundDateTimeSpec extends ObjectBehavior
 {
     private $roundSeconds = 3600;
 
@@ -24,23 +25,18 @@ class RoundDateTimeSpec
         $this->shouldBeAnInstanceOf(RoundDateTime::class);
     }
 
-    public function it_round_date_time_in_query_parameters_for_given_time(
-        AbstractQuery $query,
-        Parameter $scalarParam,
-        Parameter $datetimeParam
-    ) {
+    public function it_round_date_time_in_query_parameters_for_given_time(AbstractQuery $query)
+    {
         $name = 'now';
         $type = 'datetime';
-        $date = new \DateTime('15:55:34');
+        $actual = new \DateTime('15:55:34');
+        $expected = new \DateTimeImmutable('15:00:00');
 
-        $scalarParam->getValue()->willReturn('foo');
-
-        $datetimeParam->getValue()->willReturn($date);
-        $datetimeParam->getName()->willReturn($name);
-        $datetimeParam->getType()->willReturn($type);
-
-        $query->getParameters()->willReturn(new ArrayCollection([$scalarParam, $datetimeParam]));
-        $query->setParameter($name, new \DateTime('15:00:00'), $type)->shouldBeCalled();
+        $query->getParameters()->willReturn(new ArrayCollection([
+            new Parameter('status', 'active'), // scalar param
+            new Parameter($name, $actual, $type),
+        ]));
+        $query->setParameter($name, $expected, $type)->shouldBeCalled();
 
         $this->modify($query);
     }
