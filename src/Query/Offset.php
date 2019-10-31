@@ -7,6 +7,8 @@ use Doctrine\ORM\QueryBuilder;
 class Offset implements QueryModifier
 {
     /**
+     * @deprecated This property will be marked as private in 2.0.
+     *
      * @var int offset
      */
     protected $offset;

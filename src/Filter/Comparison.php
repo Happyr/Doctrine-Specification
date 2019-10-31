@@ -30,16 +30,22 @@ class Comparison implements Filter
     const GTE = '>=';
 
     /**
+     * @deprecated This property will be marked as private in 2.0.
+     *
      * @var Operand|string
      */
     protected $field;
 
     /**
+     * @deprecated This property will be marked as private in 2.0.
+     *
      * @var Operand|string
      */
     protected $value;
 
     /**
+     * @deprecated This property will be marked as private in 2.0.
+     *
      * @var string|null
      */
     protected $dqlAlias;
