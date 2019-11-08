@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * This file is part of the Happyr Doctrine Specification package.
+ *
+ * (c) Tobias Nyholm <tobias@happyr.com>
+ *     Kacper Gunia <kacper@gunia.me>
+ *     Peter Gribanov <info@peter-gribanov.ru>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
@@ -10,24 +21,24 @@ use Doctrine\ORM\QueryBuilder;
 abstract class AbstractJoin implements QueryModifier
 {
     /**
-     * @var string field
+     * @var string
      */
     private $field;
 
     /**
-     * @var string alias
+     * @var string
      */
     private $newAlias;
 
     /**
-     * @var string dqlAlias
+     * @var string|null
      */
     private $dqlAlias;
 
     /**
-     * @param string $field
-     * @param string $newAlias
-     * @param string $dqlAlias
+     * @param string      $field
+     * @param string      $newAlias
+     * @param string|null $dqlAlias
      */
     public function __construct($field, $newAlias, $dqlAlias = null)
     {

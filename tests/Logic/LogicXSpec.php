@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * This file is part of the Happyr Doctrine Specification package.
+ *
+ * (c) Tobias Nyholm <tobias@happyr.com>
+ *     Kacper Gunia <kacper@gunia.me>
+ *     Peter Gribanov <info@peter-gribanov.ru>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace tests\Happyr\DoctrineSpecification\Logic;
 
 use Doctrine\ORM\Query\Expr;
@@ -18,7 +29,7 @@ class LogicXSpec extends ObjectBehavior
 
     public function let(Specification $specificationA, Specification $specificationB)
     {
-        $this->beConstructedWith(self::EXPRESSION, array($specificationA, $specificationB));
+        $this->beConstructedWith(self::EXPRESSION, [$specificationA, $specificationB]);
     }
 
     public function it_is_a_specification()
@@ -51,7 +62,7 @@ class LogicXSpec extends ObjectBehavior
 
     public function it_supports_expressions(QueryBuilder $qb, Expr $expression, Filter $exprA, Filter $exprB, $x, $y)
     {
-        $this->beConstructedWith(self::EXPRESSION, array($exprA, $exprB));
+        $this->beConstructedWith(self::EXPRESSION, [$exprA, $exprB]);
 
         $dqlAlias = 'a';
 

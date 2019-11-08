@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * This file is part of the Happyr Doctrine Specification package.
+ *
+ * (c) Tobias Nyholm <tobias@happyr.com>
+ *     Kacper Gunia <kacper@gunia.me>
+ *     Peter Gribanov <info@peter-gribanov.ru>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Happyr\DoctrineSpecification;
 
 use Happyr\DoctrineSpecification\Filter\Comparison;
@@ -28,8 +39,8 @@ use Happyr\DoctrineSpecification\Operand\LikePattern;
 use Happyr\DoctrineSpecification\Operand\Modulo;
 use Happyr\DoctrineSpecification\Operand\Multiplication;
 use Happyr\DoctrineSpecification\Operand\Operand;
-use Happyr\DoctrineSpecification\Operand\Subtraction;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction;
+use Happyr\DoctrineSpecification\Operand\Subtraction;
 use Happyr\DoctrineSpecification\Operand\Value;
 use Happyr\DoctrineSpecification\Operand\Values;
 use Happyr\DoctrineSpecification\Query\AddSelect;
@@ -115,10 +126,16 @@ class Spec
      */
     public static function andX()
     {
-        $args = func_get_args();
-        $reflection = new \ReflectionClass(AndX::class);
+        $spec = (new \ReflectionClass(AndX::class))->newInstanceArgs(func_get_args());
 
-        return $reflection->newInstanceArgs($args);
+        // hook for PHPStan
+        if (!($spec instanceof AndX)) {
+            throw new \RuntimeException(
+                sprintf('The specification must be an instance of "%s", but got "%s".', AndX::class, get_class($spec))
+            );
+        }
+
+        return $spec;
     }
 
     /**
@@ -126,10 +143,16 @@ class Spec
      */
     public static function orX()
     {
-        $args = func_get_args();
-        $reflection = new \ReflectionClass(OrX::class);
+        $spec = (new \ReflectionClass(OrX::class))->newInstanceArgs(func_get_args());
 
-        return $reflection->newInstanceArgs($args);
+        // hook for PHPStan
+        if (!($spec instanceof OrX)) {
+            throw new \RuntimeException(
+                sprintf('The specification must be an instance of "%s", but got "%s".', OrX::class, get_class($spec))
+            );
+        }
+
+        return $spec;
     }
 
     /**
@@ -147,9 +170,9 @@ class Spec
      */
 
     /**
-     * @param string $field
-     * @param string $newAlias
-     * @param string $dqlAlias
+     * @param string      $field
+     * @param string      $newAlias
+     * @param string|null $dqlAlias
      *
      * @return Join
      */
@@ -159,9 +182,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $newAlias
-     * @param string $dqlAlias
+     * @param string      $field
+     * @param string      $newAlias
+     * @param string|null $dqlAlias
      *
      * @return LeftJoin
      */
@@ -171,9 +194,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $newAlias
-     * @param string $dqlAlias
+     * @param string      $field
+     * @param string      $newAlias
+     * @param string|null $dqlAlias
      *
      * @return InnerJoin
      */
@@ -183,8 +206,8 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $dqlAlias
+     * @param Field|string $field
+     * @param string|null  $dqlAlias
      *
      * @return IndexBy
      */
@@ -225,9 +248,9 @@ class Spec
     }
 
     /**
-     * @param string      $field
-     * @param string      $order
-     * @param string|null $dqlAlias
+     * @param Field|Alias|string $field
+     * @param string             $order
+     * @param string|null        $dqlAlias
      *
      * @return OrderBy
      */
@@ -237,8 +260,8 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param string $dqlAlias
+     * @param Field|Alias|string $field
+     * @param string|null        $dqlAlias
      *
      * @return GroupBy
      */
@@ -388,9 +411,9 @@ class Spec
     /**
      * Make sure the $field has a value equals to $value.
      *
-     * @param string $field
-     * @param mixed  $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @return In
      */
@@ -400,9 +423,9 @@ class Spec
     }
 
     /**
-     * @param string $field
-     * @param mixed  $value
-     * @param string $dqlAlias
+     * @param Operand|string $field
+     * @param Operand|mixed  $value
+     * @param string|null    $dqlAlias
      *
      * @return Not
      */
@@ -484,10 +507,10 @@ class Spec
     }
 
     /**
-     * @param Operand|string $field
-     * @param string         $value
-     * @param string         $format
-     * @param string|null    $dqlAlias
+     * @param Operand|string     $field
+     * @param LikePattern|string $value
+     * @param string             $format
+     * @param string|null        $dqlAlias
      *
      * @return Like
      */

@@ -1,9 +1,20 @@
 <?php
 
+/**
+ * This file is part of the Happyr Doctrine Specification package.
+ *
+ * (c) Tobias Nyholm <tobias@happyr.com>
+ *     Kacper Gunia <kacper@gunia.me>
+ *     Peter Gribanov <info@peter-gribanov.ru>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Happyr\DoctrineSpecification\Filter;
 
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Comparison as DoctrineComparison;
+use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
 use Happyr\DoctrineSpecification\Operand\Operand;
@@ -38,18 +49,18 @@ class Comparison implements Filter
     protected $value;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $dqlAlias;
 
     /**
      * @var array
      */
-    private static $operators = array(
+    private static $operators = [
         self::EQ, self::NEQ,
         self::LT, self::LTE,
         self::GT, self::GTE,
-    );
+    ];
 
     /**
      * @var string
@@ -68,7 +79,7 @@ class Comparison implements Filter
      */
     public function __construct($operator, $field, $value, $dqlAlias = null)
     {
-        if (!in_array($operator, self::$operators)) {
+        if (!in_array($operator, self::$operators, true)) {
             throw new InvalidArgumentException(sprintf(
                 '"%s" is not a valid comparison operator. Valid operators are: "%s"',
                 $operator,

@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * This file is part of the Happyr Doctrine Specification package.
+ *
+ * (c) Tobias Nyholm <tobias@happyr.com>
+ *     Kacper Gunia <kacper@gunia.me>
+ *     Peter Gribanov <info@peter-gribanov.ru>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\ORM\QueryBuilder;
@@ -88,9 +99,9 @@ class PlatformFunction implements Operand
             throw new InvalidArgumentException(sprintf('"%s" is not a valid function name.', $this->functionName));
         }
 
-        $arguments = ArgumentToOperandConverter::convert($this->arguments);
-        foreach ($arguments as $key => $argument) {
-            $arguments[$key] = $argument->transform($qb, $dqlAlias);
+        $arguments = [];
+        foreach (ArgumentToOperandConverter::convert($this->arguments) as $argument) {
+            $arguments[] = $argument->transform($qb, $dqlAlias);
         }
 
         return sprintf('%s(%s)', $this->functionName, implode(', ', $arguments));

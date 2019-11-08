@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * This file is part of the Happyr Doctrine Specification package.
+ *
+ * (c) Tobias Nyholm <tobias@happyr.com>
+ *     Kacper Gunia <kacper@gunia.me>
+ *     Peter Gribanov <info@peter-gribanov.ru>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Happyr\DoctrineSpecification\Operand;
 
 use Happyr\DoctrineSpecification\Exception\NotConvertibleException;
@@ -70,31 +81,22 @@ class ArgumentToOperandConverter
      */
     public static function convert(array $arguments)
     {
-        if (!$arguments) {
-            return [];
+        $result = [];
+        $size = count($arguments);
+        foreach (array_values($arguments) as $i => $argument) {
+            if (0 === $i) {
+                // always try convert the first argument to the field operand
+                $argument = self::toField($argument);
+            } elseif ($i === $size - 1) {
+                // always try convert the last argument to the value operand
+                $argument = self::toValue($argument);
+            } elseif (!($argument instanceof Operand)) {
+                throw new NotConvertibleException('You passed arguments not all of which are operands.');
+            }
+
+            $result[] = $argument;
         }
 
-        // always try convert the first argument to the field operand
-        $field = self::toField(array_shift($arguments));
-
-        if (!$arguments) {
-            return [$field];
-        }
-
-        // always try convert the last argument to the value operand
-        $value = self::toValue(array_pop($arguments));
-
-        if (!$arguments) {
-            return [$field, $value];
-        }
-
-        if (!self::isAllOperands($arguments)) {
-            throw new NotConvertibleException('You passed arguments not all of which are operands.');
-        }
-
-        array_unshift($arguments, $field);
-        array_push($arguments, $value);
-
-        return $arguments;
+        return $result;
     }
 }

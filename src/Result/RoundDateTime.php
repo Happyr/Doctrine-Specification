@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * This file is part of the Happyr Doctrine Specification package.
+ *
+ * (c) Tobias Nyholm <tobias@happyr.com>
+ *     Kacper Gunia <kacper@gunia.me>
+ *     Peter Gribanov <info@peter-gribanov.ru>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Happyr\DoctrineSpecification\Result;
 
 use Doctrine\ORM\AbstractQuery;
@@ -29,11 +40,13 @@ class RoundDateTime implements ResultModifier
     public function modify(AbstractQuery $query)
     {
         foreach ($query->getParameters() as $parameter) {
-            /* @var $parameter Parameter */
-            if ($parameter->getValue() instanceof \DateTimeInterface) {
+            if ($parameter instanceof Parameter &&
+                ($value = $parameter->getValue()) &&
+                $value instanceof \DateTimeInterface
+            ) {
                 // round down so that the results do not include data that should not be there.
-                $date = clone $parameter->getValue();
-                $date = $date->setTimestamp(floor($date->getTimestamp() / $this->roundSeconds) * $this->roundSeconds);
+                $uts = (int) (floor($value->getTimestamp() / $this->roundSeconds) * $this->roundSeconds);
+                $date = (new \DateTimeImmutable('now', $value->getTimezone()))->setTimestamp($uts);
 
                 $query->setParameter($parameter->getName(), $date, $parameter->getType());
             }

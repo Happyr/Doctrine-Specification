@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * This file is part of the Happyr Doctrine Specification package.
+ *
+ * (c) Tobias Nyholm <tobias@happyr.com>
+ *     Kacper Gunia <kacper@gunia.me>
+ *     Peter Gribanov <info@peter-gribanov.ru>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Happyr\DoctrineSpecification\Logic;
 
 use Doctrine\ORM\QueryBuilder;
@@ -32,7 +43,7 @@ class LogicX implements Specification
      * @param string                   $expression
      * @param Filter[]|QueryModifier[] $children
      */
-    public function __construct($expression, array $children = array())
+    public function __construct($expression, array $children = [])
     {
         $this->expression = $expression;
         $this->children = $children;
@@ -48,8 +59,8 @@ class LogicX implements Specification
     {
         $children = [];
         foreach ($this->children as $spec) {
-            if ($spec instanceof Filter) {
-                $children[] = $spec->getFilter($qb, $dqlAlias);
+            if ($spec instanceof Filter && $filter = $spec->getFilter($qb, $dqlAlias)) {
+                $children[] = $filter;
             }
         }
 
@@ -57,7 +68,15 @@ class LogicX implements Specification
             return '';
         }
 
-        return call_user_func_array(array($qb->expr(), $this->expression), $children);
+        $expression = [$qb->expr(), $this->expression];
+
+        if (!is_callable($expression)) {
+            throw new \InvalidArgumentException(
+                sprintf('Undefined "%s" method in "%s" class.', $this->expression, get_class($qb->expr()))
+            );
+        }
+
+        return call_user_func_array($expression, $children);
     }
 
     /**

@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * This file is part of the Happyr Doctrine Specification package.
+ *
+ * (c) Tobias Nyholm <tobias@happyr.com>
+ *     Kacper Gunia <kacper@gunia.me>
+ *     Peter Gribanov <info@peter-gribanov.ru>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace tests\Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -50,11 +61,11 @@ class ComparisonSpec extends ObjectBehavior
 
     public function it_validates_operator()
     {
-        $this->shouldThrow(InvalidArgumentException::class)->during('__construct', array('==', 'age', 18, null));
+        $this->shouldThrow(InvalidArgumentException::class)->during('__construct', ['==', 'age', 18, null]);
     }
 
     public function it_not_support_like_operator()
     {
-        $this->shouldThrow(InvalidArgumentException::class)->during('__construct', array('like', 'name', 'Tobias%', null));
+        $this->shouldThrow(InvalidArgumentException::class)->during('__construct', ['like', 'name', 'Tobias%', null]);
     }
 }

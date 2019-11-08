@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * This file is part of the Happyr Doctrine Specification package.
+ *
+ * (c) Tobias Nyholm <tobias@happyr.com>
+ *     Kacper Gunia <kacper@gunia.me>
+ *     Peter Gribanov <info@peter-gribanov.ru>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Happyr\DoctrineSpecification;
 
 use Doctrine\ORM\NonUniqueResultException;
@@ -74,7 +85,7 @@ trait EntitySpecificationRepositoryTrait
         try {
             return $this->matchSingleResult($specification, $modifier);
         } catch (Exception\NoResultException $e) {
-            return;
+            return null;
         }
     }
 
@@ -157,7 +168,7 @@ trait EntitySpecificationRepositoryTrait
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @return mixed[]|\Generator
+     * @return \Traversable
      */
     public function iterate($specification, ResultModifier $modifier = null)
     {
@@ -187,9 +198,9 @@ trait EntitySpecificationRepositoryTrait
     }
 
     /**
-     * @param QueryBuilder         $queryBuilder
-     * @param Filter|QueryModifier $specification
-     * @param string               $alias
+     * @param QueryBuilder                    $queryBuilder
+     * @param Filter|QueryModifier|mixed|null $specification
+     * @param string                          $alias
      *
      * @throws \InvalidArgumentException
      */
@@ -212,8 +223,9 @@ trait EntitySpecificationRepositoryTrait
             $specification->modify($queryBuilder, $alias ?: $this->getAlias());
         }
 
+
         if ($specification instanceof Filter &&
-            ($filter = (string) $specification->getFilter($queryBuilder, $alias ?: $this->getAlias())) &&
+            ($filter = $specification->getFilter($queryBuilder, $alias ?: $this->getAlias())) &&
             ($filter = trim($filter))
         ) {
             $queryBuilder->andWhere($filter);

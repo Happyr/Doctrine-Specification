@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * This file is part of the Happyr Doctrine Specification package.
+ *
+ * (c) Tobias Nyholm <tobias@happyr.com>
+ *     Kacper Gunia <kacper@gunia.me>
+ *     Peter Gribanov <info@peter-gribanov.ru>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace tests\Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\ORM\Configuration;
@@ -138,13 +149,13 @@ class PlatformFunctionSpec extends ObjectBehavior
         $configuration->getCustomDatetimeFunction($functionName)->willReturn(null);
 
         $this->beConstructedWith($functionName, 'foo');
-        $this->shouldThrow(InvalidArgumentException::class)->during('transform', array($qb, 'a'));
+        $this->shouldThrow(InvalidArgumentException::class)->during('transform', [$qb, 'a']);
     }
 
     public function it_is_transformable_not_convertible(QueryBuilder $qb)
     {
         $this->beConstructedWith('concat', ['foo', 'bar', 'baz']);
 
-        $this->shouldThrow(NotConvertibleException::class)->during('transform', array($qb, 'a'));
+        $this->shouldThrow(NotConvertibleException::class)->during('transform', [$qb, 'a']);
     }
 }

@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * This file is part of the Happyr Doctrine Specification package.
+ *
+ * (c) Tobias Nyholm <tobias@happyr.com>
+ *     Kacper Gunia <kacper@gunia.me>
+ *     Peter Gribanov <info@peter-gribanov.ru>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Happyr\DoctrineSpecification;
 
 use Doctrine\DBAL\Types\Type;
@@ -11,7 +22,7 @@ final class DBALTypesResolver
      *
      * @var array
      */
-    private static $typesMap = array();
+    private static $typesMap = [];
 
     /**
      * Try get type for value.
@@ -37,10 +48,10 @@ final class DBALTypesResolver
         }
 
         // use class name as type name
-        $classNameParts = explode('\\', $className);
+        $classNameParts = explode('\\', str_replace('_', '\\', $className));
         $typeName = array_pop($classNameParts);
 
-        if (array_key_exists($typeName, Type::getTypesMap())) {
+        if (null !== $typeName && array_key_exists($typeName, Type::getTypesMap())) {
             return Type::getType($typeName);
         }
 

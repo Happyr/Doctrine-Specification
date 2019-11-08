@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * This file is part of the Happyr Doctrine Specification package.
+ *
+ * (c) Tobias Nyholm <tobias@happyr.com>
+ *     Kacper Gunia <kacper@gunia.me>
+ *     Peter Gribanov <info@peter-gribanov.ru>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Happyr\DoctrineSpecification;
 
 use Doctrine\ORM\QueryBuilder;
@@ -13,12 +24,12 @@ use Happyr\DoctrineSpecification\Specification\Specification;
 abstract class BaseSpecification implements Specification
 {
     /**
-     * @var string|null dqlAlias
+     * @var string|null
      */
-    private $dqlAlias = null;
+    private $dqlAlias;
 
     /**
-     * @param string $dqlAlias
+     * @param string|null $dqlAlias
      */
     public function __construct($dqlAlias = null)
     {
@@ -38,7 +49,7 @@ abstract class BaseSpecification implements Specification
             return $spec->getFilter($qb, $this->getAlias($dqlAlias));
         }
 
-        return;
+        return '';
     }
 
     /**
@@ -56,11 +67,11 @@ abstract class BaseSpecification implements Specification
     /**
      * Return all the specifications.
      *
-     * @return Filter|QueryModifier
+     * @return Filter|QueryModifier|null
      */
     protected function getSpec()
     {
-        return;
+        return null;
     }
 
     /**
