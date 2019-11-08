@@ -64,6 +64,10 @@ class LogicX implements Specification
             }
         }
 
+        if (!$children) {
+            return '';
+        }
+
         $expression = [$qb->expr(), $this->expression];
 
         if (!is_callable($expression)) {

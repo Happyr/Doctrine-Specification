@@ -13,7 +13,30 @@ Install this lib with composer.
 }
 ```
 
-Let your repositories extend `Happyr\DoctrineSpecification\EntitySpecificationRepository` instead of `Doctrine\ORM\EntityRepository`.
+Let your repositories extend `Happyr\DoctrineSpecification\EntitySpecificationRepository` instead of `Doctrine\ORM\EntityRepository`, or use the `EntitySpecificationRepositoryTrait` in your repositories, like so:
+
+```php
+<?php
+namespace Acme\DemoBundle\Repository;
+
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Happyr\DoctrineSpecification\EntitySpecificationRepositoryTrait;
+
+class MyRepository extends ServiceEntityRepository
+{
+    // Add this line:
+    use EntitySpecificationRepositoryTrait;
+
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Tag::class);
+    }
+    
+    // ...
+}
+```
+
 Also make sure that the default repository is changed. If you haven't created a repository class in your source
 then you will have to tell `$this->em->getRepository('xxx')` to return a instance of `Happyr\DoctrineSpecification\EntitySpecificationRepository`.
 See instructions for [Laravel](0-3-laravel.md), [Symfony2](0-0-symfony.md), [Zend1](0-1-zend1.md) and [Zend2](0-2-zend2.md).
