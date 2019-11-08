@@ -53,6 +53,10 @@ class LogicX implements Specification
             }
         }
 
+        if (!$children) {
+            return '';
+        }
+
         return call_user_func_array(array($qb->expr(), $this->expression), $children);
     }
 
