@@ -223,8 +223,9 @@ trait EntitySpecificationRepositoryTrait
             $specification->modify($queryBuilder, $alias ?: $this->getAlias());
         }
 
-        if ($specification instanceof Filter
-            && $filter = $specification->getFilter($queryBuilder, $alias ?: $this->getAlias())
+        if ($specification instanceof Filter &&
+            ($filter = $specification->getFilter($queryBuilder, $alias ?: $this->getAlias())) &&
+            ($filter = trim($filter))
         ) {
             $queryBuilder->andWhere($filter);
         }
