@@ -1,5 +1,9 @@
 preset: symfony
 
 enabled:
-  - ordered_class_elements
-  - short_array_syntax
+    - ordered_class_elements
+    - short_array_syntax
+
+disable:
+    - single_line_throw
+    - no_superfluous_phpdoc_tags

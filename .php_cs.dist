@@ -19,6 +19,8 @@ return PhpCsFixer\Config::create()
             'header' => $header,
         ],
         'array_syntax' => ['syntax' => 'short'],
+        'no_superfluous_phpdoc_tags' => false,
+        'single_line_throw' => false,
         'ordered_imports' => [
             'sort_algorithm' => 'alpha',
         ],
