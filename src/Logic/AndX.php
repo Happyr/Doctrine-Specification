@@ -20,6 +20,7 @@ class AndX extends LogicX
 {
     public function __construct()
     {
+        // NEXT_MAJOR: use variable-length argument lists (...$children)
         parent::__construct(self::AND_X, func_get_args());
     }
 

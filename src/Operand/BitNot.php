@@ -15,6 +15,11 @@ namespace Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\ORM\QueryBuilder;
 
+@trigger_error('The '.__NAMESPACE__.'\BitNot class is deprecated since version 1.1 and will be removed in 2.0.', E_USER_DEPRECATED);
+
+/**
+ * @deprecated This class is deprecated since version 1.1 and will be removed in 2.0.
+ */
 class BitNot implements Operand
 {
     /**

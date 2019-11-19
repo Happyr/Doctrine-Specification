@@ -20,16 +20,22 @@ use Happyr\DoctrineSpecification\Operand\Field;
 class OrderBy implements QueryModifier
 {
     /**
+     * @deprecated This property will be marked as private in 2.0.
+     *
      * @var Field|Alias
      */
     protected $field;
 
     /**
+     * @deprecated This property will be marked as private in 2.0.
+     *
      * @var string
      */
     protected $order;
 
     /**
+     * @deprecated This property will be marked as private in 2.0.
+     *
      * @var string|null
      */
     protected $dqlAlias;

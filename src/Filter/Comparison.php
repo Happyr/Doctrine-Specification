@@ -23,6 +23,8 @@ use Happyr\DoctrineSpecification\Operand\Operand;
  * Comparison class.
  *
  * This is used when you need to compare two values
+ *
+ * @deprecated This class will be marked as abstract in 2.0.
  */
 class Comparison implements Filter
 {
@@ -39,16 +41,22 @@ class Comparison implements Filter
     const GTE = '>=';
 
     /**
+     * @deprecated This property will be marked as private in 2.0.
+     *
      * @var Operand|string
      */
     protected $field;
 
     /**
+     * @deprecated This property will be marked as private in 2.0.
+     *
      * @var Operand|string
      */
     protected $value;
 
     /**
+     * @deprecated This property will be marked as private in 2.0.
+     *
      * @var string|null
      */
     protected $dqlAlias;

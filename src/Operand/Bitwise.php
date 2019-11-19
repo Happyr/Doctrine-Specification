@@ -16,6 +16,11 @@ namespace Happyr\DoctrineSpecification\Operand;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 
+@trigger_error('The '.__NAMESPACE__.'\Bitwise class is deprecated since version 1.1 and will be removed in 2.0.', E_USER_DEPRECATED);
+
+/**
+ * @deprecated This class is deprecated since version 1.1 and will be removed in 2.0.
+ */
 abstract class Bitwise implements Operand
 {
     const B_AND = '&';
@@ -39,7 +44,7 @@ abstract class Bitwise implements Operand
     /**
      * @var string
      */
-    private $operation = '';
+    private $operation;
 
     /**
      * @var Operand|string
@@ -58,7 +63,7 @@ abstract class Bitwise implements Operand
      */
     public function __construct($operation, $field, $value)
     {
-        if (!in_array($operation, self::$operations)) {
+        if (!in_array($operation, self::$operations, true)) {
             throw new InvalidArgumentException(sprintf(
                 '"%s" is not a valid bitwise operation. Valid operations are: "%s"',
                 $operation,

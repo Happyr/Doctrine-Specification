@@ -126,6 +126,7 @@ class Spec
      */
     public static function andX()
     {
+        // NEXT_MAJOR: use variable-length argument lists (...$specs)
         $spec = (new \ReflectionClass(AndX::class))->newInstanceArgs(func_get_args());
 
         // hook for PHPStan
@@ -143,6 +144,7 @@ class Spec
      */
     public static function orX()
     {
+        // NEXT_MAJOR: use variable-length argument lists (...$specs)
         $spec = (new \ReflectionClass(OrX::class))->newInstanceArgs(func_get_args());
 
         // hook for PHPStan
@@ -289,6 +291,7 @@ class Spec
      */
     public static function select($field)
     {
+        // NEXT_MAJOR: use variable-length argument lists (...$fields)
         return new Select(func_get_args());
     }
 
@@ -299,6 +302,7 @@ class Spec
      */
     public static function addSelect($field)
     {
+        // NEXT_MAJOR: use variable-length argument lists (...$fields)
         return new AddSelect(func_get_args());
     }
 
@@ -557,12 +561,18 @@ class Spec
     }
 
     /**
-     * @param Filter $spec
+     * @param Filter|QueryModifier|string $spec
      *
      * @return Having
      */
     public static function having($spec)
     {
+        if (!($spec instanceof Filter)) {
+            @trigger_error('Using "'.(is_object($spec) ? get_class($spec) : gettype($spec)).'" as argument in '.__METHOD__.' method is deprecated since version 1.1 and will not be possible in 2.0.', E_USER_DEPRECATED);
+        }
+
+        // NEXT_MAJOR: use here \Happyr\DoctrineSpecification\Query\Having
+
         return new Having($spec);
     }
 
@@ -688,6 +698,8 @@ class Spec
      */
 
     /**
+     * @deprecated This method is deprecated since version 1.1 and will be removed in 2.0, use "Spec::BIT_AND($a, $b)" instead.
+     *
      * @param Operand|string $field
      * @param Operand|mixed  $value
      *
@@ -699,6 +711,8 @@ class Spec
     }
 
     /**
+     * @deprecated This method is deprecated since version 1.1 and will be removed in 2.0, use "Spec::BIT_OR($a, $b)" instead.
+     *
      * @param Operand|string $field
      * @param Operand|mixed  $value
      *
@@ -710,6 +724,8 @@ class Spec
     }
 
     /**
+     * @deprecated This method is deprecated since version 1.1 and will be removed in 2.0.
+     *
      * @param Operand|string $field
      * @param Operand|mixed  $value
      *
@@ -721,6 +737,8 @@ class Spec
     }
 
     /**
+     * @deprecated This method is deprecated since version 1.1 and will be removed in 2.0.
+     *
      * @param Operand|string $field
      * @param Operand|mixed  $value
      *
@@ -732,6 +750,8 @@ class Spec
     }
 
     /**
+     * @deprecated This method is deprecated since version 1.1 and will be removed in 2.0.
+     *
      * @param Operand|string $field
      * @param Operand|mixed  $value
      *
@@ -743,6 +763,8 @@ class Spec
     }
 
     /**
+     * @deprecated This method is deprecated since version 1.1 and will be removed in 2.0.
+     *
      * @param Operand|string $field
      *
      * @return BitNot
@@ -767,6 +789,7 @@ class Spec
      */
     public static function fun($functionName, $arguments = [])
     {
+        // NEXT_MAJOR: use variable-length argument lists ($functionName, ...$arguments)
         if (2 === func_num_args()) {
             $arguments = (array) $arguments;
         } else {

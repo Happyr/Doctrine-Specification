@@ -20,16 +20,22 @@ use Happyr\DoctrineSpecification\Operand\Operand;
 class In implements Filter
 {
     /**
+     * @deprecated This property will be marked as private in 2.0.
+     *
      * @var Operand|string
      */
     protected $field;
 
     /**
+     * @deprecated This property will be marked as private in 2.0.
+     *
      * @var Operand|mixed
      */
     protected $value;
 
     /**
+     * @deprecated This property will be marked as private in 2.0.
+     *
      * @var string|null
      */
     protected $dqlAlias;
