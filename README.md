@@ -5,6 +5,7 @@
 [![Total Downloads Packagist](https://img.shields.io/packagist/dt/happyr/doctrine-specification.svg)](https://packagist.org/packages/happyr/doctrine-specification)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/44c425af-90f6-4c25-b789-4ece28b01a2b/mini.png)](https://insight.sensiolabs.com/projects/44c425af-90f6-4c25-b789-4ece28b01a2b)
 [![Quality Score](https://img.shields.io/scrutinizer/g/happyr/doctrine-specification.svg)](https://scrutinizer-ci.com/g/happyr/doctrine-specification)
+[![SymfonyInsight](https://insight.symfony.com/projects/21963379-2b15-4cc4-bdf6-0f98aa292f8a/mini.svg)](https://insight.symfony.com/projects/21963379-2b15-4cc4-bdf6-0f98aa292f8a)
 
 This library gives you a new way for writing queries. Using the [Specification pattern][wiki_spec_pattern] you will
 get small Specification classes that are highly reusable.
