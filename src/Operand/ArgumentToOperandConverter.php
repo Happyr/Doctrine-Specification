@@ -13,8 +13,6 @@
 
 namespace Happyr\DoctrineSpecification\Operand;
 
-use Happyr\DoctrineSpecification\Exception\NotConvertibleException;
-
 /**
  * This service is intended for backward compatibility and may be removed in the future.
  */
@@ -71,27 +69,21 @@ class ArgumentToOperandConverter
     }
 
     /**
-     * Convert all possible arguments to operands.
+     * Convert all arguments to operands.
      *
      * @param Operand[]|string[] $arguments
-     *
-     * @throws NotConvertibleException
      *
      * @return Operand[]
      */
     public static function convert(array $arguments)
     {
         $result = [];
-        $size = count($arguments);
         foreach (array_values($arguments) as $i => $argument) {
+            // always try convert the first argument to the field operand
             if (0 === $i) {
-                // always try convert the first argument to the field operand
                 $argument = self::toField($argument);
-            } elseif ($i === $size - 1) {
-                // always try convert the last argument to the value operand
+            } else {
                 $argument = self::toValue($argument);
-            } elseif (!($argument instanceof Operand)) {
-                throw new NotConvertibleException('You passed arguments not all of which are operands.');
             }
 
             $result[] = $argument;
