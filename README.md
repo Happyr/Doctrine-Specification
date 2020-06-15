@@ -3,7 +3,6 @@
 [![Latest Stable Version Packagist](https://img.shields.io/packagist/v/happyr/doctrine-specification.svg)](https://packagist.org/packages/happyr/doctrine-specification)
 [![Monthly Downloads Packagist](https://img.shields.io/packagist/dm/happyr/doctrine-specification.svg)](https://packagist.org/packages/happyr/doctrine-specification)
 [![Total Downloads Packagist](https://img.shields.io/packagist/dt/happyr/doctrine-specification.svg)](https://packagist.org/packages/happyr/doctrine-specification)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/44c425af-90f6-4c25-b789-4ece28b01a2b/mini.png)](https://insight.sensiolabs.com/projects/44c425af-90f6-4c25-b789-4ece28b01a2b)
 [![Quality Score](https://img.shields.io/scrutinizer/g/happyr/doctrine-specification.svg)](https://scrutinizer-ci.com/g/happyr/doctrine-specification)
 [![SymfonyInsight](https://insight.symfony.com/projects/21963379-2b15-4cc4-bdf6-0f98aa292f8a/mini.svg)](https://insight.symfony.com/projects/21963379-2b15-4cc4-bdf6-0f98aa292f8a)
 
@@ -192,7 +191,7 @@ class AdvertRepository extends EntityRepository
 The issues with the QueryBuilder implementation are:
 
 * You may only use the filters `filterOwnedByCompany` and `filterAdvertsWeShouldClose` inside AdvertRepository.
-* You can not build a tree with And/Or/Not. Say that you want every Advert but not those owned by $company. There 
+* You can not build a tree with And/Or/Not. Say that you want every Advert but not those owned by $company. There
 is no way to reuse `filterOwnedByCompany()` in that case.
 * Different parts of the QueryBuilder filtering cannot be composed together, because of the way the API is created.
 Assume we have a filterGroupsForApi() call, there is no way to combine it with another call filterGroupsForPermissions().

@@ -13,7 +13,6 @@
 
 namespace tests\Happyr\DoctrineSpecification\Operand;
 
-use Happyr\DoctrineSpecification\Exception\NotConvertibleException;
 use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
 use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\Operand;
@@ -114,10 +113,15 @@ class ArgumentToOperandConverterSpec extends ObjectBehavior
         $subject->shouldHaveOperandAt(2);
     }
 
-    public function it_is_not_convertible_arguments(Field $field, Operand $operand, Value $value)
+    public function it_a_convertible_arguments2(Field $field, Operand $operand, Value $value)
     {
-        $this->shouldThrow(NotConvertibleException::class)
-            ->duringConvert([$field, $operand, 'foo', $value]);
+        $subject = $this->convert([$field, $operand, 'foo', $value]);
+        $subject->shouldBeArray();
+        $subject->shouldHaveCount(4);
+        $subject->shouldHaveField();
+        $subject->shouldHaveValue();
+        $subject->shouldHaveOperandAt(1);
+        $subject->shouldHaveValueAt(2);
     }
 
     public function getMatchers()
@@ -128,6 +132,9 @@ class ArgumentToOperandConverterSpec extends ObjectBehavior
             },
             'haveValue' => function ($subject) {
                 return $subject[count($subject) - 1] instanceof Value;
+            },
+            'haveValueAt' => function ($subject, $position) {
+                return $subject[$position] instanceof Value;
             },
             'haveOperandAt' => function ($subject, $position) {
                 return $subject[$position] instanceof Operand;

@@ -13,14 +13,15 @@
 
 namespace tests\Happyr\DoctrineSpecification\Operand;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
-use Happyr\DoctrineSpecification\Exception\NotConvertibleException;
 use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\Operand;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction;
+use Happyr\DoctrineSpecification\Operand\Value;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -152,10 +153,33 @@ class PlatformFunctionSpec extends ObjectBehavior
         $this->shouldThrow(InvalidArgumentException::class)->during('transform', [$qb, 'a']);
     }
 
-    public function it_is_transformable_not_convertible(QueryBuilder $qb)
-    {
-        $this->beConstructedWith('concat', ['foo', 'bar', 'baz']);
+    public function it_is_transformable_convertible(
+        QueryBuilder $qb,
+        EntityManagerInterface $em,
+        Configuration $configuration,
+        ArrayCollection $parameters,
+        Value $value
+    ) {
+        $dqlAlias = 'a';
+        $functionName = 'concat';
+        $expression = 'concat(a.foo, :comparison_10, :comparison_11)';
 
-        $this->shouldThrow(NotConvertibleException::class)->during('transform', [$qb, 'a']);
+        $parameters->count()->willReturn(10);
+
+        $qb->getEntityManager()->willReturn($em);
+        $qb->getParameters()->willReturn($parameters);
+        $qb->setParameter('comparison_10', 'bar', null)->shouldBeCalled();
+
+        $em->getConfiguration()->willReturn($configuration);
+
+        $configuration->getCustomStringFunction($functionName)->willReturn('ToStringClass');
+        $configuration->getCustomNumericFunction($functionName)->willReturn(null);
+        $configuration->getCustomDatetimeFunction($functionName)->willReturn(null);
+
+        $value->transform($qb, $dqlAlias)->willReturn(':comparison_11');
+
+        $this->beConstructedWith($functionName, ['foo', 'bar', $value]);
+
+        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
     }
 }
