@@ -5,3 +5,4 @@ enabled:
 
 disabled:
     - single_line_throw
+    - no_superfluous_phpdoc_tags_symfony
