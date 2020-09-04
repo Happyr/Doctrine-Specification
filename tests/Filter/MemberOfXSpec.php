@@ -41,12 +41,9 @@ class MemberOfXSpec extends ObjectBehavior
         $this->shouldBeAnInstanceOf(Filter::class);
     }
 
-    public function it_returns_expression_func_object(
-        QueryBuilder $qb,
-        ArrayCollection $parameters,
-        Expr $exp,
-        Comparison $exp_comparison
-    ) {
+    public function it_returns_expression_func_object(QueryBuilder $qb, ArrayCollection $parameters, Expr $exp)
+    {
+        $exp_comparison = new Comparison(':comparison_10', 'MEMBER OF', 'a.age');
         $qb->expr()->willReturn($exp);
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
@@ -54,8 +51,6 @@ class MemberOfXSpec extends ObjectBehavior
         $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
         $exp->isMemberOf(':comparison_10', 'a.age')->willReturn($exp_comparison);
 
-        $comparison = $this->getFilter($qb, null);
-
-        $comparison->shouldReturn($exp_comparison);
+        $this->getFilter($qb, null)->shouldReturn(':comparison_10 MEMBER OF a.age');
     }
 }

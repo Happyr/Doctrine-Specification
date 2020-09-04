@@ -61,7 +61,7 @@ class MemberOfX implements Filter
         $field = ArgumentToOperandConverter::toField($this->field);
         $value = ArgumentToOperandConverter::toValue($this->value);
 
-        return $qb->expr()->isMemberOf(
+        return (string) $qb->expr()->isMemberOf(
             $value->transform($qb, $dqlAlias),
             $field->transform($qb, $dqlAlias)
         );
