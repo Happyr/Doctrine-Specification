@@ -78,7 +78,7 @@ class LogicX implements Specification
             );
         }
 
-        return call_user_func_array($expression, $children);
+        return (string) call_user_func_array($expression, $children);
     }
 
     /**
