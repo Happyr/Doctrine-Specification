@@ -24,10 +24,8 @@ use Happyr\DoctrineSpecification\Operand\Operand;
  * Comparison class.
  *
  * This is used when you need to compare two values
- *
- * @deprecated This class will be marked as abstract in 2.0.
  */
-class Comparison implements Filter
+abstract class Comparison implements Filter
 {
     const EQ = '=';
 
