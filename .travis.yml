@@ -17,6 +17,8 @@ before_install:
 
 install: COMPOSER_MEMORY_LIMIT=-1 composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction --no-scripts --no-progress
 
+script: composer test
+
 jobs:
     include:
         - stage: Test
