@@ -21,10 +21,8 @@ use Happyr\DoctrineSpecification\Specification\Specification;
 
 /**
  * This class should be used when you combine two or more Expressions.
- *
- * @deprecated This class will be marked as abstract in 2.0.
  */
-class LogicX implements Specification
+abstract class LogicX implements Specification
 {
     const AND_X = 'andX';
 
