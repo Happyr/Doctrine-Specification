@@ -27,12 +27,6 @@ use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
 use Happyr\DoctrineSpecification\Operand\Addition;
 use Happyr\DoctrineSpecification\Operand\Alias;
-use Happyr\DoctrineSpecification\Operand\BitAnd;
-use Happyr\DoctrineSpecification\Operand\BitLeftShift;
-use Happyr\DoctrineSpecification\Operand\BitNot;
-use Happyr\DoctrineSpecification\Operand\BitOr;
-use Happyr\DoctrineSpecification\Operand\BitRightShift;
-use Happyr\DoctrineSpecification\Operand\BitXor;
 use Happyr\DoctrineSpecification\Operand\CountDistinct;
 use Happyr\DoctrineSpecification\Operand\Division;
 use Happyr\DoctrineSpecification\Operand\Field;
@@ -676,85 +670,6 @@ class Spec
     public static function mod($field, $value)
     {
         return new Modulo($field, $value);
-    }
-
-    // Bitwise operands
-
-    /**
-     * @deprecated This method is deprecated since version 1.1 and will be removed in 2.0, use "Spec::BIT_AND($a, $b)" instead.
-     *
-     * @param Operand|string $field
-     * @param Operand|mixed  $value
-     *
-     * @return BitAnd
-     */
-    public static function bAnd($field, $value)
-    {
-        return new BitAnd($field, $value);
-    }
-
-    /**
-     * @deprecated This method is deprecated since version 1.1 and will be removed in 2.0, use "Spec::BIT_OR($a, $b)" instead.
-     *
-     * @param Operand|string $field
-     * @param Operand|mixed  $value
-     *
-     * @return BitOr
-     */
-    public static function bOr($field, $value)
-    {
-        return new BitOr($field, $value);
-    }
-
-    /**
-     * @deprecated This method is deprecated since version 1.1 and will be removed in 2.0.
-     *
-     * @param Operand|string $field
-     * @param Operand|mixed  $value
-     *
-     * @return BitXor
-     */
-    public static function bXor($field, $value)
-    {
-        return new BitXor($field, $value);
-    }
-
-    /**
-     * @deprecated This method is deprecated since version 1.1 and will be removed in 2.0.
-     *
-     * @param Operand|string $field
-     * @param Operand|mixed  $value
-     *
-     * @return BitLeftShift
-     */
-    public static function bLs($field, $value)
-    {
-        return new BitLeftShift($field, $value);
-    }
-
-    /**
-     * @deprecated This method is deprecated since version 1.1 and will be removed in 2.0.
-     *
-     * @param Operand|string $field
-     * @param Operand|mixed  $value
-     *
-     * @return BitRightShift
-     */
-    public static function bRs($field, $value)
-    {
-        return new BitRightShift($field, $value);
-    }
-
-    /**
-     * @deprecated This method is deprecated since version 1.1 and will be removed in 2.0.
-     *
-     * @param Operand|string $field
-     *
-     * @return BitNot
-     */
-    public static function bNot($field)
-    {
-        return new BitNot($field);
     }
 
     /**
