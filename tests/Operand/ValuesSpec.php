@@ -28,7 +28,7 @@ class ValuesSpec extends ObjectBehavior
 {
     private $values = ['foo', 'bar'];
 
-    private $valueType = null;
+    private $valueType;
 
     public function let()
     {

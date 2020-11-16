@@ -118,8 +118,8 @@ class Spec
         return self::fun($name, $arguments);
     }
 
-    /*
-     * Logic
+    /**
+     * Logic.
      */
 
     /**
@@ -168,8 +168,8 @@ class Spec
         return new Not($spec);
     }
 
-    /*
-     * Query modifier
+    /**
+     * Query modifier.
      */
 
     /**
@@ -281,8 +281,8 @@ class Spec
         return new Distinct();
     }
 
-    /*
-     * Selection
+    /**
+     * Selection.
      */
 
     /**
@@ -339,8 +339,8 @@ class Spec
         return new SelectHiddenAs($expression, $alias);
     }
 
-    /*
-     * Result modifier
+    /**
+     * Result modifier.
      */
 
     /**
@@ -387,8 +387,8 @@ class Spec
         return new RoundDateTime($roundSeconds);
     }
 
-    /*
-     * Filters
+    /**
+     * Filters.
      */
 
     /**
@@ -547,8 +547,8 @@ class Spec
         return new MemberOfX($value, $field, $dqlAlias);
     }
 
-    /*
-     * Specifications
+    /**
+     * Specifications.
      */
 
     /**
@@ -577,8 +577,8 @@ class Spec
         return new Having($spec);
     }
 
-    /*
-     * Operands
+    /**
+     * Operands.
      */
 
     /**
@@ -635,8 +635,8 @@ class Spec
         return new CountDistinct($field);
     }
 
-    /*
-     * Arithmetic operands
+    /**
+     * Arithmetic operands.
      */
 
     /**
@@ -694,8 +694,8 @@ class Spec
         return new Modulo($field, $value);
     }
 
-    /*
-     * Bitwise operands
+    /**
+     * Bitwise operands.
      */
 
     /**

@@ -62,7 +62,7 @@ abstract class Arithmetic implements Operand
      */
     public function __construct($operation, $field, $value)
     {
-        if (!in_array($operation, self::$operations)) {
+        if (!in_array($operation, self::$operations, true)) {
             throw new InvalidArgumentException(sprintf(
                 '"%s" is not a valid arithmetic operation. Valid operations are: "%s"',
                 $operation,

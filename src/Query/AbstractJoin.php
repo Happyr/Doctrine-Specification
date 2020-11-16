@@ -59,7 +59,7 @@ abstract class AbstractJoin implements QueryModifier
         }
 
         $join = $this->getJoinType();
-        $qb->$join(sprintf('%s.%s', $dqlAlias, $this->field), $this->newAlias);
+        $qb->{$join}(sprintf('%s.%s', $dqlAlias, $this->field), $this->newAlias);
     }
 
     /**
