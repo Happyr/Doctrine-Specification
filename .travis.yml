@@ -51,5 +51,5 @@ jobs:
         - stage: Code Quality
           name: PHPStan
           php: 7.2
-          env: PHPSTAN_VERSION=0.12.*
+          env: PHPSTAN_VERSION=0.11.*
           script: vendor/bin/phpstan analyse
