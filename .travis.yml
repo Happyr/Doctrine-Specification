@@ -1,5 +1,7 @@
 language: php
 
+os: linux
+
 cache:
   directories:
     - $HOME/.composer/cache
@@ -9,24 +11,45 @@ branches:
     - /^analysis-.*$/
     - /^patch-.*$/
 
-matrix:
-  fast_finish: true
-  include:
-    - php: 7.4
-    - php: 7.3
-    - php: 7.2
-    - php: 7.1
-    - php: 7.0
-    - php: 5.6
-    - php: 5.5
-      dist: trusty
-    - php: 7.1
-      env: PHPSTAN_VERSION=0.11.*
-
-install:
+before_install:
+    - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
     - if [ "$PHPSTAN_VERSION" != "" ]; then composer require "phpstan/phpstan:${PHPSTAN_VERSION}" --dev --no-update; fi;
-    - travis_retry composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction
 
-script:
-  - if [ "$PHPSTAN_VERSION" != "" ]; then ./vendor/bin/phpstan analyse; fi;
-  - composer test
+install: COMPOSER_MEMORY_LIMIT=-1 composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction --no-scripts --no-progress
+
+script: composer test
+
+jobs:
+    include:
+        - stage: Test
+          php: 5.5
+          dist: trusty
+
+        - stage: Test
+          php: 5.6
+
+        - stage: Test
+          php: 7.0
+
+        - stage: Test
+          php: 7.1
+
+        - stage: Test
+          php: 7.2
+
+        - stage: Test
+          php: 7.3
+
+        - stage: Test
+          php: 7.4
+
+        - stage: Code Quality
+          name: PHP CS Fixer
+          before_script: wget https://cs.symfony.com/download/php-cs-fixer-v2.phar -O php-cs-fixer
+          script: php php-cs-fixer fix --diff --dry-run -v
+
+        - stage: Code Quality
+          name: PHPStan
+          php: 7.2
+          env: PHPSTAN_VERSION=0.11.*
+          script: vendor/bin/phpstan analyse
