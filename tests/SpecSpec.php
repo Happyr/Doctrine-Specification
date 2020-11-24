@@ -18,8 +18,6 @@ use Happyr\DoctrineSpecification\Filter\MemberOfX;
 use Happyr\DoctrineSpecification\Logic\LogicX;
 use Happyr\DoctrineSpecification\Operand\Addition;
 use Happyr\DoctrineSpecification\Operand\Alias;
-use Happyr\DoctrineSpecification\Operand\BitAnd;
-use Happyr\DoctrineSpecification\Operand\BitOr;
 use Happyr\DoctrineSpecification\Operand\CountDistinct;
 use Happyr\DoctrineSpecification\Operand\Division;
 use Happyr\DoctrineSpecification\Operand\Modulo;
@@ -78,16 +76,6 @@ class SpecSpec extends ObjectBehavior
     public function it_creates_mod_operand()
     {
         $this->mod('foo', 'bar')->shouldReturnAnInstanceOf(Modulo::class);
-    }
-
-    public function it_create_bit_and_operand()
-    {
-        $this->bAnd('foo', 'bar')->shouldReturnAnInstanceOf(BitAnd::class);
-    }
-
-    public function it_create_bit_or_operand()
-    {
-        $this->bOr('foo', 'bar')->shouldReturnAnInstanceOf(BitOr::class);
     }
 
     public function it_creates_an_function()
