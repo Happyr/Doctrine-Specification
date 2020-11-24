@@ -24,10 +24,8 @@ use Happyr\DoctrineSpecification\Operand\Operand;
  * Comparison class.
  *
  * This is used when you need to compare two values
- *
- * @deprecated This class will be marked as abstract in 2.0.
  */
-class Comparison implements Filter
+abstract class Comparison implements Filter
 {
     const EQ = '=';
 
@@ -42,28 +40,22 @@ class Comparison implements Filter
     const GTE = '>=';
 
     /**
-     * @deprecated This property will be marked as private in 2.0.
-     *
      * @var Operand|string
      */
-    protected $field;
+    private $field;
 
     /**
-     * @deprecated This property will be marked as private in 2.0.
-     *
      * @var Operand|string
      */
-    protected $value;
+    private $value;
 
     /**
-     * @deprecated This property will be marked as private in 2.0.
-     *
      * @var string|null
      */
-    protected $dqlAlias;
+    private $dqlAlias;
 
     /**
-     * @var array
+     * @var string[]
      */
     private static $operators = [
         self::EQ, self::NEQ,

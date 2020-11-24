@@ -14,14 +14,19 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification;
 
-use Happyr\DoctrineSpecification\Filter\Comparison;
+use Happyr\DoctrineSpecification\Filter\Equals;
 use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Filter\GreaterOrEqualThan;
+use Happyr\DoctrineSpecification\Filter\GreaterThan;
 use Happyr\DoctrineSpecification\Filter\In;
 use Happyr\DoctrineSpecification\Filter\InstanceOfX;
 use Happyr\DoctrineSpecification\Filter\IsNotNull;
 use Happyr\DoctrineSpecification\Filter\IsNull;
+use Happyr\DoctrineSpecification\Filter\LessOrEqualThan;
+use Happyr\DoctrineSpecification\Filter\LessThan;
 use Happyr\DoctrineSpecification\Filter\Like;
 use Happyr\DoctrineSpecification\Filter\MemberOfX;
+use Happyr\DoctrineSpecification\Filter\NotEquals;
 use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
@@ -434,11 +439,11 @@ class Spec
      * @param Operand|mixed  $value
      * @param string|null    $dqlAlias
      *
-     * @return Comparison
+     * @return Equals
      */
     public static function eq($field, $value, $dqlAlias = null)
     {
-        return new Comparison(Comparison::EQ, $field, $value, $dqlAlias);
+        return new Equals($field, $value, $dqlAlias);
     }
 
     /**
@@ -446,11 +451,11 @@ class Spec
      * @param Operand|mixed  $value
      * @param string|null    $dqlAlias
      *
-     * @return Comparison
+     * @return NotEquals
      */
     public static function neq($field, $value, $dqlAlias = null)
     {
-        return new Comparison(Comparison::NEQ, $field, $value, $dqlAlias);
+        return new NotEquals($field, $value, $dqlAlias);
     }
 
     /**
@@ -458,11 +463,11 @@ class Spec
      * @param Operand|mixed  $value
      * @param string|null    $dqlAlias
      *
-     * @return Comparison
+     * @return LessThan
      */
     public static function lt($field, $value, $dqlAlias = null)
     {
-        return new Comparison(Comparison::LT, $field, $value, $dqlAlias);
+        return new LessThan($field, $value, $dqlAlias);
     }
 
     /**
@@ -470,11 +475,11 @@ class Spec
      * @param Operand|mixed  $value
      * @param string|null    $dqlAlias
      *
-     * @return Comparison
+     * @return LessOrEqualThan
      */
     public static function lte($field, $value, $dqlAlias = null)
     {
-        return new Comparison(Comparison::LTE, $field, $value, $dqlAlias);
+        return new LessOrEqualThan($field, $value, $dqlAlias);
     }
 
     /**
@@ -482,11 +487,11 @@ class Spec
      * @param Operand|mixed  $value
      * @param string|null    $dqlAlias
      *
-     * @return Comparison
+     * @return GreaterThan
      */
     public static function gt($field, $value, $dqlAlias = null)
     {
-        return new Comparison(Comparison::GT, $field, $value, $dqlAlias);
+        return new GreaterThan($field, $value, $dqlAlias);
     }
 
     /**
@@ -494,11 +499,11 @@ class Spec
      * @param Operand|mixed  $value
      * @param string|null    $dqlAlias
      *
-     * @return Comparison
+     * @return GreaterOrEqualThan
      */
     public static function gte($field, $value, $dqlAlias = null)
     {
-        return new Comparison(Comparison::GTE, $field, $value, $dqlAlias);
+        return new GreaterOrEqualThan($field, $value, $dqlAlias);
     }
 
     /**
