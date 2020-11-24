@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of the Happyr Doctrine Specification package.
@@ -117,9 +118,7 @@ class Spec
         return self::fun($name, $arguments);
     }
 
-    /*
-     * Logic
-     */
+    // Logic
 
     /**
      * @return AndX
@@ -167,9 +166,7 @@ class Spec
         return new Not($spec);
     }
 
-    /*
-     * Query modifier
-     */
+    // Query modifier
 
     /**
      * @param string      $field
@@ -280,9 +277,7 @@ class Spec
         return new Distinct();
     }
 
-    /*
-     * Selection
-     */
+    // Selection
 
     /**
      * @param mixed $field
@@ -338,9 +333,7 @@ class Spec
         return new SelectHiddenAs($expression, $alias);
     }
 
-    /*
-     * Result modifier
-     */
+    // Result modifier
 
     /**
      * @return AsArray
@@ -386,9 +379,7 @@ class Spec
         return new RoundDateTime($roundSeconds);
     }
 
-    /*
-     * Filters
-     */
+    // Filters
 
     /**
      * @param Operand|string $field
@@ -546,9 +537,7 @@ class Spec
         return new MemberOfX($value, $field, $dqlAlias);
     }
 
-    /*
-     * Specifications
-     */
+    // Specifications
 
     /**
      * @param Filter|QueryModifier $spec
@@ -576,9 +565,7 @@ class Spec
         return new Having($spec);
     }
 
-    /*
-     * Operands
-     */
+    // Operands
 
     /**
      * @param string      $fieldName
@@ -634,9 +621,7 @@ class Spec
         return new CountDistinct($field);
     }
 
-    /*
-     * Arithmetic operands
-     */
+    // Arithmetic operands
 
     /**
      * @param Operand|string $field
@@ -693,9 +678,7 @@ class Spec
         return new Modulo($field, $value);
     }
 
-    /*
-     * Bitwise operands
-     */
+    // Bitwise operands
 
     /**
      * @deprecated This method is deprecated since version 1.1 and will be removed in 2.0, use "Spec::BIT_AND($a, $b)" instead.

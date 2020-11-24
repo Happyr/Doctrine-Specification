@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of the Happyr Doctrine Specification package.
@@ -61,7 +62,7 @@ abstract class Arithmetic implements Operand
      */
     public function __construct($operation, $field, $value)
     {
-        if (!in_array($operation, self::$operations)) {
+        if (!in_array($operation, self::$operations, true)) {
             throw new InvalidArgumentException(sprintf(
                 '"%s" is not a valid arithmetic operation. Valid operations are: "%s"',
                 $operation,

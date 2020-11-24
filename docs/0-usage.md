@@ -17,6 +17,8 @@ Let your repositories extend `Happyr\DoctrineSpecification\EntitySpecificationRe
 
 ```php
 <?php
+declare(strict_types=1);
+
 namespace Acme\DemoBundle\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -32,7 +34,7 @@ class MyRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Tag::class);
     }
-    
+
     // ...
 }
 ```
@@ -45,6 +47,7 @@ Then you may start to create your specifications. Put them in `Acme\DemoBundle\E
 
 ```php
 <?php
+declare(strict_types=1);
 
 namespace Acme\DemoBundle\Entity\Spec;
 
@@ -72,6 +75,7 @@ Specification, do like this:
 
 ```php
 <?php
+declare(strict_types=1);
 
 namespace Acme\DemoBundle\Controller;
 

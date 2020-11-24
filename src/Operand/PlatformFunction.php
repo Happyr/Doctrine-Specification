@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of the Happyr Doctrine Specification package.
@@ -92,7 +93,7 @@ class PlatformFunction implements Operand
      */
     public function transform(QueryBuilder $qb, $dqlAlias)
     {
-        if (!in_array(strtolower($this->functionName), self::$doctrineFunctions) &&
+        if (!in_array(strtolower($this->functionName), self::$doctrineFunctions, true) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomStringFunction($this->functionName) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomNumericFunction($this->functionName) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomDatetimeFunction($this->functionName)

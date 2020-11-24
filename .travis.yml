@@ -22,13 +22,6 @@ script: composer test
 jobs:
     include:
         - stage: Test
-          php: 5.5
-          dist: trusty
-
-        - stage: Test
-          php: 5.6
-
-        - stage: Test
           php: 7.0
 
         - stage: Test

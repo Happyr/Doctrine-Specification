@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of the Happyr Doctrine Specification package.
@@ -58,7 +59,7 @@ abstract class AbstractJoin implements QueryModifier
         }
 
         $join = $this->getJoinType();
-        $qb->$join(sprintf('%s.%s', $dqlAlias, $this->field), $this->newAlias);
+        $qb->{$join}(sprintf('%s.%s', $dqlAlias, $this->field), $this->newAlias);
     }
 
     /**
