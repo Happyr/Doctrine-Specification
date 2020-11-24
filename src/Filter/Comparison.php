@@ -55,7 +55,7 @@ abstract class Comparison implements Filter
     private $dqlAlias;
 
     /**
-     * @var array
+     * @var string[]
      */
     private static $operators = [
         self::EQ, self::NEQ,
