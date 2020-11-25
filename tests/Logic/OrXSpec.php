@@ -28,7 +28,7 @@ class OrXSpec extends ObjectBehavior
 {
     public function let(Specification $specificationA, Specification $specificationB)
     {
-        $this->beConstructedWith([$specificationA, $specificationB]);
+        $this->beConstructedWith($specificationA, $specificationB);
     }
 
     public function it_is_a_specification()
@@ -61,7 +61,7 @@ class OrXSpec extends ObjectBehavior
 
     public function it_supports_expressions(QueryBuilder $qb, Expr $expression, Filter $exprA, Filter $exprB, $x, $y)
     {
-        $this->beConstructedWith([$exprA, $exprB]);
+        $this->beConstructedWith($exprA, $exprB);
 
         $dqlAlias = 'a';
 
