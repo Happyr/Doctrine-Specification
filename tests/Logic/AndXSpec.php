@@ -17,20 +17,18 @@ namespace tests\Happyr\DoctrineSpecification\Logic;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
-use Happyr\DoctrineSpecification\Logic\LogicX;
+use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
 
 /**
- * @mixin LogicX
+ * @mixin AndX
  */
-class LogicXSpec extends ObjectBehavior
+class AndXSpec extends ObjectBehavior
 {
-    const EXPRESSION = 'andX';
-
     public function let(Specification $specificationA, Specification $specificationB)
     {
-        $this->beConstructedWith(self::EXPRESSION, [$specificationA, $specificationB]);
+        $this->beConstructedWith($specificationA, $specificationB);
     }
 
     public function it_is_a_specification()
@@ -56,14 +54,14 @@ class LogicXSpec extends ObjectBehavior
         $specificationB->getFilter($qb, $dqlAlias)->willReturn($y);
         $qb->expr()->willReturn($expression);
 
-        $expression->{self::EXPRESSION}($x, $y)->shouldBeCalled();
+        $expression->andX($x, $y)->shouldBeCalled();
 
         $this->getFilter($qb, $dqlAlias);
     }
 
     public function it_supports_expressions(QueryBuilder $qb, Expr $expression, Filter $exprA, Filter $exprB, $x, $y)
     {
-        $this->beConstructedWith(self::EXPRESSION, [$exprA, $exprB]);
+        $this->beConstructedWith($exprA, $exprB);
 
         $dqlAlias = 'a';
 
@@ -71,7 +69,7 @@ class LogicXSpec extends ObjectBehavior
         $exprB->getFilter($qb, $dqlAlias)->willReturn($y);
         $qb->expr()->willReturn($expression);
 
-        $expression->{self::EXPRESSION}($x, $y)->shouldBeCalled();
+        $expression->andX($x, $y)->shouldBeCalled();
 
         $this->getFilter($qb, $dqlAlias);
     }
