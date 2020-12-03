@@ -50,6 +50,6 @@ class InstanceOfX implements Filter
             $dqlAlias = $this->dqlAlias;
         }
 
-        return sprintf('%s INSTANCE OF %s', $dqlAlias, $this->value);
+        return (string) $qb->expr()->isInstanceOf($dqlAlias, $this->value);
     }
 }

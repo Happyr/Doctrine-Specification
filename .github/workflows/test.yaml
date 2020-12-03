@@ -16,7 +16,7 @@ jobs:
             fail-fast: false
             matrix:
                 dependencies:
-                    # TODO require phpspec/phpspec >= 6.3.0 and doctrine/orm >= 2.5
+                    # TODO require phpspec/phpspec >= 6.3.0
                     #- lowest
                     - highest
                 php-version:
