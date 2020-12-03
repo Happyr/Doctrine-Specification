@@ -24,8 +24,7 @@
         "doctrine/orm": ">=2.2.3"
     },
     "require-dev": {
-        "phpspec/phpspec": "~2.1",
-        "friendsofphp/php-cs-fixer": "~2.2"
+        "phpspec/phpspec": "~2.1"
     },
     "autoload": {
         "psr-4": {
