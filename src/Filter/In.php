@@ -21,25 +21,19 @@ use Happyr\DoctrineSpecification\Operand\Operand;
 class In implements Filter
 {
     /**
-     * @deprecated This property will be marked as private in 2.0.
-     *
      * @var Operand|string
      */
-    protected $field;
+    private $field;
 
     /**
-     * @deprecated This property will be marked as private in 2.0.
-     *
      * @var Operand|mixed
      */
-    protected $value;
+    private $value;
 
     /**
-     * @deprecated This property will be marked as private in 2.0.
-     *
      * @var string|null
      */
-    protected $dqlAlias;
+    private $dqlAlias;
 
     /**
      * Make sure the $field has a value equals to $value.

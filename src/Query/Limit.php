@@ -19,11 +19,9 @@ use Doctrine\ORM\QueryBuilder;
 class Limit implements QueryModifier
 {
     /**
-     * @deprecated This property will be marked as private in 2.0.
-     *
      * @var int limit
      */
-    protected $limit;
+    private $limit;
 
     /**
      * @param int $limit

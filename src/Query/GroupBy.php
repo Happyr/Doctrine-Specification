@@ -21,18 +21,14 @@ use Happyr\DoctrineSpecification\Operand\Field;
 class GroupBy implements QueryModifier
 {
     /**
-     * @deprecated This property will be marked as private in 2.0.
-     *
      * @var Field|Alias
      */
-    protected $field;
+    private $field;
 
     /**
-     * @deprecated This property will be marked as private in 2.0.
-     *
      * @var string|null
      */
-    protected $dqlAlias;
+    private $dqlAlias;
 
     /**
      * @param Field|Alias|string $field
