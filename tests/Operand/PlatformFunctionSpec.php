@@ -15,7 +15,7 @@ namespace tests\Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Configuration;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 use Happyr\DoctrineSpecification\Operand\Field;
@@ -78,7 +78,7 @@ class PlatformFunctionSpec extends ObjectBehavior
 
     public function it_is_transformable_custom_string_function(
         QueryBuilder $qb,
-        EntityManagerInterface $em,
+        EntityManager $em,
         Configuration $configuration
     ) {
         $dqlAlias = 'a';
@@ -98,7 +98,7 @@ class PlatformFunctionSpec extends ObjectBehavior
 
     public function it_is_transformable_custom_numeric_function(
         QueryBuilder $qb,
-        EntityManagerInterface $em,
+        EntityManager $em,
         Configuration $configuration
     ) {
         $dqlAlias = 'a';
@@ -118,7 +118,7 @@ class PlatformFunctionSpec extends ObjectBehavior
 
     public function it_is_transformable_custom_datetime_function(
         QueryBuilder $qb,
-        EntityManagerInterface $em,
+        EntityManager $em,
         Configuration $configuration
     ) {
         $dqlAlias = 'a';
@@ -138,7 +138,7 @@ class PlatformFunctionSpec extends ObjectBehavior
 
     public function it_is_transformable_undefined_function(
         QueryBuilder $qb,
-        EntityManagerInterface $em,
+        EntityManager $em,
         Configuration $configuration
     ) {
         $functionName = 'foo';
@@ -155,7 +155,7 @@ class PlatformFunctionSpec extends ObjectBehavior
 
     public function it_is_transformable_convertible(
         QueryBuilder $qb,
-        EntityManagerInterface $em,
+        EntityManager $em,
         Configuration $configuration,
         ArrayCollection $parameters,
         Value $value

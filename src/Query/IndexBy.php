@@ -57,6 +57,11 @@ class IndexBy implements QueryModifier
             $dqlAlias = $this->dqlAlias;
         }
 
+        // doctrine/orm < 2.5
+        if (!method_exists($qb, 'indexBy')) {
+            throw new \RuntimeException('IndexBy query modifier require doctrine/orm >= 2.5');
+        }
+
         $qb->indexBy($dqlAlias, $this->field->transform($qb, $dqlAlias));
     }
 }
