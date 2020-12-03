@@ -1,0 +1,61 @@
+name: Quality assurance
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  phpstan:
+    name: PHPStan
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install PHP with extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.1
+          coverage: none
+          tools: composer:v2
+
+      - name: Install variant
+        run: |
+          composer require phpstan/phpstan:"0.11.*" --no-update
+          composer require phpstan/phpstan-phpunit:"0.11.*" --no-update
+
+      - name: Install Composer dependencies (highest)
+        uses: 'ramsey/composer-install@v1'
+        with:
+          dependency-versions: 'highest'
+          composer-options: '--prefer-dist --prefer-stable'
+
+      - name: PHPStan
+        run: vendor/bin/phpstan --memory-limit=1G analyse
+
+  php-cs-fixer:
+    name: PHP CS Fixer
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install PHP with extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.1
+          coverage: none
+          tools: composer:v2
+
+      - name: Install Composer dependencies (highest)
+        uses: 'ramsey/composer-install@v1'
+        with:
+          dependency-versions: 'highest'
+          composer-options: '--prefer-dist --prefer-stable'
+
+      - name: PHP Code Style Fixer (php-cs-fixer)
+        uses: OskarStark/php-cs-fixer-ga@2.16.7
