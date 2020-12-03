@@ -21,7 +21,7 @@
     ],
     "require": {
         "php": ">=7.0",
-        "doctrine/orm": ">=2.2.3"
+        "doctrine/orm": "~2.5"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.1"

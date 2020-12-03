@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace tests\Happyr\DoctrineSpecification\Filter;
 
+use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\Query\Expr\Comparison;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\InstanceOfX;
@@ -39,8 +41,13 @@ class InstanceOfXSpec extends ObjectBehavior
         $this->shouldBeAnInstanceOf(Filter::class);
     }
 
-    public function it_returns_expression_func_object(QueryBuilder $qb)
+    public function it_returns_expression_func_object(QueryBuilder $qb, Expr $exp)
     {
+        $exp_comparison = new Comparison('o', 'INSTANCE OF', 'My\Model');
+        $exp->isInstanceOf('o', 'My\Model')->willReturn($exp_comparison);
+
+        $qb->expr()->willReturn($exp);
+
         $this->getFilter($qb, null)->shouldReturn('o INSTANCE OF My\Model');
     }
 }
