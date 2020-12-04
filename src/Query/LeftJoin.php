@@ -14,13 +14,15 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\Query;
 
+use Doctrine\ORM\QueryBuilder;
+
 class LeftJoin extends AbstractJoin
 {
     /**
      * {@inheritdoc}
      */
-    protected function getJoinType()
+    protected function modifyJoin(QueryBuilder $qb, $join, $alias): void
     {
-        return 'leftJoin';
+        $qb->leftJoin($join, $alias);
     }
 }
