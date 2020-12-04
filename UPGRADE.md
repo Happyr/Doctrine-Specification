@@ -1,3 +1,20 @@
+# Upgrade from 1.1 to 2.0
+
+The `AbstractJoin::getJoinType()` method was removed. Use `AbstractJoin::modifyJoin()` method inside.
+The `Comparison` class marked as `abstract`.
+The `LogicX` class marked as `abstract`.
+The `protected` properties in `Comparison` class marked as `private`.
+The `protected` properties in `In` class marked as `private`.
+The `protected` properties in `GroupBy` class marked as `private`.
+The `protected` properties in `OrderBy` class marked as `private`.
+The `protected` properties in `Limit` class marked as `private`.
+The `protected` properties in `Offset` class marked as `private`.
+The `Bitwise` operands was removed.
+
+# Upgrade from 1.0 to 1.1
+
+No BC breaks
+
 # Upgrade from 0.8 to 1.0
 
 The `Comparison` no longer supports the operator `LIKE`. Use the `Like` filter.
@@ -41,7 +58,7 @@ It has been many changes since 0.2 and we refactored quite a lot. These are the 
 ## Changed interfaces
 
 The old `Specification` interface has been split up to two parts. We got a `Filter` with will modify the `SELECT`
-clause of the SQL query. We also got the `QueryModifier` interface the modifies the query (Limit, Order, Join etc). 
+clause of the SQL query. We also got the `QueryModifier` interface the modifies the query (Limit, Order, Join etc).
 
 The new `Specification` interface extends `Filter` and `QueryModifier`.
 
@@ -51,7 +68,7 @@ You have to update your specifications to comply with `QueryModifier` and/or `Ex
 ## BaseSpecification
 
 There are two new methods `getFilter` and `modify`. You don't need to override these. You may use BaseSpecfication as
-normal. 
+normal.
 
 The `supports` function has been removed.
 
