@@ -61,6 +61,11 @@ class MemberOfX implements Filter
         $field = ArgumentToOperandConverter::toField($this->field);
         $value = ArgumentToOperandConverter::toValue($this->value);
 
+        // doctrine/orm < 2.5
+        if (!method_exists($qb, 'isMemberOf')) {
+            return sprintf('%s MEMBER OF %s', $value->transform($qb, $dqlAlias), $field->transform($qb, $dqlAlias));
+        }
+
         return (string) $qb->expr()->isMemberOf(
             $value->transform($qb, $dqlAlias),
             $field->transform($qb, $dqlAlias)

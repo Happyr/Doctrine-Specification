@@ -43,11 +43,18 @@ class RoundDateTimeSpec extends ObjectBehavior
         $actual = new \DateTime('15:55:34');
         $expected = new \DateTimeImmutable('15:00:00');
 
-        $query->getParameters()->willReturn(new ArrayCollection([
-            new Parameter('status', 'active'), // scalar param
-            new Parameter($name, $actual, $type),
-        ]));
-        $query->setParameter($name, $expected, $type)->shouldBeCalled();
+        if (class_exists(Parameter::class)) { // doctrine/orm >= 2.3
+            $query->getParameters()->willReturn(new ArrayCollection([
+                new Parameter('status', 'active'), // scalar param
+                new Parameter($name, $actual, $type),
+            ]));
+            $query->setParameter($name, $expected, $type)->shouldBeCalled();
+        } else {
+            $query->getParameters()->willReturn([
+                'status' => 'active', // scalar param
+                $name => $actual,
+            ]);
+        }
 
         $this->modify($query);
     }
