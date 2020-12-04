@@ -125,7 +125,7 @@ class ArgumentToOperandConverterSpec extends ObjectBehavior
         $subject->shouldHaveValueAt(2);
     }
 
-    public function getMatchers()
+    public function getMatchers(): array
     {
         return [
             'haveField' => function ($subject) {
