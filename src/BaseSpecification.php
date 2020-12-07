@@ -46,6 +46,7 @@ abstract class BaseSpecification implements Specification
     public function getFilter(QueryBuilder $qb, $dqlAlias)
     {
         $spec = $this->getSpec();
+
         if ($spec instanceof Filter) {
             return $spec->getFilter($qb, $this->getAlias($dqlAlias));
         }
@@ -60,6 +61,7 @@ abstract class BaseSpecification implements Specification
     public function modify(QueryBuilder $qb, $dqlAlias)
     {
         $spec = $this->getSpec();
+
         if ($spec instanceof QueryModifier) {
             $spec->modify($qb, $this->getAlias($dqlAlias));
         }
@@ -68,14 +70,9 @@ abstract class BaseSpecification implements Specification
     /**
      * Return all the specifications.
      *
-     * @return Filter|QueryModifier|null
+     * @return Filter|QueryModifier
      */
-    protected function getSpec()
-    {
-        @trigger_error('Using the default implementation of '.__METHOD__.' method is deprecated since version 1.1 and this method will be marked as abstract in 2.0. You must overwrite this implementation.', E_USER_DEPRECATED);
-
-        return null;
-    }
+    abstract protected function getSpec();
 
     /**
      * @param string $dqlAlias
