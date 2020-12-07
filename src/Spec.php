@@ -46,6 +46,7 @@ use Happyr\DoctrineSpecification\Operand\Values;
 use Happyr\DoctrineSpecification\Query\AddSelect;
 use Happyr\DoctrineSpecification\Query\Distinct;
 use Happyr\DoctrineSpecification\Query\GroupBy;
+use Happyr\DoctrineSpecification\Query\Having;
 use Happyr\DoctrineSpecification\Query\IndexBy;
 use Happyr\DoctrineSpecification\Query\InnerJoin;
 use Happyr\DoctrineSpecification\Query\Join;
@@ -65,7 +66,6 @@ use Happyr\DoctrineSpecification\Result\AsSingleScalar;
 use Happyr\DoctrineSpecification\Result\Cache;
 use Happyr\DoctrineSpecification\Result\RoundDateTime;
 use Happyr\DoctrineSpecification\Specification\CountOf;
-use Happyr\DoctrineSpecification\Specification\Having;
 
 /**
  * Factory class for the specifications.
@@ -549,18 +549,12 @@ class Spec
     }
 
     /**
-     * @param Filter|QueryModifier|string $spec
+     * @param Filter $spec
      *
      * @return Having
      */
-    public static function having($spec)
+    public static function having(Filter $spec)
     {
-        if (!($spec instanceof Filter)) {
-            @trigger_error('Using "'.(is_object($spec) ? get_class($spec) : gettype($spec)).'" as argument in '.__METHOD__.' method is deprecated since version 1.1 and will not be possible in 2.0.', E_USER_DEPRECATED);
-        }
-
-        // NEXT_MAJOR: use here \Happyr\DoctrineSpecification\Query\Having
-
         return new Having($spec);
     }
 
