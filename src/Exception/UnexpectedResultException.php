@@ -16,6 +16,6 @@ namespace Happyr\DoctrineSpecification\Exception;
 
 use RuntimeException;
 
-class UnexpectedResultException extends RuntimeException
+abstract class UnexpectedResultException extends RuntimeException
 {
 }
