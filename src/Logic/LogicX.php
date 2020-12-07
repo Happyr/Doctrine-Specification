@@ -29,22 +29,22 @@ abstract class LogicX implements Specification
     const OR_X = 'orX';
 
     /**
-     * @var Filter[]|QueryModifier[]
-     */
-    private $children;
-
-    /**
      * @var string
      */
     private $expression;
 
     /**
+     * @var Filter[]|QueryModifier[]
+     */
+    private $children;
+
+    /**
      * Take two or more Expression as parameters.
      *
-     * @param string                   $expression
-     * @param Filter[]|QueryModifier[] $children
+     * @param string               $expression
+     * @param Filter|QueryModifier ...$children
      */
-    public function __construct($expression, array $children = [])
+    public function __construct($expression, ...$children)
     {
         $this->expression = $expression;
         $this->children = $children;
