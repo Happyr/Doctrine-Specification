@@ -3,6 +3,7 @@
 The `Comparison` no longer supports the operator `LIKE`. Use the `Like` filter.
 The `Like` filter no longer expands the `Comparison` base filter.
 The `IsNotNull` filter no longer expands the `IsNull` base filter.
+The `Happyr\DoctrineSpecification\Specification\Having` class was removed, use `Happyr\DoctrineSpecification\Query\Having` instead.
 
 # Upgrade from 0.7 to 0.8
 
@@ -41,7 +42,7 @@ It has been many changes since 0.2 and we refactored quite a lot. These are the 
 ## Changed interfaces
 
 The old `Specification` interface has been split up to two parts. We got a `Filter` with will modify the `SELECT`
-clause of the SQL query. We also got the `QueryModifier` interface the modifies the query (Limit, Order, Join etc). 
+clause of the SQL query. We also got the `QueryModifier` interface the modifies the query (Limit, Order, Join etc).
 
 The new `Specification` interface extends `Filter` and `QueryModifier`.
 
@@ -51,7 +52,7 @@ You have to update your specifications to comply with `QueryModifier` and/or `Ex
 ## BaseSpecification
 
 There are two new methods `getFilter` and `modify`. You don't need to override these. You may use BaseSpecfication as
-normal. 
+normal.
 
 The `supports` function has been removed.
 
