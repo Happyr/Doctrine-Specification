@@ -14,6 +14,6 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\Exception;
 
-class LogicException extends \LogicException
+final class LogicException extends \LogicException
 {
 }

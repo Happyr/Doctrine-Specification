@@ -14,6 +14,6 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\Exception;
 
-class NonUniqueResultException extends UnexpectedResultException
+final class NonUniqueResultException extends UnexpectedResultException
 {
 }

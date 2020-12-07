@@ -69,6 +69,11 @@
   ```
 
 * The `BaseSpecification::getSpec()` method marked as `abstract`.
+* The `InvalidArgumentException` class marked as `final`.
+* The `LogicException` class marked as `final`.
+* The `NonUniqueResultException` class marked as `final`.
+* The `NoResultException` class marked as `final`.
+* The `UnexpectedResultException` class marked as `abstract`.
 
 # Upgrade from 1.0 to 1.1
 
