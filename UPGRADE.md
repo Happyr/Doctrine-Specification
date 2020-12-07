@@ -68,6 +68,8 @@
   new AddSelect(...$fields);
   ```
 
+* The `BaseSpecification::getSpec()` method marked as `abstract`.
+
 # Upgrade from 1.0 to 1.1
 
 * No BC breaks
