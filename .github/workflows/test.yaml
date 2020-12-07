@@ -1,0 +1,47 @@
+name: Test
+
+on: [ push, pull_request ]
+
+jobs:
+    test:
+        name: 'PHP ${{ matrix.php-version }} + ${{ matrix.dependencies }} + ${{ matrix.variant }}'
+        runs-on: ubuntu-latest
+        continue-on-error: ${{ matrix.experimental }}
+
+        strategy:
+            fail-fast: false
+            matrix:
+                dependencies:
+                    - highest
+                php-version:
+                    - '5.5'
+                    - '5.6'
+                    - '7.0'
+                    - '7.1'
+                    - '7.2'
+                    - '7.3'
+                    - '7.4'
+                experimental: [false]
+                variant: [normal]
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Install PHP with extensions
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-version }}
+                  tools: composer:v2
+
+            - name: Install variant
+              if: matrix.variant != 'normal'
+              run: composer require ${{ matrix.variant }} --no-update
+
+            - name: 'Install Composer dependencies (${{ matrix.dependencies }})'
+              uses: 'ramsey/composer-install@v1'
+              with:
+                  dependency-versions: '${{ matrix.dependencies }}'
+                  composer-options: '--prefer-dist --prefer-stable'
+
+            - name: Run Tests
+              run: composer test
