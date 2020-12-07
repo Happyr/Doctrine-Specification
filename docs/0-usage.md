@@ -277,18 +277,14 @@ With one argument:
 
 ```php
 Spec::LENGTH('email');
-Spec::LENGTH(['email']);
 Spec::fun('LENGTH', 'email');
-Spec::fun('LENGTH', ['email']);
 ```
 
 With several arguments:
 
 ```php
 Spec::DATE_DIFF('create_at', $date);
-Spec::DATE_DIFF(['create_at', $date]);
 Spec::fun('DATE_DIFF', 'create_at', $date);
-Spec::fun('DATE_DIFF', ['create_at', $date]);
 ```
 
 # Customize selection

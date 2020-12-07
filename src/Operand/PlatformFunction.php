@@ -61,28 +61,21 @@ class PlatformFunction implements Operand
     /**
      * @var string
      */
-    private $functionName = '';
+    private $functionName;
 
     /**
-     * @var array
+     * @var mixed[]
      */
-    private $arguments = [];
+    private $arguments;
 
     /**
      * @param string $functionName
-     * @param mixed  $arguments
+     * @param mixed  ...$arguments
      */
-    public function __construct($functionName, $arguments = [])
+    public function __construct($functionName, ...$arguments)
     {
-        // NEXT_MAJOR: use variable-length argument lists ($functionName, ...$arguments)
-        if (2 === func_num_args()) {
-            $this->functionName = $functionName;
-            $this->arguments = (array) $arguments;
-        } else {
-            $arguments = func_get_args();
-            $this->functionName = array_shift($arguments);
-            $this->arguments = $arguments;
-        }
+        $this->functionName = $functionName;
+        $this->arguments = $arguments;
     }
 
     /**

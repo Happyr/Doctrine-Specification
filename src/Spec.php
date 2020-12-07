@@ -59,6 +59,7 @@ use Happyr\DoctrineSpecification\Query\Select;
 use Happyr\DoctrineSpecification\Query\Selection\SelectAs;
 use Happyr\DoctrineSpecification\Query\Selection\SelectEntity;
 use Happyr\DoctrineSpecification\Query\Selection\SelectHiddenAs;
+use Happyr\DoctrineSpecification\Query\Selection\Selection;
 use Happyr\DoctrineSpecification\Query\Slice;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Result\AsScalar;
@@ -99,60 +100,36 @@ use Happyr\DoctrineSpecification\Specification\CountOf;
 class Spec
 {
     /**
-     * @param string $name
-     * @param array  $arguments
+     * @param string  $functionName
+     * @param mixed[] $arguments
      *
      * @return PlatformFunction
      */
-    public static function __callStatic($name, array $arguments = [])
+    public static function __callStatic($functionName, array $arguments = [])
     {
-        // allow use array in arguments of static function
-        // Spec::DATE_DIFF([$date1, $date2]);
-        // is equal
-        // Spec::DATE_DIFF($date1, $date2);
-        if (1 === count($arguments) && is_array(current($arguments))) {
-            $arguments = current($arguments);
-        }
-
-        return self::fun($name, $arguments);
+        return self::fun($functionName, ...$arguments);
     }
 
     // Logic
 
     /**
+     * @param Filter|QueryModifier ...$specs
+     *
      * @return AndX
      */
-    public static function andX()
+    public static function andX(...$specs)
     {
-        // NEXT_MAJOR: use variable-length argument lists (...$specs)
-        $spec = (new \ReflectionClass(AndX::class))->newInstanceArgs(func_get_args());
-
-        // hook for PHPStan
-        if (!($spec instanceof AndX)) {
-            throw new \RuntimeException(
-                sprintf('The specification must be an instance of "%s", but got "%s".', AndX::class, get_class($spec))
-            );
-        }
-
-        return $spec;
+        return new AndX(...$specs);
     }
 
     /**
+     * @param Filter|QueryModifier ...$specs
+     *
      * @return OrX
      */
-    public static function orX()
+    public static function orX(...$specs)
     {
-        // NEXT_MAJOR: use variable-length argument lists (...$specs)
-        $spec = (new \ReflectionClass(OrX::class))->newInstanceArgs(func_get_args());
-
-        // hook for PHPStan
-        if (!($spec instanceof OrX)) {
-            throw new \RuntimeException(
-                sprintf('The specification must be an instance of "%s", but got "%s".', OrX::class, get_class($spec))
-            );
-        }
-
-        return $spec;
+        return new OrX(...$specs);
     }
 
     /**
@@ -279,25 +256,23 @@ class Spec
     // Selection
 
     /**
-     * @param mixed $field
+     * @param Selection|string ...$fields
      *
      * @return Select
      */
-    public static function select($field)
+    public static function select(...$fields)
     {
-        // NEXT_MAJOR: use variable-length argument lists (...$fields)
-        return new Select(func_get_args());
+        return new Select(...$fields);
     }
 
     /**
-     * @param mixed $field
+     * @param Selection|string ...$fields
      *
      * @return AddSelect
      */
-    public static function addSelect($field)
+    public static function addSelect(...$fields)
     {
-        // NEXT_MAJOR: use variable-length argument lists (...$fields)
-        return new AddSelect(func_get_args());
+        return new AddSelect(...$fields);
     }
 
     /**
@@ -677,24 +652,15 @@ class Spec
      * Usage:
      *  Spec::fun('CURRENT_DATE')
      *  Spec::fun('DATE_DIFF', $date1, $date2)
-     *  Spec::fun('DATE_DIFF', [$date1, $date2])
      *
      * @param string $functionName
-     * @param mixed  $arguments
+     * @param mixed  ...$arguments
      *
      * @return PlatformFunction
      */
-    public static function fun($functionName, $arguments = [])
+    public static function fun($functionName, ...$arguments)
     {
-        // NEXT_MAJOR: use variable-length argument lists ($functionName, ...$arguments)
-        if (2 === func_num_args()) {
-            $arguments = (array) $arguments;
-        } else {
-            $arguments = func_get_args();
-            $functionName = array_shift($arguments);
-        }
-
-        return new PlatformFunction($functionName, $arguments);
+        return new PlatformFunction($functionName, ...$arguments);
     }
 
     /**

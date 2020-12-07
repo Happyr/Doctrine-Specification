@@ -19,10 +19,12 @@ use Happyr\DoctrineSpecification\Query\QueryModifier;
 
 class OrX extends LogicX
 {
-    public function __construct()
+    /**
+     * @param Filter|QueryModifier ...$children
+     */
+    public function __construct(...$children)
     {
-        // NEXT_MAJOR: use variable-length argument lists (...$children)
-        parent::__construct(self::OR_X, func_get_args());
+        parent::__construct(self::OR_X, ...$children);
     }
 
     /**

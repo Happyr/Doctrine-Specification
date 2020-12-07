@@ -53,13 +53,6 @@ class AddSelectSpec extends ObjectBehavior
         $this->modify($qb, 'b');
     }
 
-    public function it_add_select_several_fields_as_array(QueryBuilder $qb)
-    {
-        $this->beConstructedWith(['foo', 'bar']);
-        $qb->addSelect(['b.foo', 'b.bar'])->shouldBeCalled();
-        $this->modify($qb, 'b');
-    }
-
     public function it_add_select_operand(QueryBuilder $qb)
     {
         $this->beConstructedWith('foo', new Field('bar'));

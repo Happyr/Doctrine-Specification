@@ -21,17 +21,16 @@ use Happyr\DoctrineSpecification\Query\Selection\Selection;
 abstract class AbstractSelect implements QueryModifier
 {
     /**
-     * @var Selection[]
+     * @var Selection[]|string[]
      */
     private $selections;
 
     /**
-     * @param mixed $field
+     * @param Selection|string ...$fields
      */
-    public function __construct($field)
+    public function __construct(...$fields)
     {
-        // NEXT_MAJOR: use variable-length argument lists (...$fields)
-        $this->selections = is_array($field) ? $field : func_get_args();
+        $this->selections = $fields;
     }
 
     /**

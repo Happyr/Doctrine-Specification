@@ -26,11 +26,12 @@ class ResultModifierCollection implements ResultModifier
 
     /**
      * Construct it with one or more instances of ResultModifier.
+     *
+     * @param ResultModifier ...$children
      */
-    public function __construct()
+    public function __construct(...$children)
     {
-        // NEXT_MAJOR: use variable-length argument lists (...$children)
-        $this->children = func_get_args();
+        $this->children = $children;
     }
 
     /**
