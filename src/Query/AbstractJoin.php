@@ -41,7 +41,7 @@ abstract class AbstractJoin implements QueryModifier
      * @param string      $newAlias
      * @param string|null $dqlAlias
      */
-    public function __construct($field, $newAlias, $dqlAlias = null)
+    public function __construct(string $field, string $newAlias, ?string $dqlAlias = null)
     {
         $this->field = $field;
         $this->newAlias = $newAlias;
@@ -52,7 +52,7 @@ abstract class AbstractJoin implements QueryModifier
      * @param QueryBuilder $qb
      * @param string       $dqlAlias
      */
-    public function modify(QueryBuilder $qb, $dqlAlias)
+    public function modify(QueryBuilder $qb, string $dqlAlias): void
     {
         if (null !== $this->dqlAlias) {
             $dqlAlias = $this->dqlAlias;
@@ -66,5 +66,5 @@ abstract class AbstractJoin implements QueryModifier
      * @param string       $join
      * @param string       $alias
      */
-    abstract protected function modifyJoin(QueryBuilder $qb, $join, $alias): void;
+    abstract protected function modifyJoin(QueryBuilder $qb, string $join, string $alias): void;
 }

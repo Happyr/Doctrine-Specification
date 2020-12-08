@@ -26,22 +26,22 @@ class AliasSpec extends ObjectBehavior
 {
     private $alias = 'foo';
 
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith($this->alias);
     }
 
-    public function it_is_a_alias()
+    public function it_is_a_alias(): void
     {
         $this->shouldBeAnInstanceOf(Alias::class);
     }
 
-    public function it_is_a_operand()
+    public function it_is_a_operand(): void
     {
         $this->shouldBeAnInstanceOf(Operand::class);
     }
 
-    public function it_is_transformable(QueryBuilder $qb)
+    public function it_is_transformable(QueryBuilder $qb): void
     {
         $this->transform($qb, 'a')->shouldReturn($this->alias);
     }

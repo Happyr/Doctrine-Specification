@@ -26,22 +26,22 @@ class FieldSpec extends ObjectBehavior
 {
     private $fieldName = 'foo';
 
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith($this->fieldName);
     }
 
-    public function it_is_a_field()
+    public function it_is_a_field(): void
     {
         $this->shouldBeAnInstanceOf(Field::class);
     }
 
-    public function it_is_a_operand()
+    public function it_is_a_operand(): void
     {
         $this->shouldBeAnInstanceOf(Operand::class);
     }
 
-    public function it_is_transformable(QueryBuilder $qb)
+    public function it_is_transformable(QueryBuilder $qb): void
     {
         $dqlAlias = 'a';
         $expression = 'a.foo';
@@ -49,7 +49,7 @@ class FieldSpec extends ObjectBehavior
         $this->transform($qb, $dqlAlias)->shouldReturn($expression);
     }
 
-    public function it_is_change_dql_alias(QueryBuilder $qb)
+    public function it_is_change_dql_alias(QueryBuilder $qb): void
     {
         $dqlAlias = 'a';
         $expression = 'b.foo';

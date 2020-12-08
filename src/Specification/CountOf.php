@@ -42,7 +42,7 @@ class CountOf implements Specification
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
     {
         $qb->select(sprintf('COUNT(%s)', $dqlAlias));
 
@@ -57,7 +57,7 @@ class CountOf implements Specification
      * @param QueryBuilder $qb
      * @param string       $dqlAlias
      */
-    public function modify(QueryBuilder $qb, $dqlAlias)
+    public function modify(QueryBuilder $qb, string $dqlAlias): void
     {
         if ($this->child instanceof QueryModifier) {
             $this->child->modify($qb, $dqlAlias);

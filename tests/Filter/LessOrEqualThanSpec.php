@@ -25,30 +25,32 @@ use PhpSpec\ObjectBehavior;
  */
 class LessOrEqualThanSpec extends ObjectBehavior
 {
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith('age', 18, 'a');
     }
 
-    public function it_is_an_expression()
+    public function it_is_an_expression(): void
     {
         $this->shouldBeAnInstanceOf(Filter::class);
     }
 
-    public function it_returns_comparison_object(QueryBuilder $qb, ArrayCollection $parameters)
+    public function it_returns_comparison_object(QueryBuilder $qb, ArrayCollection $parameters): void
     {
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
         $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
 
-        $comparison = $this->getFilter($qb, null);
+        $comparison = $this->getFilter($qb, 'a');
 
         $comparison->shouldReturn('a.age <= :comparison_10');
     }
 
-    public function it_uses_comparison_specific_dql_alias_if_passed(QueryBuilder $qb, ArrayCollection $parameters)
-    {
+    public function it_uses_comparison_specific_dql_alias_if_passed(
+        QueryBuilder $qb,
+        ArrayCollection $parameters
+    ): void {
         $this->beConstructedWith('age', 18, null);
 
         $qb->getParameters()->willReturn($parameters);

@@ -40,7 +40,7 @@ class AndX extends LogicX
      *
      * @param Filter|QueryModifier $child
      */
-    public function andX($child)
+    public function andX($child): void
     {
         $this->append($child);
     }

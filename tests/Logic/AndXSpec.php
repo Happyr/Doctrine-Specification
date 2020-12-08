@@ -26,18 +26,21 @@ use PhpSpec\ObjectBehavior;
  */
 class AndXSpec extends ObjectBehavior
 {
-    public function let(Specification $specificationA, Specification $specificationB)
+    public function let(Specification $specificationA, Specification $specificationB): void
     {
         $this->beConstructedWith($specificationA, $specificationB);
     }
 
-    public function it_is_a_specification()
+    public function it_is_a_specification(): void
     {
         $this->shouldHaveType(Specification::class);
     }
 
-    public function it_modifies_all_child_queries(QueryBuilder $queryBuilder, Specification $specificationA, Specification $specificationB)
-    {
+    public function it_modifies_all_child_queries(
+        QueryBuilder $queryBuilder,
+        Specification $specificationA,
+        Specification $specificationB
+    ): void {
         $dqlAlias = 'a';
 
         $specificationA->modify($queryBuilder, $dqlAlias)->shouldBeCalled();
@@ -46,30 +49,38 @@ class AndXSpec extends ObjectBehavior
         $this->modify($queryBuilder, $dqlAlias);
     }
 
-    public function it_composes_and_child_with_expression(QueryBuilder $qb, Expr $expression, Specification $specificationA, Specification $specificationB, $x, $y)
-    {
+    public function it_composes_and_child_with_expression(
+        QueryBuilder $qb,
+        Expr $expression,
+        Specification $specificationA,
+        Specification $specificationB
+    ): void {
+        $filterA = 'foo';
+        $filterB = 'bar';
         $dqlAlias = 'a';
 
-        $specificationA->getFilter($qb, $dqlAlias)->willReturn($x);
-        $specificationB->getFilter($qb, $dqlAlias)->willReturn($y);
+        $specificationA->getFilter($qb, $dqlAlias)->willReturn($filterA);
+        $specificationB->getFilter($qb, $dqlAlias)->willReturn($filterB);
         $qb->expr()->willReturn($expression);
 
-        $expression->andX($x, $y)->shouldBeCalled();
+        $expression->andX($filterA, $filterB)->shouldBeCalled();
 
         $this->getFilter($qb, $dqlAlias);
     }
 
-    public function it_supports_expressions(QueryBuilder $qb, Expr $expression, Filter $exprA, Filter $exprB, $x, $y)
+    public function it_supports_expressions(QueryBuilder $qb, Expr $expression, Filter $exprA, Filter $exprB): void
     {
         $this->beConstructedWith($exprA, $exprB);
 
+        $filterA = 'foo';
+        $filterB = 'bar';
         $dqlAlias = 'a';
 
-        $exprA->getFilter($qb, $dqlAlias)->willReturn($x);
-        $exprB->getFilter($qb, $dqlAlias)->willReturn($y);
+        $exprA->getFilter($qb, $dqlAlias)->willReturn($filterA);
+        $exprB->getFilter($qb, $dqlAlias)->willReturn($filterB);
         $qb->expr()->willReturn($expression);
 
-        $expression->andX($x, $y)->shouldBeCalled();
+        $expression->andX($filterA, $filterB)->shouldBeCalled();
 
         $this->getFilter($qb, $dqlAlias);
     }

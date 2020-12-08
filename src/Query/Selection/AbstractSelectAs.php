@@ -35,7 +35,7 @@ abstract class AbstractSelectAs implements Selection
      * @param Filter|Operand|string $expression
      * @param string                $alias
      */
-    public function __construct($expression, $alias)
+    public function __construct($expression, string $alias)
     {
         $this->expression = $expression;
         $this->alias = $alias;
@@ -47,7 +47,7 @@ abstract class AbstractSelectAs implements Selection
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, $dqlAlias)
+    public function transform(QueryBuilder $qb, string $dqlAlias): string
     {
         if ($this->expression instanceof Filter) {
             $expression = $this->expression->getFilter($qb, $dqlAlias);
@@ -64,5 +64,5 @@ abstract class AbstractSelectAs implements Selection
      *
      * @return string
      */
-    abstract protected function getAliasFormat();
+    abstract protected function getAliasFormat(): string;
 }

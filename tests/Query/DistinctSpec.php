@@ -24,17 +24,17 @@ use PhpSpec\ObjectBehavior;
  */
 class DistinctSpec extends ObjectBehavior
 {
-    public function it_is_a_distinct()
+    public function it_is_a_distinct(): void
     {
         $this->shouldBeAnInstanceOf(Distinct::class);
     }
 
-    public function it_is_a_query_modifier()
+    public function it_is_a_query_modifier(): void
     {
         $this->shouldHaveType(QueryModifier::class);
     }
 
-    public function it_add_having(QueryBuilder $qb)
+    public function it_add_having(QueryBuilder $qb): void
     {
         $qb->distinct()->shouldBeCalled();
         $this->modify($qb, 'a');

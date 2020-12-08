@@ -79,12 +79,13 @@ declare(strict_types=1);
 
 namespace Acme\DemoBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Acme\DemoBundle\Entity\Spec\IsActive;
 
-class DefaultController extends Controller
+class DefaultController extends AbstractController
 {
-    public function someAction()
+    public function someAction(): Response
     {
         $users = $this->getEntityManager()
             ->getRepository('AcmeDemoBundle:User')
@@ -106,7 +107,7 @@ use Happyr\DoctrineSpecification\Spec;
 
 // ...
 
-$objects= $this->getEntityManager()
+$objects = $this->getEntityManager()
     ->getRepository('...')
     ->match(Spec::gt('age', 18));
 ```
@@ -118,35 +119,16 @@ use Happyr\DoctrineSpecification\Comparison\GreaterThan;
 
 // ...
 
-$objects= $this->getEntityManager()
+$objects = $this->getEntityManager()
     ->getRepository('...')
     ->match(new GreaterThan('age', 18))
 ;
 ```
 
-Some specifications inherits from the `Comparison` specification (ie `Equals`, `GreaterThan`, `LessOrEqualThan`). You may choose to
-interact with directly with the `Comparison` class.
-
-```php
-
-use Happyr\DoctrineSpecification\Comparison\Comparison;
-
-// ...
-
-$objects= $this->getEntityManager()
-    ->getRepository('...')
-    ->match(new Comparison(Comparison::GT, 'age', 18))
-;
-```
-
-
 ### Re-cap
 
 * ```Spec::gt('age', 18)```
 * ```new GreaterThan('age', 18)```
-* ```new Comparison(Comparison::GT, 'age', 18)```
-
-
 
 # ResultModifier
 
@@ -175,14 +157,13 @@ public function anyFunction()
     $spec = new MySpecification();
     $resultModifiers = new ResultModifierCollection(
         new AsArray(),
-        new Cache(60),
+        new Cache(60)
     );
 
     $entities = $repo->match($spec, $resultModifiers);
 
     // Do whatever
 }
-
 ```
 
 # Comparison operands

@@ -32,22 +32,22 @@ class SelectHiddenAsSpec extends ObjectBehavior
 
     private $alias = 'bar';
 
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith($this->field, $this->alias);
     }
 
-    public function it_is_a_select_as()
+    public function it_is_a_select_as(): void
     {
         $this->shouldBeAnInstanceOf(SelectHiddenAs::class);
     }
 
-    public function it_is_a_selection()
+    public function it_is_a_selection(): void
     {
         $this->shouldBeAnInstanceOf(Selection::class);
     }
 
-    public function it_is_transformable(QueryBuilder $qb)
+    public function it_is_transformable(QueryBuilder $qb): void
     {
         $dqlAlias = 'a';
         $expression = '(a.foo) AS HIDDEN bar';
@@ -55,7 +55,7 @@ class SelectHiddenAsSpec extends ObjectBehavior
         $this->transform($qb, $dqlAlias)->shouldReturn($expression);
     }
 
-    public function it_is_transformable_field(QueryBuilder $qb)
+    public function it_is_transformable_field(QueryBuilder $qb): void
     {
         $dqlAlias = 'a';
         $expression = '(a.foo) AS HIDDEN bar';
@@ -65,7 +65,7 @@ class SelectHiddenAsSpec extends ObjectBehavior
         $this->transform($qb, $dqlAlias)->shouldReturn($expression);
     }
 
-    public function it_is_transformable_value(QueryBuilder $qb, ArrayCollection $parameters)
+    public function it_is_transformable_value(QueryBuilder $qb, ArrayCollection $parameters): void
     {
         $dqlAlias = 'a';
         $expression = '(:comparison_10) AS HIDDEN bar';
@@ -81,7 +81,7 @@ class SelectHiddenAsSpec extends ObjectBehavior
         $this->transform($qb, $dqlAlias)->shouldReturn($expression);
     }
 
-    public function it_is_transformable_filter(QueryBuilder $qb, ArrayCollection $parameters)
+    public function it_is_transformable_filter(QueryBuilder $qb, ArrayCollection $parameters): void
     {
         $dqlAlias = 'a';
         $expression = '(a.foo = :comparison_10) AS HIDDEN bar';

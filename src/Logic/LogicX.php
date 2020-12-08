@@ -44,7 +44,7 @@ abstract class LogicX implements Specification
      * @param string               $expression
      * @param Filter|QueryModifier ...$children
      */
-    public function __construct($expression, ...$children)
+    public function __construct(string $expression, ...$children)
     {
         $this->expression = $expression;
         $this->children = $children;
@@ -56,7 +56,7 @@ abstract class LogicX implements Specification
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
     {
         $children = [];
         foreach ($this->children as $spec) {
@@ -81,14 +81,14 @@ abstract class LogicX implements Specification
     }
 
     /**
-     * @param QueryBuilder $query
+     * @param QueryBuilder $qb
      * @param string       $dqlAlias
      */
-    public function modify(QueryBuilder $query, $dqlAlias)
+    public function modify(QueryBuilder $qb, string $dqlAlias): void
     {
         foreach ($this->children as $child) {
             if ($child instanceof QueryModifier) {
-                $child->modify($query, $dqlAlias);
+                $child->modify($qb, $dqlAlias);
             }
         }
     }
@@ -98,7 +98,7 @@ abstract class LogicX implements Specification
      *
      * @param Filter|QueryModifier $child
      */
-    protected function append($child)
+    protected function append($child): void
     {
         $this->children[] = $child;
     }

@@ -25,35 +25,35 @@ use PhpSpec\ObjectBehavior;
  */
 class SelectSpec extends ObjectBehavior
 {
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith('foo');
     }
 
-    public function it_is_a_select()
+    public function it_is_a_select(): void
     {
         $this->shouldBeAnInstanceOf(Select::class);
     }
 
-    public function it_is_a_specification()
+    public function it_is_a_specification(): void
     {
         $this->shouldHaveType(QueryModifier::class);
     }
 
-    public function it_select_single_filed(QueryBuilder $qb)
+    public function it_select_single_filed(QueryBuilder $qb): void
     {
         $qb->select(['a.foo'])->shouldBeCalled();
         $this->modify($qb, 'a');
     }
 
-    public function it_select_several_fields(QueryBuilder $qb)
+    public function it_select_several_fields(QueryBuilder $qb): void
     {
         $this->beConstructedWith('foo', 'bar');
         $qb->select(['b.foo', 'b.bar'])->shouldBeCalled();
         $this->modify($qb, 'b');
     }
 
-    public function it_select_operand(QueryBuilder $qb)
+    public function it_select_operand(QueryBuilder $qb): void
     {
         $this->beConstructedWith('foo', new Field('bar'));
         $qb->select(['b.foo', 'b.bar'])->shouldBeCalled();

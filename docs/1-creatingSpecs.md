@@ -14,7 +14,7 @@ The `getFilter` function is where the action happens. You are most probably to r
 choose to return null. Consider this `ImageIsNullFilter`
 
 ```php
-public function getFilter(QueryBuilder $qb, $dqlAlias)
+public function getFilter(QueryBuilder $qb, string $dqlAlias): string
 {
     if ($this->dqlAlias !== null) {
         $dqlAlias = $this->dqlAlias;
@@ -38,7 +38,7 @@ or limit the result set. Consider this `JoinUserSettingsModifier`.
  * @param QueryBuilder $qb
  * @param string       $dqlAlias
  */
-public function modify(QueryBuilder $qb, $dqlAlias)
+public function modify(QueryBuilder $qb, string $dqlAlias): void
 {
     if ($this->dqlAlias !== null) {
         $dqlAlias = $this->dqlAlias;
@@ -69,11 +69,14 @@ use Happyr\DoctrineSpecification\Spec;
  */
 class IsActive extends BaseSpecification
 {
+    /**
+     * @return Filter|QueryModifier
+     */
     public function getSpec()
     {
         return Spec::andX(
             Spec::eq('banned', false),
-            Spec::gt('lastLogin', new \DateTime('-6months'),
+            Spec::gt('lastLogin', new \DateTime('-6months'))
         );
     }
 }

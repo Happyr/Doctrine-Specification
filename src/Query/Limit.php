@@ -26,7 +26,7 @@ class Limit implements QueryModifier
     /**
      * @param int $limit
      */
-    public function __construct($limit)
+    public function __construct(int $limit)
     {
         $this->limit = $limit;
     }
@@ -35,7 +35,7 @@ class Limit implements QueryModifier
      * @param QueryBuilder $qb
      * @param string       $dqlAlias
      */
-    public function modify(QueryBuilder $qb, $dqlAlias)
+    public function modify(QueryBuilder $qb, string $dqlAlias): void
     {
         $qb->setMaxResults($this->limit);
     }

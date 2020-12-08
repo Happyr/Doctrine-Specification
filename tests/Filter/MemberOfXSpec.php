@@ -27,22 +27,22 @@ use PhpSpec\ObjectBehavior;
  */
 class MemberOfXSpec extends ObjectBehavior
 {
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith(18, 'age', 'a');
     }
 
-    public function it_is_initializable()
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(MemberOfX::class);
     }
 
-    public function it_is_an_expression()
+    public function it_is_an_expression(): void
     {
         $this->shouldBeAnInstanceOf(Filter::class);
     }
 
-    public function it_returns_expression_func_object(QueryBuilder $qb, ArrayCollection $parameters, Expr $exp)
+    public function it_returns_expression_func_object(QueryBuilder $qb, ArrayCollection $parameters, Expr $exp): void
     {
         $exp_comparison = new Comparison(':comparison_10', 'MEMBER OF', 'a.age');
         $qb->expr()->willReturn($exp);
@@ -52,6 +52,6 @@ class MemberOfXSpec extends ObjectBehavior
         $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
         $exp->isMemberOf(':comparison_10', 'a.age')->willReturn($exp_comparison);
 
-        $this->getFilter($qb, null)->shouldReturn(':comparison_10 MEMBER OF a.age');
+        $this->getFilter($qb, 'a')->shouldReturn(':comparison_10 MEMBER OF a.age');
     }
 }

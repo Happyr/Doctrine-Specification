@@ -23,17 +23,17 @@ use PhpSpec\ObjectBehavior;
  */
 class ArgumentToSelectionConverterSpec extends ObjectBehavior
 {
-    public function it_is_a_converter()
+    public function it_is_a_converter(): void
     {
         $this->shouldBeAnInstanceOf(ArgumentToSelectionConverter::class);
     }
 
-    public function it_not_convert_field_to_selection(Field $field)
+    public function it_not_convert_field_to_selection(Field $field): void
     {
         $this->toSelection($field)->shouldReturn($field);
     }
 
-    public function it_convert_argument_to_field()
+    public function it_convert_argument_to_field(): void
     {
         $this->toSelection('foo')->shouldBeAnInstanceOf(Field::class);
     }

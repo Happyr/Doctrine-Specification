@@ -26,7 +26,7 @@ class ArgumentToOperandConverter
      *
      * @return Operand
      */
-    public static function toField($argument)
+    public static function toField($argument): Operand
     {
         if ($argument instanceof Operand) {
             return $argument;
@@ -42,7 +42,7 @@ class ArgumentToOperandConverter
      *
      * @return Operand
      */
-    public static function toValue($argument)
+    public static function toValue($argument): Operand
     {
         if ($argument instanceof Operand) {
             return $argument;
@@ -54,11 +54,11 @@ class ArgumentToOperandConverter
     /**
      * Are all arguments is a operands?
      *
-     * @param array $arguments
+     * @param Operand[]|mixed[] $arguments
      *
      * @return bool
      */
-    public static function isAllOperands(array $arguments)
+    public static function isAllOperands(array $arguments): bool
     {
         foreach ($arguments as $argument) {
             if (!($argument instanceof Operand)) {
@@ -76,7 +76,7 @@ class ArgumentToOperandConverter
      *
      * @return Operand[]
      */
-    public static function convert(array $arguments)
+    public static function convert(array $arguments): array
     {
         $result = [];
         foreach (array_values($arguments) as $i => $argument) {

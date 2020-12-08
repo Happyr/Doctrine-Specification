@@ -27,17 +27,17 @@ class RoundDateTimeSpec extends ObjectBehavior
 {
     private $roundSeconds = 3600;
 
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith($this->roundSeconds);
     }
 
-    public function it_is_a_specification()
+    public function it_is_a_specification(): void
     {
         $this->shouldBeAnInstanceOf(RoundDateTime::class);
     }
 
-    public function it_round_date_time_in_query_parameters_for_given_time(AbstractQuery $query)
+    public function it_round_date_time_in_query_parameters_for_given_time(AbstractQuery $query): void
     {
         $name = 'now';
         $type = 'datetime';

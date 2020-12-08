@@ -27,17 +27,17 @@ use Happyr\DoctrineSpecification\Operand\Operand;
  */
 abstract class Comparison implements Filter
 {
-    const EQ = '=';
+    protected const EQ = '=';
 
-    const NEQ = '<>';
+    protected const NEQ = '<>';
 
-    const LT = '<';
+    protected const LT = '<';
 
-    const LTE = '<=';
+    protected const LTE = '<=';
 
-    const GT = '>';
+    protected const GT = '>';
 
-    const GTE = '>=';
+    protected const GTE = '>=';
 
     /**
      * @var Operand|string
@@ -78,7 +78,7 @@ abstract class Comparison implements Filter
      *
      * @throws InvalidArgumentException
      */
-    public function __construct($operator, $field, $value, $dqlAlias = null)
+    public function __construct(string $operator, $field, $value, ?string $dqlAlias = null)
     {
         if (!in_array($operator, self::$operators, true)) {
             throw new InvalidArgumentException(sprintf(
@@ -100,7 +100,7 @@ abstract class Comparison implements Filter
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
     {
         if (null !== $this->dqlAlias) {
             $dqlAlias = $this->dqlAlias;

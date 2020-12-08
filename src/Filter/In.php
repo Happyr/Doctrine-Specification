@@ -42,7 +42,7 @@ class In implements Filter
      * @param Operand|mixed  $value
      * @param string|null    $dqlAlias
      */
-    public function __construct($field, $value, $dqlAlias = null)
+    public function __construct($field, $value, ?string $dqlAlias = null)
     {
         $this->field = $field;
         $this->value = $value;
@@ -55,7 +55,7 @@ class In implements Filter
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
     {
         if (null !== $this->dqlAlias) {
             $dqlAlias = $this->dqlAlias;

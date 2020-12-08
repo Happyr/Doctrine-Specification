@@ -38,107 +38,107 @@ use PhpSpec\ObjectBehavior;
  */
 class SpecSpec extends ObjectBehavior
 {
-    public function it_creates_an_x_specification()
+    public function it_creates_an_x_specification(): void
     {
         $this->andX()->shouldReturnAnInstanceOf(LogicX::class);
     }
 
-    public function it_creates_distinct()
+    public function it_creates_distinct(): void
     {
         $this->distinct()->shouldReturnAnInstanceOf(Distinct::class);
     }
 
-    public function it_creates_count_distinct()
+    public function it_creates_count_distinct(): void
     {
         $this->countDistinct('foo')->shouldReturnAnInstanceOf(CountDistinct::class);
     }
 
-    public function it_creates_add_operand()
+    public function it_creates_add_operand(): void
     {
         $this->add('foo', 'bar')->shouldReturnAnInstanceOf(Addition::class);
     }
 
-    public function it_creates_sub_operand()
+    public function it_creates_sub_operand(): void
     {
         $this->sub('foo', 'bar')->shouldReturnAnInstanceOf(Subtraction::class);
     }
 
-    public function it_creates_mul_operand()
+    public function it_creates_mul_operand(): void
     {
         $this->mul('foo', 'bar')->shouldReturnAnInstanceOf(Multiplication::class);
     }
 
-    public function it_creates_div_operand()
+    public function it_creates_div_operand(): void
     {
         $this->div('foo', 'bar')->shouldReturnAnInstanceOf(Division::class);
     }
 
-    public function it_creates_mod_operand()
+    public function it_creates_mod_operand(): void
     {
         $this->mod('foo', 'bar')->shouldReturnAnInstanceOf(Modulo::class);
     }
 
-    public function it_creates_an_function()
+    public function it_creates_an_function(): void
     {
         $this->fun('UPPER', 'arg')->shouldReturnAnInstanceOf(PlatformFunction::class);
     }
 
-    public function it_creates_an_function_with_many_args()
+    public function it_creates_an_function_with_many_args(): void
     {
         $this->fun('CONCAT', 'a', 'b')->shouldReturnAnInstanceOf(PlatformFunction::class);
     }
 
-    public function it_creates_an_function_with_many_args_as_array()
+    public function it_creates_an_function_with_many_args_as_array(): void
     {
         $this->fun('CONCAT', ['a', 'b'])->shouldReturnAnInstanceOf(PlatformFunction::class);
     }
 
-    public function it_creates_an_magic_function()
+    public function it_creates_an_magic_function(): void
     {
         $this->__callStatic('UPPER', ['arg'])->shouldReturnAnInstanceOf(PlatformFunction::class);
     }
 
-    public function it_creates_an_magic_function_many_args()
+    public function it_creates_an_magic_function_many_args(): void
     {
         $this->__callStatic('CONCAT', ['a', 'b'])->shouldReturnAnInstanceOf(PlatformFunction::class);
     }
 
-    public function it_creates_an_magic_function_many_args_inner()
+    public function it_creates_an_magic_function_many_args_inner(): void
     {
         $this->__callStatic('CONCAT', [['a', 'b']])->shouldReturnAnInstanceOf(PlatformFunction::class);
     }
 
-    public function it_creates_select_query_modifier()
+    public function it_creates_select_query_modifier(): void
     {
         $this->select('foo')->shouldReturnAnInstanceOf(Select::class);
     }
 
-    public function it_creates_add_select_query_modifier()
+    public function it_creates_add_select_query_modifier(): void
     {
         $this->addSelect('foo')->shouldReturnAnInstanceOf(AddSelect::class);
     }
 
-    public function it_creates_select_entity_selection()
+    public function it_creates_select_entity_selection(): void
     {
         $this->selectEntity('u')->shouldReturnAnInstanceOf(SelectEntity::class);
     }
 
-    public function it_creates_select_as_selection()
+    public function it_creates_select_as_selection(): void
     {
         $this->selectAs('foo', 'bar')->shouldReturnAnInstanceOf(SelectAs::class);
     }
 
-    public function it_creates_select_hidden_as_selection()
+    public function it_creates_select_hidden_as_selection(): void
     {
         $this->selectHiddenAs('foo', 'bar')->shouldReturnAnInstanceOf(SelectHiddenAs::class);
     }
 
-    public function it_creates_alias_operand()
+    public function it_creates_alias_operand(): void
     {
         $this->alias('foo')->shouldReturnAnInstanceOf(Alias::class);
     }
 
-    public function it_creates_member_of_filter()
+    public function it_creates_member_of_filter(): void
     {
         $this->memberOfX('foo', 'bar')->shouldReturnAnInstanceOf(MemberOfX::class);
     }

@@ -30,17 +30,17 @@ class InSpec extends ObjectBehavior
 
     private $value = ['bar', 'baz'];
 
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith($this->field, $this->value, 'a');
     }
 
-    public function it_is_an_expression()
+    public function it_is_an_expression(): void
     {
         $this->shouldBeAnInstanceOf(Filter::class);
     }
 
-    public function it_returns_expression_func_object(QueryBuilder $qb, ArrayCollection $parameters, Expr $expr)
+    public function it_returns_expression_func_object(QueryBuilder $qb, ArrayCollection $parameters, Expr $expr): void
     {
         $dqlAlias = 'a';
         $qb->expr()->willReturn($expr);
@@ -51,6 +51,6 @@ class InSpec extends ObjectBehavior
 
         $qb->setParameter('comparison_10', $this->value, null)->shouldBeCalled();
 
-        $this->getFilter($qb, null);
+        $this->getFilter($qb, 'a');
     }
 }

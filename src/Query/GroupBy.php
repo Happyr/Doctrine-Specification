@@ -34,7 +34,7 @@ class GroupBy implements QueryModifier
      * @param Field|Alias|string $field
      * @param string|null        $dqlAlias
      */
-    public function __construct($field, $dqlAlias = null)
+    public function __construct($field, ?string $dqlAlias = null)
     {
         if (!($field instanceof Field) && !($field instanceof Alias)) {
             $field = new Field($field);
@@ -48,7 +48,7 @@ class GroupBy implements QueryModifier
      * @param QueryBuilder $qb
      * @param string       $dqlAlias
      */
-    public function modify(QueryBuilder $qb, $dqlAlias)
+    public function modify(QueryBuilder $qb, string $dqlAlias): void
     {
         if (null !== $this->dqlAlias) {
             $dqlAlias = $this->dqlAlias;

@@ -42,7 +42,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
 
     private $result = 'result';
 
-    public function let(EntityManager $entityManager, ClassMetadata $classMetadata)
+    public function let(EntityManager $entityManager, ClassMetadata $classMetadata): void
     {
         $this->beConstructedWith($entityManager, $classMetadata);
     }
@@ -52,7 +52,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    ) {
+    ): void {
         $this->prepareEntityManagerStub($entityManager, $qb);
         $this->prepareQueryBuilderStub($qb, $query);
         $query->execute()->willReturn($this->result);
@@ -67,9 +67,10 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    ) {
+    ): void {
         $this->prepareEntityManagerStub($entityManager, $qb);
         $this->prepareQueryBuilderStub($qb, $query);
+
         $specification->getFilter($qb, $this->alias)->willReturn($this->expression);
 
         $qb->andWhere($this->expression)->willReturn($qb);
@@ -82,7 +83,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    ) {
+    ): void {
         $this->prepareEntityManagerStub($entityManager, $qb);
         $this->prepareQueryBuilderStub($qb, $query);
 
@@ -92,28 +93,18 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->match(null);
     }
 
-    public function it_should_throw_exception_when_apply_not_specification(
-        EntityManager $entityManager,
-        QueryBuilder $qb,
-        AbstractQuery $query
-    ) {
-        $this->prepareEntityManagerStub($entityManager, $qb);
-        $this->prepareQueryBuilderStub($qb, $query);
-
-        $this->shouldThrow('\InvalidArgumentException')->duringMatch(new \stdClass());
-        $this->shouldThrow('\InvalidArgumentException')->duringMatch(['fake', 'array']);
-        $this->shouldThrow('\InvalidArgumentException')->duringMatch('fake');
-    }
-
     public function it_matches_a_specification_with_empty_filter(
         Specification $specification,
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    ) {
+    ): void {
         $this->prepareEntityManagerStub($entityManager, $qb);
         $this->prepareQueryBuilderStub($qb, $query);
         $query->execute()->willReturn($this->result);
+
+        $specification->modify($qb, $this->alias)->shouldBeCalled();
+        $specification->getFilter($qb, $this->alias)->willReturn('');
 
         $qb->andWhere()->shouldNotBeCalled();
         $qb->where()->shouldNotBeCalled();
@@ -126,7 +117,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    ) {
+    ): void {
         $this->prepareStubs($specification, $entityManager, $qb, $query);
         $query->execute()->willReturn($this->result);
 
@@ -140,7 +131,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    ) {
+    ): void {
         $singleResult = new \stdClass();
 
         $this->prepareStubs($specification, $entityManager, $qb, $query);
@@ -157,7 +148,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    ) {
+    ): void {
         $this->prepareStubs($specification, $entityManager, $qb, $query);
 
         $specification->modify($qb, $this->alias)->shouldBeCalled();
@@ -172,7 +163,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    ) {
+    ): void {
         $this->prepareStubs($specification, $entityManager, $qb, $query);
 
         $specification->modify($qb, $this->alias)->shouldBeCalled();
@@ -187,7 +178,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    ) {
+    ): void {
         $singleScalarResult = '1';
 
         $this->prepareStubs($specification, $entityManager, $qb, $query);
@@ -204,7 +195,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    ) {
+    ): void {
         $this->prepareStubs($specification, $entityManager, $qb, $query);
 
         $specification->modify($qb, $this->alias)->shouldBeCalled();
@@ -219,7 +210,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    ) {
+    ): void {
         $scalarResult = ['1', '2', '3'];
 
         $this->prepareStubs($specification, $entityManager, $qb, $query);
@@ -236,7 +227,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    ) {
+    ): void {
         $singleResult = new \stdClass();
 
         $this->prepareStubs($specification, $entityManager, $qb, $query);
@@ -253,7 +244,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    ) {
+    ): void {
         $this->prepareStubs($specification, $entityManager, $qb, $query);
 
         $specification->modify($qb, $this->alias)->shouldBeCalled();
@@ -268,7 +259,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         EntityManager $entityManager,
         QueryBuilder $qb,
         AbstractQuery $query
-    ) {
+    ): void {
         $this->prepareStubs($specification, $entityManager, $qb, $query);
 
         $specification->modify($qb, $this->alias)->shouldBeCalled();
@@ -284,7 +275,7 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         QueryBuilder $qb,
         AbstractQuery $query,
         ResultModifier $modifier
-    ) {
+    ): void {
         $this->prepareStubs($specification, $entityManager, $qb, $query);
         $query->execute()->willReturn($this->result);
 
@@ -294,24 +285,28 @@ class EntitySpecificationRepositorySpec extends ObjectBehavior
         $this->match($specification, $modifier)->shouldReturn($this->result);
     }
 
-    private function prepareStubs(Specification $specification, EntityManager $entityManager, QueryBuilder $qb, AbstractQuery $query)
-    {
+    private function prepareStubs(
+        Specification $specification,
+        EntityManager $entityManager,
+        QueryBuilder $qb,
+        AbstractQuery $query
+    ): void {
         $this->prepareEntityManagerStub($entityManager, $qb);
         $this->prepareSpecificationStub($specification, $qb);
         $this->prepareQueryBuilderStub($qb, $query);
     }
 
-    private function prepareEntityManagerStub(EntityManager $entityManager, QueryBuilder $qb)
+    private function prepareEntityManagerStub(EntityManager $entityManager, QueryBuilder $qb): void
     {
         $entityManager->createQueryBuilder()->willReturn($qb);
     }
 
-    private function prepareSpecificationStub(Specification $specification, QueryBuilder $qb)
+    private function prepareSpecificationStub(Specification $specification, QueryBuilder $qb): void
     {
         $specification->getFilter($qb, $this->alias)->willReturn($this->expression);
     }
 
-    private function prepareQueryBuilderStub(QueryBuilder $qb, Query $query)
+    private function prepareQueryBuilderStub(QueryBuilder $qb, AbstractQuery $query): void
     {
         $qb->from(Argument::any(), $this->alias, null)->willReturn($qb);
         $qb->select($this->alias)->willReturn($qb);

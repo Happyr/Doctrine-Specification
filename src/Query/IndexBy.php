@@ -37,7 +37,7 @@ class IndexBy implements QueryModifier
      * @param Field|string $field    Field name for indexing
      * @param string|null  $dqlAlias DQL alias of field
      */
-    public function __construct($field, $dqlAlias = null)
+    public function __construct($field, ?string $dqlAlias = null)
     {
         if (!($field instanceof Field)) {
             $field = new Field($field);
@@ -52,7 +52,7 @@ class IndexBy implements QueryModifier
      *
      * @throws QueryException
      */
-    public function modify(QueryBuilder $qb, $dqlAlias)
+    public function modify(QueryBuilder $qb, string $dqlAlias): void
     {
         if (null !== $this->dqlAlias) {
             $dqlAlias = $this->dqlAlias;

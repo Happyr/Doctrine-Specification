@@ -19,15 +19,15 @@ use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 
 abstract class Arithmetic implements Operand
 {
-    const ADD = '+';
+    protected const ADD = '+';
 
-    const SUB = '-';
+    protected const SUB = '-';
 
-    const MUL = '*';
+    protected const MUL = '*';
 
-    const DIV = '/';
+    protected const DIV = '/';
 
-    const MOD = '%';
+    protected const MOD = '%';
 
     /**
      * @var string[]
@@ -43,7 +43,7 @@ abstract class Arithmetic implements Operand
     /**
      * @var string
      */
-    private $operation = '';
+    private $operation;
 
     /**
      * @var Operand|string
@@ -60,7 +60,7 @@ abstract class Arithmetic implements Operand
      * @param Operand|string $field
      * @param Operand|string $value
      */
-    public function __construct($operation, $field, $value)
+    public function __construct(string $operation, $field, $value)
     {
         if (!in_array($operation, self::$operations, true)) {
             throw new InvalidArgumentException(sprintf(
@@ -81,7 +81,7 @@ abstract class Arithmetic implements Operand
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, $dqlAlias)
+    public function transform(QueryBuilder $qb, string $dqlAlias): string
     {
         $field = ArgumentToOperandConverter::toField($this->field);
         $value = ArgumentToOperandConverter::toValue($this->value);

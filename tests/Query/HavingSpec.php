@@ -25,22 +25,22 @@ use PhpSpec\ObjectBehavior;
  */
 class HavingSpec extends ObjectBehavior
 {
-    public function let(Filter $filter)
+    public function let(Filter $filter): void
     {
         $this->beConstructedWith($filter);
     }
 
-    public function it_is_a_having()
+    public function it_is_a_having(): void
     {
         $this->shouldBeAnInstanceOf(Having::class);
     }
 
-    public function it_is_a_query_modifier()
+    public function it_is_a_query_modifier(): void
     {
         $this->shouldHaveType(QueryModifier::class);
     }
 
-    public function it_add_having(QueryBuilder $qb, Filter $filter)
+    public function it_add_having(QueryBuilder $qb, Filter $filter): void
     {
         $this->beConstructedWith($filter);
         $filter->getFilter($qb, 'a')->willReturn('foo = :bar');

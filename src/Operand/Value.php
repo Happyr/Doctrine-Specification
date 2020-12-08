@@ -45,7 +45,7 @@ class Value implements Operand
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, $dqlAlias)
+    public function transform(QueryBuilder $qb, string $dqlAlias): string
     {
         $paramName = sprintf('comparison_%d', $qb->getParameters()->count());
         $value = ValueConverter::convertToDatabaseValue($this->value, $qb);

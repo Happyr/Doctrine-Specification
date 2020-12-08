@@ -22,5 +22,5 @@ interface QueryModifier
      * @param QueryBuilder $qb
      * @param string       $dqlAlias
      */
-    public function modify(QueryBuilder $qb, $dqlAlias);
+    public function modify(QueryBuilder $qb, string $dqlAlias): void;
 }

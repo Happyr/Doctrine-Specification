@@ -37,7 +37,7 @@ class ResultModifierCollection implements ResultModifier
     /**
      * @param AbstractQuery $query
      */
-    public function modify(AbstractQuery $query)
+    public function modify(AbstractQuery $query): void
     {
         foreach ($this->children as $child) {
             if (!$child instanceof ResultModifier) {

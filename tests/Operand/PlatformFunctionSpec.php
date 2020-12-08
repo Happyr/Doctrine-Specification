@@ -34,22 +34,22 @@ class PlatformFunctionSpec extends ObjectBehavior
 
     private $arguments = 'foo';
 
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith($this->functionName, $this->arguments);
     }
 
-    public function it_is_a_platform_function()
+    public function it_is_a_platform_function(): void
     {
         $this->shouldBeAnInstanceOf(PlatformFunction::class);
     }
 
-    public function it_is_a_operand()
+    public function it_is_a_operand(): void
     {
         $this->shouldBeAnInstanceOf(Operand::class);
     }
 
-    public function it_is_transformable_doctrine_function(QueryBuilder $qb)
+    public function it_is_transformable_doctrine_function(QueryBuilder $qb): void
     {
         $dqlAlias = 'a';
         $expression = 'UPPER(a.foo)';
@@ -57,7 +57,7 @@ class PlatformFunctionSpec extends ObjectBehavior
         $this->transform($qb, $dqlAlias)->shouldReturn($expression);
     }
 
-    public function it_is_transformable_many_arguments(QueryBuilder $qb)
+    public function it_is_transformable_many_arguments(QueryBuilder $qb): void
     {
         $dqlAlias = 'a';
         $expression = 'concat(a.foo, a.bar)';
@@ -71,7 +71,7 @@ class PlatformFunctionSpec extends ObjectBehavior
         QueryBuilder $qb,
         EntityManagerInterface $em,
         Configuration $configuration
-    ) {
+    ): void {
         $dqlAlias = 'a';
         $functionName = 'foo';
         $expression = 'foo(a.foo)';
@@ -91,7 +91,7 @@ class PlatformFunctionSpec extends ObjectBehavior
         QueryBuilder $qb,
         EntityManagerInterface $em,
         Configuration $configuration
-    ) {
+    ): void {
         $dqlAlias = 'a';
         $functionName = 'foo';
         $expression = 'foo(a.foo)';
@@ -111,7 +111,7 @@ class PlatformFunctionSpec extends ObjectBehavior
         QueryBuilder $qb,
         EntityManagerInterface $em,
         Configuration $configuration
-    ) {
+    ): void {
         $dqlAlias = 'a';
         $functionName = 'foo';
         $expression = 'foo(a.foo)';
@@ -131,7 +131,7 @@ class PlatformFunctionSpec extends ObjectBehavior
         QueryBuilder $qb,
         EntityManagerInterface $em,
         Configuration $configuration
-    ) {
+    ): void {
         $functionName = 'foo';
 
         $qb->getEntityManager()->willReturn($em);
@@ -150,7 +150,7 @@ class PlatformFunctionSpec extends ObjectBehavior
         Configuration $configuration,
         ArrayCollection $parameters,
         Value $value
-    ) {
+    ): void {
         $dqlAlias = 'a';
         $functionName = 'concat';
         $expression = 'concat(a.foo, :comparison_10, :comparison_11)';

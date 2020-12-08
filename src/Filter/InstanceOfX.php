@@ -32,7 +32,7 @@ class InstanceOfX implements Filter
      * @param string      $value
      * @param string|null $dqlAlias
      */
-    public function __construct($value, $dqlAlias = null)
+    public function __construct(string $value, ?string $dqlAlias = null)
     {
         $this->value = $value;
         $this->dqlAlias = $dqlAlias;
@@ -44,7 +44,7 @@ class InstanceOfX implements Filter
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
     {
         if (null !== $this->dqlAlias) {
             $dqlAlias = $this->dqlAlias;

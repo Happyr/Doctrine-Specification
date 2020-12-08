@@ -29,22 +29,22 @@ class LikePatternSpec extends ObjectBehavior
 
     private $format = LikePattern::CONTAINS;
 
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith($this->value, $this->format);
     }
 
-    public function it_is_a_like_pattern()
+    public function it_is_a_like_pattern(): void
     {
         $this->shouldBeAnInstanceOf(LikePattern::class);
     }
 
-    public function it_is_a_operand()
+    public function it_is_a_operand(): void
     {
         $this->shouldBeAnInstanceOf(Operand::class);
     }
 
-    public function it_is_transformable(QueryBuilder $qb, ArrayCollection $parameters)
+    public function it_is_transformable(QueryBuilder $qb, ArrayCollection $parameters): void
     {
         $dqlAlias = 'a';
 

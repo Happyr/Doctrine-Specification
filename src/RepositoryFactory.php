@@ -16,6 +16,7 @@ namespace Happyr\DoctrineSpecification;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Repository\RepositoryFactory as RepositoryFactoryInterface;
 
 /**
  * Factory class for creating EntitySpecificationRepository instances.
@@ -23,7 +24,7 @@ use Doctrine\ORM\EntityRepository;
  * Provides an implementation of RepositoryFactory so that the
  * default repository type in Doctrine can easily be replaced.
  */
-class RepositoryFactory implements \Doctrine\ORM\Repository\RepositoryFactory
+class RepositoryFactory implements RepositoryFactoryInterface
 {
     /**
      * Gets the repository for an entity class.
@@ -33,11 +34,8 @@ class RepositoryFactory implements \Doctrine\ORM\Repository\RepositoryFactory
      *
      * @return EntityRepository
      */
-    public function getRepository(EntityManagerInterface $entityManager, $entityName)
+    public function getRepository(EntityManagerInterface $entityManager, $entityName): EntityRepository
     {
-        return new EntitySpecificationRepository(
-            $entityManager,
-            $entityManager->getClassMetadata($entityName)
-        );
+        return new EntitySpecificationRepository($entityManager, $entityManager->getClassMetadata($entityName));
     }
 }

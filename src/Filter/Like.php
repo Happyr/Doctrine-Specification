@@ -22,11 +22,11 @@ use Happyr\DoctrineSpecification\Operand\Operand;
 
 class Like implements Filter
 {
-    const CONTAINS = LikePattern::CONTAINS;
+    public const CONTAINS = LikePattern::CONTAINS;
 
-    const ENDS_WITH = LikePattern::ENDS_WITH;
+    public const ENDS_WITH = LikePattern::ENDS_WITH;
 
-    const STARTS_WITH = LikePattern::STARTS_WITH;
+    public const STARTS_WITH = LikePattern::STARTS_WITH;
 
     /**
      * @var Operand|string
@@ -49,11 +49,12 @@ class Like implements Filter
      * @param string             $format
      * @param string|null        $dqlAlias
      */
-    public function __construct($field, $value, $format = LikePattern::CONTAINS, $dqlAlias = null)
+    public function __construct($field, $value, string $format = LikePattern::CONTAINS, ?string $dqlAlias = null)
     {
         if (!($value instanceof LikePattern)) {
             $value = new LikePattern($value, $format);
         }
+
         $this->field = $field;
         $this->value = $value;
         $this->dqlAlias = $dqlAlias;
@@ -65,7 +66,7 @@ class Like implements Filter
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
     {
         if (null !== $this->dqlAlias) {
             $dqlAlias = $this->dqlAlias;
