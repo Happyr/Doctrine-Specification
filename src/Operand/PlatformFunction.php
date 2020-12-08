@@ -69,10 +69,10 @@ class PlatformFunction implements Operand
     private $arguments;
 
     /**
-     * @param string $functionName
-     * @param mixed  ...$arguments
+     * @param string        $functionName
+     * @param Operand|mixed ...$arguments
      */
-    public function __construct($functionName, ...$arguments)
+    public function __construct(string $functionName, ...$arguments)
     {
         $this->functionName = $functionName;
         $this->arguments = $arguments;
@@ -84,7 +84,7 @@ class PlatformFunction implements Operand
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, $dqlAlias)
+    public function transform(QueryBuilder $qb, string $dqlAlias): string
     {
         if (!in_array(strtolower($this->functionName), self::$doctrineFunctions, true) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomStringFunction($this->functionName) &&

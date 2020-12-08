@@ -16,6 +16,7 @@ namespace tests\Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Query\IndexBy;
+use Happyr\DoctrineSpecification\Query\QueryModifier;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -27,24 +28,24 @@ class IndexBySpec extends ObjectBehavior
 
     private $alias = 'f';
 
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith($this->field, $this->alias);
     }
 
-    public function it_is_a_result_modifier()
+    public function it_is_a_result_modifier(): void
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Query\QueryModifier');
+        $this->shouldBeAnInstanceOf(QueryModifier::class);
     }
 
-    public function it_indexes_with_default_dql_alias(QueryBuilder $qb)
+    public function it_indexes_with_default_dql_alias(QueryBuilder $qb): void
     {
         $this->beConstructedWith('something', 'x');
         $qb->indexBy('x', 'x.something')->shouldBeCalled();
         $this->modify($qb, 'a');
     }
 
-    public function it_uses_local_alias_if_global_was_not_set(QueryBuilder $qb)
+    public function it_uses_local_alias_if_global_was_not_set(QueryBuilder $qb): void
     {
         $this->beConstructedWith('thing');
         $qb->indexBy('b', 'b.thing')->shouldBeCalled();

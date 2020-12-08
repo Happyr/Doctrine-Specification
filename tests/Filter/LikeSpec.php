@@ -26,18 +26,20 @@ class LikeSpec extends ObjectBehavior
 
     private $value = 'bar';
 
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, 'dqlAlias');
     }
 
-    public function it_is_a_specification()
+    public function it_is_a_specification(): void
     {
         $this->shouldHaveType(Specification::class);
     }
 
-    public function it_surrounds_with_wildcards_when_using_contains(QueryBuilder $qb, ArrayCollection $parameters)
-    {
+    public function it_surrounds_with_wildcards_when_using_contains(
+        QueryBuilder $qb,
+        ArrayCollection $parameters
+    ): void {
         $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, 'dqlAlias');
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
@@ -47,7 +49,7 @@ class LikeSpec extends ObjectBehavior
         $this->match($qb, null);
     }
 
-    public function it_starts_with_wildcard_when_using_ends_with(QueryBuilder $qb, ArrayCollection $parameters)
+    public function it_starts_with_wildcard_when_using_ends_with(QueryBuilder $qb, ArrayCollection $parameters): void
     {
         $this->beConstructedWith($this->field, $this->value, Like::ENDS_WITH, 'dqlAlias');
         $qb->getParameters()->willReturn($parameters);
@@ -58,7 +60,7 @@ class LikeSpec extends ObjectBehavior
         $this->match($qb, null);
     }
 
-    public function it_ends_with_wildcard_when_using_starts_with(QueryBuilder $qb, ArrayCollection $parameters)
+    public function it_ends_with_wildcard_when_using_starts_with(QueryBuilder $qb, ArrayCollection $parameters): void
     {
         $this->beConstructedWith($this->field, $this->value, Like::STARTS_WITH, 'dqlAlias');
         $qb->getParameters()->willReturn($parameters);

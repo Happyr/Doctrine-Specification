@@ -21,7 +21,7 @@ class Join extends AbstractJoin
     /**
      * {@inheritdoc}
      */
-    protected function modifyJoin(QueryBuilder $qb, $join, $alias): void
+    protected function modifyJoin(QueryBuilder $qb, string $join, string $alias): void
     {
         $qb->join($join, $alias);
     }

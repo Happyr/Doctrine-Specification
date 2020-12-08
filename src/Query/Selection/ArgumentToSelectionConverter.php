@@ -28,7 +28,7 @@ class ArgumentToSelectionConverter
      *
      * @return Selection
      */
-    public static function toSelection($argument)
+    public static function toSelection($argument): Selection
     {
         if ($argument instanceof Selection) {
             return $argument;

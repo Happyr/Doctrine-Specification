@@ -38,7 +38,7 @@ class QueryModifierCollection implements QueryModifier
      * @param QueryBuilder $qb
      * @param string       $dqlAlias
      */
-    public function modify(QueryBuilder $qb, $dqlAlias)
+    public function modify(QueryBuilder $qb, string $dqlAlias): void
     {
         foreach ($this->children as $child) {
             if (!$child instanceof QueryModifier) {

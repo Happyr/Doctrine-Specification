@@ -26,7 +26,7 @@ class Offset implements QueryModifier
     /**
      * @param int $offset
      */
-    public function __construct($offset)
+    public function __construct(int $offset)
     {
         $this->offset = $offset;
     }
@@ -35,7 +35,7 @@ class Offset implements QueryModifier
      * @param QueryBuilder $qb
      * @param string       $dqlAlias
      */
-    public function modify(QueryBuilder $qb, $dqlAlias)
+    public function modify(QueryBuilder $qb, string $dqlAlias): void
     {
         $qb->setFirstResult($this->offset);
     }

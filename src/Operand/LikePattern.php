@@ -19,11 +19,11 @@ use Happyr\DoctrineSpecification\ValueConverter;
 
 class LikePattern implements Operand
 {
-    const CONTAINS = '%%%s%%';
+    public const CONTAINS = '%%%s%%';
 
-    const ENDS_WITH = '%%%s';
+    public const ENDS_WITH = '%%%s';
 
-    const STARTS_WITH = '%s%%';
+    public const STARTS_WITH = '%s%%';
 
     /**
      * @var string
@@ -39,7 +39,7 @@ class LikePattern implements Operand
      * @param string $value
      * @param string $format
      */
-    public function __construct($value, $format = self::CONTAINS)
+    public function __construct(string $value, $format = self::CONTAINS)
     {
         $this->value = $value;
         $this->format = $format;
@@ -51,7 +51,7 @@ class LikePattern implements Operand
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, $dqlAlias)
+    public function transform(QueryBuilder $qb, string $dqlAlias): string
     {
         $paramName = sprintf('comparison_%d', $qb->getParameters()->count());
         $value = ValueConverter::convertToDatabaseValue($this->value, $qb);
@@ -67,7 +67,7 @@ class LikePattern implements Operand
      *
      * @return string
      */
-    private function formatValue($format, $value)
+    private function formatValue(string $format, string $value): string
     {
         return sprintf($format, $value);
     }

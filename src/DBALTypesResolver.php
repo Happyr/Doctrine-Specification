@@ -34,7 +34,7 @@ final class DBALTypesResolver
      *
      * @return Type|null
      */
-    public static function tryGetTypeForValue($value)
+    public static function tryGetTypeForValue($value): ?Type
     {
         if (!is_object($value)) {
             return null;
@@ -65,7 +65,7 @@ final class DBALTypesResolver
      * @param string $name      the name of the type
      * @param string $className the class name of the Value Object
      */
-    public static function addType($name, $className)
+    public static function addType(string $name, string $className): void
     {
         self::$typesMap[$className] = $name;
     }

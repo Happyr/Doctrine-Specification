@@ -20,7 +20,7 @@ use Happyr\DoctrineSpecification\ValueConverter;
 class Values implements Operand
 {
     /**
-     * @var array
+     * @var mixed[]
      */
     private $values;
 
@@ -30,10 +30,10 @@ class Values implements Operand
     private $valueType;
 
     /**
-     * @param array           $values
+     * @param mixed[]         $values
      * @param int|string|null $valueType PDO::PARAM_* or \Doctrine\DBAL\Types\Type::* constant
      */
-    public function __construct($values, $valueType = null)
+    public function __construct(array $values, $valueType = null)
     {
         $this->values = $values;
         $this->valueType = $valueType;
@@ -45,7 +45,7 @@ class Values implements Operand
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, $dqlAlias)
+    public function transform(QueryBuilder $qb, string $dqlAlias): string
     {
         $values = $this->values;
         foreach ($values as $k => $v) {

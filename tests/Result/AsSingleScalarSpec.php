@@ -25,12 +25,12 @@ use PhpSpec\ObjectBehavior;
  */
 class AsSingleScalarSpec extends ObjectBehavior
 {
-    public function it_is_a_result_modifier()
+    public function it_is_a_result_modifier(): void
     {
         $this->shouldBeAnInstanceOf(ResultModifier::class);
     }
 
-    public function it_sets_hydration_mode_to_object(AbstractQuery $query)
+    public function it_sets_hydration_mode_to_object(AbstractQuery $query): void
     {
         $query->setHydrationMode(Query::HYDRATE_SINGLE_SCALAR)->shouldBeCalled();
 

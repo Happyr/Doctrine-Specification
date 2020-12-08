@@ -40,7 +40,7 @@ class MemberOfX implements Filter
      * @param Operand|string $field
      * @param string|null    $dqlAlias
      */
-    public function __construct($value, $field, $dqlAlias = null)
+    public function __construct($value, $field, ?string $dqlAlias = null)
     {
         $this->value = $value;
         $this->field = $field;
@@ -53,7 +53,7 @@ class MemberOfX implements Filter
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
     {
         if (null !== $this->dqlAlias) {
             $dqlAlias = $this->dqlAlias;

@@ -27,22 +27,22 @@ use PhpSpec\ObjectBehavior;
  */
 class CountOfSpec extends ObjectBehavior
 {
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith(null);
     }
 
-    public function it_is_a_CountOf()
+    public function it_is_a_CountOf(): void
     {
         $this->shouldBeAnInstanceOf(CountOf::class);
     }
 
-    public function it_is_a_specification()
+    public function it_is_a_specification(): void
     {
         $this->shouldHaveType(Specification::class);
     }
 
-    public function it_count_of_all(QueryBuilder $qb)
+    public function it_count_of_all(QueryBuilder $qb): void
     {
         $dqlAlias = 'a';
 
@@ -52,7 +52,7 @@ class CountOfSpec extends ObjectBehavior
         $this->modify($qb, $dqlAlias);
     }
 
-    public function it_count_of_all_grouped_by_id(QueryBuilder $qb)
+    public function it_count_of_all_grouped_by_id(QueryBuilder $qb): void
     {
         $field = 'id';
         $dqlAlias = 'a';
@@ -66,7 +66,7 @@ class CountOfSpec extends ObjectBehavior
         $this->modify($qb, $dqlAlias);
     }
 
-    public function it_count_of_all_with_group_is_foo(QueryBuilder $qb)
+    public function it_count_of_all_with_group_is_foo(QueryBuilder $qb): void
     {
         $field = 'group';
         $value = 'foo';

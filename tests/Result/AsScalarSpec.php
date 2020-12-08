@@ -17,6 +17,7 @@ namespace tests\Happyr\DoctrineSpecification\Result;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Happyr\DoctrineSpecification\Result\AsScalar;
+use Happyr\DoctrineSpecification\Result\ResultModifier;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -24,12 +25,12 @@ use PhpSpec\ObjectBehavior;
  */
 class AsScalarSpec extends ObjectBehavior
 {
-    public function it_is_a_result_modifier()
+    public function it_is_a_result_modifier(): void
     {
-        $this->shouldBeAnInstanceOf('Happyr\DoctrineSpecification\Result\ResultModifier');
+        $this->shouldBeAnInstanceOf(ResultModifier::class);
     }
 
-    public function it_sets_hydration_mode_to_object(AbstractQuery $query)
+    public function it_sets_hydration_mode_to_object(AbstractQuery $query): void
     {
         $query->setHydrationMode(Query::HYDRATE_SCALAR)->shouldBeCalled();
 

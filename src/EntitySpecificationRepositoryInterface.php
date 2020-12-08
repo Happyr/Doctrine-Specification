@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification;
 
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
@@ -31,9 +32,9 @@ interface EntitySpecificationRepositoryInterface
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @return mixed[]
+     * @return mixed
      */
-    public function match($specification, ResultModifier $modifier = null);
+    public function match($specification, ?ResultModifier $modifier = null);
 
     /**
      * Get single result when you match with a Specification.
@@ -46,7 +47,7 @@ interface EntitySpecificationRepositoryInterface
      *
      * @return mixed
      */
-    public function matchSingleResult($specification, ResultModifier $modifier = null);
+    public function matchSingleResult($specification, ?ResultModifier $modifier = null);
 
     /**
      * Get single result or null when you match with a Specification.
@@ -58,7 +59,7 @@ interface EntitySpecificationRepositoryInterface
      *
      * @return mixed|null
      */
-    public function matchOneOrNullResult($specification, ResultModifier $modifier = null);
+    public function matchOneOrNullResult($specification, ?ResultModifier $modifier = null);
 
     /**
      * Get single scalar result when you match with a Specification.
@@ -71,7 +72,7 @@ interface EntitySpecificationRepositoryInterface
      *
      * @return mixed
      */
-    public function matchSingleScalarResult($specification, ResultModifier $modifier = null);
+    public function matchSingleScalarResult($specification, ?ResultModifier $modifier = null);
 
     /**
      * Get scalar result when you match with a Specification.
@@ -84,7 +85,7 @@ interface EntitySpecificationRepositoryInterface
      *
      * @return mixed
      */
-    public function matchScalarResult($specification, ResultModifier $modifier = null);
+    public function matchScalarResult($specification, ?ResultModifier $modifier = null);
 
     /**
      * Prepare a Query with a Specification.
@@ -94,7 +95,7 @@ interface EntitySpecificationRepositoryInterface
      *
      * @return Query
      */
-    public function getQuery($specification, ResultModifier $modifier = null);
+    public function getQuery($specification, ?ResultModifier $modifier = null): AbstractQuery;
 
     /**
      * @param Filter|QueryModifier $specification
@@ -102,7 +103,7 @@ interface EntitySpecificationRepositoryInterface
      *
      * @return QueryBuilder
      */
-    public function getQueryBuilder($specification, $alias = null);
+    public function getQueryBuilder($specification, ?string $alias = null): QueryBuilder;
 
     /**
      * Iterate results when you match with a Specification.
@@ -112,5 +113,5 @@ interface EntitySpecificationRepositoryInterface
      *
      * @return \Traversable
      */
-    public function iterate($specification, ResultModifier $modifier = null);
+    public function iterate($specification, ?ResultModifier $modifier = null): \Traversable;
 }

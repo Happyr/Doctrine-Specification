@@ -81,7 +81,6 @@ use Happyr\DoctrineSpecification\Specification\CountOf;
  * @method static PlatformFunction LOCATE($needle, $haystack, $offset = 0) Locate the first occurrence of the substring in the string.
  * @method static PlatformFunction ABS($expression)
  * @method static PlatformFunction SQRT($q) Return the square-root of q.
- * @method static PlatformFunction MOD($a, $b) Return a MOD b.
  * @method static PlatformFunction SIZE($collection) Return the number of elements in the specified collection
  * @method static PlatformFunction DATE_DIFF($date1, $date2) Calculate the difference in days between date1-date2.
  * @method static PlatformFunction BIT_AND($a, $b)
@@ -105,7 +104,7 @@ class Spec
      *
      * @return PlatformFunction
      */
-    public static function __callStatic($functionName, array $arguments = [])
+    public static function __callStatic(string $functionName, array $arguments = []): PlatformFunction
     {
         return self::fun($functionName, ...$arguments);
     }
@@ -117,7 +116,7 @@ class Spec
      *
      * @return AndX
      */
-    public static function andX(...$specs)
+    public static function andX(...$specs): AndX
     {
         return new AndX(...$specs);
     }
@@ -127,7 +126,7 @@ class Spec
      *
      * @return OrX
      */
-    public static function orX(...$specs)
+    public static function orX(...$specs): OrX
     {
         return new OrX(...$specs);
     }
@@ -137,7 +136,7 @@ class Spec
      *
      * @return Not
      */
-    public static function not(Filter $spec)
+    public static function not(Filter $spec): Not
     {
         return new Not($spec);
     }
@@ -151,7 +150,7 @@ class Spec
      *
      * @return Join
      */
-    public static function join($field, $newAlias, $dqlAlias = null)
+    public static function join(string $field, string $newAlias, ?string $dqlAlias = null): Join
     {
         return new Join($field, $newAlias, $dqlAlias);
     }
@@ -163,7 +162,7 @@ class Spec
      *
      * @return LeftJoin
      */
-    public static function leftJoin($field, $newAlias, $dqlAlias = null)
+    public static function leftJoin(string $field, string $newAlias, ?string $dqlAlias = null): LeftJoin
     {
         return new LeftJoin($field, $newAlias, $dqlAlias);
     }
@@ -175,7 +174,7 @@ class Spec
      *
      * @return InnerJoin
      */
-    public static function innerJoin($field, $newAlias, $dqlAlias = null)
+    public static function innerJoin(string $field, string $newAlias, ?string $dqlAlias = null): InnerJoin
     {
         return new InnerJoin($field, $newAlias, $dqlAlias);
     }
@@ -186,7 +185,7 @@ class Spec
      *
      * @return IndexBy
      */
-    public static function indexBy($field, $dqlAlias = null)
+    public static function indexBy($field, ?string $dqlAlias = null): IndexBy
     {
         return new IndexBy($field, $dqlAlias);
     }
@@ -196,7 +195,7 @@ class Spec
      *
      * @return Limit
      */
-    public static function limit($count)
+    public static function limit(int $count): Limit
     {
         return new Limit($count);
     }
@@ -206,7 +205,7 @@ class Spec
      *
      * @return Offset
      */
-    public static function offset($count)
+    public static function offset(int $count): Offset
     {
         return new Offset($count);
     }
@@ -217,7 +216,7 @@ class Spec
      *
      * @return Slice
      */
-    public static function slice($sliceSize, $sliceNumber = 0)
+    public static function slice(int $sliceSize, int $sliceNumber = 0): Slice
     {
         return new Slice($sliceSize, $sliceNumber);
     }
@@ -229,7 +228,7 @@ class Spec
      *
      * @return OrderBy
      */
-    public static function orderBy($field, $order = 'ASC', $dqlAlias = null)
+    public static function orderBy($field, string $order = 'ASC', ?string $dqlAlias = null): OrderBy
     {
         return new OrderBy($field, $order, $dqlAlias);
     }
@@ -240,7 +239,7 @@ class Spec
      *
      * @return GroupBy
      */
-    public static function groupBy($field, $dqlAlias = null)
+    public static function groupBy($field, ?string $dqlAlias = null): GroupBy
     {
         return new GroupBy($field, $dqlAlias);
     }
@@ -248,7 +247,7 @@ class Spec
     /**
      * @return Distinct
      */
-    public static function distinct()
+    public static function distinct(): Distinct
     {
         return new Distinct();
     }
@@ -260,7 +259,7 @@ class Spec
      *
      * @return Select
      */
-    public static function select(...$fields)
+    public static function select(...$fields): Select
     {
         return new Select(...$fields);
     }
@@ -270,7 +269,7 @@ class Spec
      *
      * @return AddSelect
      */
-    public static function addSelect(...$fields)
+    public static function addSelect(...$fields): AddSelect
     {
         return new AddSelect(...$fields);
     }
@@ -280,7 +279,7 @@ class Spec
      *
      * @return SelectEntity
      */
-    public static function selectEntity($dqlAlias)
+    public static function selectEntity(string $dqlAlias): SelectEntity
     {
         return new SelectEntity($dqlAlias);
     }
@@ -291,7 +290,7 @@ class Spec
      *
      * @return SelectAs
      */
-    public static function selectAs($expression, $alias)
+    public static function selectAs($expression, string $alias): SelectAs
     {
         return new SelectAs($expression, $alias);
     }
@@ -302,7 +301,7 @@ class Spec
      *
      * @return SelectHiddenAs
      */
-    public static function selectHiddenAs($expression, $alias)
+    public static function selectHiddenAs($expression, string $alias): SelectHiddenAs
     {
         return new SelectHiddenAs($expression, $alias);
     }
@@ -312,7 +311,7 @@ class Spec
     /**
      * @return AsArray
      */
-    public static function asArray()
+    public static function asArray(): AsArray
     {
         return new AsArray();
     }
@@ -320,7 +319,7 @@ class Spec
     /**
      * @return AsSingleScalar
      */
-    public static function asSingleScalar()
+    public static function asSingleScalar(): AsSingleScalar
     {
         return new AsSingleScalar();
     }
@@ -328,7 +327,7 @@ class Spec
     /**
      * @return AsScalar
      */
-    public static function asScalar()
+    public static function asScalar(): AsScalar
     {
         return new AsScalar();
     }
@@ -338,7 +337,7 @@ class Spec
      *
      * @return Cache
      */
-    public static function cache($cacheLifetime)
+    public static function cache(int $cacheLifetime): Cache
     {
         return new Cache($cacheLifetime);
     }
@@ -348,7 +347,7 @@ class Spec
      *
      * @return RoundDateTime
      */
-    public static function roundDateTimeParams($roundSeconds)
+    public static function roundDateTimeParams(int $roundSeconds): RoundDateTime
     {
         return new RoundDateTime($roundSeconds);
     }
@@ -361,7 +360,7 @@ class Spec
      *
      * @return IsNull
      */
-    public static function isNull($field, $dqlAlias = null)
+    public static function isNull($field, ?string $dqlAlias = null): IsNull
     {
         return new IsNull($field, $dqlAlias);
     }
@@ -372,7 +371,7 @@ class Spec
      *
      * @return IsNotNull
      */
-    public static function isNotNull($field, $dqlAlias = null)
+    public static function isNotNull($field, ?string $dqlAlias = null): IsNotNull
     {
         return new IsNotNull($field, $dqlAlias);
     }
@@ -386,7 +385,7 @@ class Spec
      *
      * @return In
      */
-    public static function in($field, $value, $dqlAlias = null)
+    public static function in($field, $value, ?string $dqlAlias = null): In
     {
         return new In($field, $value, $dqlAlias);
     }
@@ -398,7 +397,7 @@ class Spec
      *
      * @return Not
      */
-    public static function notIn($field, $value, $dqlAlias = null)
+    public static function notIn($field, $value, ?string $dqlAlias = null): Not
     {
         return new Not(new In($field, $value, $dqlAlias));
     }
@@ -410,7 +409,7 @@ class Spec
      *
      * @return Equals
      */
-    public static function eq($field, $value, $dqlAlias = null)
+    public static function eq($field, $value, ?string $dqlAlias = null): Equals
     {
         return new Equals($field, $value, $dqlAlias);
     }
@@ -422,7 +421,7 @@ class Spec
      *
      * @return NotEquals
      */
-    public static function neq($field, $value, $dqlAlias = null)
+    public static function neq($field, $value, ?string $dqlAlias = null): NotEquals
     {
         return new NotEquals($field, $value, $dqlAlias);
     }
@@ -434,7 +433,7 @@ class Spec
      *
      * @return LessThan
      */
-    public static function lt($field, $value, $dqlAlias = null)
+    public static function lt($field, $value, ?string $dqlAlias = null): LessThan
     {
         return new LessThan($field, $value, $dqlAlias);
     }
@@ -446,7 +445,7 @@ class Spec
      *
      * @return LessOrEqualThan
      */
-    public static function lte($field, $value, $dqlAlias = null)
+    public static function lte($field, $value, ?string $dqlAlias = null): LessOrEqualThan
     {
         return new LessOrEqualThan($field, $value, $dqlAlias);
     }
@@ -458,7 +457,7 @@ class Spec
      *
      * @return GreaterThan
      */
-    public static function gt($field, $value, $dqlAlias = null)
+    public static function gt($field, $value, ?string $dqlAlias = null): GreaterThan
     {
         return new GreaterThan($field, $value, $dqlAlias);
     }
@@ -470,7 +469,7 @@ class Spec
      *
      * @return GreaterOrEqualThan
      */
-    public static function gte($field, $value, $dqlAlias = null)
+    public static function gte($field, $value, ?string $dqlAlias = null): GreaterOrEqualThan
     {
         return new GreaterOrEqualThan($field, $value, $dqlAlias);
     }
@@ -483,7 +482,7 @@ class Spec
      *
      * @return Like
      */
-    public static function like($field, $value, $format = Like::CONTAINS, $dqlAlias = null)
+    public static function like($field, $value, string $format = Like::CONTAINS, ?string $dqlAlias = null): Like
     {
         return new Like($field, $value, $format, $dqlAlias);
     }
@@ -494,7 +493,7 @@ class Spec
      *
      * @return InstanceOfX
      */
-    public static function instanceOfX($value, $dqlAlias = null)
+    public static function instanceOfX($value, ?string $dqlAlias = null): InstanceOfX
     {
         return new InstanceOfX($value, $dqlAlias);
     }
@@ -506,7 +505,7 @@ class Spec
      *
      * @return MemberOfX
      */
-    public static function memberOfX($value, $field, $dqlAlias = null)
+    public static function memberOfX($value, $field, ?string $dqlAlias = null): MemberOfX
     {
         return new MemberOfX($value, $field, $dqlAlias);
     }
@@ -518,7 +517,7 @@ class Spec
      *
      * @return CountOf
      */
-    public static function countOf($spec)
+    public static function countOf($spec): CountOf
     {
         return new CountOf($spec);
     }
@@ -528,7 +527,7 @@ class Spec
      *
      * @return Having
      */
-    public static function having(Filter $spec)
+    public static function having(Filter $spec): Having
     {
         return new Having($spec);
     }
@@ -541,7 +540,7 @@ class Spec
      *
      * @return Field
      */
-    public static function field($fieldName, $dqlAlias = null)
+    public static function field(string $fieldName, ?string $dqlAlias = null): Field
     {
         return new Field($fieldName, $dqlAlias);
     }
@@ -552,18 +551,18 @@ class Spec
      *
      * @return Value
      */
-    public static function value($value, $valueType = null)
+    public static function value($value, $valueType = null): Value
     {
         return new Value($value, $valueType);
     }
 
     /**
-     * @param array           $values
+     * @param mixed[]         $values
      * @param int|string|null $valueType
      *
      * @return Values
      */
-    public static function values($values, $valueType = null)
+    public static function values(array $values, $valueType = null): Values
     {
         return new Values($values, $valueType);
     }
@@ -574,7 +573,7 @@ class Spec
      *
      * @return LikePattern
      */
-    public static function likePattern($value, $format = LikePattern::CONTAINS)
+    public static function likePattern(string $value, string $format = LikePattern::CONTAINS): LikePattern
     {
         return new LikePattern($value, $format);
     }
@@ -584,7 +583,7 @@ class Spec
      *
      * @return CountDistinct
      */
-    public static function countDistinct($field)
+    public static function countDistinct($field): CountDistinct
     {
         return new CountDistinct($field);
     }
@@ -597,7 +596,7 @@ class Spec
      *
      * @return Addition
      */
-    public static function add($field, $value)
+    public static function add($field, $value): Addition
     {
         return new Addition($field, $value);
     }
@@ -608,7 +607,7 @@ class Spec
      *
      * @return Subtraction
      */
-    public static function sub($field, $value)
+    public static function sub($field, $value): Subtraction
     {
         return new Subtraction($field, $value);
     }
@@ -619,7 +618,7 @@ class Spec
      *
      * @return Multiplication
      */
-    public static function mul($field, $value)
+    public static function mul($field, $value): Multiplication
     {
         return new Multiplication($field, $value);
     }
@@ -630,7 +629,7 @@ class Spec
      *
      * @return Division
      */
-    public static function div($field, $value)
+    public static function div($field, $value): Division
     {
         return new Division($field, $value);
     }
@@ -641,7 +640,7 @@ class Spec
      *
      * @return Modulo
      */
-    public static function mod($field, $value)
+    public static function mod($field, $value): Modulo
     {
         return new Modulo($field, $value);
     }
@@ -658,7 +657,7 @@ class Spec
      *
      * @return PlatformFunction
      */
-    public static function fun($functionName, ...$arguments)
+    public static function fun(string $functionName, ...$arguments): PlatformFunction
     {
         return new PlatformFunction($functionName, ...$arguments);
     }
@@ -668,7 +667,7 @@ class Spec
      *
      * @return Alias
      */
-    public static function alias($alias)
+    public static function alias(string $alias): Alias
     {
         return new Alias($alias);
     }

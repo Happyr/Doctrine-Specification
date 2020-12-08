@@ -26,17 +26,17 @@ class CacheSpec extends ObjectBehavior
 {
     private $lifetime = 3600;
 
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith($this->lifetime);
     }
 
-    public function it_is_a_specification()
+    public function it_is_a_specification(): void
     {
         $this->shouldBeAnInstanceOf(ResultModifier::class);
     }
 
-    public function it_caches_query_for_given_time(AbstractQuery $query)
+    public function it_caches_query_for_given_time(AbstractQuery $query): void
     {
         $query->setResultCacheLifetime($this->lifetime)->shouldBeCalled();
 

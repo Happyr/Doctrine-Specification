@@ -23,7 +23,7 @@ class GreaterOrEqualThan extends Comparison
      * @param Operand|mixed  $value
      * @param string|null    $dqlAlias
      */
-    public function __construct($field, $value, $dqlAlias = null)
+    public function __construct($field, $value, ?string $dqlAlias = null)
     {
         parent::__construct(self::GTE, $field, $value, $dqlAlias);
     }

@@ -40,7 +40,7 @@ class OrX extends LogicX
      *
      * @param Filter|QueryModifier $child
      */
-    public function orX($child)
+    public function orX($child): void
     {
         $this->append($child);
     }

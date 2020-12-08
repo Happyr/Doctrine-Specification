@@ -30,7 +30,7 @@ class RoundDateTime implements ResultModifier
     /**
      * @param int $roundSeconds How may seconds to round time
      */
-    public function __construct($roundSeconds)
+    public function __construct(int $roundSeconds)
     {
         $this->roundSeconds = $roundSeconds;
     }
@@ -38,7 +38,7 @@ class RoundDateTime implements ResultModifier
     /**
      * @param AbstractQuery $query
      */
-    public function modify(AbstractQuery $query)
+    public function modify(AbstractQuery $query): void
     {
         foreach ($query->getParameters() as $parameter) {
             if ($parameter instanceof Parameter &&

@@ -34,7 +34,7 @@ class IsNotNull implements Filter
      * @param Operand|string $field
      * @param string|null    $dqlAlias
      */
-    public function __construct($field, $dqlAlias = null)
+    public function __construct($field, ?string $dqlAlias = null)
     {
         $this->field = $field;
         $this->dqlAlias = $dqlAlias;
@@ -46,7 +46,7 @@ class IsNotNull implements Filter
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
     {
         if (null !== $this->dqlAlias) {
             $dqlAlias = $this->dqlAlias;

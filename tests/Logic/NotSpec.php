@@ -26,7 +26,7 @@ use PhpSpec\ObjectBehavior;
  */
 class NotSpec extends ObjectBehavior
 {
-    public function let(Filter $filterExpr)
+    public function let(Filter $filterExpr): void
     {
         $this->beConstructedWith($filterExpr, null);
     }
@@ -34,7 +34,7 @@ class NotSpec extends ObjectBehavior
     /**
      * calls parent.
      */
-    public function it_calls_parent_match(QueryBuilder $qb, Expr $expr, Filter $filterExpr)
+    public function it_calls_parent_match(QueryBuilder $qb, Expr $expr, Filter $filterExpr): void
     {
         $dqlAlias = 'a';
         $expression = 'expression';
@@ -51,7 +51,7 @@ class NotSpec extends ObjectBehavior
     /**
      * modifies parent query.
      */
-    public function it_modifies_parent_query(QueryBuilder $qb, Specification $spec)
+    public function it_modifies_parent_query(QueryBuilder $qb, Specification $spec): void
     {
         $this->beConstructedWith($spec, null);
 
@@ -59,7 +59,7 @@ class NotSpec extends ObjectBehavior
         $this->modify($qb, 'a');
     }
 
-    public function it_does_not_modify_parent_query(QueryBuilder $qb)
+    public function it_does_not_modify_parent_query(QueryBuilder $qb): void
     {
         $this->modify($qb, 'a');
     }

@@ -40,19 +40,19 @@ class Not implements Specification
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
     {
         return (string) $qb->expr()->not($this->child->getFilter($qb, $dqlAlias));
     }
 
     /**
-     * @param QueryBuilder $query
+     * @param QueryBuilder $qb
      * @param string       $dqlAlias
      */
-    public function modify(QueryBuilder $query, $dqlAlias)
+    public function modify(QueryBuilder $qb, string $dqlAlias): void
     {
         if ($this->child instanceof QueryModifier) {
-            $this->child->modify($query, $dqlAlias);
+            $this->child->modify($qb, $dqlAlias);
         }
     }
 }

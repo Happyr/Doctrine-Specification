@@ -30,22 +30,22 @@ class DivisionSpec extends ObjectBehavior
 
     private $value = 'bar';
 
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith($this->field, $this->value);
     }
 
-    public function it_is_a_div()
+    public function it_is_a_div(): void
     {
         $this->shouldBeAnInstanceOf(Division::class);
     }
 
-    public function it_is_a_operand()
+    public function it_is_a_operand(): void
     {
         $this->shouldBeAnInstanceOf(Operand::class);
     }
 
-    public function it_is_transformable(QueryBuilder $qb, ArrayCollection $parameters)
+    public function it_is_transformable(QueryBuilder $qb, ArrayCollection $parameters): void
     {
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
@@ -55,7 +55,7 @@ class DivisionSpec extends ObjectBehavior
         $this->transform($qb, 'a')->shouldReturn('(a.foo / :comparison_10)');
     }
 
-    public function it_is_transformable_add_fields(QueryBuilder $qb)
+    public function it_is_transformable_add_fields(QueryBuilder $qb): void
     {
         $this->beConstructedWith(new Field('foo'), new Field('bar'));
         $this->transform($qb, 'a')->shouldReturn('(a.foo / a.bar)');

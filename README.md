@@ -113,7 +113,7 @@ class OwnedByCompany extends BaseSpecification
 {
     private $companyId;
 
-    public function __construct(Company $company, $dqlAlias = null)
+    public function __construct(Company $company, ?string $dqlAlias = null)
     {
         parent::__construct($dqlAlias);
         $this->companyId = $company->getId();
@@ -152,7 +152,7 @@ If you were about to do the same thing with only the QueryBuilder it would look 
 ```php
 class AdvertRepository extends EntityRepository
 {
-    protected function filterAdvertsWeShouldClose($qb)
+    protected function filterAdvertsWeShouldClose(QueryBuilder $qb)
     {
         $qb
             ->andWhere('r.ended = 0')
@@ -167,7 +167,7 @@ class AdvertRepository extends EntityRepository
         ;
     }
 
-    protected function filterOwnedByCompany($qb, Company $company)
+    protected function filterOwnedByCompany(QueryBuilder $qb, Company $company)
     {
         $qb
             ->join('company', 'c')
@@ -179,8 +179,8 @@ class AdvertRepository extends EntityRepository
     public function myQuery(Company $company)
     {
         $qb = $this->em->getRepository('HappyrRecruitmentBundle:Advert')->createQueryBuilder('r');
-        $this->filterAdvertsWeShouldClose($qb)
-        $this->filterOwnedByCompany($qb, $company)
+        $this->filterAdvertsWeShouldClose($qb);
+        $this->filterOwnedByCompany($qb, $company);
 
         return $qb->getQuery()->getResult();
     }

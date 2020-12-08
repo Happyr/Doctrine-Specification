@@ -26,22 +26,22 @@ class SelectEntitySpec extends ObjectBehavior
 {
     private $dqlAlias = 'u';
 
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith($this->dqlAlias);
     }
 
-    public function it_is_a_select_entity()
+    public function it_is_a_select_entity(): void
     {
         $this->shouldBeAnInstanceOf(SelectEntity::class);
     }
 
-    public function it_is_a_selection()
+    public function it_is_a_selection(): void
     {
         $this->shouldBeAnInstanceOf(Selection::class);
     }
 
-    public function it_is_transformable(QueryBuilder $qb)
+    public function it_is_transformable(QueryBuilder $qb): void
     {
         $this->transform($qb, 'a')->shouldReturn($this->dqlAlias);
     }

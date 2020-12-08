@@ -37,7 +37,7 @@ class CountDistinct implements Operand
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, $dqlAlias)
+    public function transform(QueryBuilder $qb, string $dqlAlias): string
     {
         $field = ArgumentToOperandConverter::toField($this->field);
         $field = $field->transform($qb, $dqlAlias);

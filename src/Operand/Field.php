@@ -33,7 +33,7 @@ class Field implements Operand, Selection
      * @param string      $fieldName
      * @param string|null $dqlAlias
      */
-    public function __construct($fieldName, $dqlAlias = null)
+    public function __construct(string $fieldName, ?string $dqlAlias = null)
     {
         $this->fieldName = $fieldName;
         $this->dqlAlias = $dqlAlias;
@@ -45,7 +45,7 @@ class Field implements Operand, Selection
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, $dqlAlias)
+    public function transform(QueryBuilder $qb, string $dqlAlias): string
     {
         if (null !== $this->dqlAlias) {
             $dqlAlias = $this->dqlAlias;

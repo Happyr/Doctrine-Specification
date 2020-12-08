@@ -43,7 +43,7 @@ abstract class BaseSpecification implements Specification
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
+    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
     {
         $spec = $this->getSpec();
 
@@ -58,7 +58,7 @@ abstract class BaseSpecification implements Specification
      * @param QueryBuilder $qb
      * @param string       $dqlAlias
      */
-    public function modify(QueryBuilder $qb, $dqlAlias)
+    public function modify(QueryBuilder $qb, string $dqlAlias): void
     {
         $spec = $this->getSpec();
 
@@ -79,7 +79,7 @@ abstract class BaseSpecification implements Specification
      *
      * @return string
      */
-    private function getAlias($dqlAlias)
+    private function getAlias(string $dqlAlias): string
     {
         if (null !== $this->dqlAlias) {
             return $this->dqlAlias;

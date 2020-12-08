@@ -29,17 +29,17 @@ class SliceSpec extends ObjectBehavior
      */
     private $sliceSize = 25;
 
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith($this->sliceSize, 0);
     }
 
-    public function it_is_a_specification()
+    public function it_is_a_specification(): void
     {
         $this->shouldHaveType(QueryModifier::class);
     }
 
-    public function it_slice_with_zero_index(QueryBuilder $qb)
+    public function it_slice_with_zero_index(QueryBuilder $qb): void
     {
         $this->beConstructedWith($this->sliceSize, 0);
 
@@ -48,7 +48,7 @@ class SliceSpec extends ObjectBehavior
         $this->modify($qb, 'a');
     }
 
-    public function it_slice_with_second_index(QueryBuilder $qb)
+    public function it_slice_with_second_index(QueryBuilder $qb): void
     {
         $sliceNumber = 1;
 

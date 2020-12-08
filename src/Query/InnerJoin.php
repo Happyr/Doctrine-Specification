@@ -21,7 +21,7 @@ class InnerJoin extends AbstractJoin
     /**
      * {@inheritdoc}
      */
-    protected function modifyJoin(QueryBuilder $qb, $join, $alias): void
+    protected function modifyJoin(QueryBuilder $qb, string $join, string $alias): void
     {
         $qb->innerJoin($join, $alias);
     }

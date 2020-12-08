@@ -25,7 +25,7 @@ class AsSingleScalar implements ResultModifier
     /**
      * @param AbstractQuery $query
      */
-    public function modify(AbstractQuery $query)
+    public function modify(AbstractQuery $query): void
     {
         $query->setHydrationMode(Query::HYDRATE_SINGLE_SCALAR);
     }

@@ -32,7 +32,7 @@ class Slice implements QueryModifier
      * @param int $sliceSize
      * @param int $sliceNumber
      */
-    public function __construct($sliceSize, $sliceNumber = 0)
+    public function __construct(int $sliceSize, int $sliceNumber = 0)
     {
         $this->sliceSize = $sliceSize;
         $this->sliceNumber = $sliceNumber;
@@ -42,7 +42,7 @@ class Slice implements QueryModifier
      * @param QueryBuilder $qb
      * @param string       $dqlAlias
      */
-    public function modify(QueryBuilder $qb, $dqlAlias)
+    public function modify(QueryBuilder $qb, string $dqlAlias): void
     {
         $qb->setMaxResults($this->sliceSize);
 

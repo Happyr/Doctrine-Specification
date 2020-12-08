@@ -26,7 +26,7 @@ class Alias implements Operand
     /**
      * @param string $alias
      */
-    public function __construct($alias)
+    public function __construct(string $alias)
     {
         $this->alias = $alias;
     }
@@ -37,7 +37,7 @@ class Alias implements Operand
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, $dqlAlias)
+    public function transform(QueryBuilder $qb, string $dqlAlias): string
     {
         return $this->alias;
     }

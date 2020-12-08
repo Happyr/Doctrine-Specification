@@ -19,7 +19,7 @@ class SelectHiddenAs extends AbstractSelectAs
     /**
      * @return string
      */
-    protected function getAliasFormat()
+    protected function getAliasFormat(): string
     {
         return '(%s) AS HIDDEN %s';
     }

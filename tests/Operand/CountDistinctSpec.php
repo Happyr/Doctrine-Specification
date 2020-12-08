@@ -26,22 +26,22 @@ class CountDistinctSpec extends ObjectBehavior
 {
     private $field = 'foo';
 
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith($this->field);
     }
 
-    public function it_is_a_count_distinct()
+    public function it_is_a_count_distinct(): void
     {
         $this->shouldBeAnInstanceOf(CountDistinct::class);
     }
 
-    public function it_is_a_operand()
+    public function it_is_a_operand(): void
     {
         $this->shouldBeAnInstanceOf(Operand::class);
     }
 
-    public function it_is_transformable(QueryBuilder $qb)
+    public function it_is_transformable(QueryBuilder $qb): void
     {
         $this->transform($qb, 'a')->shouldReturn('COUNT(DISTINCT a.foo)');
     }

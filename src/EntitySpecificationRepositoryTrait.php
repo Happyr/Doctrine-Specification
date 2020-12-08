@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification;
 
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
@@ -38,9 +39,9 @@ trait EntitySpecificationRepositoryTrait
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @return mixed[]
+     * @return mixed
      */
-    public function match($specification, ResultModifier $modifier = null)
+    public function match($specification, ?ResultModifier $modifier = null)
     {
         $query = $this->getQuery($specification, $modifier);
 
@@ -58,7 +59,7 @@ trait EntitySpecificationRepositoryTrait
      *
      * @return mixed
      */
-    public function matchSingleResult($specification, ResultModifier $modifier = null)
+    public function matchSingleResult($specification, ?ResultModifier $modifier = null)
     {
         $query = $this->getQuery($specification, $modifier);
 
@@ -81,7 +82,7 @@ trait EntitySpecificationRepositoryTrait
      *
      * @return mixed|null
      */
-    public function matchOneOrNullResult($specification, ResultModifier $modifier = null)
+    public function matchOneOrNullResult($specification, ?ResultModifier $modifier = null)
     {
         try {
             return $this->matchSingleResult($specification, $modifier);
@@ -101,7 +102,7 @@ trait EntitySpecificationRepositoryTrait
      *
      * @return mixed
      */
-    public function matchSingleScalarResult($specification, ResultModifier $modifier = null)
+    public function matchSingleScalarResult($specification, ?ResultModifier $modifier = null)
     {
         $query = $this->getQuery($specification, $modifier);
 
@@ -123,7 +124,7 @@ trait EntitySpecificationRepositoryTrait
      *
      * @return mixed
      */
-    public function matchScalarResult($specification, ResultModifier $modifier = null)
+    public function matchScalarResult($specification, ?ResultModifier $modifier = null)
     {
         $query = $this->getQuery($specification, $modifier);
 
@@ -138,7 +139,7 @@ trait EntitySpecificationRepositoryTrait
      *
      * @return Query
      */
-    public function getQuery($specification, ResultModifier $modifier = null)
+    public function getQuery($specification, ?ResultModifier $modifier = null): AbstractQuery
     {
         $query = $this->getQueryBuilder($specification)->getQuery();
 
@@ -155,7 +156,7 @@ trait EntitySpecificationRepositoryTrait
      *
      * @return QueryBuilder
      */
-    public function getQueryBuilder($specification, $alias = null)
+    public function getQueryBuilder($specification, ?string $alias = null): QueryBuilder
     {
         $qb = $this->createQueryBuilder($alias ?: $this->getAlias());
         $this->applySpecification($qb, $specification, $alias);
@@ -171,7 +172,7 @@ trait EntitySpecificationRepositoryTrait
      *
      * @return \Traversable
      */
-    public function iterate($specification, ResultModifier $modifier = null)
+    public function iterate($specification, ?ResultModifier $modifier = null): \Traversable
     {
         foreach ($this->getQuery($specification, $modifier)->iterate() as $row) {
             yield current($row);
@@ -181,9 +182,9 @@ trait EntitySpecificationRepositoryTrait
     /**
      * @param string $alias
      *
-     * @return $this
+     * @return self
      */
-    public function setAlias($alias)
+    public function setAlias(string $alias): self
     {
         $this->alias = $alias;
 
@@ -193,33 +194,23 @@ trait EntitySpecificationRepositoryTrait
     /**
      * @return string
      */
-    public function getAlias()
+    public function getAlias(): string
     {
         return $this->alias;
     }
 
     /**
-     * @param QueryBuilder                    $queryBuilder
-     * @param Filter|QueryModifier|mixed|null $specification
-     * @param string                          $alias
+     * @param QueryBuilder         $queryBuilder
+     * @param Filter|QueryModifier $specification
+     * @param string|null          $alias
      *
      * @throws \InvalidArgumentException
      */
-    protected function applySpecification(QueryBuilder $queryBuilder, $specification = null, $alias = null)
-    {
-        if (null === $specification) {
-            return;
-        }
-
-        if (!$specification instanceof QueryModifier && !$specification instanceof Filter) {
-            throw new \InvalidArgumentException(sprintf(
-                'Expected argument of type "%s" or "%s", "%s" given.',
-                QueryModifier::class,
-                Filter::class,
-                is_object($specification) ? get_class($specification) : gettype($specification)
-            ));
-        }
-
+    protected function applySpecification(
+        QueryBuilder $queryBuilder,
+        $specification = null,
+        ?string $alias = null
+    ): void {
         if ($specification instanceof QueryModifier) {
             $specification->modify($queryBuilder, $alias ?: $this->getAlias());
         }

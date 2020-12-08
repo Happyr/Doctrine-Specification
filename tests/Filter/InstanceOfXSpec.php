@@ -26,28 +26,28 @@ use PhpSpec\ObjectBehavior;
  */
 class InstanceOfXSpec extends ObjectBehavior
 {
-    public function let()
+    public function let(): void
     {
         $this->beConstructedWith('My\Model', 'o');
     }
 
-    public function it_is_initializable()
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(InstanceOfX::class);
     }
 
-    public function it_is_an_expression()
+    public function it_is_an_expression(): void
     {
         $this->shouldBeAnInstanceOf(Filter::class);
     }
 
-    public function it_returns_expression_func_object(QueryBuilder $qb, Expr $exp)
+    public function it_returns_expression_func_object(QueryBuilder $qb, Expr $exp): void
     {
         $exp_comparison = new Comparison('o', 'INSTANCE OF', 'My\Model');
         $exp->isInstanceOf('o', 'My\Model')->willReturn($exp_comparison);
 
         $qb->expr()->willReturn($exp);
 
-        $this->getFilter($qb, null)->shouldReturn('o INSTANCE OF My\Model');
+        $this->getFilter($qb, 'o')->shouldReturn('o INSTANCE OF My\Model');
     }
 }

@@ -26,7 +26,7 @@ class Cache implements ResultModifier
     /**
      * @param int $cacheLifetime How many seconds the cached entry is valid
      */
-    public function __construct($cacheLifetime)
+    public function __construct(int $cacheLifetime)
     {
         $this->cacheLifetime = $cacheLifetime;
     }
@@ -34,7 +34,7 @@ class Cache implements ResultModifier
     /**
      * @param AbstractQuery $query
      */
-    public function modify(AbstractQuery $query)
+    public function modify(AbstractQuery $query): void
     {
         $query->setResultCacheLifetime($this->cacheLifetime);
     }

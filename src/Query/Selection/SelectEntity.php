@@ -26,7 +26,7 @@ class SelectEntity implements Selection
     /**
      * @param string $dqlAlias
      */
-    public function __construct($dqlAlias)
+    public function __construct(string $dqlAlias)
     {
         $this->dqlAlias = $dqlAlias;
     }
@@ -37,7 +37,7 @@ class SelectEntity implements Selection
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, $dqlAlias)
+    public function transform(QueryBuilder $qb, string $dqlAlias): string
     {
         return $this->dqlAlias;
     }

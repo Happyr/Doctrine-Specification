@@ -21,5 +21,5 @@ interface ResultModifier
     /**
      * @param AbstractQuery $query
      */
-    public function modify(AbstractQuery $query);
+    public function modify(AbstractQuery $query): void;
 }
