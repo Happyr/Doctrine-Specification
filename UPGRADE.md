@@ -74,6 +74,15 @@
 * The `NonUniqueResultException` class marked as `final`.
 * The `NoResultException` class marked as `final`.
 * The `UnexpectedResultException` class marked as `abstract`.
+* All the filter classes marked as `final`.
+* All the logic classes marked as `final`.
+* All the operand classes marked as `final`.
+* All the query modifier classes marked as `final`.
+* All the result modifier classes marked as `final`.
+* The `CountOf` class marked as `final`.
+* The `DBALTypesResolver` class marked as `final`.
+* The `ValueConverter` class marked as `final`.
+* The `EntitySpecificationRepositoryTrait::getAlias()` method returns nothing else.
 
 # Upgrade from 1.0 to 1.1
 

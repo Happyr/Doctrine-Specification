@@ -170,7 +170,7 @@ trait EntitySpecificationRepositoryTrait
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @return \Traversable
+     * @return \Traversable<mixed>
      */
     public function iterate($specification, ?ResultModifier $modifier = null): \Traversable
     {
@@ -181,14 +181,10 @@ trait EntitySpecificationRepositoryTrait
 
     /**
      * @param string $alias
-     *
-     * @return self
      */
-    public function setAlias(string $alias): self
+    public function setAlias(string $alias): void
     {
         $this->alias = $alias;
-
-        return $this;
     }
 
     /**
