@@ -26,11 +26,11 @@ abstract class AbstractSelect implements QueryModifier
     private $selections;
 
     /**
-     * @param Selection|string ...$fields
+     * @param Selection|string ...$selections
      */
-    public function __construct(...$fields)
+    public function __construct(...$selections)
     {
-        $this->selections = $fields;
+        $this->selections = $selections;
     }
 
     /**

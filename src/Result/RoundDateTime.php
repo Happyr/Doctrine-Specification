@@ -15,10 +15,9 @@ declare(strict_types=1);
 namespace Happyr\DoctrineSpecification\Result;
 
 use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\Query\Parameter;
 
 /**
- * Round a \DateTime to enable caching.
+ * Round a \DateTime and \DateTimeImmutable to enable caching.
  */
 class RoundDateTime implements ResultModifier
 {
@@ -41,10 +40,9 @@ class RoundDateTime implements ResultModifier
     public function modify(AbstractQuery $query): void
     {
         foreach ($query->getParameters() as $parameter) {
-            if ($parameter instanceof Parameter &&
-                ($value = $parameter->getValue()) &&
-                $value instanceof \DateTimeInterface
-            ) {
+            $value = $parameter->getValue();
+
+            if ($value instanceof \DateTimeInterface) {
                 // round down so that the results do not include data that should not be there.
                 $uts = (int) (floor($value->getTimestamp() / $this->roundSeconds) * $this->roundSeconds);
                 $date = (new \DateTimeImmutable('now', $value->getTimezone()))->setTimestamp($uts);

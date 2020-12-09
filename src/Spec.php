@@ -499,7 +499,7 @@ class Spec
     }
 
     /**
-     * @param Operand|string $value
+     * @param Operand|mixed  $value
      * @param Operand|string $field
      * @param string|null    $dqlAlias
      *

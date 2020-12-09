@@ -22,7 +22,7 @@ use Happyr\DoctrineSpecification\Specification\Specification;
 class Not implements Specification
 {
     /**
-     * @var Filter child
+     * @var Filter
      */
     private $child;
 

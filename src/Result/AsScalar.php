@@ -17,9 +17,6 @@ namespace Happyr\DoctrineSpecification\Result;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 
-/**
- * Class AsScalar.
- */
 class AsScalar implements ResultModifier
 {
     /**

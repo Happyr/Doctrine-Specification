@@ -29,7 +29,7 @@ use Happyr\DoctrineSpecification\Result\ResultModifier;
 trait EntitySpecificationRepositoryTrait
 {
     /**
-     * @var string alias
+     * @var string
      */
     private $alias = 'e';
 

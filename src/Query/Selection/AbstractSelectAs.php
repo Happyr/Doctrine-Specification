@@ -29,7 +29,7 @@ abstract class AbstractSelectAs implements Selection
     /**
      * @var string
      */
-    private $alias = '';
+    private $alias;
 
     /**
      * @param Filter|Operand|string $expression
