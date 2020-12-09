@@ -17,7 +17,7 @@ namespace Happyr\DoctrineSpecification\Operand;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 
-class PlatformFunction implements Operand
+final class PlatformFunction implements Operand
 {
     /**
      * Doctrine internal functions.

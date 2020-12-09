@@ -21,15 +21,17 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin ArgumentToSelectionConverter
  */
-class ArgumentToSelectionConverterSpec extends ObjectBehavior
+final class ArgumentToSelectionConverterSpec extends ObjectBehavior
 {
     public function it_is_a_converter(): void
     {
         $this->shouldBeAnInstanceOf(ArgumentToSelectionConverter::class);
     }
 
-    public function it_not_convert_field_to_selection(Field $field): void
+    public function it_not_convert_field_to_selection(): void
     {
+        $field = new Field('foo');
+
         $this->toSelection($field)->shouldReturn($field);
     }
 

@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\Operand;
 
-class Addition extends Arithmetic
+final class Addition extends Arithmetic
 {
     /**
      * @param Operand|string $field

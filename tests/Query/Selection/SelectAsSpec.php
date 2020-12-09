@@ -26,7 +26,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin SelectAs
  */
-class SelectAsSpec extends ObjectBehavior
+final class SelectAsSpec extends ObjectBehavior
 {
     private $field = 'foo';
 

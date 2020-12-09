@@ -24,7 +24,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin Values
  */
-class ValuesSpec extends ObjectBehavior
+final class ValuesSpec extends ObjectBehavior
 {
     private $values = ['foo', 'bar'];
 

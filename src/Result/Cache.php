@@ -16,7 +16,7 @@ namespace Happyr\DoctrineSpecification\Result;
 
 use Doctrine\ORM\AbstractQuery;
 
-class Cache implements ResultModifier
+final class Cache implements ResultModifier
 {
     /**
      * @var int How may seconds the cache entry is valid

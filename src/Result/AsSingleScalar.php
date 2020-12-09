@@ -17,7 +17,7 @@ namespace Happyr\DoctrineSpecification\Result;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 
-class AsSingleScalar implements ResultModifier
+final class AsSingleScalar implements ResultModifier
 {
     /**
      * @param AbstractQuery $query

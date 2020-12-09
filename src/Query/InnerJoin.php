@@ -16,7 +16,7 @@ namespace Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
 
-class InnerJoin extends AbstractJoin
+final class InnerJoin extends AbstractJoin
 {
     /**
      * {@inheritdoc}

@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\Operand;
 
-class Multiplication extends Arithmetic
+final class Multiplication extends Arithmetic
 {
     /**
      * @param Operand|string $field

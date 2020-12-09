@@ -23,7 +23,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin NotEquals
  */
-class NotEqualsSpec extends ObjectBehavior
+final class NotEqualsSpec extends ObjectBehavior
 {
     public function let(): void
     {

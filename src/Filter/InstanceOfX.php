@@ -16,7 +16,7 @@ namespace Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\QueryBuilder;
 
-class InstanceOfX implements Filter
+final class InstanceOfX implements Filter
 {
     /**
      * @var string

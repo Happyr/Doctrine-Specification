@@ -26,7 +26,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin SelectHiddenAs
  */
-class SelectHiddenAsSpec extends ObjectBehavior
+final class SelectHiddenAsSpec extends ObjectBehavior
 {
     private $field = 'foo';
 

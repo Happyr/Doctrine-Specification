@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\Operand;
 
-class Subtraction extends Arithmetic
+final class Subtraction extends Arithmetic
 {
     /**
      * @param Operand|string $field

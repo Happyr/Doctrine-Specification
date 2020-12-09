@@ -18,7 +18,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
 use Happyr\DoctrineSpecification\Operand\Operand;
 
-class IsNotNull implements Filter
+final class IsNotNull implements Filter
 {
     /**
      * @var Operand|string

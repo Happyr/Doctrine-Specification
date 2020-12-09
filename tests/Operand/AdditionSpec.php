@@ -24,7 +24,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin Addition
  */
-class AdditionSpec extends ObjectBehavior
+final class AdditionSpec extends ObjectBehavior
 {
     private $field = 'foo';
 

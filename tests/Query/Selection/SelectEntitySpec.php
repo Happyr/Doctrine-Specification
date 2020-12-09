@@ -22,7 +22,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin SelectEntity
  */
-class SelectEntitySpec extends ObjectBehavior
+final class SelectEntitySpec extends ObjectBehavior
 {
     private $dqlAlias = 'u';
 

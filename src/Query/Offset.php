@@ -16,7 +16,7 @@ namespace Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
 
-class Offset implements QueryModifier
+final class Offset implements QueryModifier
 {
     /**
      * @var int

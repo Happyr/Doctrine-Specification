@@ -17,7 +17,7 @@ namespace Happyr\DoctrineSpecification\Operand;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Query\Selection\Selection;
 
-class Field implements Operand, Selection
+final class Field implements Operand, Selection
 {
     /**
      * @var string

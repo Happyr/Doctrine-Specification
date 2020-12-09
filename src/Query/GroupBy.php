@@ -18,7 +18,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\Alias;
 use Happyr\DoctrineSpecification\Operand\Field;
 
-class GroupBy implements QueryModifier
+final class GroupBy implements QueryModifier
 {
     /**
      * @var Field|Alias

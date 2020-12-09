@@ -18,7 +18,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\Alias;
 use Happyr\DoctrineSpecification\Operand\Field;
 
-class OrderBy implements QueryModifier
+final class OrderBy implements QueryModifier
 {
     public const ASC = 'ASC';
 

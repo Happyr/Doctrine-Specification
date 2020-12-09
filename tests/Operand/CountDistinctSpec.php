@@ -22,7 +22,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin CountDistinct
  */
-class CountDistinctSpec extends ObjectBehavior
+final class CountDistinctSpec extends ObjectBehavior
 {
     private $field = 'foo';
 

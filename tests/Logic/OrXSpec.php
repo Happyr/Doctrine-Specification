@@ -24,7 +24,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin OrX
  */
-class OrXSpec extends ObjectBehavior
+final class OrXSpec extends ObjectBehavior
 {
     public function let(Specification $specificationA, Specification $specificationB): void
     {

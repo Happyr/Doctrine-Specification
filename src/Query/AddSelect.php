@@ -16,7 +16,7 @@ namespace Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
 
-class AddSelect extends AbstractSelect
+final class AddSelect extends AbstractSelect
 {
     /**
      * @param QueryBuilder $qb

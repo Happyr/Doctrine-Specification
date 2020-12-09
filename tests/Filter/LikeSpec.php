@@ -20,7 +20,7 @@ use Happyr\DoctrineSpecification\Filter\Like;
 use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
 
-class LikeSpec extends ObjectBehavior
+final class LikeSpec extends ObjectBehavior
 {
     private $field = 'foo';
 

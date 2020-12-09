@@ -17,7 +17,7 @@ namespace Happyr\DoctrineSpecification\Logic;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 
-class AndX extends LogicX
+final class AndX extends LogicX
 {
     /**
      * @param Filter|QueryModifier ...$children

@@ -17,7 +17,7 @@ namespace Happyr\DoctrineSpecification\Operand;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\ValueConverter;
 
-class Value implements Operand
+final class Value implements Operand
 {
     /**
      * @var mixed

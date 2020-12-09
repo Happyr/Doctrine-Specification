@@ -22,7 +22,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin Slice
  */
-class SliceSpec extends ObjectBehavior
+final class SliceSpec extends ObjectBehavior
 {
     /**
      * @var int

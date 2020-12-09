@@ -23,7 +23,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin Select
  */
-class SelectSpec extends ObjectBehavior
+final class SelectSpec extends ObjectBehavior
 {
     public function let(): void
     {

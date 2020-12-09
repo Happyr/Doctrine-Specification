@@ -16,7 +16,7 @@ namespace Happyr\DoctrineSpecification\Filter;
 
 use Happyr\DoctrineSpecification\Operand\Operand;
 
-class LessOrEqualThan extends Comparison
+final class LessOrEqualThan extends Comparison
 {
     /**
      * @param Operand|string $field

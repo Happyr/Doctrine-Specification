@@ -20,7 +20,7 @@ use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
 use Happyr\DoctrineSpecification\Operand\LikePattern;
 use Happyr\DoctrineSpecification\Operand\Operand;
 
-class Like implements Filter
+final class Like implements Filter
 {
     public const CONTAINS = LikePattern::CONTAINS;
 

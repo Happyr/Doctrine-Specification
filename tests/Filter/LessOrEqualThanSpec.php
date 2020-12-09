@@ -23,7 +23,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin LessOrEqualThan
  */
-class LessOrEqualThanSpec extends ObjectBehavior
+final class LessOrEqualThanSpec extends ObjectBehavior
 {
     public function let(): void
     {

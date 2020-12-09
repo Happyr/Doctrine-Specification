@@ -17,7 +17,7 @@ namespace Happyr\DoctrineSpecification\Query;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 
-class Having implements QueryModifier
+final class Having implements QueryModifier
 {
     /**
      * @var Filter

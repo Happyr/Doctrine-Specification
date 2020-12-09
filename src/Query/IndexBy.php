@@ -21,7 +21,7 @@ use Happyr\DoctrineSpecification\Operand\Field;
 /**
  * Class IndexBy.
  */
-class IndexBy implements QueryModifier
+final class IndexBy implements QueryModifier
 {
     /**
      * @var Field

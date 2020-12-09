@@ -17,7 +17,7 @@ namespace Happyr\DoctrineSpecification\Result;
 use Doctrine\ORM\AbstractQuery;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 
-class ResultModifierCollection implements ResultModifier
+final class ResultModifierCollection implements ResultModifier
 {
     /**
      * @var ResultModifier[]
