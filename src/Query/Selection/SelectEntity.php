@@ -21,7 +21,7 @@ class SelectEntity implements Selection
     /**
      * @var string
      */
-    private $dqlAlias = '';
+    private $dqlAlias;
 
     /**
      * @param string $dqlAlias

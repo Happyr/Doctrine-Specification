@@ -20,6 +20,10 @@ use Happyr\DoctrineSpecification\Operand\Field;
 
 class OrderBy implements QueryModifier
 {
+    public const ASC = 'ASC';
+
+    public const DESC = 'DESC';
+
     /**
      * @var Field|Alias
      */
@@ -40,7 +44,7 @@ class OrderBy implements QueryModifier
      * @param string             $order
      * @param string|null        $dqlAlias
      */
-    public function __construct($field, string $order = 'ASC', ?string $dqlAlias = null)
+    public function __construct($field, string $order = self::ASC, ?string $dqlAlias = null)
     {
         if (!($field instanceof Field) && !($field instanceof Alias)) {
             $field = new Field($field);

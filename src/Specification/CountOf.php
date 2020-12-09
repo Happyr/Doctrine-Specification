@@ -18,13 +18,10 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 
-/**
- * @author Tobias Nyholm
- */
 class CountOf implements Specification
 {
     /**
-     * @var Filter|QueryModifier child
+     * @var Filter|QueryModifier
      */
     private $child;
 

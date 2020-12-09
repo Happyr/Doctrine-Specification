@@ -58,7 +58,7 @@ abstract class Arithmetic implements Operand
     /**
      * @param string         $operation
      * @param Operand|string $field
-     * @param Operand|string $value
+     * @param Operand|mixed  $value
      */
     public function __construct(string $operation, $field, $value)
     {

@@ -78,7 +78,7 @@ class ArgumentToOperandConverter
      */
     public static function convert(array $arguments): array
     {
-        $result = [];
+        $operands = [];
         foreach (array_values($arguments) as $i => $argument) {
             // always try convert the first argument to the field operand
             if (0 === $i) {
@@ -87,9 +87,9 @@ class ArgumentToOperandConverter
                 $argument = self::toValue($argument);
             }
 
-            $result[] = $argument;
+            $operands[] = $argument;
         }
 
-        return $result;
+        return $operands;
     }
 }

@@ -16,9 +16,6 @@ namespace Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
 
-/**
- * @author Tobias Nyholm
- */
 abstract class AbstractJoin implements QueryModifier
 {
     /**

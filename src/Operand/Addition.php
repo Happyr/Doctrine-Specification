@@ -18,7 +18,7 @@ class Addition extends Arithmetic
 {
     /**
      * @param Operand|string $field
-     * @param Operand|string $value
+     * @param Operand|mixed  $value
      */
     public function __construct($field, $value)
     {

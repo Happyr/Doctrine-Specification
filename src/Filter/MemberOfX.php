@@ -36,7 +36,7 @@ class MemberOfX implements Filter
     private $dqlAlias;
 
     /**
-     * @param Operand|string $value
+     * @param Operand|mixed  $value
      * @param Operand|string $field
      * @param string|null    $dqlAlias
      */
