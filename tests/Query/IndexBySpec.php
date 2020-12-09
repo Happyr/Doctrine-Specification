@@ -22,7 +22,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin IndexBy
  */
-class IndexBySpec extends ObjectBehavior
+final class IndexBySpec extends ObjectBehavior
 {
     private $field = 'the_field';
 

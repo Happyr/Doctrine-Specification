@@ -23,7 +23,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin ArgumentToOperandConverter
  */
-class ArgumentToOperandConverterSpec extends ObjectBehavior
+final class ArgumentToOperandConverterSpec extends ObjectBehavior
 {
     public function it_is_a_converter(): void
     {
@@ -114,9 +114,9 @@ class ArgumentToOperandConverterSpec extends ObjectBehavior
         $subject->shouldHaveOperandAt(2);
     }
 
-    public function it_a_convertible_arguments2(Field $field, Operand $operand, Value $value): void
+    public function it_a_convertible_arguments2(Operand $operand): void
     {
-        $subject = $this->convert([$field, $operand, 'foo', $value]);
+        $subject = $this->convert([new Field('foo'), $operand, 'bar', new Value('baz')]);
         $subject->shouldBeArray();
         $subject->shouldHaveCount(4);
         $subject->shouldHaveField();

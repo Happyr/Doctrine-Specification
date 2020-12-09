@@ -23,7 +23,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin GreaterThan
  */
-class GreaterThanSpec extends ObjectBehavior
+final class GreaterThanSpec extends ObjectBehavior
 {
     public function let(): void
     {

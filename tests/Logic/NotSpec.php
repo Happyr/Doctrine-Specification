@@ -24,7 +24,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin Not
  */
-class NotSpec extends ObjectBehavior
+final class NotSpec extends ObjectBehavior
 {
     public function let(Filter $filterExpr): void
     {

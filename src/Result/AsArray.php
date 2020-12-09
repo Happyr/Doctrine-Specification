@@ -17,7 +17,7 @@ namespace Happyr\DoctrineSpecification\Result;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 
-class AsArray implements ResultModifier
+final class AsArray implements ResultModifier
 {
     /**
      * @param AbstractQuery $query

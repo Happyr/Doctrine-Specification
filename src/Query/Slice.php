@@ -16,7 +16,7 @@ namespace Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
 
-class Slice implements QueryModifier
+final class Slice implements QueryModifier
 {
     /**
      * @var int

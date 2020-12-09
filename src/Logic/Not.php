@@ -19,7 +19,7 @@ use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Specification\Specification;
 
-class Not implements Specification
+final class Not implements Specification
 {
     /**
      * @var Filter

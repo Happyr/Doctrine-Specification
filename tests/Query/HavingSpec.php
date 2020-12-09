@@ -23,7 +23,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin Having
  */
-class HavingSpec extends ObjectBehavior
+final class HavingSpec extends ObjectBehavior
 {
     public function let(Filter $filter): void
     {

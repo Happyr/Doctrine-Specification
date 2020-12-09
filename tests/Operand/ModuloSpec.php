@@ -24,7 +24,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin Modulo
  */
-class ModuloSpec extends ObjectBehavior
+final class ModuloSpec extends ObjectBehavior
 {
     private $field = 'foo';
 

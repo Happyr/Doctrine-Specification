@@ -24,7 +24,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin Subtraction
  */
-class SubtractionSpec extends ObjectBehavior
+final class SubtractionSpec extends ObjectBehavior
 {
     private $field = 'foo';
 

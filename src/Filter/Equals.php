@@ -16,7 +16,7 @@ namespace Happyr\DoctrineSpecification\Filter;
 
 use Happyr\DoctrineSpecification\Operand\Operand;
 
-class Equals extends Comparison
+final class Equals extends Comparison
 {
     /**
      * @param Operand|string $field

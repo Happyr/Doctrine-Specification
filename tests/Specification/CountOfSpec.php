@@ -25,7 +25,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin CountOf
  */
-class CountOfSpec extends ObjectBehavior
+final class CountOfSpec extends ObjectBehavior
 {
     public function let(): void
     {

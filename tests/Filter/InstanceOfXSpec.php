@@ -24,7 +24,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin InstanceOfX
  */
-class InstanceOfXSpec extends ObjectBehavior
+final class InstanceOfXSpec extends ObjectBehavior
 {
     public function let(): void
     {

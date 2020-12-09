@@ -22,7 +22,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin Distinct
  */
-class DistinctSpec extends ObjectBehavior
+final class DistinctSpec extends ObjectBehavior
 {
     public function it_is_a_distinct(): void
     {

@@ -24,7 +24,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin Multiplication
  */
-class MultiplicationSpec extends ObjectBehavior
+final class MultiplicationSpec extends ObjectBehavior
 {
     private $field = 'foo';
 

@@ -16,7 +16,7 @@ namespace Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\ORM\QueryBuilder;
 
-class Alias implements Operand
+final class Alias implements Operand
 {
     /**
      * @var string

@@ -18,7 +18,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
 use Happyr\DoctrineSpecification\Operand\Operand;
 
-class MemberOfX implements Filter
+final class MemberOfX implements Filter
 {
     /**
      * @var Operand|string

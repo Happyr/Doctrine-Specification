@@ -18,7 +18,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 
-class CountOf implements Specification
+final class CountOf implements Specification
 {
     /**
      * @var Filter|QueryModifier

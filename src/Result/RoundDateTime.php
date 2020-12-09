@@ -19,7 +19,7 @@ use Doctrine\ORM\AbstractQuery;
 /**
  * Round a \DateTime and \DateTimeImmutable to enable caching.
  */
-class RoundDateTime implements ResultModifier
+final class RoundDateTime implements ResultModifier
 {
     /**
      * @var int How may seconds to round time

@@ -17,7 +17,7 @@ namespace Happyr\DoctrineSpecification\Query;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 
-class QueryModifierCollection implements QueryModifier
+final class QueryModifierCollection implements QueryModifier
 {
     /**
      * @var QueryModifier[]

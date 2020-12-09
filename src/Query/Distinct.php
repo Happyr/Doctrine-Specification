@@ -16,7 +16,7 @@ namespace Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
 
-class Distinct implements QueryModifier
+final class Distinct implements QueryModifier
 {
     /**
      * @param QueryBuilder $qb

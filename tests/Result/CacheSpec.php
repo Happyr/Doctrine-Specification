@@ -22,7 +22,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin Cache
  */
-class CacheSpec extends ObjectBehavior
+final class CacheSpec extends ObjectBehavior
 {
     private $lifetime = 3600;
 

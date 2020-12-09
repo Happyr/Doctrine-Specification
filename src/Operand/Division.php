@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\Operand;
 
-class Division extends Arithmetic
+final class Division extends Arithmetic
 {
     /**
      * @param Operand|string $field

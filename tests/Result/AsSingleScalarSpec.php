@@ -23,7 +23,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin AsSingleScalar
  */
-class AsSingleScalarSpec extends ObjectBehavior
+final class AsSingleScalarSpec extends ObjectBehavior
 {
     public function it_is_a_result_modifier(): void
     {

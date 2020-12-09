@@ -22,7 +22,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin Field
  */
-class FieldSpec extends ObjectBehavior
+final class FieldSpec extends ObjectBehavior
 {
     private $fieldName = 'foo';
 

@@ -23,7 +23,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin LikePattern
  */
-class LikePatternSpec extends ObjectBehavior
+final class LikePatternSpec extends ObjectBehavior
 {
     private $value = 'foo';
 

@@ -19,7 +19,7 @@ use Happyr\DoctrineSpecification\Operand\Field;
 /**
  * This service is intended for backward compatibility and may be removed in the future.
  */
-class ArgumentToSelectionConverter
+final class ArgumentToSelectionConverter
 {
     /**
      * Convert the argument into the field operand if it is not an selection.

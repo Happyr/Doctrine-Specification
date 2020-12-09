@@ -17,7 +17,7 @@ namespace Happyr\DoctrineSpecification\Operand;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\ValueConverter;
 
-class LikePattern implements Operand
+final class LikePattern implements Operand
 {
     public const CONTAINS = '%%%s%%';
 

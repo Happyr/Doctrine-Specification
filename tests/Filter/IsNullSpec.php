@@ -23,7 +23,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin IsNull
  */
-class IsNullSpec extends ObjectBehavior
+final class IsNullSpec extends ObjectBehavior
 {
     private $field = 'foobar';
 

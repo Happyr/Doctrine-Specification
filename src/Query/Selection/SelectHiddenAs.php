@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\Query\Selection;
 
-class SelectHiddenAs extends AbstractSelectAs
+final class SelectHiddenAs extends AbstractSelectAs
 {
     /**
      * @return string

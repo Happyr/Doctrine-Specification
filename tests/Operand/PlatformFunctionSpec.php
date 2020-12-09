@@ -28,7 +28,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin PlatformFunction
  */
-class PlatformFunctionSpec extends ObjectBehavior
+final class PlatformFunctionSpec extends ObjectBehavior
 {
     private $functionName = 'UPPER';
 
@@ -148,18 +148,18 @@ class PlatformFunctionSpec extends ObjectBehavior
         QueryBuilder $qb,
         EntityManagerInterface $em,
         Configuration $configuration,
-        ArrayCollection $parameters,
-        Value $value
+        ArrayCollection $parameters
     ): void {
         $dqlAlias = 'a';
         $functionName = 'concat';
         $expression = 'concat(a.foo, :comparison_10, :comparison_11)';
 
-        $parameters->count()->willReturn(10);
+        $parameters->count()->willReturn(10, 11);
 
         $qb->getEntityManager()->willReturn($em);
         $qb->getParameters()->willReturn($parameters);
         $qb->setParameter('comparison_10', 'bar', null)->shouldBeCalled();
+        $qb->setParameter('comparison_11', 'baz', null)->shouldBeCalled();
 
         $em->getConfiguration()->willReturn($configuration);
 
@@ -167,7 +167,7 @@ class PlatformFunctionSpec extends ObjectBehavior
         $configuration->getCustomNumericFunction($functionName)->willReturn(null);
         $configuration->getCustomDatetimeFunction($functionName)->willReturn(null);
 
-        $value->transform($qb, $dqlAlias)->willReturn(':comparison_11');
+        $value = new Value('baz');
 
         $this->beConstructedWith($functionName, 'foo', 'bar', $value);
 

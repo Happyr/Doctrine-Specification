@@ -22,7 +22,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin Join
  */
-class JoinSpec extends ObjectBehavior
+final class JoinSpec extends ObjectBehavior
 {
     public function let(): void
     {

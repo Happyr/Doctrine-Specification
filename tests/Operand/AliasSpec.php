@@ -22,7 +22,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin Alias
  */
-class AliasSpec extends ObjectBehavior
+final class AliasSpec extends ObjectBehavior
 {
     private $alias = 'foo';
 

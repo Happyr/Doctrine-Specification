@@ -34,7 +34,7 @@ use Prophecy\Argument;
 /**
  * @mixin EntitySpecificationRepository
  */
-class EntitySpecificationRepositorySpec extends ObjectBehavior
+final class EntitySpecificationRepositorySpec extends ObjectBehavior
 {
     private $alias = 'e';
 

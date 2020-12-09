@@ -16,7 +16,7 @@ namespace Happyr\DoctrineSpecification\Query\Selection;
 
 use Doctrine\ORM\QueryBuilder;
 
-class SelectEntity implements Selection
+final class SelectEntity implements Selection
 {
     /**
      * @var string

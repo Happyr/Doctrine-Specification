@@ -17,7 +17,7 @@ namespace Happyr\DoctrineSpecification\Operand;
 /**
  * This service is intended for backward compatibility and may be removed in the future.
  */
-class ArgumentToOperandConverter
+final class ArgumentToOperandConverter
 {
     /**
      * Convert the argument into the field operand if it is not an operand.

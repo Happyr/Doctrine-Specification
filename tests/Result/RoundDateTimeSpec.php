@@ -23,7 +23,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin RoundDateTime
  */
-class RoundDateTimeSpec extends ObjectBehavior
+final class RoundDateTimeSpec extends ObjectBehavior
 {
     private $roundSeconds = 3600;
 

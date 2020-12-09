@@ -16,7 +16,7 @@ namespace Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\ORM\QueryBuilder;
 
-class CountDistinct implements Operand
+final class CountDistinct implements Operand
 {
     /**
      * @var Operand|string

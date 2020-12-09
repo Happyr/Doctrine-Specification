@@ -24,7 +24,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin AndX
  */
-class AndXSpec extends ObjectBehavior
+final class AndXSpec extends ObjectBehavior
 {
     public function let(Specification $specificationA, Specification $specificationB): void
     {

@@ -24,7 +24,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin In
  */
-class InSpec extends ObjectBehavior
+final class InSpec extends ObjectBehavior
 {
     private $field = 'foobar';
 

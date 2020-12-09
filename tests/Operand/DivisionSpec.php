@@ -24,7 +24,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @mixin Division
  */
-class DivisionSpec extends ObjectBehavior
+final class DivisionSpec extends ObjectBehavior
 {
     private $field = 'foo';
 
