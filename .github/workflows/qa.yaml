@@ -22,7 +22,7 @@ jobs:
           tools: composer:v2
 
       - name: Install variant
-        run: composer require phpstan/phpstan:"0.11.*" --no-update
+        run: composer require phpstan/phpstan:"0.12.*" --no-update
 
       - name: Install Composer dependencies (highest)
         uses: 'ramsey/composer-install@v1'
