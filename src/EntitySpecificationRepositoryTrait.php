@@ -181,14 +181,10 @@ trait EntitySpecificationRepositoryTrait
 
     /**
      * @param string $alias
-     *
-     * @return self
      */
-    public function setAlias(string $alias): self
+    public function setAlias(string $alias): void
     {
         $this->alias = $alias;
-
-        return $this;
     }
 
     /**

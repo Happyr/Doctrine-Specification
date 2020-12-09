@@ -74,6 +74,7 @@
 * The `NonUniqueResultException` class marked as `final`.
 * The `NoResultException` class marked as `final`.
 * The `UnexpectedResultException` class marked as `abstract`.
+* The `EntitySpecificationRepositoryTrait::getAlias()` method returns nothing else.
 
 # Upgrade from 1.0 to 1.1
 
