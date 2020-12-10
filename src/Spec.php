@@ -683,6 +683,8 @@ class Spec
     }
 
     /**
+     * @deprecated This method is deprecated since version 1.1 and will be removed in 2.0, use Spec::MOD() instead.
+     *
      * @param Operand|string $field
      * @param Operand|mixed  $value
      *
