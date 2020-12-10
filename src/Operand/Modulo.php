@@ -13,6 +13,11 @@
 
 namespace Happyr\DoctrineSpecification\Operand;
 
+@trigger_error('The '.__NAMESPACE__.'\Modulo class is deprecated since version 1.1 and will be removed in 2.0, use \Happyr\DoctrineSpecification\Operand\PlatformFunction with "MOD" function name instead.', E_USER_DEPRECATED);
+
+/**
+ * @deprecated This class is deprecated since version 1.1 and will be removed in 2.0, use \Happyr\DoctrineSpecification\Operand\PlatformFunction with "MOD" function name instead.
+ */
 class Modulo extends Arithmetic
 {
     /**
