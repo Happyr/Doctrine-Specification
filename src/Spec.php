@@ -81,6 +81,7 @@ use Happyr\DoctrineSpecification\Specification\CountOf;
  * @method static PlatformFunction LOCATE($needle, $haystack, $offset = 0) Locate the first occurrence of the substring in the string.
  * @method static PlatformFunction ABS($expression)
  * @method static PlatformFunction SQRT($q) Return the square-root of q.
+ * @method static PlatformFunction MOD($a, $b) Return a MOD b.
  * @method static PlatformFunction SIZE($collection) Return the number of elements in the specified collection
  * @method static PlatformFunction DATE_DIFF($date1, $date2) Calculate the difference in days between date1-date2.
  * @method static PlatformFunction BIT_AND($a, $b)
@@ -632,17 +633,6 @@ class Spec
     public static function div($field, $value): Division
     {
         return new Division($field, $value);
-    }
-
-    /**
-     * @param Operand|string $field
-     * @param Operand|mixed  $value
-     *
-     * @return Modulo
-     */
-    public static function mod($field, $value): Modulo
-    {
-        return new Modulo($field, $value);
     }
 
     /**
