@@ -73,11 +73,6 @@ final class SpecSpec extends ObjectBehavior
         $this->div('foo', 'bar')->shouldReturnAnInstanceOf(Division::class);
     }
 
-    public function it_creates_mod_operand(): void
-    {
-        $this->mod('foo', 'bar')->shouldReturnAnInstanceOf(Modulo::class);
-    }
-
     public function it_creates_an_function(): void
     {
         $this->fun('UPPER', 'arg')->shouldReturnAnInstanceOf(PlatformFunction::class);
