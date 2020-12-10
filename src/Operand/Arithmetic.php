@@ -27,8 +27,6 @@ abstract class Arithmetic implements Operand
 
     protected const DIV = '/';
 
-    protected const MOD = '%';
-
     /**
      * @var string[]
      */
@@ -37,7 +35,6 @@ abstract class Arithmetic implements Operand
         self::SUB,
         self::MUL,
         self::DIV,
-        self::MOD,
     ];
 
     /**
