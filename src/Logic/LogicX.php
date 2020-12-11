@@ -16,13 +16,14 @@ namespace Happyr\DoctrineSpecification\Logic;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Filter\Satisfiable;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Specification\Specification;
 
 /**
  * This class should be used when you combine two or more Expressions.
  */
-abstract class LogicX implements Specification
+abstract class LogicX implements Specification, Satisfiable
 {
     const AND_X = 'andX';
 
@@ -91,6 +92,42 @@ abstract class LogicX implements Specification
                 $child->modify($qb, $dqlAlias);
             }
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function filterCollection(iterable $collection): iterable
+    {
+        foreach ($collection as $candidate) {
+            if ($this->isSatisfiedBy($candidate)) {
+                yield $candidate;
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isSatisfiedBy($candidate): bool
+    {
+        foreach ($this->children as $child) {
+            if (!$child instanceof Satisfiable) {
+                continue;
+            }
+
+            $satisfied = $child->isSatisfiedBy($candidate);
+
+            if ($satisfied && $this->expression === self::OR_X) {
+                return true;
+            }
+
+            if (!$satisfied && $this->expression === self::AND_X) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

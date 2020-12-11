@@ -16,10 +16,11 @@ namespace Happyr\DoctrineSpecification\Logic;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Filter\Satisfiable;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Specification\Specification;
 
-final class Not implements Specification
+final class Not implements Specification, Satisfiable
 {
     /**
      * @var Filter
@@ -54,5 +55,33 @@ final class Not implements Specification
         if ($this->child instanceof QueryModifier) {
             $this->child->modify($qb, $dqlAlias);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function filterCollection(iterable $collection): iterable
+    {
+        if (!$this->child instanceof Satisfiable) {
+            return $collection;
+        }
+
+        foreach ($collection as $candidate) {
+            if (!$this->child->isSatisfiedBy($candidate)) {
+                yield $candidate;
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isSatisfiedBy($candidate): bool
+    {
+        if (!$this->child instanceof Satisfiable) {
+            return true;
+        }
+
+        return !$this->child->isSatisfiedBy($candidate);
     }
 }
