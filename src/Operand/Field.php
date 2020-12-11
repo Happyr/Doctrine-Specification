@@ -16,6 +16,7 @@ namespace Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Query\Selection\Selection;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 final class Field implements Operand, Selection
 {
@@ -52,5 +53,32 @@ final class Field implements Operand, Selection
         }
 
         return sprintf('%s.%s', $dqlAlias, $this->fieldName);
+    }
+
+    /**
+     * @param array|object $candidate
+     *
+     * @return mixed
+     */
+    public function execute($candidate)
+    {
+        if (null === $candidate) {
+            return null;
+        }
+
+        if (null !== $this->dqlAlias) {
+            $propertyPath = sprintf('%s.%s', $this->dqlAlias, $this->fieldName);
+        } else {
+            $propertyPath = $this->fieldName;
+        }
+
+        // If the candidate is a array, then we assume that all nested elements are also arrays.
+        // The candidate cannot combine arrays and objects since Property Accessor expects different syntax for
+        // accessing array and object elements.
+        if (is_array($candidate)) {
+            $propertyPath = sprintf('[%s]', str_replace('.', '][', $propertyPath));
+        }
+
+        return PropertyAccess::createPropertyAccessor()->getValue($candidate, $propertyPath);
     }
 }

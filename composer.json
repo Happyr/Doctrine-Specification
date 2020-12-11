@@ -21,7 +21,8 @@
     ],
     "require": {
         "php": ">=7.2",
-        "doctrine/orm": "~2.5"
+        "doctrine/orm": "~2.5",
+        "symfony/property-access": "^4.0 || ^5.2"
     },
     "require-dev": {
         "phpspec/phpspec": "~6.3"

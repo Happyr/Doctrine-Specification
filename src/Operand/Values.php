@@ -57,4 +57,14 @@ final class Values implements Operand
 
         return sprintf(':%s', $paramName);
     }
+
+    /**
+     * @param array|object $candidate
+     *
+     * @return mixed[]
+     */
+    public function execute($candidate): array
+    {
+        return $this->values;
+    }
 }
