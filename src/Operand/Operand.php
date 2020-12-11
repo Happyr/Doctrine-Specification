@@ -27,7 +27,7 @@ interface Operand
     public function transform(QueryBuilder $qb, string $dqlAlias): string;
 
     /**
-     * @param array|object $candidate
+     * @param mixed[]|object $candidate
      *
      * @return mixed
      */
