@@ -18,6 +18,8 @@ final class LengthExecutor implements PlatformFunctionExecutor
      */
     public function __invoke(...$arguments): int
     {
-        return strlen(...$arguments);
+        [$string] = $arguments;
+
+        return strlen($string);
     }
 }

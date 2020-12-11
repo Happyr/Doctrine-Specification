@@ -18,6 +18,8 @@ final class UpperExecutor implements PlatformFunctionExecutor
      */
     public function __invoke(...$arguments): string
     {
-        return strtoupper(...$arguments);
+        [$string] = $arguments;
+
+        return strtoupper($string);
     }
 }

@@ -18,10 +18,15 @@ final class LocateExecutor implements PlatformFunctionExecutor
      */
     public function __invoke(...$arguments)
     {
-        // change order of needle and haystack arguments
-        [$arguments[1], $arguments[0]] = [$arguments[0], $arguments[1]];
+        if (count($arguments) === 2) {
+            [$needle, $haystack] = $arguments;
 
-        $position = strpos(...$arguments);
+            $position = strpos($haystack, $needle);
+        } else {
+            [$needle, $haystack, $offset] = $arguments;
+
+            $position = strpos($haystack, $needle, $offset);
+        }
 
         // in DQL position is shifted
         return $position === false ? 0 : $position + 1;

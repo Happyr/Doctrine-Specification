@@ -18,6 +18,8 @@ final class SizeExecutor implements PlatformFunctionExecutor
      */
     public function __invoke(...$arguments): int
     {
-        return count(...$arguments);
+        [$value] = $arguments;
+
+        return count($value);
     }
 }

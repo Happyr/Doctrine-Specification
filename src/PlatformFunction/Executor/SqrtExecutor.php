@@ -18,6 +18,8 @@ final class SqrtExecutor implements PlatformFunctionExecutor
      */
     public function __invoke(...$arguments): float
     {
-        return sqrt(...$arguments);
+        [$num] = $arguments;
+
+        return sqrt($num);
     }
 }

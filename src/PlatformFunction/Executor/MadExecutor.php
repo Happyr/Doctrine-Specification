@@ -18,6 +18,8 @@ final class MadExecutor implements PlatformFunctionExecutor
      */
     public function __invoke(...$arguments): float
     {
-        return fmod(...$arguments);
+        [$num1, $num2] = $arguments;
+
+        return fmod($num1, $num2);
     }
 }

@@ -18,6 +18,8 @@ final class LowerExecutor implements PlatformFunctionExecutor
      */
     public function __invoke(...$arguments): string
     {
-        return strtolower(...$arguments);
+        [$string] = $arguments;
+
+        return strtolower($string);
     }
 }

@@ -18,6 +18,8 @@ final class AbsExecutor implements PlatformFunctionExecutor
      */
     public function __invoke(...$arguments)
     {
-        return abs(...$arguments);
+        [$num] = $arguments;
+
+        return abs($num);
     }
 }
