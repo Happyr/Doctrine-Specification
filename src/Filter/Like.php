@@ -20,7 +20,7 @@ use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
 use Happyr\DoctrineSpecification\Operand\LikePattern;
 use Happyr\DoctrineSpecification\Operand\Operand;
 
-final class Like implements Filter
+final class Like implements Filter, Satisfiable
 {
     public const CONTAINS = LikePattern::CONTAINS;
 
@@ -78,5 +78,58 @@ final class Like implements Filter
         $value = $this->value->transform($qb, $dqlAlias);
 
         return (string) new DoctrineComparison($field, 'LIKE', $value);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function filterCollection(iterable $collection): iterable
+    {
+        $field = ArgumentToOperandConverter::toField($this->field);
+        $value = $this->getUnescapedValue();
+
+        foreach ($collection as $candidate) {
+            if ($this->isMatch($field->execute($candidate), $value)) {
+                yield $candidate;
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isSatisfiedBy($candidate): bool
+    {
+        $field = ArgumentToOperandConverter::toField($this->field);
+        $value = $this->getUnescapedValue();
+
+        return $this->isMatch($field->execute($candidate), $value);
+    }
+
+    /**
+     * @return string
+     */
+    private function getUnescapedValue(): string
+    {
+        // remove escaping
+        return str_replace('%%', '%', $this->value->getValue());
+    }
+
+    /**
+     * @param string $haystack
+     * @param string $needle
+     *
+     * @return bool
+     */
+    private function isMatch(string $haystack, string $needle): bool
+    {
+        switch ($this->value->getFormat()) {
+            case LikePattern::STARTS_WITH:
+                return str_starts_with($haystack, $needle);
+            case LikePattern::ENDS_WITH:
+                return str_ends_with($haystack, $needle);
+            default:
+                return str_contains($haystack, $needle);
+        }
     }
 }

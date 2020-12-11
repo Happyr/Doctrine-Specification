@@ -39,7 +39,7 @@ final class LikePattern implements Operand
      * @param string $value
      * @param string $format
      */
-    public function __construct(string $value, $format = self::CONTAINS)
+    public function __construct(string $value, string $format = self::CONTAINS)
     {
         $this->value = $value;
         $this->format = $format;
@@ -59,6 +59,32 @@ final class LikePattern implements Operand
         $qb->setParameter($paramName, $value);
 
         return sprintf(':%s', $paramName);
+    }
+
+    /**
+     * @param array|object $candidate
+     *
+     * @return string
+     */
+    public function execute($candidate): string
+    {
+        return $this->formatValue($this->format, $this->value);
+    }
+
+    /**
+     * @return string
+     */
+    public function getValue(): string
+    {
+        return $this->value;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormat(): string
+    {
+        return $this->format;
     }
 
     /**
