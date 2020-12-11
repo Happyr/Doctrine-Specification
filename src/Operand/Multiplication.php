@@ -24,4 +24,15 @@ final class Multiplication extends Arithmetic
     {
         parent::__construct(self::MUL, $field, $value);
     }
+
+    /**
+     * @param mixed $field
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    protected function doExecute($field, $value)
+    {
+        return $field * $value;
+    }
 }

@@ -88,4 +88,25 @@ abstract class Arithmetic implements Operand
 
         return sprintf('(%s %s %s)', $field, $this->operation, $value);
     }
+
+    /**
+     * @param array|object $candidate
+     *
+     * @return mixed
+     */
+    public function execute($candidate)
+    {
+        $field = ArgumentToOperandConverter::toField($this->field);
+        $value = ArgumentToOperandConverter::toValue($this->value);
+
+        return $this->doExecute($field->execute($candidate), $value->execute($candidate));
+    }
+
+    /**
+     * @param mixed $field
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    abstract protected function doExecute($field, $value);
 }
