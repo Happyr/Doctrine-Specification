@@ -16,6 +16,7 @@ namespace Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\PlatformFunctionExecutorRegistry;
 
 final class PlatformFunction implements Operand
 {
@@ -26,7 +27,7 @@ final class PlatformFunction implements Operand
      *
      * @var string[]
      */
-    private static $doctrineFunctions = [
+    private const DOCTRINE_FUNCTIONS = [
         // String functions
         'concat',
         'substring',
@@ -59,6 +60,11 @@ final class PlatformFunction implements Operand
     ];
 
     /**
+     * @var PlatformFunctionExecutorRegistry|null
+     */
+    private static $executorRegistry = null;
+
+    /**
      * @var string
      */
     private $functionName;
@@ -86,7 +92,7 @@ final class PlatformFunction implements Operand
      */
     public function transform(QueryBuilder $qb, string $dqlAlias): string
     {
-        if (!in_array(strtolower($this->functionName), self::$doctrineFunctions, true) &&
+        if (!in_array(strtolower($this->functionName), self::DOCTRINE_FUNCTIONS, true) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomStringFunction($this->functionName) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomNumericFunction($this->functionName) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomDatetimeFunction($this->functionName)
@@ -100,5 +106,32 @@ final class PlatformFunction implements Operand
         }
 
         return sprintf('%s(%s)', $this->functionName, implode(', ', $arguments));
+    }
+
+    /**
+     * @param array|object $candidate
+     *
+     * @return mixed
+     */
+    public function execute($candidate)
+    {
+        $arguments = [];
+        foreach (ArgumentToOperandConverter::convert($this->arguments) as $argument) {
+            $arguments[] = $argument->execute($candidate);
+        }
+
+        return self::getExecutorRegistry()->execute($this->functionName, ...$arguments);
+    }
+
+    /**
+     * @return PlatformFunctionExecutorRegistry
+     */
+    public static function getExecutorRegistry(): PlatformFunctionExecutorRegistry
+    {
+        if (null === self::$executorRegistry) {
+            self::$executorRegistry = new PlatformFunctionExecutorRegistry([]);
+        }
+
+        return self::$executorRegistry;
     }
 }
