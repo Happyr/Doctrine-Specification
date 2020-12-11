@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Exception\OperandNotExecuteException;
 
 final class Alias implements Operand
 {
@@ -40,5 +41,13 @@ final class Alias implements Operand
     public function transform(QueryBuilder $qb, string $dqlAlias): string
     {
         return $this->alias;
+    }
+
+    /**
+     * @param array|object $candidate
+     */
+    public function execute($candidate): void
+    {
+        throw new OperandNotExecuteException('The aliasing is not supported for execution.');
     }
 }
