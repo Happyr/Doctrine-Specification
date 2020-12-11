@@ -18,12 +18,8 @@ final class BitAndExecutor implements PlatformFunctionExecutor
      */
     public function __invoke(...$arguments): int
     {
-        $bit = array_shift($arguments);
+        [$x, $y] = $arguments;
 
-        foreach ($arguments as $argument) {
-            $bit &= $argument;
-        }
-
-        return $bit;
+        return $x & $y;
     }
 }
