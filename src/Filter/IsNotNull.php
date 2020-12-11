@@ -18,7 +18,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
 use Happyr\DoctrineSpecification\Operand\Operand;
 
-final class IsNotNull implements Filter
+final class IsNotNull implements Filter, Satisfiable
 {
     /**
      * @var Operand|string
@@ -55,5 +55,29 @@ final class IsNotNull implements Filter
         $field = ArgumentToOperandConverter::toField($this->field);
 
         return (string) $qb->expr()->isNotNull($field->transform($qb, $dqlAlias));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function filterCollection(iterable $collection): iterable
+    {
+        $field = ArgumentToOperandConverter::toField($this->field);
+
+        foreach ($collection as $candidate) {
+            if (null !== $field->execute($candidate)) {
+                yield $candidate;
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isSatisfiedBy($candidate): bool
+    {
+        $field = ArgumentToOperandConverter::toField($this->field);
+
+        return null !== $field->execute($candidate);
     }
 }
