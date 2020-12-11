@@ -16,7 +16,7 @@ namespace Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\QueryBuilder;
 
-final class InstanceOfX implements Filter
+final class InstanceOfX implements Filter, Satisfiable
 {
     /**
      * @var string
@@ -51,5 +51,25 @@ final class InstanceOfX implements Filter
         }
 
         return (string) $qb->expr()->isInstanceOf($dqlAlias, $this->value);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function filterCollection(iterable $collection): iterable
+    {
+        foreach ($collection as $candidate) {
+            if ($candidate instanceof $this->value) {
+                yield $candidate;
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isSatisfiedBy($candidate): bool
+    {
+        return $candidate instanceof $this->value;
     }
 }
