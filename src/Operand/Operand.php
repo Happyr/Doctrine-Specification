@@ -25,4 +25,11 @@ interface Operand
      * @return string
      */
     public function transform(QueryBuilder $qb, string $dqlAlias): string;
+
+    /**
+     * @param array|object $candidate
+     *
+     * @return mixed
+     */
+    public function execute($candidate);
 }
