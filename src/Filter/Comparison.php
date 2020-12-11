@@ -25,7 +25,7 @@ use Happyr\DoctrineSpecification\Operand\Operand;
  *
  * This is used when you need to compare two values
  */
-abstract class Comparison implements Filter
+abstract class Comparison implements Filter, Satisfiable
 {
     protected const EQ = '=';
 
@@ -115,4 +115,38 @@ abstract class Comparison implements Filter
             $value->transform($qb, $dqlAlias)
         );
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function filterCollection(iterable $collection): iterable
+    {
+        $field = ArgumentToOperandConverter::toField($this->field);
+        $value = ArgumentToOperandConverter::toValue($this->value);
+
+        foreach ($collection as $candidate) {
+            if ($this->compare($field->execute($candidate), $value->execute($candidate))) {
+                yield $candidate;
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isSatisfiedBy($candidate): bool
+    {
+        $field = ArgumentToOperandConverter::toField($this->field);
+        $value = ArgumentToOperandConverter::toValue($this->value);
+
+        return $this->compare($field->execute($candidate), $value->execute($candidate));
+    }
+
+    /**
+     * @param mixed $field
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    abstract protected function compare($field, $value): bool;
 }

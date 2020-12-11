@@ -27,4 +27,15 @@ final class Equals extends Comparison
     {
         parent::__construct(self::EQ, $field, $value, $dqlAlias);
     }
+
+    /**
+     * @param mixed $field
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    protected function compare($field, $value): bool
+    {
+        return $field === $value;
+    }
 }

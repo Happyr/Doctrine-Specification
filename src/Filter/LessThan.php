@@ -27,4 +27,15 @@ final class LessThan extends Comparison
     {
         parent::__construct(self::LT, $field, $value, $dqlAlias);
     }
+
+    /**
+     * @param mixed $field
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    protected function compare($field, $value): bool
+    {
+        return $field < $value;
+    }
 }
