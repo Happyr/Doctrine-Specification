@@ -18,7 +18,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
 use Happyr\DoctrineSpecification\Operand\Operand;
 
-final class In implements Filter
+final class In implements Filter, Satisfiable
 {
     /**
      * @var Operand|string
@@ -68,5 +68,46 @@ final class In implements Filter
             $field->transform($qb, $dqlAlias),
             $value->transform($qb, $dqlAlias)
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function filterCollection(iterable $collection): iterable
+    {
+        $field = ArgumentToOperandConverter::toField($this->field);
+        $value = ArgumentToOperandConverter::toValue($this->value);
+
+        foreach ($collection as $candidate) {
+            if ($this->contains($field->execute($candidate), $value->execute($candidate))) {
+                yield $candidate;
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isSatisfiedBy($candidate): bool
+    {
+        $field = ArgumentToOperandConverter::toField($this->field);
+        $value = ArgumentToOperandConverter::toValue($this->value);
+
+        return $this->contains($field->execute($candidate), $value->execute($candidate));
+    }
+
+    /**
+     * @param mixed $field
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    private function contains($field, $value): bool
+    {
+        if ($field instanceof \Traversable) {
+            $field = iterator_to_array($field);
+        }
+
+        return in_array($value, $field);
     }
 }
