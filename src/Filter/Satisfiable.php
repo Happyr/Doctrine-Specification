@@ -23,7 +23,7 @@ interface Satisfiable
     public function filterCollection(iterable $collection): iterable;
 
     /**
-     * @param array|object $candidate
+     * @param mixed[]|object $candidate
      *
      * @return bool
      */
