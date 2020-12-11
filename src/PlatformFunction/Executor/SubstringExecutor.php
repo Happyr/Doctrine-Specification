@@ -18,6 +18,14 @@ final class SubstringExecutor implements PlatformFunctionExecutor
      */
     public function __invoke(...$arguments)
     {
-        return substr(...$arguments);
+        if (count($arguments) === 2) {
+            [$string, $offset] = $arguments;
+
+            return substr($string, $offset);
+        }
+
+        [$string, $offset, $length] = $arguments;
+
+        return substr($string, $offset, $length);
     }
 }
