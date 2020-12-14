@@ -17,12 +17,12 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 final class TrimExecutor
 {
     /**
-     * @param string ...$arguments
+     * @param string $string
      *
      * @return string
      */
-    public function __invoke(...$arguments): string
+    public function __invoke(string $string): string
     {
-        // TODO need implement
+        return trim($string);
     }
 }
