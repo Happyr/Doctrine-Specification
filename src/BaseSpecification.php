@@ -87,4 +87,18 @@ abstract class BaseSpecification implements Specification
 
         return $context;
     }
+
+    /**
+     * @param string $context
+     *
+     * @return string
+     */
+    protected function getNestedContext(string $context): string
+    {
+        if (null !== $this->context) {
+            return sprintf('%s.%s', $this->context, $context);
+        }
+
+        return $context;
+    }
 }
