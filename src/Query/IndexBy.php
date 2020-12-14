@@ -31,33 +31,33 @@ final class IndexBy implements QueryModifier
     /**
      * @var string|null
      */
-    private $dqlAlias;
+    private $context;
 
     /**
      * @param Field|string $field    Field name for indexing
-     * @param string|null  $dqlAlias DQL alias of field
+     * @param string|null  $context DQL alias of field
      */
-    public function __construct($field, ?string $dqlAlias = null)
+    public function __construct($field, ?string $context = null)
     {
         if (!($field instanceof Field)) {
             $field = new Field($field);
         }
         $this->field = $field;
-        $this->dqlAlias = $dqlAlias;
+        $this->context = $context;
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @throws QueryException
      */
-    public function modify(QueryBuilder $qb, string $dqlAlias): void
+    public function modify(QueryBuilder $qb, string $context): void
     {
-        if (null !== $this->dqlAlias) {
-            $dqlAlias = $this->dqlAlias;
+        if (null !== $this->context) {
+            $context = $this->context;
         }
 
-        $qb->indexBy($dqlAlias, $this->field->transform($qb, $dqlAlias));
+        $qb->indexBy($context, $this->field->transform($qb, $context));
     }
 }

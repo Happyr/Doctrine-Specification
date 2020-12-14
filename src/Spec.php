@@ -147,48 +147,48 @@ class Spec
     /**
      * @param string      $field
      * @param string      $newAlias
-     * @param string|null $dqlAlias
+     * @param string|null $context
      *
      * @return Join
      */
-    public static function join(string $field, string $newAlias, ?string $dqlAlias = null): Join
+    public static function join(string $field, string $newAlias, ?string $context = null): Join
     {
-        return new Join($field, $newAlias, $dqlAlias);
+        return new Join($field, $newAlias, $context);
     }
 
     /**
      * @param string      $field
      * @param string      $newAlias
-     * @param string|null $dqlAlias
+     * @param string|null $context
      *
      * @return LeftJoin
      */
-    public static function leftJoin(string $field, string $newAlias, ?string $dqlAlias = null): LeftJoin
+    public static function leftJoin(string $field, string $newAlias, ?string $context = null): LeftJoin
     {
-        return new LeftJoin($field, $newAlias, $dqlAlias);
+        return new LeftJoin($field, $newAlias, $context);
     }
 
     /**
      * @param string      $field
      * @param string      $newAlias
-     * @param string|null $dqlAlias
+     * @param string|null $context
      *
      * @return InnerJoin
      */
-    public static function innerJoin(string $field, string $newAlias, ?string $dqlAlias = null): InnerJoin
+    public static function innerJoin(string $field, string $newAlias, ?string $context = null): InnerJoin
     {
-        return new InnerJoin($field, $newAlias, $dqlAlias);
+        return new InnerJoin($field, $newAlias, $context);
     }
 
     /**
      * @param Field|string $field
-     * @param string|null  $dqlAlias
+     * @param string|null  $context
      *
      * @return IndexBy
      */
-    public static function indexBy($field, ?string $dqlAlias = null): IndexBy
+    public static function indexBy($field, ?string $context = null): IndexBy
     {
-        return new IndexBy($field, $dqlAlias);
+        return new IndexBy($field, $context);
     }
 
     /**
@@ -225,24 +225,24 @@ class Spec
     /**
      * @param Field|Alias|string $field
      * @param string             $order
-     * @param string|null        $dqlAlias
+     * @param string|null        $context
      *
      * @return OrderBy
      */
-    public static function orderBy($field, string $order = 'ASC', ?string $dqlAlias = null): OrderBy
+    public static function orderBy($field, string $order = 'ASC', ?string $context = null): OrderBy
     {
-        return new OrderBy($field, $order, $dqlAlias);
+        return new OrderBy($field, $order, $context);
     }
 
     /**
      * @param Field|Alias|string $field
-     * @param string|null        $dqlAlias
+     * @param string|null        $context
      *
      * @return GroupBy
      */
-    public static function groupBy($field, ?string $dqlAlias = null): GroupBy
+    public static function groupBy($field, ?string $context = null): GroupBy
     {
-        return new GroupBy($field, $dqlAlias);
+        return new GroupBy($field, $context);
     }
 
     /**
@@ -276,13 +276,13 @@ class Spec
     }
 
     /**
-     * @param string $dqlAlias
+     * @param string $context
      *
      * @return SelectEntity
      */
-    public static function selectEntity(string $dqlAlias): SelectEntity
+    public static function selectEntity(string $context): SelectEntity
     {
-        return new SelectEntity($dqlAlias);
+        return new SelectEntity($context);
     }
 
     /**
@@ -357,24 +357,24 @@ class Spec
 
     /**
      * @param Operand|string $field
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      *
      * @return IsNull
      */
-    public static function isNull($field, ?string $dqlAlias = null): IsNull
+    public static function isNull($field, ?string $context = null): IsNull
     {
-        return new IsNull($field, $dqlAlias);
+        return new IsNull($field, $context);
     }
 
     /**
      * @param Operand|string $field
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      *
      * @return IsNotNull
      */
-    public static function isNotNull($field, ?string $dqlAlias = null): IsNotNull
+    public static function isNotNull($field, ?string $context = null): IsNotNull
     {
-        return new IsNotNull($field, $dqlAlias);
+        return new IsNotNull($field, $context);
     }
 
     /**
@@ -382,133 +382,133 @@ class Spec
      *
      * @param Operand|string $field
      * @param Operand|mixed  $value
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      *
      * @return In
      */
-    public static function in($field, $value, ?string $dqlAlias = null): In
+    public static function in($field, $value, ?string $context = null): In
     {
-        return new In($field, $value, $dqlAlias);
+        return new In($field, $value, $context);
     }
 
     /**
      * @param Operand|string $field
      * @param Operand|mixed  $value
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      *
      * @return Not
      */
-    public static function notIn($field, $value, ?string $dqlAlias = null): Not
+    public static function notIn($field, $value, ?string $context = null): Not
     {
-        return new Not(new In($field, $value, $dqlAlias));
+        return new Not(new In($field, $value, $context));
     }
 
     /**
      * @param Operand|string $field
      * @param Operand|mixed  $value
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      *
      * @return Equals
      */
-    public static function eq($field, $value, ?string $dqlAlias = null): Equals
+    public static function eq($field, $value, ?string $context = null): Equals
     {
-        return new Equals($field, $value, $dqlAlias);
+        return new Equals($field, $value, $context);
     }
 
     /**
      * @param Operand|string $field
      * @param Operand|mixed  $value
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      *
      * @return NotEquals
      */
-    public static function neq($field, $value, ?string $dqlAlias = null): NotEquals
+    public static function neq($field, $value, ?string $context = null): NotEquals
     {
-        return new NotEquals($field, $value, $dqlAlias);
+        return new NotEquals($field, $value, $context);
     }
 
     /**
      * @param Operand|string $field
      * @param Operand|mixed  $value
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      *
      * @return LessThan
      */
-    public static function lt($field, $value, ?string $dqlAlias = null): LessThan
+    public static function lt($field, $value, ?string $context = null): LessThan
     {
-        return new LessThan($field, $value, $dqlAlias);
+        return new LessThan($field, $value, $context);
     }
 
     /**
      * @param Operand|string $field
      * @param Operand|mixed  $value
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      *
      * @return LessOrEqualThan
      */
-    public static function lte($field, $value, ?string $dqlAlias = null): LessOrEqualThan
+    public static function lte($field, $value, ?string $context = null): LessOrEqualThan
     {
-        return new LessOrEqualThan($field, $value, $dqlAlias);
+        return new LessOrEqualThan($field, $value, $context);
     }
 
     /**
      * @param Operand|string $field
      * @param Operand|mixed  $value
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      *
      * @return GreaterThan
      */
-    public static function gt($field, $value, ?string $dqlAlias = null): GreaterThan
+    public static function gt($field, $value, ?string $context = null): GreaterThan
     {
-        return new GreaterThan($field, $value, $dqlAlias);
+        return new GreaterThan($field, $value, $context);
     }
 
     /**
      * @param Operand|string $field
      * @param Operand|mixed  $value
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      *
      * @return GreaterOrEqualThan
      */
-    public static function gte($field, $value, ?string $dqlAlias = null): GreaterOrEqualThan
+    public static function gte($field, $value, ?string $context = null): GreaterOrEqualThan
     {
-        return new GreaterOrEqualThan($field, $value, $dqlAlias);
+        return new GreaterOrEqualThan($field, $value, $context);
     }
 
     /**
      * @param Operand|string     $field
      * @param LikePattern|string $value
      * @param string             $format
-     * @param string|null        $dqlAlias
+     * @param string|null        $context
      *
      * @return Like
      */
-    public static function like($field, $value, string $format = Like::CONTAINS, ?string $dqlAlias = null): Like
+    public static function like($field, $value, string $format = Like::CONTAINS, ?string $context = null): Like
     {
-        return new Like($field, $value, $format, $dqlAlias);
+        return new Like($field, $value, $format, $context);
     }
 
     /**
      * @param string      $value
-     * @param string|null $dqlAlias
+     * @param string|null $context
      *
      * @return InstanceOfX
      */
-    public static function instanceOfX($value, ?string $dqlAlias = null): InstanceOfX
+    public static function instanceOfX($value, ?string $context = null): InstanceOfX
     {
-        return new InstanceOfX($value, $dqlAlias);
+        return new InstanceOfX($value, $context);
     }
 
     /**
      * @param Operand|mixed  $value
      * @param Operand|string $field
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      *
      * @return MemberOfX
      */
-    public static function memberOfX($value, $field, ?string $dqlAlias = null): MemberOfX
+    public static function memberOfX($value, $field, ?string $context = null): MemberOfX
     {
-        return new MemberOfX($value, $field, $dqlAlias);
+        return new MemberOfX($value, $field, $context);
     }
 
     // Specifications
@@ -537,13 +537,13 @@ class Spec
 
     /**
      * @param string      $fieldName
-     * @param string|null $dqlAlias
+     * @param string|null $context
      *
      * @return Field
      */
-    public static function field(string $fieldName, ?string $dqlAlias = null): Field
+    public static function field(string $fieldName, ?string $context = null): Field
     {
-        return new Field($fieldName, $dqlAlias);
+        return new Field($fieldName, $context);
     }
 
     /**

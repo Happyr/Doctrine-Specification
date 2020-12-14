@@ -43,18 +43,18 @@ final class FieldSpec extends ObjectBehavior
 
     public function it_is_transformable(QueryBuilder $qb): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
         $expression = 'a.foo';
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 
     public function it_is_change_dql_alias(QueryBuilder $qb): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
         $expression = 'b.foo';
 
         $this->beConstructedWith($this->fieldName, 'b');
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 }

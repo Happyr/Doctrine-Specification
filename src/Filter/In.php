@@ -33,40 +33,40 @@ final class In implements Filter, Satisfiable
     /**
      * @var string|null
      */
-    private $dqlAlias;
+    private $context;
 
     /**
      * Make sure the $field has a value equals to $value.
      *
      * @param Operand|string $field
      * @param Operand|mixed  $value
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      */
-    public function __construct($field, $value, ?string $dqlAlias = null)
+    public function __construct($field, $value, ?string $context = null)
     {
         $this->field = $field;
         $this->value = $value;
-        $this->dqlAlias = $dqlAlias;
+        $this->context = $context;
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
+    public function getFilter(QueryBuilder $qb, string $context): string
     {
-        if (null !== $this->dqlAlias) {
-            $dqlAlias = $this->dqlAlias;
+        if (null !== $this->context) {
+            $context = $this->context;
         }
 
         $field = ArgumentToOperandConverter::toField($this->field);
         $value = ArgumentToOperandConverter::toValue($this->value);
 
         return (string) $qb->expr()->in(
-            $field->transform($qb, $dqlAlias),
-            $value->transform($qb, $dqlAlias)
+            $field->transform($qb, $context),
+            $value->transform($qb, $context)
         );
     }
 

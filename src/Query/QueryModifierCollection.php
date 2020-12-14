@@ -36,9 +36,9 @@ final class QueryModifierCollection implements QueryModifier
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      */
-    public function modify(QueryBuilder $qb, string $dqlAlias): void
+    public function modify(QueryBuilder $qb, string $context): void
     {
         foreach ($this->children as $child) {
             if (!$child instanceof QueryModifier) {
@@ -49,7 +49,7 @@ final class QueryModifierCollection implements QueryModifier
                 ));
             }
 
-            $child->modify($qb, $dqlAlias);
+            $child->modify($qb, $context);
         }
     }
 }

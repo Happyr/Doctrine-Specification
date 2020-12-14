@@ -28,7 +28,7 @@ final class LikeSpec extends ObjectBehavior
 
     public function let(): void
     {
-        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, 'dqlAlias');
+        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, 'context');
     }
 
     public function it_is_a_specification(): void
@@ -40,7 +40,7 @@ final class LikeSpec extends ObjectBehavior
         QueryBuilder $qb,
         ArrayCollection $parameters
     ): void {
-        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, 'dqlAlias');
+        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, 'context');
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
@@ -51,7 +51,7 @@ final class LikeSpec extends ObjectBehavior
 
     public function it_starts_with_wildcard_when_using_ends_with(QueryBuilder $qb, ArrayCollection $parameters): void
     {
-        $this->beConstructedWith($this->field, $this->value, Like::ENDS_WITH, 'dqlAlias');
+        $this->beConstructedWith($this->field, $this->value, Like::ENDS_WITH, 'context');
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
@@ -62,7 +62,7 @@ final class LikeSpec extends ObjectBehavior
 
     public function it_ends_with_wildcard_when_using_starts_with(QueryBuilder $qb, ArrayCollection $parameters): void
     {
-        $this->beConstructedWith($this->field, $this->value, Like::STARTS_WITH, 'dqlAlias');
+        $this->beConstructedWith($this->field, $this->value, Like::STARTS_WITH, 'context');
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 

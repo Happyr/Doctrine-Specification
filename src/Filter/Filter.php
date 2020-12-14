@@ -20,9 +20,9 @@ interface Filter
 {
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, string $dqlAlias): string;
+    public function getFilter(QueryBuilder $qb, string $context): string;
 }

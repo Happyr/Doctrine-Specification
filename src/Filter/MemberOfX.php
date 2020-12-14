@@ -33,38 +33,38 @@ final class MemberOfX implements Filter
     /**
      * @var string|null
      */
-    private $dqlAlias;
+    private $context;
 
     /**
      * @param Operand|mixed  $value
      * @param Operand|string $field
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      */
-    public function __construct($value, $field, ?string $dqlAlias = null)
+    public function __construct($value, $field, ?string $context = null)
     {
         $this->value = $value;
         $this->field = $field;
-        $this->dqlAlias = $dqlAlias;
+        $this->context = $context;
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
+    public function getFilter(QueryBuilder $qb, string $context): string
     {
-        if (null !== $this->dqlAlias) {
-            $dqlAlias = $this->dqlAlias;
+        if (null !== $this->context) {
+            $context = $this->context;
         }
 
         $field = ArgumentToOperandConverter::toField($this->field);
         $value = ArgumentToOperandConverter::toValue($this->value);
 
         return (string) $qb->expr()->isMemberOf(
-            $value->transform($qb, $dqlAlias),
-            $field->transform($qb, $dqlAlias)
+            $value->transform($qb, $context),
+            $field->transform($qb, $context)
         );
     }
 }

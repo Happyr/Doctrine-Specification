@@ -27,11 +27,11 @@ final class IsNotNullSpec extends ObjectBehavior
 {
     private $field = 'foobar';
 
-    private $dqlAlias = 'a';
+    private $context = 'a';
 
     public function let(): void
     {
-        $this->beConstructedWith($this->field, $this->dqlAlias);
+        $this->beConstructedWith($this->field, $this->context);
     }
 
     public function it_is_an_expression(): void
@@ -47,18 +47,18 @@ final class IsNotNullSpec extends ObjectBehavior
         $expression = 'a.foobar is not null';
 
         $qb->expr()->willReturn($expr);
-        $expr->isNotNull(sprintf('%s.%s', $this->dqlAlias, $this->field))->willReturn($expression);
+        $expr->isNotNull(sprintf('%s.%s', $this->context, $this->field))->willReturn($expression);
 
-        $this->getFilter($qb, $this->dqlAlias)->shouldReturn($expression);
+        $this->getFilter($qb, $this->context)->shouldReturn($expression);
     }
 
     public function it_uses_dql_alias_if_passed(QueryBuilder $qb, Expr $expr): void
     {
-        $dqlAlias = 'x';
+        $context = 'x';
         $this->beConstructedWith($this->field, null);
         $qb->expr()->willReturn($expr);
 
-        $expr->isNotNull(sprintf('%s.%s', $dqlAlias, $this->field))->shouldBeCalled();
-        $this->getFilter($qb, $dqlAlias);
+        $expr->isNotNull(sprintf('%s.%s', $context, $this->field))->shouldBeCalled();
+        $this->getFilter($qb, $context);
     }
 }

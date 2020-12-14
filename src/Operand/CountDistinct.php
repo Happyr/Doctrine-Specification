@@ -34,14 +34,14 @@ final class CountDistinct implements Operand
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, string $dqlAlias): string
+    public function transform(QueryBuilder $qb, string $context): string
     {
         $field = ArgumentToOperandConverter::toField($this->field);
-        $field = $field->transform($qb, $dqlAlias);
+        $field = $field->transform($qb, $context);
 
         return sprintf('COUNT(DISTINCT %s)', $field);
     }

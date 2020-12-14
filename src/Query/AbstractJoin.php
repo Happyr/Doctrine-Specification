@@ -31,31 +31,31 @@ abstract class AbstractJoin implements QueryModifier
     /**
      * @var string|null
      */
-    private $dqlAlias;
+    private $context;
 
     /**
      * @param string      $field
      * @param string      $newAlias
-     * @param string|null $dqlAlias
+     * @param string|null $context
      */
-    public function __construct(string $field, string $newAlias, ?string $dqlAlias = null)
+    public function __construct(string $field, string $newAlias, ?string $context = null)
     {
         $this->field = $field;
         $this->newAlias = $newAlias;
-        $this->dqlAlias = $dqlAlias;
+        $this->context = $context;
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      */
-    public function modify(QueryBuilder $qb, string $dqlAlias): void
+    public function modify(QueryBuilder $qb, string $context): void
     {
-        if (null !== $this->dqlAlias) {
-            $dqlAlias = $this->dqlAlias;
+        if (null !== $this->context) {
+            $context = $this->context;
         }
 
-        $this->modifyJoin($qb, sprintf('%s.%s', $dqlAlias, $this->field), $this->newAlias);
+        $this->modifyJoin($qb, sprintf('%s.%s', $context, $this->field), $this->newAlias);
     }
 
     /**

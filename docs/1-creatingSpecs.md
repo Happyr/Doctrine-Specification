@@ -14,17 +14,17 @@ The `getFilter` function is where the action happens. You are most probably to r
 choose to return null. Consider this `ImageIsNullFilter`
 
 ```php
-public function getFilter(QueryBuilder $qb, string $dqlAlias): string
+public function getFilter(QueryBuilder $qb, string $context): string
 {
-    if ($this->dqlAlias !== null) {
-        $dqlAlias = $this->dqlAlias;
+    if ($this->context !== null) {
+        $context = $this->context;
     }
 
-    return (string) $qb->expr()->isNull(sprintf('%s.image', $dqlAlias));
+    return (string) $qb->expr()->isNull(sprintf('%s.image', $context));
 }
 ```
 
-You will get a QueryBuilder and a $dqlAlias as parameters. The $dqlAlias is (by default) the alias for the root entity.
+You will get a QueryBuilder and a $context as parameters. The $context is (by default) the alias for the root entity.
 You may use or change the alias as you like.
 
 
@@ -36,15 +36,15 @@ or limit the result set. Consider this `JoinUserSettingsModifier`.
 ```php
 /**
  * @param QueryBuilder $qb
- * @param string       $dqlAlias
+ * @param string       $context
  */
-public function modify(QueryBuilder $qb, string $dqlAlias): void
+public function modify(QueryBuilder $qb, string $context): void
 {
-    if ($this->dqlAlias !== null) {
-        $dqlAlias = $this->dqlAlias;
+    if ($this->context !== null) {
+        $context = $this->context;
     }
 
-    $qb->join(sprintf('%s.settings', $dqlAlias), 'settings');
+    $qb->join(sprintf('%s.settings', $context), 'settings');
 }
 
 ```
@@ -55,7 +55,7 @@ public function modify(QueryBuilder $qb, string $dqlAlias): void
 To make your life easier you may use the `Happyr\DoctrineSpecification\BaseSpecification` class. When you extend
 this class you don't need to bother with `getFilter` or `modify`. You need to do 2 things:
 
-1. If you implement a constructor, make sure to call the parent constructor with $dqlAlias
+1. If you implement a constructor, make sure to call the parent constructor with $context
 2. Implement `getSpec` to return your `Specifications`
 
 Consider the following example.

@@ -44,43 +44,43 @@ final class CountOfSpec extends ObjectBehavior
 
     public function it_count_of_all(QueryBuilder $qb): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
 
-        $qb->select(sprintf('COUNT(%s)', $dqlAlias))->shouldBeCalled();
+        $qb->select(sprintf('COUNT(%s)', $context))->shouldBeCalled();
 
-        $this->getFilter($qb, $dqlAlias)->shouldBe('');
-        $this->modify($qb, $dqlAlias);
+        $this->getFilter($qb, $context)->shouldBe('');
+        $this->modify($qb, $context);
     }
 
     public function it_count_of_all_grouped_by_id(QueryBuilder $qb): void
     {
         $field = 'id';
-        $dqlAlias = 'a';
+        $context = 'a';
 
-        $this->beConstructedWith(new GroupBy($field, $dqlAlias));
+        $this->beConstructedWith(new GroupBy($field, $context));
 
-        $qb->select(sprintf('COUNT(%s)', $dqlAlias))->shouldBeCalled();
-        $qb->addGroupBy(sprintf('%s.%s', $dqlAlias, $field))->shouldBeCalled();
+        $qb->select(sprintf('COUNT(%s)', $context))->shouldBeCalled();
+        $qb->addGroupBy(sprintf('%s.%s', $context, $field))->shouldBeCalled();
 
-        $this->getFilter($qb, $dqlAlias)->shouldBe('');
-        $this->modify($qb, $dqlAlias);
+        $this->getFilter($qb, $context)->shouldBe('');
+        $this->modify($qb, $context);
     }
 
     public function it_count_of_all_with_group_is_foo(QueryBuilder $qb): void
     {
         $field = 'group';
         $value = 'foo';
-        $dqlAlias = 'a';
+        $context = 'a';
         $parametersCount = 0;
         $paramName = 'comparison_'.$parametersCount;
 
-        $this->beConstructedWith(new Equals($field, $value, $dqlAlias));
+        $this->beConstructedWith(new Equals($field, $value, $context));
 
-        $qb->select(sprintf('COUNT(%s)', $dqlAlias))->shouldBeCalled();
+        $qb->select(sprintf('COUNT(%s)', $context))->shouldBeCalled();
         $qb->getParameters()->willReturn(new ArrayCollection());
         $qb->setParameter($paramName, $value, null)->shouldBeCalled();
 
-        $this->getFilter($qb, $dqlAlias)->shouldBe(sprintf('%s.%s = :%s', $dqlAlias, $field, $paramName));
-        $this->modify($qb, $dqlAlias);
+        $this->getFilter($qb, $context)->shouldBe(sprintf('%s.%s = :%s', $context, $field, $paramName));
+        $this->modify($qb, $context);
     }
 }

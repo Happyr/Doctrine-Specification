@@ -37,14 +37,14 @@ final class OrderBy implements QueryModifier
     /**
      * @var string|null
      */
-    private $dqlAlias;
+    private $context;
 
     /**
      * @param Field|Alias|string $field
      * @param string             $order
-     * @param string|null        $dqlAlias
+     * @param string|null        $context
      */
-    public function __construct($field, string $order = self::ASC, ?string $dqlAlias = null)
+    public function __construct($field, string $order = self::ASC, ?string $context = null)
     {
         if (!($field instanceof Field) && !($field instanceof Alias)) {
             $field = new Field($field);
@@ -52,19 +52,19 @@ final class OrderBy implements QueryModifier
 
         $this->field = $field;
         $this->order = $order;
-        $this->dqlAlias = $dqlAlias;
+        $this->context = $context;
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      */
-    public function modify(QueryBuilder $qb, string $dqlAlias): void
+    public function modify(QueryBuilder $qb, string $context): void
     {
-        if (null !== $this->dqlAlias) {
-            $dqlAlias = $this->dqlAlias;
+        if (null !== $this->context) {
+            $context = $this->context;
         }
 
-        $qb->addOrderBy($this->field->transform($qb, $dqlAlias), $this->order);
+        $qb->addOrderBy($this->field->transform($qb, $context), $this->order);
     }
 }

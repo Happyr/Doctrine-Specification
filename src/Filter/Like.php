@@ -41,15 +41,15 @@ final class Like implements Filter, Satisfiable
     /**
      * @var string|null
      */
-    private $dqlAlias;
+    private $context;
 
     /**
      * @param Operand|string     $field
      * @param LikePattern|string $value
      * @param string             $format
-     * @param string|null        $dqlAlias
+     * @param string|null        $context
      */
-    public function __construct($field, $value, string $format = LikePattern::CONTAINS, ?string $dqlAlias = null)
+    public function __construct($field, $value, string $format = LikePattern::CONTAINS, ?string $context = null)
     {
         if (!($value instanceof LikePattern)) {
             $value = new LikePattern($value, $format);
@@ -57,25 +57,25 @@ final class Like implements Filter, Satisfiable
 
         $this->field = $field;
         $this->value = $value;
-        $this->dqlAlias = $dqlAlias;
+        $this->context = $context;
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
+    public function getFilter(QueryBuilder $qb, string $context): string
     {
-        if (null !== $this->dqlAlias) {
-            $dqlAlias = $this->dqlAlias;
+        if (null !== $this->context) {
+            $context = $this->context;
         }
 
         $field = ArgumentToOperandConverter::toField($this->field);
 
-        $field = $field->transform($qb, $dqlAlias);
-        $value = $this->value->transform($qb, $dqlAlias);
+        $field = $field->transform($qb, $context);
+        $value = $this->value->transform($qb, $context);
 
         return (string) new DoctrineComparison($field, 'LIKE', $value);
     }

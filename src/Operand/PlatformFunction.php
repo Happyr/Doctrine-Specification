@@ -112,11 +112,11 @@ final class PlatformFunction implements Operand
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, string $dqlAlias): string
+    public function transform(QueryBuilder $qb, string $context): string
     {
         if (!isset(self::DOCTRINE_FUNCTIONS[strtoupper($this->functionName)]) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomStringFunction($this->functionName) &&
@@ -128,7 +128,7 @@ final class PlatformFunction implements Operand
 
         $arguments = [];
         foreach (ArgumentToOperandConverter::convert($this->arguments) as $argument) {
-            $arguments[] = $argument->transform($qb, $dqlAlias);
+            $arguments[] = $argument->transform($qb, $context);
         }
 
         return sprintf('%s(%s)', $this->functionName, implode(', ', $arguments));

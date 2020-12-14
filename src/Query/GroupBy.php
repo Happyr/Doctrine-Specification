@@ -28,32 +28,32 @@ final class GroupBy implements QueryModifier
     /**
      * @var string|null
      */
-    private $dqlAlias;
+    private $context;
 
     /**
      * @param Field|Alias|string $field
-     * @param string|null        $dqlAlias
+     * @param string|null        $context
      */
-    public function __construct($field, ?string $dqlAlias = null)
+    public function __construct($field, ?string $context = null)
     {
         if (!($field instanceof Field) && !($field instanceof Alias)) {
             $field = new Field($field);
         }
 
         $this->field = $field;
-        $this->dqlAlias = $dqlAlias;
+        $this->context = $context;
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      */
-    public function modify(QueryBuilder $qb, string $dqlAlias): void
+    public function modify(QueryBuilder $qb, string $context): void
     {
-        if (null !== $this->dqlAlias) {
-            $dqlAlias = $this->dqlAlias;
+        if (null !== $this->context) {
+            $context = $this->context;
         }
 
-        $qb->addGroupBy($this->field->transform($qb, $dqlAlias));
+        $qb->addGroupBy($this->field->transform($qb, $context));
     }
 }

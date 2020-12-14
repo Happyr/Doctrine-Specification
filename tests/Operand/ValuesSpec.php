@@ -47,14 +47,14 @@ final class ValuesSpec extends ObjectBehavior
 
     public function it_is_transformable(QueryBuilder $qb, ArrayCollection $parameters): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
 
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
         $qb->setParameter('comparison_10', $this->values, $this->valueType)->shouldBeCalled();
 
-        $this->transform($qb, $dqlAlias)->shouldReturn(':comparison_10');
+        $this->transform($qb, $context)->shouldReturn(':comparison_10');
     }
 
     public function it_is_transformable_dbal_type(QueryBuilder $qb, ArrayCollection $parameters): void

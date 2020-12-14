@@ -21,11 +21,11 @@ final class LessOrEqualThan extends Comparison
     /**
      * @param Operand|string $field
      * @param Operand|mixed  $value
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      */
-    public function __construct($field, $value, ?string $dqlAlias = null)
+    public function __construct($field, $value, ?string $context = null)
     {
-        parent::__construct(self::LTE, $field, $value, $dqlAlias);
+        parent::__construct(self::LTE, $field, $value, $context);
     }
 
     /**

@@ -34,11 +34,11 @@ final class Alias implements Operand
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, string $dqlAlias): string
+    public function transform(QueryBuilder $qb, string $context): string
     {
         return $this->alias;
     }

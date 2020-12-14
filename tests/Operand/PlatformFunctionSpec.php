@@ -51,20 +51,20 @@ final class PlatformFunctionSpec extends ObjectBehavior
 
     public function it_is_transformable_doctrine_function(QueryBuilder $qb): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
         $expression = 'UPPER(a.foo)';
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 
     public function it_is_transformable_many_arguments(QueryBuilder $qb): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
         $expression = 'concat(a.foo, a.bar)';
 
         $this->beConstructedWith('concat', new Field('foo'), new Field('bar'));
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 
     public function it_is_transformable_custom_string_function(
@@ -72,7 +72,7 @@ final class PlatformFunctionSpec extends ObjectBehavior
         EntityManagerInterface $em,
         Configuration $configuration
     ): void {
-        $dqlAlias = 'a';
+        $context = 'a';
         $functionName = 'foo';
         $expression = 'foo(a.foo)';
 
@@ -84,7 +84,7 @@ final class PlatformFunctionSpec extends ObjectBehavior
 
         $this->beConstructedWith($functionName, 'foo');
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 
     public function it_is_transformable_custom_numeric_function(
@@ -92,7 +92,7 @@ final class PlatformFunctionSpec extends ObjectBehavior
         EntityManagerInterface $em,
         Configuration $configuration
     ): void {
-        $dqlAlias = 'a';
+        $context = 'a';
         $functionName = 'foo';
         $expression = 'foo(a.foo)';
 
@@ -104,7 +104,7 @@ final class PlatformFunctionSpec extends ObjectBehavior
 
         $this->beConstructedWith($functionName, 'foo');
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 
     public function it_is_transformable_custom_datetime_function(
@@ -112,7 +112,7 @@ final class PlatformFunctionSpec extends ObjectBehavior
         EntityManagerInterface $em,
         Configuration $configuration
     ): void {
-        $dqlAlias = 'a';
+        $context = 'a';
         $functionName = 'foo';
         $expression = 'foo(a.foo)';
 
@@ -124,7 +124,7 @@ final class PlatformFunctionSpec extends ObjectBehavior
 
         $this->beConstructedWith($functionName, 'foo');
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 
     public function it_is_transformable_undefined_function(
@@ -150,7 +150,7 @@ final class PlatformFunctionSpec extends ObjectBehavior
         Configuration $configuration,
         ArrayCollection $parameters
     ): void {
-        $dqlAlias = 'a';
+        $context = 'a';
         $functionName = 'concat';
         $expression = 'concat(a.foo, :comparison_10, :comparison_11)';
 
@@ -171,6 +171,6 @@ final class PlatformFunctionSpec extends ObjectBehavior
 
         $this->beConstructedWith($functionName, 'foo', 'bar', $value);
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 }

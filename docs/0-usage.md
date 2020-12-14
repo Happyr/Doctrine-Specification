@@ -284,7 +284,7 @@ Add single field in the selected set:
 
 ```php
 // DQL: SELECT e, u.email FROM ...
-Spec::addSelect(Spec::field('email', $dqlAlias))
+Spec::addSelect(Spec::field('email', $context))
 ```
 
 Add one more custom fields in the selected set:
@@ -293,7 +293,7 @@ Add one more custom fields in the selected set:
 // DQL: SELECT e.title, e.cover, u.name, u.avatar FROM ...
 Spec::andX(
     Spec::select('title', 'cover'),
-    Spec::addSelect(Spec::field('name', $dqlAlias), Spec::field('avatar', $dqlAlias))
+    Spec::addSelect(Spec::field('name', $context), Spec::field('avatar', $context))
 )
 ```
 
@@ -301,7 +301,7 @@ Add single entry in the selected set:
 
 ```php
 // DQL: SELECT e, u FROM ...
-Spec::addSelect(Spec::selectEntity($dqlAlias))
+Spec::addSelect(Spec::selectEntity($context))
 ```
 
 Use aliases for selection fields:
@@ -315,7 +315,7 @@ Add single hidden field in the selected set:
 
 ```php
 // DQL: SELECT e, u.name AS HIDDEN author FROM ...
-Spec::addSelect(Spec::selectHiddenAs(Spec::field('email', $dqlAlias), 'author')))
+Spec::addSelect(Spec::selectHiddenAs(Spec::field('email', $context), 'author')))
 ```
 
 Use expression in selection for add product discount to the result:

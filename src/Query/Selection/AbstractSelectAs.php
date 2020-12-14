@@ -43,17 +43,17 @@ abstract class AbstractSelectAs implements Selection
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, string $dqlAlias): string
+    public function transform(QueryBuilder $qb, string $context): string
     {
         if ($this->expression instanceof Filter) {
-            $expression = $this->expression->getFilter($qb, $dqlAlias);
+            $expression = $this->expression->getFilter($qb, $context);
         } else {
             $expression = ArgumentToOperandConverter::toField($this->expression);
-            $expression = $expression->transform($qb, $dqlAlias);
+            $expression = $expression->transform($qb, $context);
         }
 
         return sprintf($this->getAliasFormat(), $expression, $this->alias);

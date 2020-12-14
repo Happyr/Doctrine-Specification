@@ -35,14 +35,14 @@ abstract class AbstractSelect implements QueryModifier
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      */
-    public function modify(QueryBuilder $qb, string $dqlAlias): void
+    public function modify(QueryBuilder $qb, string $context): void
     {
         $selections = [];
         foreach ($this->selections as $selection) {
             $selection = ArgumentToSelectionConverter::toSelection($selection);
-            $selections[] = $selection->transform($qb, $dqlAlias);
+            $selections[] = $selection->transform($qb, $context);
         }
 
         $this->modifySelection($qb, $selections);

@@ -21,24 +21,24 @@ final class SelectEntity implements Selection
     /**
      * @var string
      */
-    private $dqlAlias;
+    private $context;
 
     /**
-     * @param string $dqlAlias
+     * @param string $context
      */
-    public function __construct(string $dqlAlias)
+    public function __construct(string $context)
     {
-        $this->dqlAlias = $dqlAlias;
+        $this->context = $context;
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, string $dqlAlias): string
+    public function transform(QueryBuilder $qb, string $context): string
     {
-        return $this->dqlAlias;
+        return $this->context;
     }
 }

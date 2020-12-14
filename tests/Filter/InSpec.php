@@ -42,9 +42,9 @@ final class InSpec extends ObjectBehavior
 
     public function it_returns_expression_func_object(QueryBuilder $qb, ArrayCollection $parameters, Expr $expr): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
         $qb->expr()->willReturn($expr);
-        $expr->in(sprintf('%s.%s', $dqlAlias, $this->field), ':comparison_10')->shouldBeCalled();
+        $expr->in(sprintf('%s.%s', $context, $this->field), ':comparison_10')->shouldBeCalled();
 
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);

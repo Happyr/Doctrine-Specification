@@ -28,33 +28,33 @@ final class IsNull implements Filter, Satisfiable
     /**
      * @var string|null
      */
-    private $dqlAlias;
+    private $context;
 
     /**
      * @param Operand|string $field
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      */
-    public function __construct($field, ?string $dqlAlias = null)
+    public function __construct($field, ?string $context = null)
     {
         $this->field = $field;
-        $this->dqlAlias = $dqlAlias;
+        $this->context = $context;
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
+    public function getFilter(QueryBuilder $qb, string $context): string
     {
-        if (null !== $this->dqlAlias) {
-            $dqlAlias = $this->dqlAlias;
+        if (null !== $this->context) {
+            $context = $this->context;
         }
 
         $field = ArgumentToOperandConverter::toField($this->field);
 
-        return (string) $qb->expr()->isNull($field->transform($qb, $dqlAlias));
+        return (string) $qb->expr()->isNull($field->transform($qb, $context));
     }
 
     /**

@@ -27,28 +27,28 @@ abstract class BaseSpecification implements Specification
     /**
      * @var string|null
      */
-    private $dqlAlias;
+    private $context;
 
     /**
-     * @param string|null $dqlAlias
+     * @param string|null $context
      */
-    public function __construct($dqlAlias = null)
+    public function __construct($context = null)
     {
-        $this->dqlAlias = $dqlAlias;
+        $this->context = $context;
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
+    public function getFilter(QueryBuilder $qb, string $context): string
     {
         $spec = $this->getSpec();
 
         if ($spec instanceof Filter) {
-            return $spec->getFilter($qb, $this->getAlias($dqlAlias));
+            return $spec->getFilter($qb, $this->getContext($context));
         }
 
         return '';
@@ -56,14 +56,14 @@ abstract class BaseSpecification implements Specification
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      */
-    public function modify(QueryBuilder $qb, string $dqlAlias): void
+    public function modify(QueryBuilder $qb, string $context): void
     {
         $spec = $this->getSpec();
 
         if ($spec instanceof QueryModifier) {
-            $spec->modify($qb, $this->getAlias($dqlAlias));
+            $spec->modify($qb, $this->getContext($context));
         }
     }
 
@@ -75,16 +75,16 @@ abstract class BaseSpecification implements Specification
     abstract protected function getSpec();
 
     /**
-     * @param string $dqlAlias
+     * @param string $context
      *
      * @return string
      */
-    private function getAlias(string $dqlAlias): string
+    private function getContext(string $context): string
     {
-        if (null !== $this->dqlAlias) {
-            return $this->dqlAlias;
+        if (null !== $this->context) {
+            return $this->context;
         }
 
-        return $dqlAlias;
+        return $context;
     }
 }

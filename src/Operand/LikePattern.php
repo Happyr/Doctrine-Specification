@@ -47,11 +47,11 @@ final class LikePattern implements Operand
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, string $dqlAlias): string
+    public function transform(QueryBuilder $qb, string $context): string
     {
         $paramName = sprintf('comparison_%d', $qb->getParameters()->count());
         $value = ValueConverter::convertToDatabaseValue($this->value, $qb);

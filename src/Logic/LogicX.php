@@ -53,15 +53,15 @@ abstract class LogicX implements Specification, Satisfiable
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
+    public function getFilter(QueryBuilder $qb, string $context): string
     {
         $children = [];
         foreach ($this->children as $spec) {
-            if ($spec instanceof Filter && $filter = $spec->getFilter($qb, $dqlAlias)) {
+            if ($spec instanceof Filter && $filter = $spec->getFilter($qb, $context)) {
                 $children[] = $filter;
             }
         }
@@ -83,13 +83,13 @@ abstract class LogicX implements Specification, Satisfiable
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      */
-    public function modify(QueryBuilder $qb, string $dqlAlias): void
+    public function modify(QueryBuilder $qb, string $context): void
     {
         foreach ($this->children as $child) {
             if ($child instanceof QueryModifier) {
-                $child->modify($qb, $dqlAlias);
+                $child->modify($qb, $context);
             }
         }
     }

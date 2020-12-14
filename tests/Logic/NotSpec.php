@@ -36,16 +36,16 @@ final class NotSpec extends ObjectBehavior
      */
     public function it_calls_parent_match(QueryBuilder $qb, Expr $expr, Filter $filterExpr): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
         $expression = 'expression';
         $parentExpression = 'foobar';
 
         $qb->expr()->willReturn($expr);
-        $filterExpr->getFilter($qb, $dqlAlias)->willReturn($parentExpression);
+        $filterExpr->getFilter($qb, $context)->willReturn($parentExpression);
 
         $expr->not($parentExpression)->willReturn($expression);
 
-        $this->getFilter($qb, $dqlAlias)->shouldReturn($expression);
+        $this->getFilter($qb, $context)->shouldReturn($expression);
     }
 
     /**

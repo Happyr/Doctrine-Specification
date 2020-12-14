@@ -37,23 +37,23 @@ final class Not implements Specification, Satisfiable
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
+    public function getFilter(QueryBuilder $qb, string $context): string
     {
-        return (string) $qb->expr()->not($this->child->getFilter($qb, $dqlAlias));
+        return (string) $qb->expr()->not($this->child->getFilter($qb, $context));
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      */
-    public function modify(QueryBuilder $qb, string $dqlAlias): void
+    public function modify(QueryBuilder $qb, string $context): void
     {
         if ($this->child instanceof QueryModifier) {
-            $this->child->modify($qb, $dqlAlias);
+            $this->child->modify($qb, $context);
         }
     }
 

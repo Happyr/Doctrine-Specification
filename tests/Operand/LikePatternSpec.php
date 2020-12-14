@@ -46,13 +46,13 @@ final class LikePatternSpec extends ObjectBehavior
 
     public function it_is_transformable(QueryBuilder $qb, ArrayCollection $parameters): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
 
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
         $qb->setParameter('comparison_10', sprintf($this->format, $this->value))->shouldBeCalled();
 
-        $this->transform($qb, $dqlAlias)->shouldReturn(':comparison_10');
+        $this->transform($qb, $context)->shouldReturn(':comparison_10');
     }
 }

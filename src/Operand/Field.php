@@ -28,31 +28,31 @@ final class Field implements Operand, Selection
     /**
      * @var string|null
      */
-    private $dqlAlias;
+    private $context;
 
     /**
      * @param string      $fieldName
-     * @param string|null $dqlAlias
+     * @param string|null $context
      */
-    public function __construct(string $fieldName, ?string $dqlAlias = null)
+    public function __construct(string $fieldName, ?string $context = null)
     {
         $this->fieldName = $fieldName;
-        $this->dqlAlias = $dqlAlias;
+        $this->context = $context;
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, string $dqlAlias): string
+    public function transform(QueryBuilder $qb, string $context): string
     {
-        if (null !== $this->dqlAlias) {
-            $dqlAlias = $this->dqlAlias;
+        if (null !== $this->context) {
+            $context = $this->context;
         }
 
-        return sprintf('%s.%s', $dqlAlias, $this->fieldName);
+        return sprintf('%s.%s', $context, $this->fieldName);
     }
 
     /**
@@ -62,12 +62,8 @@ final class Field implements Operand, Selection
      */
     public function execute($candidate)
     {
-        if (null === $candidate) {
-            return null;
-        }
-
-        if (null !== $this->dqlAlias) {
-            $propertyPath = sprintf('%s.%s', $this->dqlAlias, $this->fieldName);
+        if (null !== $this->context) {
+            $propertyPath = sprintf('%s.%s', $this->context, $this->fieldName);
         } else {
             $propertyPath = $this->fieldName;
         }

@@ -24,11 +24,11 @@ use PhpSpec\ObjectBehavior;
  */
 final class SelectEntitySpec extends ObjectBehavior
 {
-    private $dqlAlias = 'u';
+    private $context = 'u';
 
     public function let(): void
     {
-        $this->beConstructedWith($this->dqlAlias);
+        $this->beConstructedWith($this->context);
     }
 
     public function it_is_a_select_entity(): void
@@ -43,6 +43,6 @@ final class SelectEntitySpec extends ObjectBehavior
 
     public function it_is_transformable(QueryBuilder $qb): void
     {
-        $this->transform($qb, 'a')->shouldReturn($this->dqlAlias);
+        $this->transform($qb, 'a')->shouldReturn($this->context);
     }
 }

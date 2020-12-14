@@ -113,9 +113,9 @@ class OwnedByCompany extends BaseSpecification
 {
     private $companyId;
 
-    public function __construct(Company $company, ?string $dqlAlias = null)
+    public function __construct(Company $company, ?string $context = null)
     {
-        parent::__construct($dqlAlias);
+        parent::__construct($context);
         $this->companyId = $company->getId();
     }
 

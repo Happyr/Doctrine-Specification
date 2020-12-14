@@ -41,12 +41,12 @@ final class OrXSpec extends ObjectBehavior
         Specification $specificationA,
         Specification $specificationB
     ): void {
-        $dqlAlias = 'a';
+        $context = 'a';
 
-        $specificationA->modify($queryBuilder, $dqlAlias)->shouldBeCalled();
-        $specificationB->modify($queryBuilder, $dqlAlias)->shouldBeCalled();
+        $specificationA->modify($queryBuilder, $context)->shouldBeCalled();
+        $specificationB->modify($queryBuilder, $context)->shouldBeCalled();
 
-        $this->modify($queryBuilder, $dqlAlias);
+        $this->modify($queryBuilder, $context);
     }
 
     public function it_composes_and_child_with_expression(
@@ -57,15 +57,15 @@ final class OrXSpec extends ObjectBehavior
     ): void {
         $filterA = 'foo';
         $filterB = 'bar';
-        $dqlAlias = 'a';
+        $context = 'a';
 
-        $specificationA->getFilter($qb, $dqlAlias)->willReturn($filterA);
-        $specificationB->getFilter($qb, $dqlAlias)->willReturn($filterB);
+        $specificationA->getFilter($qb, $context)->willReturn($filterA);
+        $specificationB->getFilter($qb, $context)->willReturn($filterB);
         $qb->expr()->willReturn($expression);
 
         $expression->orX($filterA, $filterB)->shouldBeCalled();
 
-        $this->getFilter($qb, $dqlAlias);
+        $this->getFilter($qb, $context);
     }
 
     public function it_supports_expressions(
@@ -78,14 +78,14 @@ final class OrXSpec extends ObjectBehavior
 
         $filterA = 'foo';
         $filterB = 'bar';
-        $dqlAlias = 'a';
+        $context = 'a';
 
-        $exprA->getFilter($qb, $dqlAlias)->willReturn($filterA);
-        $exprB->getFilter($qb, $dqlAlias)->willReturn($filterB);
+        $exprA->getFilter($qb, $context)->willReturn($filterA);
+        $exprB->getFilter($qb, $context)->willReturn($filterB);
         $qb->expr()->willReturn($expression);
 
         $expression->orX($filterA, $filterB)->shouldBeCalled();
 
-        $this->getFilter($qb, $dqlAlias);
+        $this->getFilter($qb, $context);
     }
 }
