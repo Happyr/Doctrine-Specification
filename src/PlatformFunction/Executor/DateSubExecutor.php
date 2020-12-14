@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
-final class DateSubExecutor implements PlatformFunctionExecutor
+final class DateSubExecutor
 {
     /**
      * @param mixed ...$arguments

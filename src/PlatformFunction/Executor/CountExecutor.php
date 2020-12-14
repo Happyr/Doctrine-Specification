@@ -11,7 +11,7 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
 use Happyr\DoctrineSpecification\Exception\OperandNotExecuteException;
 
-final class CountExecutor implements PlatformFunctionExecutor
+final class CountExecutor
 {
     /**
      * @param mixed ...$arguments

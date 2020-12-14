@@ -11,7 +11,7 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
 use Happyr\DoctrineSpecification\Exception\OperandNotExecuteException;
 
-final class MinExecutor implements PlatformFunctionExecutor
+final class MinExecutor
 {
     /**
      * @param mixed ...$arguments

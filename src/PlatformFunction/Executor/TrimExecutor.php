@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
-final class TrimExecutor implements PlatformFunctionExecutor
+final class TrimExecutor
 {
     /**
      * @param string ...$arguments

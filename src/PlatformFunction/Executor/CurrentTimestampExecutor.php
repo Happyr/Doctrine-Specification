@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
-final class CurrentTimestampExecutor implements PlatformFunctionExecutor
+final class CurrentTimestampExecutor
 {
     /**
      * @param mixed ...$arguments

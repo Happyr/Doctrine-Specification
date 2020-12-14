@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
-final class BitOrExecutor implements PlatformFunctionExecutor
+final class BitOrExecutor
 {
     /**
      * @param int ...$arguments

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
-final class DateDiffExecutor implements PlatformFunctionExecutor
+final class DateDiffExecutor
 {
     /**
      * @param \DateTimeInterface ...$arguments

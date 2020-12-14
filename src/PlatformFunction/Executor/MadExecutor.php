@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
-final class MadExecutor implements PlatformFunctionExecutor
+final class MadExecutor
 {
     /**
      * @param float ...$arguments

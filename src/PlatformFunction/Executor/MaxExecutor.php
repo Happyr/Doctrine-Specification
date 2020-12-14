@@ -11,7 +11,7 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
 use Happyr\DoctrineSpecification\Exception\OperandNotExecuteException;
 
-final class MaxExecutor implements PlatformFunctionExecutor
+final class MaxExecutor
 {
     /**
      * @param mixed ...$arguments

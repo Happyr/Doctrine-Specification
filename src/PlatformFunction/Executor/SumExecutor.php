@@ -11,7 +11,7 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
 use Happyr\DoctrineSpecification\Exception\OperandNotExecuteException;
 
-final class SumExecutor implements PlatformFunctionExecutor
+final class SumExecutor
 {
     /**
      * @param mixed ...$arguments

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
-final class LocateExecutor implements PlatformFunctionExecutor
+final class LocateExecutor
 {
     /**
      * @param mixed ...$arguments

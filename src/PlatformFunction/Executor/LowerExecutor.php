@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
-final class LowerExecutor implements PlatformFunctionExecutor
+final class LowerExecutor
 {
     /**
      * @param string ...$arguments

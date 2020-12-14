@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
-final class LengthExecutor implements PlatformFunctionExecutor
+final class LengthExecutor
 {
     /**
      * @param string ...$arguments

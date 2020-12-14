@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
-final class SubstringExecutor implements PlatformFunctionExecutor
+final class SubstringExecutor
 {
     /**
      * @param string|int ...$arguments

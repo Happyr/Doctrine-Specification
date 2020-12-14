@@ -11,7 +11,7 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
 use Happyr\DoctrineSpecification\Exception\OperandNotExecuteException;
 
-final class IdentityExecutor implements PlatformFunctionExecutor
+final class IdentityExecutor
 {
     /**
      * @param mixed ...$arguments

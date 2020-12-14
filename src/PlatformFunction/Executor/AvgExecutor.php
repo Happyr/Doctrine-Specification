@@ -11,7 +11,7 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
 use Happyr\DoctrineSpecification\Exception\OperandNotExecuteException;
 
-final class AvgExecutor implements PlatformFunctionExecutor
+final class AvgExecutor
 {
     /**
      * @param mixed ...$arguments
