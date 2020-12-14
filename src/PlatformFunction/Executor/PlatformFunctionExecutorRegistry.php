@@ -38,6 +38,8 @@ final class PlatformFunctionExecutorRegistry
      */
     public function execute(string $functionName, ...$arguments)
     {
+        $functionName = strtoupper($functionName);
+
         if (!isset($this->executors[$functionName])) {
             throw new PlatformFunctionExecutorException(
                 sprintf('Unknown platform function executor "%s" requested.', $functionName)
@@ -54,7 +56,7 @@ final class PlatformFunctionExecutorRegistry
      */
     public function has(string $functionName): bool
     {
-        return isset($this->executors[$functionName]);
+        return isset($this->executors[strtoupper($functionName)]);
     }
 
     /**
@@ -65,6 +67,8 @@ final class PlatformFunctionExecutorRegistry
      */
     public function register(string $functionName, callable $executor): void
     {
+        $functionName = strtoupper($functionName);
+
         if (isset($this->executors[$functionName])) {
             throw new PlatformFunctionExecutorException(
                 sprintf('Platform function executor "%s" already exists.', $functionName)
@@ -82,6 +86,8 @@ final class PlatformFunctionExecutorRegistry
      */
     public function override(string $functionName, callable $executor): void
     {
+        $functionName = strtoupper($functionName);
+
         if (!isset($this->executors[$functionName])) {
             throw new PlatformFunctionExecutorException(
                 sprintf('Platform function executor to be overwritten "%s" does not exist.', $functionName)

@@ -14,49 +14,75 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\Operand;
 
+use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\AbsExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\AvgExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\BitAndExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\BitOrExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\ConcatExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\CountExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\CurrentDateExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\CurrentTimeExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\CurrentTimestampExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\DateAddExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\DateDiffExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\DateSubExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\IdentityExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\LengthExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\LocateExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\LowerExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\MadExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\MaxExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\MinExecutor;
 use Happyr\DoctrineSpecification\PlatformFunction\Executor\PlatformFunctionExecutorRegistry;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\SizeExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\SqrtExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\SubstringExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\SumExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\TrimExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\UpperExecutor;
 
 final class PlatformFunction implements Operand
 {
     /**
      * Doctrine internal functions.
      *
-     * @see \Doctrine\ORM\Query\Parser
+     * @see Parser
      *
      * @var string[]
      */
     private const DOCTRINE_FUNCTIONS = [
         // String functions
-        'concat',
-        'substring',
-        'trim',
-        'lower',
-        'upper',
-        'identity',
+        'CONCAT' => ConcatExecutor::class,
+        'SUBSTRING' => SubstringExecutor::class,
+        'TRIM' => TrimExecutor::class,
+        'LOWER' => LowerExecutor::class,
+        'UPPER' => UpperExecutor::class,
+        'IDENTITY' => IdentityExecutor::class,
         // Numeric functions
-        'length',
-        'locate',
-        'abs',
-        'sqrt',
-        'mod',
-        'size',
-        'date_diff',
-        'bit_and',
-        'bit_or',
+        'LENGTH' => LengthExecutor::class,
+        'LOCATE' => LocateExecutor::class,
+        'ABS' => AbsExecutor::class,
+        'SQRT' => SqrtExecutor::class,
+        'MOD' => MadExecutor::class,
+        'SIZE' => SizeExecutor::class,
+        'DATE_DIFF' => DateDiffExecutor::class,
+        'BIT_AND' => BitAndExecutor::class,
+        'BIT_OR' => BitOrExecutor::class,
         // Aggregate functions
-        'min',
-        'max',
-        'avg',
-        'sum',
-        'count',
+        'MIN' => MinExecutor::class,
+        'MAX' => MaxExecutor::class,
+        'AVG' => AvgExecutor::class,
+        'SUM' => SumExecutor::class,
+        'COUNT' => CountExecutor::class,
         // Datetime functions
-        'current_date',
-        'current_time',
-        'current_timestamp',
-        'date_add',
-        'date_sub',
+        'CURRENT_DATE' => CurrentDateExecutor::class,
+        'CURRENT_TIME' => CurrentTimeExecutor::class,
+        'CURRENT_TIMESTAMP' => CurrentTimestampExecutor::class,
+        'DATE_ADD' => DateAddExecutor::class,
+        'DATE_SUB' => DateSubExecutor::class,
     ];
 
     /**
@@ -92,7 +118,7 @@ final class PlatformFunction implements Operand
      */
     public function transform(QueryBuilder $qb, string $dqlAlias): string
     {
-        if (!in_array(strtolower($this->functionName), self::DOCTRINE_FUNCTIONS, true) &&
+        if (!isset(self::DOCTRINE_FUNCTIONS[strtoupper($this->functionName)]) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomStringFunction($this->functionName) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomNumericFunction($this->functionName) &&
             !$qb->getEntityManager()->getConfiguration()->getCustomDatetimeFunction($this->functionName)
@@ -109,7 +135,7 @@ final class PlatformFunction implements Operand
     }
 
     /**
-     * @param array|object $candidate
+     * @param mixed[]|object $candidate
      *
      * @return mixed
      */
@@ -129,7 +155,13 @@ final class PlatformFunction implements Operand
     public static function getExecutorRegistry(): PlatformFunctionExecutorRegistry
     {
         if (null === self::$executorRegistry) {
-            self::$executorRegistry = new PlatformFunctionExecutorRegistry([]);
+            $instances = [];
+
+            foreach (self::DOCTRINE_FUNCTIONS as $functionName => $class) {
+                $instances[$functionName] = new $class();
+            }
+
+            self::$executorRegistry = new PlatformFunctionExecutorRegistry($instances);
         }
 
         return self::$executorRegistry;
