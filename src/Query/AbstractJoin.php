@@ -35,13 +35,13 @@ abstract class AbstractJoin implements QueryModifier
 
     /**
      * @param string      $field
-     * @param string      $newAlias
+     * @param string|null $newAlias
      * @param string|null $context
      */
-    public function __construct(string $field, string $newAlias, ?string $context = null)
+    public function __construct(string $field, ?string $newAlias = null, ?string $context = null)
     {
         $this->field = $field;
-        $this->newAlias = $newAlias;
+        $this->newAlias = null !== $newAlias ? $newAlias : $field;
         $this->context = $context;
     }
 
