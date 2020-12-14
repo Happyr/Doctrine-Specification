@@ -12,19 +12,17 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 final class SubstringExecutor
 {
     /**
-     * @param string|int ...$arguments
+     * @param string   $string
+     * @param int      $offset
+     * @param int|null $length
      *
      * @return false|string
      */
-    public function __invoke(...$arguments)
+    public function __invoke(string $string, int $offset, ?int $length = null)
     {
-        if (count($arguments) === 2) {
-            [$string, $offset] = $arguments;
-
+        if (null === $length) {
             return substr($string, $offset);
         }
-
-        [$string, $offset, $length] = $arguments;
 
         return substr($string, $offset, $length);
     }

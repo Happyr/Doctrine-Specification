@@ -12,14 +12,13 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 final class BitAndExecutor
 {
     /**
-     * @param int ...$arguments
+     * @param int $a
+     * @param int $b
      *
      * @return int
      */
-    public function __invoke(...$arguments): int
+    public function __invoke(int $a, int $b): int
     {
-        [$x, $y] = $arguments;
-
-        return $x & $y;
+        return $a & $b;
     }
 }

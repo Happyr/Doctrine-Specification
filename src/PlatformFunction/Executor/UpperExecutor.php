@@ -12,14 +12,12 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 final class UpperExecutor
 {
     /**
-     * @param string ...$arguments
+     * @param string $string
      *
      * @return string
      */
-    public function __invoke(...$arguments): string
+    public function __invoke(string $string): string
     {
-        [$string] = $arguments;
-
         return strtoupper($string);
     }
 }

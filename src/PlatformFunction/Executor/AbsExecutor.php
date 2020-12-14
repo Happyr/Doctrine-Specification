@@ -12,14 +12,12 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 final class AbsExecutor
 {
     /**
-     * @param mixed ...$arguments
+     * @param mixed $arithmetic_expression
      *
      * @return float|int
      */
-    public function __invoke(...$arguments)
+    public function __invoke($arithmetic_expression)
     {
-        [$num] = $arguments;
-
-        return abs($num);
+        return abs($arithmetic_expression);
     }
 }

@@ -12,14 +12,12 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 final class SqrtExecutor
 {
     /**
-     * @param mixed ...$arguments
+     * @param float $num
      *
      * @return float
      */
-    public function __invoke(...$arguments): float
+    public function __invoke(float $num): float
     {
-        [$num] = $arguments;
-
         return sqrt($num);
     }
 }

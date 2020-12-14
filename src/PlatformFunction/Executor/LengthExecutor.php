@@ -12,14 +12,12 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 final class LengthExecutor
 {
     /**
-     * @param string ...$arguments
+     * @param string $str
      *
      * @return int
      */
-    public function __invoke(...$arguments): int
+    public function __invoke(string $str): int
     {
-        [$string] = $arguments;
-
-        return strlen($string);
+        return strlen($str);
     }
 }

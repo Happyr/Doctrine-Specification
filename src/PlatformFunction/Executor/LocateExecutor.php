@@ -12,21 +12,15 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 final class LocateExecutor
 {
     /**
-     * @param mixed ...$arguments
+     * @param mixed  $needle
+     * @param string $haystack
+     * @param int    $offset
      *
-     * @return false|int
+     * @return int
      */
-    public function __invoke(...$arguments)
+    public function __invoke($needle, string $haystack, int $offset = 0): int
     {
-        if (count($arguments) === 2) {
-            [$needle, $haystack] = $arguments;
-
-            $position = strpos($haystack, $needle);
-        } else {
-            [$needle, $haystack, $offset] = $arguments;
-
-            $position = strpos($haystack, $needle, $offset);
-        }
+        $position = strpos($haystack, $needle, $offset);
 
         // in DQL position is shifted
         return $position === false ? 0 : $position + 1;

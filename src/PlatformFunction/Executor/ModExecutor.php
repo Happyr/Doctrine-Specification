@@ -9,17 +9,16 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
-final class MadExecutor
+final class ModExecutor
 {
     /**
-     * @param float ...$arguments
+     * @param float $a
+     * @param float $b
      *
      * @return float
      */
-    public function __invoke(...$arguments): float
+    public function __invoke(float $a, float $b): float
     {
-        [$num1, $num2] = $arguments;
-
-        return fmod($num1, $num2);
+        return fmod($a, $b);
     }
 }

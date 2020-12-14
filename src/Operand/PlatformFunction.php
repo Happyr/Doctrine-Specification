@@ -33,7 +33,7 @@ use Happyr\DoctrineSpecification\PlatformFunction\Executor\IdentityExecutor;
 use Happyr\DoctrineSpecification\PlatformFunction\Executor\LengthExecutor;
 use Happyr\DoctrineSpecification\PlatformFunction\Executor\LocateExecutor;
 use Happyr\DoctrineSpecification\PlatformFunction\Executor\LowerExecutor;
-use Happyr\DoctrineSpecification\PlatformFunction\Executor\MadExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\ModExecutor;
 use Happyr\DoctrineSpecification\PlatformFunction\Executor\MaxExecutor;
 use Happyr\DoctrineSpecification\PlatformFunction\Executor\MinExecutor;
 use Happyr\DoctrineSpecification\PlatformFunction\Executor\PlatformFunctionExecutorRegistry;
@@ -66,7 +66,7 @@ final class PlatformFunction implements Operand
         'LOCATE' => LocateExecutor::class,
         'ABS' => AbsExecutor::class,
         'SQRT' => SqrtExecutor::class,
-        'MOD' => MadExecutor::class,
+        'MOD' => ModExecutor::class,
         'SIZE' => SizeExecutor::class,
         'DATE_DIFF' => DateDiffExecutor::class,
         'BIT_AND' => BitAndExecutor::class,

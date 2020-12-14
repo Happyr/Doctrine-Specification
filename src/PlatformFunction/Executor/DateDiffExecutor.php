@@ -12,12 +12,13 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 final class DateDiffExecutor
 {
     /**
-     * @param \DateTimeInterface ...$arguments
+     * @param \DateTimeInterface $date1
+     * @param \DateTimeInterface $date2
      *
      * @return \DateInterval
      */
-    public function __invoke(...$arguments): \DateInterval
+    public function __invoke(\DateTimeInterface $date1, \DateTimeInterface $date2): \DateInterval
     {
-        return $arguments[0]->diff($arguments[1]);
+        return $date1->diff($date2);
     }
 }

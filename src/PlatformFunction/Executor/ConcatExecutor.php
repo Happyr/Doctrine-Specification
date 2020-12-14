@@ -12,12 +12,13 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 final class ConcatExecutor
 {
     /**
-     * @param string ...$arguments
+     * @param string $string1
+     * @param string $string2
      *
      * @return string
      */
-    public function __invoke(...$arguments): string
+    public function __invoke(string $string1, string $string2): string
     {
-        return implode('', ...$arguments);
+        return $string1.$string2;
     }
 }

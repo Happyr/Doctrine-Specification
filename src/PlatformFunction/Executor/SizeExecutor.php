@@ -12,14 +12,12 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 final class SizeExecutor
 {
     /**
-     * @param mixed[]|\Countable ...$arguments
+     * @param mixed[]|\Countable $value
      *
      * @return int
      */
-    public function __invoke(...$arguments): int
+    public function __invoke($value): int
     {
-        [$value] = $arguments;
-
         return count($value);
     }
 }

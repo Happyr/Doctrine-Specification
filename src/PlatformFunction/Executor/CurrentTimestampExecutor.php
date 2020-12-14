@@ -12,11 +12,9 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 final class CurrentTimestampExecutor
 {
     /**
-     * @param mixed ...$arguments
-     *
      * @return \DateTimeImmutable
      */
-    public function __invoke(...$arguments): \DateTimeImmutable
+    public function __invoke(): \DateTimeImmutable
     {
         return new \DateTimeImmutable();
     }
