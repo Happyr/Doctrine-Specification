@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Happyr\DoctrineSpecification\Query\Selection;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\DQLContextResolver;
 
 final class SelectEntity implements Selection
 {
@@ -39,6 +40,6 @@ final class SelectEntity implements Selection
      */
     public function transform(QueryBuilder $qb, string $context): string
     {
-        return $this->context;
+        return DQLContextResolver::resolveAlias($qb, $this->context);
     }
 }

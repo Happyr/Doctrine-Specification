@@ -108,6 +108,6 @@ final class In implements Filter, Satisfiable
             $field = iterator_to_array($field);
         }
 
-        return in_array($value, $field);
+        return in_array($value, $field, true);
     }
 }

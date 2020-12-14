@@ -16,6 +16,7 @@ namespace Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\Query\QueryException;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\DQLContextResolver;
 use Happyr\DoctrineSpecification\Operand\Field;
 
 /**
@@ -34,7 +35,7 @@ final class IndexBy implements QueryModifier
     private $context;
 
     /**
-     * @param Field|string $field    Field name for indexing
+     * @param Field|string $field   Field name for indexing
      * @param string|null  $context DQL alias of field
      */
     public function __construct($field, ?string $context = null)
@@ -42,6 +43,7 @@ final class IndexBy implements QueryModifier
         if (!($field instanceof Field)) {
             $field = new Field($field);
         }
+
         $this->field = $field;
         $this->context = $context;
     }
@@ -58,6 +60,8 @@ final class IndexBy implements QueryModifier
             $context = $this->context;
         }
 
-        $qb->indexBy($context, $this->field->transform($qb, $context));
+        $dqlAlias = DQLContextResolver::resolveAlias($qb, $context);
+
+        $qb->indexBy($dqlAlias, $this->field->transform($qb, $context));
     }
 }

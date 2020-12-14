@@ -82,7 +82,7 @@ abstract class BaseSpecification implements Specification
     private function getContext(string $context): string
     {
         if (null !== $this->context) {
-            return $this->context;
+            return sprintf('%s.%s', $context, $this->context);
         }
 
         return $context;

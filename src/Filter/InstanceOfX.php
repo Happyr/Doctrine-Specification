@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\DQLContextResolver;
 
 final class InstanceOfX implements Filter, Satisfiable
 {
@@ -50,7 +51,9 @@ final class InstanceOfX implements Filter, Satisfiable
             $context = $this->context;
         }
 
-        return (string) $qb->expr()->isInstanceOf($context, $this->value);
+        $dqlAlias = DQLContextResolver::resolveAlias($qb, $context);
+
+        return (string) $qb->expr()->isInstanceOf($dqlAlias, $this->value);
     }
 
     /**

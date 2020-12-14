@@ -20,7 +20,9 @@ public function getFilter(QueryBuilder $qb, string $context): string
         $context = $this->context;
     }
 
-    return (string) $qb->expr()->isNull(sprintf('%s.image', $context));
+    $dqlAlias = DQLContextResolver::resolveAlias($qb, $context);
+
+    return (string) $qb->expr()->isNull(sprintf('%s.image', $dqlAlias));
 }
 ```
 
@@ -55,7 +57,7 @@ public function modify(QueryBuilder $qb, string $context): void
 To make your life easier you may use the `Happyr\DoctrineSpecification\BaseSpecification` class. When you extend
 this class you don't need to bother with `getFilter` or `modify`. You need to do 2 things:
 
-1. If you implement a constructor, make sure to call the parent constructor with $context
+1. If you implement a constructor, make sure to call the parent constructor with `$context`
 2. Implement `getSpec` to return your `Specifications`
 
 Consider the following example.

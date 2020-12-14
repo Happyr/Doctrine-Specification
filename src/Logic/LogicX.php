@@ -61,8 +61,12 @@ abstract class LogicX implements Specification, Satisfiable
     {
         $children = [];
         foreach ($this->children as $spec) {
-            if ($spec instanceof Filter && $filter = $spec->getFilter($qb, $context)) {
-                $children[] = $filter;
+            if ($spec instanceof Filter) {
+                $filter = $spec->getFilter($qb, $context);
+
+                if ($filter) {
+                    $children[] = $filter;
+                }
             }
         }
 
@@ -118,11 +122,11 @@ abstract class LogicX implements Specification, Satisfiable
 
             $satisfied = $child->isSatisfiedBy($candidate);
 
-            if ($satisfied && $this->expression === self::OR_X) {
+            if ($satisfied && self::OR_X === $this->expression) {
                 return true;
             }
 
-            if (!$satisfied && $this->expression === self::AND_X) {
+            if (!$satisfied && self::AND_X === $this->expression) {
                 return false;
             }
         }

@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\DQLContextResolver;
 use Happyr\DoctrineSpecification\Exception\OperandNotExecuteException;
 
 final class Alias implements Operand
@@ -40,7 +41,7 @@ final class Alias implements Operand
      */
     public function transform(QueryBuilder $qb, string $context): string
     {
-        return $this->alias;
+        return DQLContextResolver::resolveAlias($qb, $this->alias);
     }
 
     /**

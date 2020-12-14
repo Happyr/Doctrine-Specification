@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\DQLContextResolver;
 use Happyr\DoctrineSpecification\Query\Selection\Selection;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
@@ -52,7 +53,9 @@ final class Field implements Operand, Selection
             $context = $this->context;
         }
 
-        return sprintf('%s.%s', $context, $this->fieldName);
+        $dqlAlias = DQLContextResolver::resolveAlias($qb, $context);
+
+        return sprintf('%s.%s', $dqlAlias, $this->fieldName);
     }
 
     /**

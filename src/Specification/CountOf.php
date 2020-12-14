@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Happyr\DoctrineSpecification\Specification;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\DQLContextResolver;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 
@@ -41,7 +42,9 @@ final class CountOf implements Specification
      */
     public function getFilter(QueryBuilder $qb, string $context): string
     {
-        $qb->select(sprintf('COUNT(%s)', $context));
+        $dqlAlias = DQLContextResolver::resolveAlias($qb, $context);
+
+        $qb->select(sprintf('COUNT(%s)', $dqlAlias));
 
         if ($this->child instanceof Filter) {
             return $this->child->getFilter($qb, $context);
