@@ -62,7 +62,7 @@ final class LikePattern implements Operand
     }
 
     /**
-     * @param array|object $candidate
+     * @param mixed[]|object $candidate
      *
      * @return string
      */

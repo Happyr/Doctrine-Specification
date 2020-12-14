@@ -56,7 +56,7 @@ final class Field implements Operand, Selection
     }
 
     /**
-     * @param array|object $candidate
+     * @param mixed[]|object $candidate
      *
      * @return mixed
      */

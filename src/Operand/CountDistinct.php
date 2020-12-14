@@ -47,7 +47,7 @@ final class CountDistinct implements Operand
     }
 
     /**
-     * @param array|object $candidate
+     * @param mixed[]|object $candidate
      */
     public function execute($candidate): void
     {

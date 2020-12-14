@@ -55,7 +55,7 @@ final class Value implements Operand
     }
 
     /**
-     * @param array|object $candidate
+     * @param mixed[]|object $candidate
      *
      * @return mixed
      */
