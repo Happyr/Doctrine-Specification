@@ -23,7 +23,7 @@ use Happyr\DoctrineSpecification\Specification\Specification;
 /**
  * This class should be used when you combine two or more Expressions.
  */
-abstract class LogicX implements Specification, Satisfiable
+abstract class LogicX implements Specification
 {
     const AND_X = 'andX';
 

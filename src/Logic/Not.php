@@ -20,7 +20,7 @@ use Happyr\DoctrineSpecification\Filter\Satisfiable;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Specification\Specification;
 
-final class Not implements Specification, Satisfiable
+final class Not implements Specification
 {
     /**
      * @var Filter
