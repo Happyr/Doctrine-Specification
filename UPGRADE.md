@@ -242,6 +242,9 @@
   }
   ```
 
+* The `Satisfiable` interface was added.
+* The `Specification` interface was extends `Satisfiable` interface.
+* The `BaseSpecification` class implement `Satisfiable` interface.
 
 # Upgrade from 1.0 to 1.1
 

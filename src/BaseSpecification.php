@@ -16,6 +16,7 @@ namespace Happyr\DoctrineSpecification;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Filter\Satisfiable;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Specification\Specification;
 
@@ -65,6 +66,34 @@ abstract class BaseSpecification implements Specification
         if ($spec instanceof QueryModifier) {
             $spec->modify($qb, $this->getContext($context));
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function filterCollection(iterable $collection): iterable
+    {
+        $spec = $this->getSpec();
+
+        if ($spec instanceof Satisfiable) {
+            return $spec->filterCollection($collection);
+        }
+
+        return $collection;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isSatisfiedBy($candidate): bool
+    {
+        $spec = $this->getSpec();
+
+        if ($spec instanceof Satisfiable) {
+            return $spec->isSatisfiedBy($candidate);
+        }
+
+        return true;
     }
 
     /**
