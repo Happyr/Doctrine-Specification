@@ -16,13 +16,33 @@ namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
 final class DateAddExecutor
 {
+    private const UNITS = [
+        'year',
+        'month',
+        'week',
+        'day',
+        'hour',
+        'minute',
+        'second',
+    ];
+
     /**
-     * @param mixed ...$arguments
+     * @param \DateTimeInterface $date
+     * @param int                $value
+     * @param string             $unit
      *
-     * @return mixed
+     * @return \DateTimeImmutable
      */
-    public function __invoke(...$arguments)
+    public function __invoke(\DateTimeInterface $date, int $value, string $unit): \DateTimeImmutable
     {
-        // TODO need implement
+        $new_date = new \DateTimeImmutable($date->format(\DateTimeInterface::ISO8601));
+
+        $unit = strtolower($unit);
+
+        if (in_array($unit, self::UNITS, true)) {
+            $new_date = $new_date->modify(sprintf('+%d %s', $value, $unit));
+        }
+
+        return $new_date;
     }
 }
