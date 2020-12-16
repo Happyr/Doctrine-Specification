@@ -17,6 +17,7 @@ namespace Happyr\DoctrineSpecification\Specification;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\DQLContextResolver;
 use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Filter\Satisfiable;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 
 final class CountOf implements Specification
@@ -62,5 +63,29 @@ final class CountOf implements Specification
         if ($this->child instanceof QueryModifier) {
             $this->child->modify($qb, $context);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function filterCollection(iterable $collection): iterable
+    {
+        if ($this->child instanceof Satisfiable) {
+            return $this->child->filterCollection($collection);
+        }
+
+        return $collection;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isSatisfiedBy($candidate): bool
+    {
+        if ($this->child instanceof Satisfiable) {
+            return $this->child->isSatisfiedBy($candidate);
+        }
+
+        return true;
     }
 }
