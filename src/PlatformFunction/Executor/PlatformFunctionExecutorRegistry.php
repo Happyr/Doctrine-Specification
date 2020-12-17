@@ -30,7 +30,9 @@ final class PlatformFunctionExecutorRegistry
      */
     public function __construct(array $executors)
     {
-        $this->executors = $executors;
+        foreach ($executors as $functionName => $executor) {
+            $this->register($functionName, $executor);
+        }
     }
 
     /**
