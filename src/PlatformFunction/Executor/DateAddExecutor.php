@@ -47,7 +47,7 @@ final class DateAddExecutor
             ));
         }
 
-        $new_date = new \DateTimeImmutable($date->format(\DateTimeInterface::ISO8601));
+        $new_date = new \DateTimeImmutable($date->format('Y-m-d H:i:s'), $date->getTimezone());
 
         return $new_date->modify(sprintf('+%d %s', $value, $unit));
     }

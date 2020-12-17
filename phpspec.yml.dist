@@ -1,4 +1,3 @@
-
 suites:
     main:
         namespace: Happyr\DoctrineSpecification
