@@ -9,17 +9,16 @@ declare(strict_types=1);
 
 namespace tests\Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
-use Happyr\DoctrineSpecification\PlatformFunction\Executor\BitAndExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\LengthExecutor;
 use PhpSpec\ObjectBehavior;
 
 /**
- * @mixin BitAndExecutor
+ * @mixin LengthExecutor
  */
-final class BitAndExecutorSpec extends ObjectBehavior
+final class LengthExecutorSpec extends ObjectBehavior
 {
-    public function it_should_add_bit(): void
+    public function it_should_return_string_length(): void
     {
-        $this(1, 2)->shouldBe(0);
-        $this(3, 2)->shouldBe(2);
+        $this('foo')->shouldBe(3);
     }
 }

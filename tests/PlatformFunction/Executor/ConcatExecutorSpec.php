@@ -17,7 +17,7 @@ use PhpSpec\ObjectBehavior;
  */
 final class ConcatExecutorSpec extends ObjectBehavior
 {
-    public function it_should_be_executable(): void
+    public function it_should_concat_strings(): void
     {
         $this('foo', 'bar')->shouldBe('foobar');
     }

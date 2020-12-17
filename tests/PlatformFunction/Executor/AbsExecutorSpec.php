@@ -17,7 +17,7 @@ use PhpSpec\ObjectBehavior;
  */
 final class AbsExecutorSpec extends ObjectBehavior
 {
-    public function it_should_be_executable(): void
+    public function it_should_return_absolute_value(): void
     {
         $this(-5)->shouldBe(5);
         $this(5)->shouldBe(5);

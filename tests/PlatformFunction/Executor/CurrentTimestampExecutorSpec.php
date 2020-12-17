@@ -17,7 +17,7 @@ use PhpSpec\ObjectBehavior;
  */
 final class CurrentTimestampExecutorSpec extends ObjectBehavior
 {
-    public function it_should_be_executable(): void
+    public function it_should_return_current_timestamp(): void
     {
         $this()->shouldBeAnInstanceOf(\DateTimeImmutable::class);
         $this()->shouldBeWithDefaultTimeZone();

@@ -17,7 +17,7 @@ use PhpSpec\ObjectBehavior;
  */
 final class BitOrExecutorSpec extends ObjectBehavior
 {
-    public function it_should_be_executable(): void
+    public function it_should_or_bit(): void
     {
         $this(1, 2)->shouldBe(3);
         $this(3, 2)->shouldBe(3);
