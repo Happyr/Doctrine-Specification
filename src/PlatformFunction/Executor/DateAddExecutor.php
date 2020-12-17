@@ -14,16 +14,18 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
+use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
+
 final class DateAddExecutor
 {
     private const UNITS = [
-        'year',
-        'month',
-        'week',
-        'day',
-        'hour',
-        'minute',
-        'second',
+        'YEAR',
+        'MONTH',
+        'WEEK',
+        'DAY',
+        'HOUR',
+        'MINUTE',
+        'SECOND',
     ];
 
     /**
@@ -31,18 +33,22 @@ final class DateAddExecutor
      * @param int                $value
      * @param string             $unit
      *
+     * @throws InvalidArgumentException
+     *
      * @return \DateTimeImmutable
      */
     public function __invoke(\DateTimeInterface $date, int $value, string $unit): \DateTimeImmutable
     {
-        $new_date = new \DateTimeImmutable($date->format(\DateTimeInterface::ISO8601));
-
-        $unit = strtolower($unit);
-
-        if (in_array($unit, self::UNITS, true)) {
-            $new_date = $new_date->modify(sprintf('+%d %s', $value, $unit));
+        if (!in_array(strtoupper($unit), self::UNITS, true)) {
+            throw new InvalidArgumentException(sprintf(
+                'The DATE_ADD() function support "%s" units, got "%s" instead.',
+                implode('", "', self::UNITS),
+                $unit
+            ));
         }
 
-        return $new_date;
+        $new_date = new \DateTimeImmutable($date->format(\DateTimeInterface::ISO8601));
+
+        return $new_date->modify(sprintf('+%d %s', $value, $unit));
     }
 }
