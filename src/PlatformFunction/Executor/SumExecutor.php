@@ -19,9 +19,9 @@ use Happyr\DoctrineSpecification\Exception\OperandNotExecuteException;
 final class SumExecutor
 {
     /**
-     * @param mixed ...$arguments
+     * @throw OperandNotExecuteException
      */
-    public function __invoke(...$arguments): void
+    public function __invoke(): void
     {
         throw new OperandNotExecuteException(
             sprintf('Platform function "%s" cannot be executed for a single candidate.', __CLASS__)
