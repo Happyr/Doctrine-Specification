@@ -21,7 +21,7 @@ final class CurrentTimeExecutorSpec extends ObjectBehavior
     {
         $this()->shouldBeAnInstanceOf(\DateTimeImmutable::class);
         $this()->shouldBeWithDefaultTimeZone();
-        $this()->shouldBeCurrentTimestamp();
+        $this()->shouldBeCurrentTime();
     }
 
     public function getMatchers(): array
@@ -30,7 +30,7 @@ final class CurrentTimeExecutorSpec extends ObjectBehavior
             'beWithDefaultTimeZone' => function (\DateTimeInterface $subject): bool {
                 return $subject->getTimezone()->getName() === date_default_timezone_get();
             },
-            'beCurrentTimestamp' => function (\DateTimeInterface $subject): bool {
+            'beCurrentTime' => function (\DateTimeInterface $subject): bool {
                 return $subject->getTimestamp() === (new \DateTimeImmutable())->setDate(1, 1, 1)->getTimestamp();
             },
         ];
