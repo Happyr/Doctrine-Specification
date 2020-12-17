@@ -33,6 +33,11 @@
             "Happyr\\DoctrineSpecification\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "tests\\Happyr\\DoctrineSpecification\\": "tests/"
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "2.0-dev"
