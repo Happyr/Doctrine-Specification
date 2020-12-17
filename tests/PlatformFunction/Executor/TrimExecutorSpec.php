@@ -9,16 +9,16 @@ declare(strict_types=1);
 
 namespace tests\Happyr\DoctrineSpecification\PlatformFunction\Executor;
 
-use Happyr\DoctrineSpecification\PlatformFunction\Executor\SqrtExecutor;
+use Happyr\DoctrineSpecification\PlatformFunction\Executor\TrimExecutor;
 use PhpSpec\ObjectBehavior;
 
 /**
- * @mixin SqrtExecutor
+ * @mixin TrimExecutor
  */
-final class SqrtExecutorSpec extends ObjectBehavior
+final class TrimExecutorSpec extends ObjectBehavior
 {
-    public function it_should_return_square_root(): void
+    public function it_should_trim_value(): void
     {
-        $this(9.0)->shouldBe(3.0);
+        $this(' foo ')->shouldBe('foo');
     }
 }
