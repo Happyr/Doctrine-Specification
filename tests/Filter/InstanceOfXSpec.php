@@ -20,6 +20,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\InstanceOfX;
 use PhpSpec\ObjectBehavior;
+use tests\Happyr\DoctrineSpecification\Player;
 
 /**
  * @mixin InstanceOfX
@@ -49,5 +50,49 @@ final class InstanceOfXSpec extends ObjectBehavior
         $qb->expr()->willReturn($exp);
 
         $this->getFilter($qb, 'o')->shouldReturn('o INSTANCE OF My\Model');
+    }
+
+    public function it_filter_array_collection(): void
+    {
+        $this->beConstructedWith(Player::class, null);
+
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
+        ];
+
+        $this->filterCollection($players)->shouldYield([]);
+    }
+
+    public function it_filter_object_collection(): void
+    {
+        $this->beConstructedWith(Player::class, null);
+
+        $players = [
+            new Player('Joe',   'M', 2500),
+            new Player('Moe',   'M', 1230),
+            new Player('Alice', 'F', 9001),
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[0], $players[1], $players[2]]);
+    }
+
+    public function it_is_satisfied_with_array(): void
+    {
+        $this->beConstructedWith(Player::class, null);
+
+        $player = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
+
+        $this->isSatisfiedBy($player)->shouldBe(false);
+    }
+
+    public function it_is_satisfied_with_object(): void
+    {
+        $this->beConstructedWith(Player::class, null);
+
+        $player = new Player('Alice', 'F', 9001);
+
+        $this->isSatisfiedBy($player)->shouldBe(true);
     }
 }
