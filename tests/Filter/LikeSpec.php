@@ -49,7 +49,7 @@ final class LikeSpec extends ObjectBehavior
 
         $qb->setParameter('comparison_1', '%bar%')->shouldBeCalled();
 
-        $this->match($qb, null);
+        $this->getFilter($qb, 'a');
     }
 
     public function it_starts_with_wildcard_when_using_ends_with(QueryBuilder $qb, ArrayCollection $parameters): void
@@ -60,7 +60,7 @@ final class LikeSpec extends ObjectBehavior
 
         $qb->setParameter('comparison_1', '%bar')->shouldBeCalled();
 
-        $this->match($qb, null);
+        $this->getFilter($qb, 'a');
     }
 
     public function it_ends_with_wildcard_when_using_starts_with(QueryBuilder $qb, ArrayCollection $parameters): void
@@ -71,6 +71,6 @@ final class LikeSpec extends ObjectBehavior
 
         $qb->setParameter('comparison_1', 'bar%')->shouldBeCalled();
 
-        $this->match($qb, null);
+        $this->getFilter($qb, 'a');
     }
 }
