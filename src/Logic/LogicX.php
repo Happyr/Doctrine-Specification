@@ -115,10 +115,14 @@ abstract class LogicX implements Specification
      */
     public function isSatisfiedBy($candidate): bool
     {
+        $has_satisfiable_children = false;
+
         foreach ($this->children as $child) {
             if (!$child instanceof Satisfiable) {
                 continue;
             }
+
+            $has_satisfiable_children = true;
 
             $satisfied = $child->isSatisfiedBy($candidate);
 
@@ -131,7 +135,7 @@ abstract class LogicX implements Specification
             }
         }
 
-        return true;
+        return !$has_satisfiable_children || self::AND_X === $this->expression;
     }
 
     /**
