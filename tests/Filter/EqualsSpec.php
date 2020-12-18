@@ -62,7 +62,7 @@ final class EqualsSpec extends ObjectBehavior
         $this->getFilter($qb, 'x')->shouldReturn('x.age = :comparison_10');
     }
 
-    public function is_filter_array_collection(): void
+    public function it_filter_array_collection(): void
     {
         $this->beConstructedWith('gender', 'F', null);
 
