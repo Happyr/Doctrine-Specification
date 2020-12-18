@@ -62,15 +62,8 @@ final class Not implements Specification
      */
     public function filterCollection(iterable $collection): iterable
     {
-        if (!$this->child instanceof Satisfiable) {
-            // convert iterable collection into a generator for consistency of the returned data type
-            foreach ($collection as $candidate) {
-                yield $candidate;
-            }
-        }
-
         foreach ($collection as $candidate) {
-            if (!$this->child->isSatisfiedBy($candidate)) {
+            if (!$this->child instanceof Satisfiable || !$this->child->isSatisfiedBy($candidate)) {
                 yield $candidate;
             }
         }
@@ -81,10 +74,6 @@ final class Not implements Specification
      */
     public function isSatisfiedBy($candidate): bool
     {
-        if (!$this->child instanceof Satisfiable) {
-            return true;
-        }
-
-        return !$this->child->isSatisfiedBy($candidate);
+        return !$this->child instanceof Satisfiable || !$this->child->isSatisfiedBy($candidate);
     }
 }
