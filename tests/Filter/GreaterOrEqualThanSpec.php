@@ -90,23 +90,27 @@ final class GreaterOrEqualThanSpec extends ObjectBehavior
 
     public function it_is_satisfied_with_array(): void
     {
-        $this->beConstructedWith('points', 9000, null);
+        $this->beConstructedWith('points', 2500, null);
 
         $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
-        $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9000];
+        $playerB = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230];
+        $playerC = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
 
-        $this->isSatisfiedBy($playerA)->shouldBe(false);
-        $this->isSatisfiedBy($playerB)->shouldBe(true);
+        $this->isSatisfiedBy($playerA)->shouldBe(true);
+        $this->isSatisfiedBy($playerB)->shouldBe(false);
+        $this->isSatisfiedBy($playerC)->shouldBe(true);
     }
 
     public function it_is_satisfied_with_object(): void
     {
-        $this->beConstructedWith('points', 9000, null);
+        $this->beConstructedWith('points', 2500, null);
 
         $playerA = new Player('Joe',   'M', 2500);
-        $playerB = new Player('Alice', 'F', 9000);
+        $playerB = new Player('Moe',   'M', 1230);
+        $playerC = new Player('Alice', 'F', 9001);
 
-        $this->isSatisfiedBy($playerA)->shouldBe(false);
-        $this->isSatisfiedBy($playerB)->shouldBe(true);
+        $this->isSatisfiedBy($playerA)->shouldBe(true);
+        $this->isSatisfiedBy($playerB)->shouldBe(false);
+        $this->isSatisfiedBy($playerC)->shouldBe(true);
     }
 }
