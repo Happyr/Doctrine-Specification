@@ -19,6 +19,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\GreaterThan;
 use PhpSpec\ObjectBehavior;
+use tests\Happyr\DoctrineSpecification\Player;
 
 /**
  * @mixin GreaterThan
@@ -59,5 +60,53 @@ final class GreaterThanSpec extends ObjectBehavior
         $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
 
         $this->getFilter($qb, 'x')->shouldReturn('x.age > :comparison_10');
+    }
+
+    public function is_filter_array_collection(): void
+    {
+        $this->beConstructedWith('points', 9000, null);
+
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[2]]);
+    }
+
+    public function it_filter_object_collection(): void
+    {
+        $this->beConstructedWith('points', 9000, null);
+
+        $players = [
+            new Player('Joe',   'M', 2500),
+            new Player('Moe',   'M', 1230),
+            new Player('Alice', 'F', 9001),
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[2]]);
+    }
+
+    public function it_is_satisfied_with_array(): void
+    {
+        $this->beConstructedWith('points', 9000, null);
+
+        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
+
+        $this->isSatisfiedBy($playerA)->shouldBe(false);
+        $this->isSatisfiedBy($playerB)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_with_object(): void
+    {
+        $this->beConstructedWith('points', 9000, null);
+
+        $playerA = new Player('Joe',   'M', 2500);
+        $playerB = new Player('Alice', 'F', 9001);
+
+        $this->isSatisfiedBy($playerA)->shouldBe(false);
+        $this->isSatisfiedBy($playerB)->shouldBe(true);
     }
 }
