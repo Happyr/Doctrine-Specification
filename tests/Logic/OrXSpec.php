@@ -22,6 +22,7 @@ use Happyr\DoctrineSpecification\Filter\GreaterThan;
 use Happyr\DoctrineSpecification\Logic\OrX;
 use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
+use tests\Happyr\DoctrineSpecification\Player;
 
 /**
  * @mixin OrX
@@ -91,98 +92,111 @@ final class OrXSpec extends ObjectBehavior
         $this->getFilter($qb, $context);
     }
 
-    public function it_filter_collection(): void
+    public function it_filter_array_collection(): void
     {
-        $playersArr = [
+        $this->beConstructedWith(
+            new Equals('gender', 'F'),
+            new GreaterThan('points', 9000)
+        );
+
+        $players = [
             ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
             ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 9001],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 1230],
         ];
 
-        $playersObj = [
-            $this->createPlayer('Joe',   'M', 2500),
-            $this->createPlayer('Moe',   'M', 9001),
-            $this->createPlayer('Alice', 'F', 1230),
-        ];
+        $this->filterCollection($players)->shouldYield([$players[1], $players[2]]);
+    }
 
+    public function it_filter_object_collection(): void
+    {
         $this->beConstructedWith(
             new Equals('gender', 'F'),
             new GreaterThan('points', 9000)
         );
 
-        $this->filterCollection($playersArr)->shouldYield([$playersArr[1], $playersArr[2]]);
-        $this->filterCollection($playersObj)->shouldYield([$playersObj[1], $playersObj[2]]);
+        $players = [
+            new Player('Joe',   'M', 2500),
+            new Player('Moe',   'M', 9001),
+            new Player('Alice', 'F', 1230),
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[1], $players[2]]);
     }
 
-    public function it_filter_collection_not_satisfiable(Filter $exprA, Filter $exprB): void
+    public function it_filter_array_collection_not_satisfiable(Filter $exprA, Filter $exprB): void
     {
-        $playersArr = [
+        $this->beConstructedWith($exprA, $exprB);
+
+        $players = [
             ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
             ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
         ];
 
-        $playersObj = [
-            $this->createPlayer('Joe',   'M', 2500),
-            $this->createPlayer('Moe',   'M', 1230),
-            $this->createPlayer('Alice', 'F', 9001),
-        ];
-
-        $this->beConstructedWith($exprA, $exprB);
-
-        $this->filterCollection($playersArr)->shouldNotYield([]);
-        $this->filterCollection($playersObj)->shouldNotYield([]);
+        $this->filterCollection($players)->shouldNotYield([]);
     }
 
-    public function it_is_satisfied_by(): void
+    public function it_filter_object_collection_not_satisfiable(Filter $exprA, Filter $exprB): void
     {
-        $playerArrA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
-        $playerArrB = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 9001];
-        $playerArrC = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 1230];
+        $this->beConstructedWith($exprA, $exprB);
 
-        $playersObjA = $this->createPlayer('Joe',   'M', 2500);
-        $playersObjB = $this->createPlayer('Moe',   'M', 9001);
-        $playersObjC = $this->createPlayer('Alice', 'F', 1230);
+        $players = [
+            new Player('Joe',   'M', 2500),
+            new Player('Moe',   'M', 1230),
+            new Player('Alice', 'F', 9001),
+        ];
 
+        $this->filterCollection($players)->shouldNotYield([]);
+    }
+
+    public function it_is_satisfied_with_array(): void
+    {
         $this->beConstructedWith(
             new Equals('gender', 'F'),
             new GreaterThan('points', 9000)
         );
 
-        $this->isSatisfiedBy($playerArrA)->shouldBe(false);
-        $this->isSatisfiedBy($playerArrB)->shouldBe(true);
-        $this->isSatisfiedBy($playerArrC)->shouldBe(true);
-        $this->isSatisfiedBy($playersObjA)->shouldBe(false);
-        $this->isSatisfiedBy($playersObjB)->shouldBe(true);
-        $this->isSatisfiedBy($playersObjC)->shouldBe(true);
+        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerB = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 9001];
+        $playerC = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 1230];
+
+        $this->isSatisfiedBy($playerA)->shouldBe(false);
+        $this->isSatisfiedBy($playerB)->shouldBe(true);
+        $this->isSatisfiedBy($playerC)->shouldBe(true);
     }
 
-    public function it_is_satisfied_by_not_satisfiable(Filter $exprA, Filter $exprB): void
+    public function it_is_satisfied_with_object(): void
     {
-        $playerArr = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
+        $this->beConstructedWith(
+            new Equals('gender', 'F'),
+            new GreaterThan('points', 9000)
+        );
 
-        $playersObj = $this->createPlayer('Alice', 'F', 9001);
+        $playerA = new Player('Joe',   'M', 2500);
+        $playerB = new Player('Moe',   'M', 9001);
+        $playerC = new Player('Alice', 'F', 1230);
 
+        $this->isSatisfiedBy($playerA)->shouldBe(false);
+        $this->isSatisfiedBy($playerB)->shouldBe(true);
+        $this->isSatisfiedBy($playerC)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_with_array_not_satisfiable(Filter $exprA, Filter $exprB): void
+    {
         $this->beConstructedWith($exprA, $exprB);
 
-        $this->isSatisfiedBy($playerArr)->shouldBe(true);
-        $this->isSatisfiedBy($playersObj)->shouldBe(true);
+        $player = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
+
+        $this->isSatisfiedBy($player)->shouldBe(true);
     }
 
-    /**
-     * @param string $pseudo
-     * @param string $gender
-     * @param int    $points
-     *
-     * @return \stdClass
-     */
-    private function createPlayer(string $pseudo, string $gender, int $points): \stdClass
+    public function it_is_satisfied_with_object_not_satisfiable(Filter $exprA, Filter $exprB): void
     {
-        $player = new \stdClass();
-        $player->pseudo = $pseudo;
-        $player->gender = $gender;
-        $player->points = $points;
+        $this->beConstructedWith($exprA, $exprB);
 
-        return $player;
+        $player = new Player('Alice', 'F', 9001);
+
+        $this->isSatisfiedBy($player)->shouldBe(true);
     }
 }
