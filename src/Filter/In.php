@@ -104,10 +104,10 @@ final class In implements Filter, Satisfiable
      */
     private function contains($field, $value): bool
     {
-        if ($field instanceof \Traversable) {
-            $field = iterator_to_array($field);
+        if ($value instanceof \Traversable) {
+            $value = iterator_to_array($value);
         }
 
-        return in_array($value, $field, true);
+        return in_array($field, $value, true);
     }
 }
