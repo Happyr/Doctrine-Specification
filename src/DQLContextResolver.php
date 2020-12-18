@@ -174,7 +174,7 @@ final class DQLContextResolver
     {
         $newAlias = $dqlAlias;
 
-        while (in_array($newAlias, $qb->getAllAliases(), true)) {
+        while (self::$conflictProtection && in_array($newAlias, $qb->getAllAliases(), true)) {
             $newAlias = uniqid($dqlAlias);
         }
 
