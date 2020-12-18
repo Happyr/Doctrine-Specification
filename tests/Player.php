@@ -22,16 +22,16 @@ final class Player
     public $gender;
 
     /**
-     * @var int
+     * @var int|null
      */
     public $points;
 
     /**
-     * @param string $pseudo
-     * @param string $gender
-     * @param int    $points
+     * @param string   $pseudo
+     * @param string   $gender
+     * @param int|null $points
      */
-    public function __construct(string $pseudo, string $gender, int $points)
+    public function __construct(string $pseudo, string $gender, ?int $points)
     {
         $this->pseudo = $pseudo;
         $this->gender = $gender;
