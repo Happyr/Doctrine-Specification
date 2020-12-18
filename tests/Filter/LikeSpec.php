@@ -12,14 +12,17 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace tests\Happyr\DoctrineSpecification\Spec;
+namespace tests\Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\Like;
-use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
 
+/**
+ * @mixin Like
+ */
 final class LikeSpec extends ObjectBehavior
 {
     private $field = 'foo';
@@ -31,9 +34,9 @@ final class LikeSpec extends ObjectBehavior
         $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, 'context');
     }
 
-    public function it_is_a_specification(): void
+    public function it_is_an_expression(): void
     {
-        $this->shouldHaveType(Specification::class);
+        $this->shouldBeAnInstanceOf(Filter::class);
     }
 
     public function it_surrounds_with_wildcards_when_using_contains(
