@@ -19,7 +19,9 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\Multiplication;
 use Happyr\DoctrineSpecification\Operand\Operand;
+use Happyr\DoctrineSpecification\Operand\Value;
 use PhpSpec\ObjectBehavior;
+use tests\Happyr\DoctrineSpecification\Player;
 
 /**
  * @mixin Multiplication
@@ -59,5 +61,41 @@ final class MultiplicationSpec extends ObjectBehavior
     {
         $this->beConstructedWith(new Field('foo'), new Field('bar'));
         $this->transform($qb, 'a')->shouldReturn('(a.foo * a.bar)');
+    }
+
+    public function it_is_executable_object(): void
+    {
+        $this->beConstructedWith('points', 100);
+
+        $player = new Player('Moe', 'M', 1230);
+
+        $this->execute($player)->shouldReturn(123000);
+    }
+
+    public function it_is_executable_object_with_operands(): void
+    {
+        $this->beConstructedWith(new Field('points'), new Value(100));
+
+        $player = new Player('Moe', 'M', 1230);
+
+        $this->execute($player)->shouldReturn(123000);
+    }
+
+    public function it_is_executable_array(): void
+    {
+        $this->beConstructedWith('points', 100);
+
+        $player = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230];
+
+        $this->execute($player)->shouldReturn(123000);
+    }
+
+    public function it_is_executable_array_with_operands(): void
+    {
+        $this->beConstructedWith(new Field('points'), new Value(100));
+
+        $player = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230];
+
+        $this->execute($player)->shouldReturn(123000);
     }
 }
