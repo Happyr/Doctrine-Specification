@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace tests\Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Exception\OperandNotExecuteException;
 use Happyr\DoctrineSpecification\Operand\CountDistinct;
 use Happyr\DoctrineSpecification\Operand\Operand;
 use PhpSpec\ObjectBehavior;
@@ -44,5 +45,12 @@ final class CountDistinctSpec extends ObjectBehavior
     public function it_is_transformable(QueryBuilder $qb): void
     {
         $this->transform($qb, 'a')->shouldReturn('COUNT(DISTINCT a.foo)');
+    }
+
+    public function it_is_executable(): void
+    {
+        $candidate = null; // not used
+
+        $this->shouldThrow(OperandNotExecuteException::class)->duringExecute($candidate);
     }
 }
