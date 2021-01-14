@@ -1,4 +1,5 @@
 # Happyr Doctrine Specification
+
 [![Build Status Travis (.org)](https://img.shields.io/travis/happyr/doctrine-specification.svg)](https://travis-ci.org/Happyr/Doctrine-Specification)
 [![Latest Stable Version Packagist](https://img.shields.io/packagist/v/happyr/doctrine-specification.svg)](https://packagist.org/packages/happyr/doctrine-specification)
 [![Monthly Downloads Packagist](https://img.shields.io/packagist/dm/happyr/doctrine-specification.svg)](https://packagist.org/packages/happyr/doctrine-specification)
@@ -195,6 +196,68 @@ is no way to reuse `filterOwnedByCompany()` in that case.
 * Different parts of the QueryBuilder filtering cannot be composed together, because of the way the API is created.
 Assume we have a filterGroupsForApi() call, there is no way to combine it with another call filterGroupsForPermissions().
 Instead reusing this code will lead to a third method filterGroupsForApiAndPermissions().
+
+## Check single entity
+
+```php
+$highRankFemalesSpec = Spec::andX(
+    Spec::eq('gender', 'F'),
+    Spec::gt('points', 9000)
+);
+
+// an array of arrays
+$playersArr = [
+    ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+    ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+    ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
+];
+
+// or an array of objects
+$playersObj = [
+    new Player('Joe',   'M', 40, 2500),
+    new Player('Moe',   'M', 55, 1230),
+    new Player('Alice', 'F', 27, 9001),
+];
+
+foreach ($playersArr as $playerArr) {
+    if ($highRankFemalesSpec->isSatisfiedBy($playerArr)) {
+        // do something
+    }
+}
+
+foreach ($playersObj as $playerObj) {
+    if ($highRankFemalesSpec->isSatisfiedBy($playerObj)) {
+        // do something
+    }
+}
+```
+
+## Filter collection
+
+```php
+$highRankFemalesSpec = Spec::andX(
+    Spec::eq('gender', 'F'),
+    Spec::gt('points', 9000)
+);
+
+// an array of arrays
+$playersArr = [
+    ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+    ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+    ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
+];
+
+// or an array of objects
+$playersObj = [
+    new Player('Joe',   'M', 40, 2500),
+    new Player('Moe',   'M', 55, 1230),
+    new Player('Alice', 'F', 27, 9001),
+];
+
+$highRankFemales = $highRankFemalesSpec->filterCollection($playersArr);
+$highRankFemales = $highRankFemalesSpec->filterCollection($playersObj);
+$highRankFemales = $this->em->getRepository(Player::class)->match($highRankFemalesSpec);
+```
 
 ## Continue reading
 

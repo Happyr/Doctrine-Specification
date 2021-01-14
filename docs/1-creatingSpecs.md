@@ -20,42 +20,71 @@ public function getFilter(QueryBuilder $qb, string $context): string
         $context = $this->context;
     }
 
-    $dqlAlias = DQLContextResolver::resolveAlias($qb, $context);
+    $field = ArgumentToOperandConverter::toField('image');
 
-    return (string) $qb->expr()->isNull(sprintf('%s.image', $dqlAlias));
+    return (string) $qb->expr()->isNull($field->transform($qb, $context));
 }
 ```
 
-You will get a QueryBuilder and a $context as parameters. The $context is (by default) the alias for the root entity.
-You may use or change the alias as you like.
-
+You will get a `QueryBuilder` and a `$context` as parameters. The `$context` is (by default) the alias for the root
+entity. You may use or change the alias as you like.
 
 ### Modify
 
 Implement this function if you want to make any changes to the query object. Say that you want to join an other table
-or limit the result set. Consider this `JoinUserSettingsModifier`.
+or limit the result set. Consider this `SmartContestCache`.
 
 ```php
-/**
- * @param QueryBuilder $qb
- * @param string       $context
- */
-public function modify(QueryBuilder $qb, string $context): void
+public function modify(AbstractQuery $query): void
 {
-    if ($this->context !== null) {
-        $context = $this->context;
+    if ($this->contest->isEnded()) {
+        $lifetime = 3600;
+    } elseif (!$this->contest->voteOptions()->isVotingEnabled()) {
+        $lifetime = 600;
+    } else {
+        $lifetime = 300;
     }
 
-    $qb->join(sprintf('%s.settings', $context), 'settings');
+    $query->setResultCacheLifetime($lifetime);
 }
-
 ```
 
+### FilterCollection
+
+You can write a rule with which you will filter the collection of entities and discard non-matching entities.
+
+```php
+public function filterCollection(iterable $collection): iterable
+{
+    $field = ArgumentToOperandConverter::toField($this->field);
+    $value = ArgumentToOperandConverter::toValue($this->value);
+
+    foreach ($collection as $candidate) {
+        if ($field->execute($candidate) === $value->execute($candidate))) {
+            yield $candidate;
+        }
+    }
+}
+```
+
+### IsSatisfiedBy
+
+You can check a specific entity against a specific rule.
+
+```php
+public function isSatisfiedBy($candidate): bool
+{
+    $field = ArgumentToOperandConverter::toField($this->field);
+    $value = ArgumentToOperandConverter::toValue($this->value);
+
+    return $field->execute($candidate) >= $value->execute($candidate);
+}
+```
 
 ## BaseSpecification
 
 To make your life easier you may use the `Happyr\DoctrineSpecification\BaseSpecification` class. When you extend
-this class you don't need to bother with `getFilter` or `modify`. You need to do 2 things:
+this class you don't need to bother with `getFilter`, `modify`, `filterCollection` or `isSatisfiedBy`. You need to do 2 things:
 
 1. If you implement a constructor, make sure to call the parent constructor with `$context`
 2. Implement `getSpec` to return your `Specifications`
@@ -80,6 +109,120 @@ class IsActive extends BaseSpecification
             Spec::eq('banned', false),
             Spec::gt('lastLogin', new \DateTime('-6months'))
         );
+    }
+}
+```
+
+You also don't need to worry about joins. The Happyr Doctrine Specification will do everything for you.
+
+```php
+use Happyr\DoctrineSpecification\BaseSpecification;
+use Happyr\DoctrineSpecification\Spec;
+
+/**
+ * Matches every questionnaires of active user in active contests
+ */
+class PublishedQuestionnaires extends BaseSpecification
+{
+    /**
+     * @return Filter|QueryModifier
+     */
+    public function getSpec()
+    {
+        return Spec::andX(
+            Spec::eq('contestant.user.state', State::active()->value()),
+            Spec::eq('contestant.contest.enabled', true)
+        );
+    }
+}
+```
+
+The greatest benefit from specs is when you divide rules into small specs and compose them.
+
+```php
+final class PublishedQuestionnaires extends BaseSpecification
+{
+    /**
+     * @return Filter|QueryModifier
+     */
+    protected function getSpec()
+    {
+        return new ContestantPublished($this->getNestedContext('contestant'));
+    }
+}
+
+final class ContestantPublished extends BaseSpecification
+{
+    /**
+     * @return Filter|QueryModifier
+     */
+    protected function getSpec()
+    {
+        return Spec::andX(
+            new JoinedContestant(),
+            new ContestantApproved()
+        );
+    }
+}
+
+final class JoinedContestant extends BaseSpecification
+{
+    /**
+     * @return Filter|QueryModifier
+     */
+    protected function getSpec()
+    {
+        return Spec::andX(
+            new UserActivated($this->getNestedContext('user')),
+            new ContestPublished($this->getNestedContext('contest'))
+        );
+    }
+}
+
+final class UserActivated extends BaseSpecification
+{
+    /**
+     * @return Filter|QueryModifier
+     */
+    protected function getSpec()
+    {
+        return Spec::eq('state', State::active()->value());
+    }
+}
+
+final class ContestPublished extends BaseSpecification
+{
+    /**
+     * @return Filter|QueryModifier
+     */
+    protected function getSpec()
+    {
+        return Spec::eq('enabled', true);
+    }
+}
+
+final class ContestantApproved extends BaseSpecification
+{
+    /**
+     * @return Filter|QueryModifier
+     */
+    protected function getSpec()
+    {
+        return Spec::orX(
+            Spec::eq('permission', Permission::approved()->value()),
+            Spec::not(new ContestRequireModeration($this->getNestedContext('contest')))
+        );
+    }
+}
+
+final class ContestRequireModeration extends BaseSpecification implements Satisfiable
+{
+    /**
+     * @return Filter|QueryModifier
+     */
+    protected function getSpec()
+    {
+        return Spec::eq('join_options.require_moderation', true);
     }
 }
 ```
