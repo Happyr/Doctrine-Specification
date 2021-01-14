@@ -74,7 +74,7 @@ final class FieldSpec extends ObjectBehavior
     {
         $this->beConstructedWith('pseudo');
 
-        $player = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230];
 
         $this->execute($player)->shouldReturn($player['pseudo']);
     }
@@ -94,7 +94,7 @@ final class FieldSpec extends ObjectBehavior
         $this->beConstructedWith('name', 'inGame');
 
         $game = ['name' => 'Tetris'];
-        $player = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $game];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
 
         $this->execute($player)->shouldReturn($game['name']);
     }
@@ -104,7 +104,7 @@ final class FieldSpec extends ObjectBehavior
         $this->beConstructedWith('name', 'inGame');
 
         $game = new Game('Tetris');
-        $player = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $game];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
 
         $this->shouldThrow(NoSuchIndexException::class)->duringExecute($player);
     }
@@ -116,7 +116,7 @@ final class FieldSpec extends ObjectBehavior
         $game = [
             'name' => 'Tetris',
             'players' => [
-                ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+                ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ],
         ];
 

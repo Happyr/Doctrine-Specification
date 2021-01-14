@@ -85,7 +85,7 @@ final class MultiplicationSpec extends ObjectBehavior
     {
         $this->beConstructedWith('points', 100);
 
-        $player = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230];
 
         $this->execute($player)->shouldReturn(123000);
     }
@@ -94,7 +94,7 @@ final class MultiplicationSpec extends ObjectBehavior
     {
         $this->beConstructedWith(new Field('points'), new Value(100));
 
-        $player = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230];
 
         $this->execute($player)->shouldReturn(123000);
     }

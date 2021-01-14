@@ -85,7 +85,7 @@ final class DivisionSpec extends ObjectBehavior
     {
         $this->beConstructedWith('points', 10);
 
-        $player = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230];
 
         $this->execute($player)->shouldReturn(123);
     }
@@ -94,7 +94,7 @@ final class DivisionSpec extends ObjectBehavior
     {
         $this->beConstructedWith(new Field('points'), new Value(10));
 
-        $player = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230];
 
         $this->execute($player)->shouldReturn(123);
     }
