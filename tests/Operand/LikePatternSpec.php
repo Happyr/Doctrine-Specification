@@ -55,4 +55,11 @@ final class LikePatternSpec extends ObjectBehavior
 
         $this->transform($qb, $context)->shouldReturn(':comparison_10');
     }
+
+    public function it_is_executable(): void
+    {
+        $candidate = null; // not used
+
+        $this->execute($candidate)->shouldReturn(sprintf($this->format, $this->value));
+    }
 }
