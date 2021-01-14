@@ -82,4 +82,11 @@ final class ValueSpec extends ObjectBehavior
 
         $this->transform($qb, 'a')->shouldReturn(':comparison_10');
     }
+
+    public function it_is_executable(): void
+    {
+        $candidate = null; // not used
+
+        $this->execute($candidate)->shouldReturn($this->value);
+    }
 }
