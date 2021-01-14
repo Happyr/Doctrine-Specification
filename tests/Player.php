@@ -27,14 +27,21 @@ final class Player
     public $points;
 
     /**
-     * @param string   $pseudo
-     * @param string   $gender
-     * @param int|null $points
+     * @var Game|null
      */
-    public function __construct(string $pseudo, string $gender, ?int $points)
+    public $inGame;
+
+    /**
+     * @param string    $pseudo
+     * @param string    $gender
+     * @param int|null  $points
+     * @param Game|null $game
+     */
+    public function __construct(string $pseudo, string $gender, ?int $points, ?Game $game = null)
     {
         $this->pseudo = $pseudo;
         $this->gender = $gender;
         $this->points = $points;
+        $this->inGame = $game;
     }
 }
