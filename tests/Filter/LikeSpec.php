@@ -19,6 +19,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\Like;
 use PhpSpec\ObjectBehavior;
+use tests\Happyr\DoctrineSpecification\Player;
 
 /**
  * @mixin Like
@@ -72,5 +73,149 @@ final class LikeSpec extends ObjectBehavior
         $qb->setParameter('comparison_1', 'bar%')->shouldBeCalled();
 
         $this->getFilter($qb, 'a');
+    }
+
+    public function it_filter_array_collection_starts_with(): void
+    {
+        $this->beConstructedWith('pseudo', 'M', Like::STARTS_WITH, null);
+
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[1]]);
+    }
+
+    public function it_filter_array_collection_ends_with(): void
+    {
+        $this->beConstructedWith('pseudo', 'oe', Like::ENDS_WITH, null);
+
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[0], $players[1]]);
+    }
+
+    public function it_filter_array_collection_contains(): void
+    {
+        $this->beConstructedWith('pseudo', 'o', Like::CONTAINS, null);
+
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[0], $players[1]]);
+    }
+
+    public function it_filter_object_collection_starts_with(): void
+    {
+        $this->beConstructedWith('pseudo', 'M', Like::STARTS_WITH, null);
+
+        $players = [
+            new Player('Joe',   'M', 2500),
+            new Player('Moe',   'M', 1230),
+            new Player('Alice', 'F', 9001),
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[1]]);
+    }
+
+    public function it_filter_object_collection_ends_with(): void
+    {
+        $this->beConstructedWith('pseudo', 'oe', Like::ENDS_WITH, null);
+
+        $players = [
+            new Player('Joe',   'M', 2500),
+            new Player('Moe',   'M', 1230),
+            new Player('Alice', 'F', 9001),
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[0], $players[1]]);
+    }
+
+    public function it_filter_object_collection_contains(): void
+    {
+        $this->beConstructedWith('pseudo', 'o', Like::CONTAINS, null);
+
+        $players = [
+            new Player('Joe',   'M', 2500),
+            new Player('Moe',   'M', 1230),
+            new Player('Alice', 'F', 9001),
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[0], $players[1]]);
+    }
+
+    public function it_is_satisfied_with_array_starts_with(): void
+    {
+        $this->beConstructedWith('pseudo', 'A', Like::STARTS_WITH, null);
+
+        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
+
+        $this->isSatisfiedBy($playerA)->shouldBe(false);
+        $this->isSatisfiedBy($playerB)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_with_array_ends_with(): void
+    {
+        $this->beConstructedWith('pseudo', 'oe', Like::ENDS_WITH, null);
+
+        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
+
+        $this->isSatisfiedBy($playerA)->shouldBe(true);
+        $this->isSatisfiedBy($playerB)->shouldBe(false);
+    }
+
+    public function it_is_satisfied_with_array_contains(): void
+    {
+        $this->beConstructedWith('pseudo', 'oe', Like::CONTAINS, null);
+
+        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
+
+        $this->isSatisfiedBy($playerA)->shouldBe(true);
+        $this->isSatisfiedBy($playerB)->shouldBe(false);
+    }
+
+    public function it_is_satisfied_with_object_starts_with(): void
+    {
+        $this->beConstructedWith('pseudo', 'A', Like::STARTS_WITH, null);
+
+        $playerA = new Player('Joe',   'M', 2500);
+        $playerB = new Player('Alice', 'F', 9001);
+
+        $this->isSatisfiedBy($playerA)->shouldBe(false);
+        $this->isSatisfiedBy($playerB)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_with_object_ends_with(): void
+    {
+        $this->beConstructedWith('pseudo', 'oe', Like::ENDS_WITH, null);
+
+        $playerA = new Player('Joe',   'M', 2500);
+        $playerB = new Player('Alice', 'F', 9001);
+
+        $this->isSatisfiedBy($playerA)->shouldBe(true);
+        $this->isSatisfiedBy($playerB)->shouldBe(false);
+    }
+
+    public function it_is_satisfied_with_object_contains(): void
+    {
+        $this->beConstructedWith('pseudo', 'oe', Like::CONTAINS, null);
+
+        $playerA = new Player('Joe',   'M', 2500);
+        $playerB = new Player('Alice', 'F', 9001);
+
+        $this->isSatisfiedBy($playerA)->shouldBe(true);
+        $this->isSatisfiedBy($playerB)->shouldBe(false);
     }
 }
