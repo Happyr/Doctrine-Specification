@@ -119,8 +119,8 @@ final class LikeSpec extends ObjectBehavior
         $this->beConstructedWith('pseudo', 'M', Like::STARTS_WITH, null);
 
         $players = [
-            new Player('Joe',   'M', 2500),
-            new Player('Moe',   'M', 1230),
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 1230),
             new Player('Alice', 'F', 9001),
         ];
 
@@ -132,8 +132,8 @@ final class LikeSpec extends ObjectBehavior
         $this->beConstructedWith('pseudo', 'oe', Like::ENDS_WITH, null);
 
         $players = [
-            new Player('Joe',   'M', 2500),
-            new Player('Moe',   'M', 1230),
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 1230),
             new Player('Alice', 'F', 9001),
         ];
 
@@ -145,8 +145,8 @@ final class LikeSpec extends ObjectBehavior
         $this->beConstructedWith('pseudo', 'o', Like::CONTAINS, null);
 
         $players = [
-            new Player('Joe',   'M', 2500),
-            new Player('Moe',   'M', 1230),
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 1230),
             new Player('Alice', 'F', 9001),
         ];
 
@@ -190,7 +190,7 @@ final class LikeSpec extends ObjectBehavior
     {
         $this->beConstructedWith('pseudo', 'A', Like::STARTS_WITH, null);
 
-        $playerA = new Player('Joe',   'M', 2500);
+        $playerA = new Player('Joe', 'M', 2500);
         $playerB = new Player('Alice', 'F', 9001);
 
         $this->isSatisfiedBy($playerA)->shouldBe(false);
@@ -201,7 +201,7 @@ final class LikeSpec extends ObjectBehavior
     {
         $this->beConstructedWith('pseudo', 'oe', Like::ENDS_WITH, null);
 
-        $playerA = new Player('Joe',   'M', 2500);
+        $playerA = new Player('Joe', 'M', 2500);
         $playerB = new Player('Alice', 'F', 9001);
 
         $this->isSatisfiedBy($playerA)->shouldBe(true);
@@ -212,7 +212,7 @@ final class LikeSpec extends ObjectBehavior
     {
         $this->beConstructedWith('pseudo', 'oe', Like::CONTAINS, null);
 
-        $playerA = new Player('Joe',   'M', 2500);
+        $playerA = new Player('Joe', 'M', 2500);
         $playerB = new Player('Alice', 'F', 9001);
 
         $this->isSatisfiedBy($playerA)->shouldBe(true);

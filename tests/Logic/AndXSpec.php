@@ -112,8 +112,8 @@ final class AndXSpec extends ObjectBehavior
         );
 
         $players = [
-            new Player('Joe',   'M', 2500),
-            new Player('Moe',   'M', 1230),
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 1230),
             new Player('Alice', 'F', 9001),
         ];
 
@@ -138,8 +138,8 @@ final class AndXSpec extends ObjectBehavior
         $this->beConstructedWith($exprA, $exprB);
 
         $players = [
-            new Player('Joe',   'M', 2500),
-            new Player('Moe',   'M', 1230),
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 1230),
             new Player('Alice', 'F', 9001),
         ];
 
@@ -167,7 +167,7 @@ final class AndXSpec extends ObjectBehavior
             new GreaterThan('points', 9000)
         );
 
-        $playerA = new Player('Joe',   'M', 2500);
+        $playerA = new Player('Joe', 'M', 2500);
         $playerB = new Player('Alice', 'F', 9001);
 
         $this->isSatisfiedBy($playerA)->shouldBe(false);

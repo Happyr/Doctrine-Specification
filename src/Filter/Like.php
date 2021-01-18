@@ -126,8 +126,10 @@ final class Like implements Filter, Satisfiable
         switch ($this->value->getFormat()) {
             case LikePattern::STARTS_WITH:
                 return str_starts_with($haystack, $needle);
+
             case LikePattern::ENDS_WITH:
                 return str_ends_with($haystack, $needle);
+
             default:
                 return str_contains($haystack, $needle);
         }

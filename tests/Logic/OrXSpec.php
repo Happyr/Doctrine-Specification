@@ -116,8 +116,8 @@ final class OrXSpec extends ObjectBehavior
         );
 
         $players = [
-            new Player('Joe',   'M', 2500),
-            new Player('Moe',   'M', 9001),
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 9001),
             new Player('Alice', 'F', 1230),
         ];
 
@@ -142,8 +142,8 @@ final class OrXSpec extends ObjectBehavior
         $this->beConstructedWith($exprA, $exprB);
 
         $players = [
-            new Player('Joe',   'M', 2500),
-            new Player('Moe',   'M', 1230),
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 1230),
             new Player('Alice', 'F', 9001),
         ];
 
@@ -173,8 +173,8 @@ final class OrXSpec extends ObjectBehavior
             new GreaterThan('points', 9000)
         );
 
-        $playerA = new Player('Joe',   'M', 2500);
-        $playerB = new Player('Moe',   'M', 9001);
+        $playerA = new Player('Joe', 'M', 2500);
+        $playerB = new Player('Moe', 'M', 9001);
         $playerC = new Player('Alice', 'F', 1230);
 
         $this->isSatisfiedBy($playerA)->shouldBe(false);

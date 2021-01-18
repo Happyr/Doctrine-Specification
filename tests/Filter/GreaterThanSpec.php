@@ -80,8 +80,8 @@ final class GreaterThanSpec extends ObjectBehavior
         $this->beConstructedWith('points', 9000, null);
 
         $players = [
-            new Player('Joe',   'M', 2500),
-            new Player('Moe',   'M', 1230),
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 1230),
             new Player('Alice', 'F', 9001),
         ];
 
@@ -105,8 +105,8 @@ final class GreaterThanSpec extends ObjectBehavior
     {
         $this->beConstructedWith('points', 2500, null);
 
-        $playerA = new Player('Joe',   'M', 2500);
-        $playerB = new Player('Moe',   'M', 1230);
+        $playerA = new Player('Joe', 'M', 2500);
+        $playerB = new Player('Moe', 'M', 1230);
         $playerC = new Player('Alice', 'F', 9001);
 
         $this->isSatisfiedBy($playerA)->shouldBe(false);

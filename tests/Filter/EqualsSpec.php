@@ -80,8 +80,8 @@ final class EqualsSpec extends ObjectBehavior
         $this->beConstructedWith('gender', 'F', null);
 
         $players = [
-            new Player('Joe',   'M', 2500),
-            new Player('Moe',   'M', 1230),
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 1230),
             new Player('Alice', 'F', 9001),
         ];
 
@@ -103,7 +103,7 @@ final class EqualsSpec extends ObjectBehavior
     {
         $this->beConstructedWith('gender', 'F', null);
 
-        $playerA = new Player('Joe',   'M', 2500);
+        $playerA = new Player('Joe', 'M', 2500);
         $playerB = new Player('Alice', 'F', 9001);
 
         $this->isSatisfiedBy($playerA)->shouldBe(false);

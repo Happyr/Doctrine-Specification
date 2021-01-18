@@ -81,8 +81,8 @@ final class IsNotNullSpec extends ObjectBehavior
         $this->beConstructedWith('points', null);
 
         $players = [
-            new Player('Joe',   'M', 2500),
-            new Player('Moe',   'M', null),
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', null),
             new Player('Alice', 'F', 9001),
         ];
 
@@ -106,8 +106,8 @@ final class IsNotNullSpec extends ObjectBehavior
     {
         $this->beConstructedWith('points', null);
 
-        $playerA = new Player('Joe',   'M', 2500);
-        $playerB = new Player('Moe',   'M', null);
+        $playerA = new Player('Joe', 'M', 2500);
+        $playerB = new Player('Moe', 'M', null);
         $playerC = new Player('Alice', 'F', 9001);
 
         $this->isSatisfiedBy($playerA)->shouldBe(true);

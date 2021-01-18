@@ -70,8 +70,8 @@ final class InstanceOfXSpec extends ObjectBehavior
         $this->beConstructedWith(Player::class, null);
 
         $players = [
-            new Player('Joe',   'M', 2500),
-            new Player('Moe',   'M', 1230),
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 1230),
             new Player('Alice', 'F', 9001),
         ];
 

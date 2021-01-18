@@ -637,11 +637,11 @@ class Spec
     // Platform functions
 
     /**
-     * Add the number of days to a given date. (Supported units are YEAR, MONTH, WEEK, DAY, HOUR, MINUTE, SECOND)
+     * Add the number of days to a given date. (Supported units are YEAR, MONTH, WEEK, DAY, HOUR, MINUTE, SECOND).
      *
      * @param \DateTimeInterface|string|Operand $date
-     * @param int|Operand                $value
-     * @param string                     $unit
+     * @param int|Operand                       $value
+     * @param string                            $unit
      *
      * @return DateAdd
      */
@@ -651,11 +651,11 @@ class Spec
     }
 
     /**
-     * Substract the number of days from a given date. (Supported units are YEAR, MONTH, WEEK, DAY, HOUR, MINUTE, SECOND)
+     * Substract the number of days from a given date. (Supported units are YEAR, MONTH, WEEK, DAY, HOUR, MINUTE, SECOND).
      *
      * @param \DateTimeInterface|string|Operand $date
-     * @param int|Operand                $value
-     * @param string                     $unit
+     * @param int|Operand                       $value
+     * @param string                            $unit
      *
      * @return DateSub
      */
