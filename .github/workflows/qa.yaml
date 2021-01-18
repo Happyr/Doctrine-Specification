@@ -50,4 +50,4 @@ jobs:
           tools: cs2pr, php-cs-fixer
 
       - name: Run PHP-CS-Fixer
-        run: php-cs-fixer fix --dry-run --format checkstyle | cs2pr
+        run: php-cs-fixer fix --verbose --diff --dry-run --format checkstyle | cs2pr
