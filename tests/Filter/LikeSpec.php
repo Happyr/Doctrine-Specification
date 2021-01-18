@@ -12,14 +12,18 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace tests\Happyr\DoctrineSpecification\Spec;
+namespace tests\Happyr\DoctrineSpecification\Filter;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\Like;
-use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
+use tests\Happyr\DoctrineSpecification\Player;
 
+/**
+ * @mixin Like
+ */
 final class LikeSpec extends ObjectBehavior
 {
     private $field = 'foo';
@@ -28,46 +32,190 @@ final class LikeSpec extends ObjectBehavior
 
     public function let(): void
     {
-        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, 'dqlAlias');
+        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, 'context');
     }
 
-    public function it_is_a_specification(): void
+    public function it_is_an_expression(): void
     {
-        $this->shouldHaveType(Specification::class);
+        $this->shouldBeAnInstanceOf(Filter::class);
     }
 
     public function it_surrounds_with_wildcards_when_using_contains(
         QueryBuilder $qb,
         ArrayCollection $parameters
     ): void {
-        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, 'dqlAlias');
+        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, 'context');
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
         $qb->setParameter('comparison_1', '%bar%')->shouldBeCalled();
 
-        $this->match($qb, null);
+        $this->getFilter($qb, 'a');
     }
 
     public function it_starts_with_wildcard_when_using_ends_with(QueryBuilder $qb, ArrayCollection $parameters): void
     {
-        $this->beConstructedWith($this->field, $this->value, Like::ENDS_WITH, 'dqlAlias');
+        $this->beConstructedWith($this->field, $this->value, Like::ENDS_WITH, 'context');
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
         $qb->setParameter('comparison_1', '%bar')->shouldBeCalled();
 
-        $this->match($qb, null);
+        $this->getFilter($qb, 'a');
     }
 
     public function it_ends_with_wildcard_when_using_starts_with(QueryBuilder $qb, ArrayCollection $parameters): void
     {
-        $this->beConstructedWith($this->field, $this->value, Like::STARTS_WITH, 'dqlAlias');
+        $this->beConstructedWith($this->field, $this->value, Like::STARTS_WITH, 'context');
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
         $qb->setParameter('comparison_1', 'bar%')->shouldBeCalled();
 
-        $this->match($qb, null);
+        $this->getFilter($qb, 'a');
+    }
+
+    public function it_filter_array_collection_starts_with(): void
+    {
+        $this->beConstructedWith('pseudo', 'M', Like::STARTS_WITH, null);
+
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[1]]);
+    }
+
+    public function it_filter_array_collection_ends_with(): void
+    {
+        $this->beConstructedWith('pseudo', 'oe', Like::ENDS_WITH, null);
+
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[0], $players[1]]);
+    }
+
+    public function it_filter_array_collection_contains(): void
+    {
+        $this->beConstructedWith('pseudo', 'o', Like::CONTAINS, null);
+
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[0], $players[1]]);
+    }
+
+    public function it_filter_object_collection_starts_with(): void
+    {
+        $this->beConstructedWith('pseudo', 'M', Like::STARTS_WITH, null);
+
+        $players = [
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 1230),
+            new Player('Alice', 'F', 9001),
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[1]]);
+    }
+
+    public function it_filter_object_collection_ends_with(): void
+    {
+        $this->beConstructedWith('pseudo', 'oe', Like::ENDS_WITH, null);
+
+        $players = [
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 1230),
+            new Player('Alice', 'F', 9001),
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[0], $players[1]]);
+    }
+
+    public function it_filter_object_collection_contains(): void
+    {
+        $this->beConstructedWith('pseudo', 'o', Like::CONTAINS, null);
+
+        $players = [
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 1230),
+            new Player('Alice', 'F', 9001),
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[0], $players[1]]);
+    }
+
+    public function it_is_satisfied_with_array_starts_with(): void
+    {
+        $this->beConstructedWith('pseudo', 'A', Like::STARTS_WITH, null);
+
+        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
+
+        $this->isSatisfiedBy($playerA)->shouldBe(false);
+        $this->isSatisfiedBy($playerB)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_with_array_ends_with(): void
+    {
+        $this->beConstructedWith('pseudo', 'oe', Like::ENDS_WITH, null);
+
+        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
+
+        $this->isSatisfiedBy($playerA)->shouldBe(true);
+        $this->isSatisfiedBy($playerB)->shouldBe(false);
+    }
+
+    public function it_is_satisfied_with_array_contains(): void
+    {
+        $this->beConstructedWith('pseudo', 'oe', Like::CONTAINS, null);
+
+        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
+
+        $this->isSatisfiedBy($playerA)->shouldBe(true);
+        $this->isSatisfiedBy($playerB)->shouldBe(false);
+    }
+
+    public function it_is_satisfied_with_object_starts_with(): void
+    {
+        $this->beConstructedWith('pseudo', 'A', Like::STARTS_WITH, null);
+
+        $playerA = new Player('Joe', 'M', 2500);
+        $playerB = new Player('Alice', 'F', 9001);
+
+        $this->isSatisfiedBy($playerA)->shouldBe(false);
+        $this->isSatisfiedBy($playerB)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_with_object_ends_with(): void
+    {
+        $this->beConstructedWith('pseudo', 'oe', Like::ENDS_WITH, null);
+
+        $playerA = new Player('Joe', 'M', 2500);
+        $playerB = new Player('Alice', 'F', 9001);
+
+        $this->isSatisfiedBy($playerA)->shouldBe(true);
+        $this->isSatisfiedBy($playerB)->shouldBe(false);
+    }
+
+    public function it_is_satisfied_with_object_contains(): void
+    {
+        $this->beConstructedWith('pseudo', 'oe', Like::CONTAINS, null);
+
+        $playerA = new Player('Joe', 'M', 2500);
+        $playerB = new Player('Alice', 'F', 9001);
+
+        $this->isSatisfiedBy($playerA)->shouldBe(true);
+        $this->isSatisfiedBy($playerB)->shouldBe(false);
     }
 }

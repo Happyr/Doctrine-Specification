@@ -39,7 +39,7 @@ final class LikePattern implements Operand
      * @param string $value
      * @param string $format
      */
-    public function __construct(string $value, $format = self::CONTAINS)
+    public function __construct(string $value, string $format = self::CONTAINS)
     {
         $this->value = $value;
         $this->format = $format;
@@ -47,11 +47,11 @@ final class LikePattern implements Operand
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, string $dqlAlias): string
+    public function transform(QueryBuilder $qb, string $context): string
     {
         $paramName = sprintf('comparison_%d', $qb->getParameters()->count());
         $value = ValueConverter::convertToDatabaseValue($this->value, $qb);
@@ -59,6 +59,32 @@ final class LikePattern implements Operand
         $qb->setParameter($paramName, $value);
 
         return sprintf(':%s', $paramName);
+    }
+
+    /**
+     * @param mixed[]|object $candidate
+     *
+     * @return string
+     */
+    public function execute($candidate): string
+    {
+        return $this->formatValue($this->format, $this->value);
+    }
+
+    /**
+     * @return string
+     */
+    public function getValue(): string
+    {
+        return $this->value;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormat(): string
+    {
+        return $this->format;
     }
 
     /**

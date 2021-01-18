@@ -18,7 +18,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
 use Happyr\DoctrineSpecification\Operand\Operand;
 
-final class In implements Filter
+final class In implements Filter, Satisfiable
 {
     /**
      * @var Operand|string
@@ -33,40 +33,81 @@ final class In implements Filter
     /**
      * @var string|null
      */
-    private $dqlAlias;
+    private $context;
 
     /**
      * Make sure the $field has a value equals to $value.
      *
      * @param Operand|string $field
      * @param Operand|mixed  $value
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      */
-    public function __construct($field, $value, ?string $dqlAlias = null)
+    public function __construct($field, $value, ?string $context = null)
     {
         $this->field = $field;
         $this->value = $value;
-        $this->dqlAlias = $dqlAlias;
+        $this->context = $context;
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
+    public function getFilter(QueryBuilder $qb, string $context): string
     {
-        if (null !== $this->dqlAlias) {
-            $dqlAlias = $this->dqlAlias;
+        if (null !== $this->context) {
+            $context = $this->context;
         }
 
         $field = ArgumentToOperandConverter::toField($this->field);
         $value = ArgumentToOperandConverter::toValue($this->value);
 
         return (string) $qb->expr()->in(
-            $field->transform($qb, $dqlAlias),
-            $value->transform($qb, $dqlAlias)
+            $field->transform($qb, $context),
+            $value->transform($qb, $context)
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function filterCollection(iterable $collection): iterable
+    {
+        $field = ArgumentToOperandConverter::toField($this->field);
+        $value = ArgumentToOperandConverter::toValue($this->value);
+
+        foreach ($collection as $candidate) {
+            if ($this->contains($field->execute($candidate), $value->execute($candidate))) {
+                yield $candidate;
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isSatisfiedBy($candidate): bool
+    {
+        $field = ArgumentToOperandConverter::toField($this->field);
+        $value = ArgumentToOperandConverter::toValue($this->value);
+
+        return $this->contains($field->execute($candidate), $value->execute($candidate));
+    }
+
+    /**
+     * @param mixed $field
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    private function contains($field, $value): bool
+    {
+        if ($value instanceof \Traversable) {
+            $value = iterator_to_array($value);
+        }
+
+        return in_array($field, $value, true);
     }
 }

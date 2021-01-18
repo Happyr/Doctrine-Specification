@@ -16,6 +16,7 @@ namespace Happyr\DoctrineSpecification\Logic;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Filter\Satisfiable;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Specification\Specification;
 
@@ -36,23 +37,43 @@ final class Not implements Specification
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
+    public function getFilter(QueryBuilder $qb, string $context): string
     {
-        return (string) $qb->expr()->not($this->child->getFilter($qb, $dqlAlias));
+        return (string) $qb->expr()->not($this->child->getFilter($qb, $context));
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      */
-    public function modify(QueryBuilder $qb, string $dqlAlias): void
+    public function modify(QueryBuilder $qb, string $context): void
     {
         if ($this->child instanceof QueryModifier) {
-            $this->child->modify($qb, $dqlAlias);
+            $this->child->modify($qb, $context);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function filterCollection(iterable $collection): iterable
+    {
+        foreach ($collection as $candidate) {
+            if (!$this->child instanceof Satisfiable || !$this->child->isSatisfiedBy($candidate)) {
+                yield $candidate;
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isSatisfiedBy($candidate): bool
+    {
+        return !$this->child instanceof Satisfiable || !$this->child->isSatisfiedBy($candidate);
     }
 }

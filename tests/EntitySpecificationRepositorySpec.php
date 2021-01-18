@@ -36,7 +36,7 @@ use Prophecy\Argument;
  */
 final class EntitySpecificationRepositorySpec extends ObjectBehavior
 {
-    private $alias = 'e';
+    private $alias = 'root';
 
     private $expression = 'expression';
 

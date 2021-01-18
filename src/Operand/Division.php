@@ -24,4 +24,15 @@ final class Division extends Arithmetic
     {
         parent::__construct(self::DIV, $field, $value);
     }
+
+    /**
+     * @param mixed $field
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    protected function doExecute($field, $value)
+    {
+        return $field / $value;
+    }
 }

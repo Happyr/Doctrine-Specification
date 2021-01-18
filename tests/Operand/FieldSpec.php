@@ -18,6 +18,9 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\Operand;
 use PhpSpec\ObjectBehavior;
+use Symfony\Component\PropertyAccess\Exception\NoSuchIndexException;
+use tests\Happyr\DoctrineSpecification\Game;
+use tests\Happyr\DoctrineSpecification\Player;
 
 /**
  * @mixin Field
@@ -43,18 +46,80 @@ final class FieldSpec extends ObjectBehavior
 
     public function it_is_transformable(QueryBuilder $qb): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
         $expression = 'a.foo';
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 
     public function it_is_change_dql_alias(QueryBuilder $qb): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
         $expression = 'b.foo';
 
         $this->beConstructedWith($this->fieldName, 'b');
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
+    }
+
+    public function it_is_executable_object(): void
+    {
+        $this->beConstructedWith('pseudo');
+
+        $player = new Player('Moe', 'M', 1230);
+
+        $this->execute($player)->shouldReturn($player->pseudo);
+    }
+
+    public function it_is_executable_array(): void
+    {
+        $this->beConstructedWith('pseudo');
+
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230];
+
+        $this->execute($player)->shouldReturn($player['pseudo']);
+    }
+
+    public function it_is_executable_object_in_context(): void
+    {
+        $this->beConstructedWith('name', 'inGame');
+
+        $game = new Game('Tetris');
+        $player = new Player('Moe', 'M', 1230, $game);
+
+        $this->execute($player)->shouldReturn($game->name);
+    }
+
+    public function it_is_executable_array_in_context(): void
+    {
+        $this->beConstructedWith('name', 'inGame');
+
+        $game = ['name' => 'Tetris'];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
+
+        $this->execute($player)->shouldReturn($game['name']);
+    }
+
+    public function it_is_executable_mixed_candidate(): void
+    {
+        $this->beConstructedWith('name', 'inGame');
+
+        $game = new Game('Tetris');
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
+
+        $this->shouldThrow(NoSuchIndexException::class)->duringExecute($player);
+    }
+
+    public function it_is_executable_collection(): void
+    {
+        $this->beConstructedWith('pseudo', 'players');
+
+        $game = [
+            'name' => 'Tetris',
+            'players' => [
+                ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
+            ],
+        ];
+
+        $this->execute($game)->shouldReturn(null);
     }
 }

@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Happyr\DoctrineSpecification\Query;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\DQLContextResolver;
 
 abstract class AbstractJoin implements QueryModifier
 {
@@ -31,29 +32,31 @@ abstract class AbstractJoin implements QueryModifier
     /**
      * @var string|null
      */
-    private $dqlAlias;
+    private $context;
 
     /**
      * @param string      $field
-     * @param string      $newAlias
-     * @param string|null $dqlAlias
+     * @param string|null $newAlias
+     * @param string|null $context
      */
-    public function __construct(string $field, string $newAlias, ?string $dqlAlias = null)
+    public function __construct(string $field, ?string $newAlias = null, ?string $context = null)
     {
         $this->field = $field;
-        $this->newAlias = $newAlias;
-        $this->dqlAlias = $dqlAlias;
+        $this->newAlias = null !== $newAlias ? $newAlias : $field;
+        $this->context = $context;
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      */
-    public function modify(QueryBuilder $qb, string $dqlAlias): void
+    public function modify(QueryBuilder $qb, string $context): void
     {
-        if (null !== $this->dqlAlias) {
-            $dqlAlias = $this->dqlAlias;
+        if (null !== $this->context) {
+            $context = $this->context;
         }
+
+        $dqlAlias = DQLContextResolver::resolveAlias($qb, $context);
 
         $this->modifyJoin($qb, sprintf('%s.%s', $dqlAlias, $this->field), $this->newAlias);
     }

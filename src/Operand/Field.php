@@ -15,7 +15,9 @@ declare(strict_types=1);
 namespace Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\DQLContextResolver;
 use Happyr\DoctrineSpecification\Query\Selection\Selection;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 final class Field implements Operand, Selection
 {
@@ -27,30 +29,55 @@ final class Field implements Operand, Selection
     /**
      * @var string|null
      */
-    private $dqlAlias;
+    private $context;
 
     /**
      * @param string      $fieldName
-     * @param string|null $dqlAlias
+     * @param string|null $context
      */
-    public function __construct(string $fieldName, ?string $dqlAlias = null)
+    public function __construct(string $fieldName, ?string $context = null)
     {
         $this->fieldName = $fieldName;
-        $this->dqlAlias = $dqlAlias;
+        $this->context = $context;
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, string $dqlAlias): string
+    public function transform(QueryBuilder $qb, string $context): string
     {
-        if (null !== $this->dqlAlias) {
-            $dqlAlias = $this->dqlAlias;
+        if (null !== $this->context) {
+            $context = $this->context;
         }
 
+        $dqlAlias = DQLContextResolver::resolveAlias($qb, $context);
+
         return sprintf('%s.%s', $dqlAlias, $this->fieldName);
+    }
+
+    /**
+     * @param mixed[]|object $candidate
+     *
+     * @return mixed
+     */
+    public function execute($candidate)
+    {
+        if (null !== $this->context) {
+            $propertyPath = sprintf('%s.%s', $this->context, $this->fieldName);
+        } else {
+            $propertyPath = $this->fieldName;
+        }
+
+        // If the candidate is a array, then we assume that all nested elements are also arrays.
+        // The candidate cannot combine arrays and objects since Property Accessor expects different syntax for
+        // accessing array and object elements.
+        if (is_array($candidate)) {
+            $propertyPath = sprintf('[%s]', str_replace('.', '][', $propertyPath));
+        }
+
+        return PropertyAccess::createPropertyAccessor()->getValue($candidate, $propertyPath);
     }
 }

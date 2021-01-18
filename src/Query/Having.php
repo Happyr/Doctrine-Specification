@@ -34,10 +34,10 @@ final class Having implements QueryModifier
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      */
-    public function modify(QueryBuilder $qb, string $dqlAlias): void
+    public function modify(QueryBuilder $qb, string $context): void
     {
-        $qb->having($this->filter->getFilter($qb, $dqlAlias));
+        $qb->having($this->filter->getFilter($qb, $context));
     }
 }

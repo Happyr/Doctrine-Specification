@@ -24,6 +24,7 @@ use Happyr\DoctrineSpecification\Operand\Operand;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction;
 use Happyr\DoctrineSpecification\Operand\Value;
 use PhpSpec\ObjectBehavior;
+use tests\Happyr\DoctrineSpecification\Player;
 
 /**
  * @mixin PlatformFunction
@@ -51,20 +52,20 @@ final class PlatformFunctionSpec extends ObjectBehavior
 
     public function it_is_transformable_doctrine_function(QueryBuilder $qb): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
         $expression = 'UPPER(a.foo)';
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 
     public function it_is_transformable_many_arguments(QueryBuilder $qb): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
         $expression = 'concat(a.foo, a.bar)';
 
         $this->beConstructedWith('concat', new Field('foo'), new Field('bar'));
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 
     public function it_is_transformable_custom_string_function(
@@ -72,7 +73,7 @@ final class PlatformFunctionSpec extends ObjectBehavior
         EntityManagerInterface $em,
         Configuration $configuration
     ): void {
-        $dqlAlias = 'a';
+        $context = 'a';
         $functionName = 'foo';
         $expression = 'foo(a.foo)';
 
@@ -84,7 +85,7 @@ final class PlatformFunctionSpec extends ObjectBehavior
 
         $this->beConstructedWith($functionName, 'foo');
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 
     public function it_is_transformable_custom_numeric_function(
@@ -92,7 +93,7 @@ final class PlatformFunctionSpec extends ObjectBehavior
         EntityManagerInterface $em,
         Configuration $configuration
     ): void {
-        $dqlAlias = 'a';
+        $context = 'a';
         $functionName = 'foo';
         $expression = 'foo(a.foo)';
 
@@ -104,7 +105,7 @@ final class PlatformFunctionSpec extends ObjectBehavior
 
         $this->beConstructedWith($functionName, 'foo');
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 
     public function it_is_transformable_custom_datetime_function(
@@ -112,7 +113,7 @@ final class PlatformFunctionSpec extends ObjectBehavior
         EntityManagerInterface $em,
         Configuration $configuration
     ): void {
-        $dqlAlias = 'a';
+        $context = 'a';
         $functionName = 'foo';
         $expression = 'foo(a.foo)';
 
@@ -124,7 +125,7 @@ final class PlatformFunctionSpec extends ObjectBehavior
 
         $this->beConstructedWith($functionName, 'foo');
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 
     public function it_is_transformable_undefined_function(
@@ -150,7 +151,7 @@ final class PlatformFunctionSpec extends ObjectBehavior
         Configuration $configuration,
         ArrayCollection $parameters
     ): void {
-        $dqlAlias = 'a';
+        $context = 'a';
         $functionName = 'concat';
         $expression = 'concat(a.foo, :comparison_10, :comparison_11)';
 
@@ -171,6 +172,42 @@ final class PlatformFunctionSpec extends ObjectBehavior
 
         $this->beConstructedWith($functionName, 'foo', 'bar', $value);
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
+    }
+
+    public function it_is_executable_object(): void
+    {
+        $this->beConstructedWith('UPPER', 'pseudo');
+
+        $player = new Player('Moe', 'M', 1230);
+
+        $this->execute($player)->shouldReturn('MOE');
+    }
+
+    public function it_is_executable_array(): void
+    {
+        $this->beConstructedWith('UPPER', 'pseudo');
+
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230];
+
+        $this->execute($player)->shouldReturn('MOE');
+    }
+
+    public function it_is_executable_object_with_operands(): void
+    {
+        $this->beConstructedWith('UPPER', new Field('pseudo'));
+
+        $player = new Player('Moe', 'M', 1230);
+
+        $this->execute($player)->shouldReturn('MOE');
+    }
+
+    public function it_is_executable_array_with_operands(): void
+    {
+        $this->beConstructedWith('UPPER', new Field('pseudo'));
+
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230];
+
+        $this->execute($player)->shouldReturn('MOE');
     }
 }

@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Exception\OperandNotExecuteException;
 
 final class CountDistinct implements Operand
 {
@@ -33,15 +34,25 @@ final class CountDistinct implements Operand
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, string $dqlAlias): string
+    public function transform(QueryBuilder $qb, string $context): string
     {
         $field = ArgumentToOperandConverter::toField($this->field);
-        $field = $field->transform($qb, $dqlAlias);
+        $field = $field->transform($qb, $context);
 
         return sprintf('COUNT(DISTINCT %s)', $field);
+    }
+
+    /**
+     * @param mixed[]|object $candidate
+     */
+    public function execute($candidate): void
+    {
+        throw new OperandNotExecuteException(
+            sprintf('The operand "%s" cannot be executed for a single candidate.', self::class)
+        );
     }
 }

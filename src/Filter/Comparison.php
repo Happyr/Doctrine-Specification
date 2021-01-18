@@ -25,7 +25,7 @@ use Happyr\DoctrineSpecification\Operand\Operand;
  *
  * This is used when you need to compare two values
  */
-abstract class Comparison implements Filter
+abstract class Comparison implements Filter, Satisfiable
 {
     protected const EQ = '=';
 
@@ -52,7 +52,7 @@ abstract class Comparison implements Filter
     /**
      * @var string|null
      */
-    private $dqlAlias;
+    private $context;
 
     /**
      * @var string[]
@@ -74,11 +74,11 @@ abstract class Comparison implements Filter
      * @param string         $operator
      * @param Operand|string $field
      * @param Operand|mixed  $value
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      *
      * @throws InvalidArgumentException
      */
-    public function __construct(string $operator, $field, $value, ?string $dqlAlias = null)
+    public function __construct(string $operator, $field, $value, ?string $context = null)
     {
         if (!in_array($operator, self::$operators, true)) {
             throw new InvalidArgumentException(sprintf(
@@ -91,28 +91,62 @@ abstract class Comparison implements Filter
         $this->operator = $operator;
         $this->field = $field;
         $this->value = $value;
-        $this->dqlAlias = $dqlAlias;
+        $this->context = $context;
     }
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
+    public function getFilter(QueryBuilder $qb, string $context): string
     {
-        if (null !== $this->dqlAlias) {
-            $dqlAlias = $this->dqlAlias;
+        if (null !== $this->context) {
+            $context = $this->context;
         }
 
         $field = ArgumentToOperandConverter::toField($this->field);
         $value = ArgumentToOperandConverter::toValue($this->value);
 
         return (string) new DoctrineComparison(
-            $field->transform($qb, $dqlAlias),
+            $field->transform($qb, $context),
             $this->operator,
-            $value->transform($qb, $dqlAlias)
+            $value->transform($qb, $context)
         );
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function filterCollection(iterable $collection): iterable
+    {
+        $field = ArgumentToOperandConverter::toField($this->field);
+        $value = ArgumentToOperandConverter::toValue($this->value);
+
+        foreach ($collection as $candidate) {
+            if ($this->compare($field->execute($candidate), $value->execute($candidate))) {
+                yield $candidate;
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isSatisfiedBy($candidate): bool
+    {
+        $field = ArgumentToOperandConverter::toField($this->field);
+        $value = ArgumentToOperandConverter::toValue($this->value);
+
+        return $this->compare($field->execute($candidate), $value->execute($candidate));
+    }
+
+    /**
+     * @param mixed $field
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    abstract protected function compare($field, $value): bool;
 }

@@ -41,16 +41,26 @@ final class Value implements Operand
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, string $dqlAlias): string
+    public function transform(QueryBuilder $qb, string $context): string
     {
         $paramName = sprintf('comparison_%d', $qb->getParameters()->count());
         $value = ValueConverter::convertToDatabaseValue($this->value, $qb);
         $qb->setParameter($paramName, $value, $this->valueType);
 
         return sprintf(':%s', $paramName);
+    }
+
+    /**
+     * @param mixed[]|object $candidate
+     *
+     * @return mixed
+     */
+    public function execute($candidate)
+    {
+        return $this->value;
     }
 }

@@ -47,14 +47,14 @@ final class ValueSpec extends ObjectBehavior
 
     public function it_is_transformable(QueryBuilder $qb, ArrayCollection $parameters): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
 
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
         $qb->setParameter('comparison_10', $this->value, $this->valueType)->shouldBeCalled();
 
-        $this->transform($qb, $dqlAlias)->shouldReturn(':comparison_10');
+        $this->transform($qb, $context)->shouldReturn(':comparison_10');
     }
 
     public function it_is_transformable_dbal_type(QueryBuilder $qb, ArrayCollection $parameters): void
@@ -81,5 +81,12 @@ final class ValueSpec extends ObjectBehavior
         $qb->setParameter('comparison_10', $this->value, $valueType)->shouldBeCalled();
 
         $this->transform($qb, 'a')->shouldReturn(':comparison_10');
+    }
+
+    public function it_is_executable(): void
+    {
+        $candidate = null; // not used
+
+        $this->execute($candidate)->shouldReturn($this->value);
     }
 }

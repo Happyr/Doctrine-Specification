@@ -41,11 +41,11 @@ final class Values implements Operand
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function transform(QueryBuilder $qb, string $dqlAlias): string
+    public function transform(QueryBuilder $qb, string $context): string
     {
         $values = $this->values;
         foreach ($values as $k => $v) {
@@ -56,5 +56,15 @@ final class Values implements Operand
         $qb->setParameter($paramName, $values, $this->valueType);
 
         return sprintf(':%s', $paramName);
+    }
+
+    /**
+     * @param mixed[]|object $candidate
+     *
+     * @return mixed[]
+     */
+    public function execute($candidate): array
+    {
+        return $this->values;
     }
 }

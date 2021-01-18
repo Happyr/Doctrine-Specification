@@ -19,6 +19,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\IsNotNull;
 use PhpSpec\ObjectBehavior;
+use tests\Happyr\DoctrineSpecification\Player;
 
 /**
  * @mixin IsNotNull
@@ -27,11 +28,11 @@ final class IsNotNullSpec extends ObjectBehavior
 {
     private $field = 'foobar';
 
-    private $dqlAlias = 'a';
+    private $context = 'a';
 
     public function let(): void
     {
-        $this->beConstructedWith($this->field, $this->dqlAlias);
+        $this->beConstructedWith($this->field, $this->context);
     }
 
     public function it_is_an_expression(): void
@@ -47,18 +48,70 @@ final class IsNotNullSpec extends ObjectBehavior
         $expression = 'a.foobar is not null';
 
         $qb->expr()->willReturn($expr);
-        $expr->isNotNull(sprintf('%s.%s', $this->dqlAlias, $this->field))->willReturn($expression);
+        $expr->isNotNull(sprintf('%s.%s', $this->context, $this->field))->willReturn($expression);
 
-        $this->getFilter($qb, $this->dqlAlias)->shouldReturn($expression);
+        $this->getFilter($qb, $this->context)->shouldReturn($expression);
     }
 
     public function it_uses_dql_alias_if_passed(QueryBuilder $qb, Expr $expr): void
     {
-        $dqlAlias = 'x';
+        $context = 'x';
         $this->beConstructedWith($this->field, null);
         $qb->expr()->willReturn($expr);
 
-        $expr->isNotNull(sprintf('%s.%s', $dqlAlias, $this->field))->shouldBeCalled();
-        $this->getFilter($qb, $dqlAlias);
+        $expr->isNotNull(sprintf('%s.%s', $context, $this->field))->shouldBeCalled();
+        $this->getFilter($qb, $context);
+    }
+
+    public function it_filter_array_collection(): void
+    {
+        $this->beConstructedWith('points', null);
+
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => null],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[0], $players[2]]);
+    }
+
+    public function it_filter_object_collection(): void
+    {
+        $this->beConstructedWith('points', null);
+
+        $players = [
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', null),
+            new Player('Alice', 'F', 9001),
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[0], $players[2]]);
+    }
+
+    public function it_is_satisfied_with_array(): void
+    {
+        $this->beConstructedWith('points', null);
+
+        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerB = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => null];
+        $playerC = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
+
+        $this->isSatisfiedBy($playerA)->shouldBe(true);
+        $this->isSatisfiedBy($playerB)->shouldBe(false);
+        $this->isSatisfiedBy($playerC)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_with_object(): void
+    {
+        $this->beConstructedWith('points', null);
+
+        $playerA = new Player('Joe', 'M', 2500);
+        $playerB = new Player('Moe', 'M', null);
+        $playerC = new Player('Alice', 'F', 9001);
+
+        $this->isSatisfiedBy($playerA)->shouldBe(true);
+        $this->isSatisfiedBy($playerB)->shouldBe(false);
+        $this->isSatisfiedBy($playerC)->shouldBe(true);
     }
 }

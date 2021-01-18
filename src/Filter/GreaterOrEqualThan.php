@@ -21,10 +21,21 @@ final class GreaterOrEqualThan extends Comparison
     /**
      * @param Operand|string $field
      * @param Operand|mixed  $value
-     * @param string|null    $dqlAlias
+     * @param string|null    $context
      */
-    public function __construct($field, $value, ?string $dqlAlias = null)
+    public function __construct($field, $value, ?string $context = null)
     {
-        parent::__construct(self::GTE, $field, $value, $dqlAlias);
+        parent::__construct(self::GTE, $field, $value, $context);
+    }
+
+    /**
+     * @param mixed $field
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    protected function compare($field, $value): bool
+    {
+        return $field >= $value;
     }
 }

@@ -24,4 +24,15 @@ final class Addition extends Arithmetic
     {
         parent::__construct(self::ADD, $field, $value);
     }
+
+    /**
+     * @param mixed $field
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    protected function doExecute($field, $value)
+    {
+        return $field + $value;
+    }
 }

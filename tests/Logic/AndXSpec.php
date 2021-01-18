@@ -16,10 +16,13 @@ namespace tests\Happyr\DoctrineSpecification\Logic;
 
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Filter\Equals;
 use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Filter\GreaterThan;
 use Happyr\DoctrineSpecification\Logic\AndX;
 use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
+use tests\Happyr\DoctrineSpecification\Player;
 
 /**
  * @mixin AndX
@@ -41,12 +44,12 @@ final class AndXSpec extends ObjectBehavior
         Specification $specificationA,
         Specification $specificationB
     ): void {
-        $dqlAlias = 'a';
+        $context = 'a';
 
-        $specificationA->modify($queryBuilder, $dqlAlias)->shouldBeCalled();
-        $specificationB->modify($queryBuilder, $dqlAlias)->shouldBeCalled();
+        $specificationA->modify($queryBuilder, $context)->shouldBeCalled();
+        $specificationB->modify($queryBuilder, $context)->shouldBeCalled();
 
-        $this->modify($queryBuilder, $dqlAlias);
+        $this->modify($queryBuilder, $context);
     }
 
     public function it_composes_and_child_with_expression(
@@ -57,15 +60,15 @@ final class AndXSpec extends ObjectBehavior
     ): void {
         $filterA = 'foo';
         $filterB = 'bar';
-        $dqlAlias = 'a';
+        $context = 'a';
 
-        $specificationA->getFilter($qb, $dqlAlias)->willReturn($filterA);
-        $specificationB->getFilter($qb, $dqlAlias)->willReturn($filterB);
+        $specificationA->getFilter($qb, $context)->willReturn($filterA);
+        $specificationB->getFilter($qb, $context)->willReturn($filterB);
         $qb->expr()->willReturn($expression);
 
         $expression->andX($filterA, $filterB)->shouldBeCalled();
 
-        $this->getFilter($qb, $dqlAlias);
+        $this->getFilter($qb, $context);
     }
 
     public function it_supports_expressions(QueryBuilder $qb, Expr $expression, Filter $exprA, Filter $exprB): void
@@ -74,14 +77,118 @@ final class AndXSpec extends ObjectBehavior
 
         $filterA = 'foo';
         $filterB = 'bar';
-        $dqlAlias = 'a';
+        $context = 'a';
 
-        $exprA->getFilter($qb, $dqlAlias)->willReturn($filterA);
-        $exprB->getFilter($qb, $dqlAlias)->willReturn($filterB);
+        $exprA->getFilter($qb, $context)->willReturn($filterA);
+        $exprB->getFilter($qb, $context)->willReturn($filterB);
         $qb->expr()->willReturn($expression);
 
         $expression->andX($filterA, $filterB)->shouldBeCalled();
 
-        $this->getFilter($qb, $dqlAlias);
+        $this->getFilter($qb, $context);
+    }
+
+    public function it_filter_array_collection(): void
+    {
+        $this->beConstructedWith(
+            new Equals('gender', 'F'),
+            new GreaterThan('points', 9000)
+        );
+
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[2]]);
+    }
+
+    public function it_filter_object_collection(): void
+    {
+        $this->beConstructedWith(
+            new Equals('gender', 'F'),
+            new GreaterThan('points', 9000)
+        );
+
+        $players = [
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 1230),
+            new Player('Alice', 'F', 9001),
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[2]]);
+    }
+
+    public function it_filter_array_collection_not_satisfiable(Filter $exprA, Filter $exprB): void
+    {
+        $this->beConstructedWith($exprA, $exprB);
+
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
+        ];
+
+        $this->filterCollection($players)->shouldNotYield([]);
+    }
+
+    public function it_filter_object_collection_not_satisfiable(Filter $exprA, Filter $exprB): void
+    {
+        $this->beConstructedWith($exprA, $exprB);
+
+        $players = [
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 1230),
+            new Player('Alice', 'F', 9001),
+        ];
+
+        $this->filterCollection($players)->shouldNotYield([]);
+    }
+
+    public function it_is_satisfied_with_array(): void
+    {
+        $this->beConstructedWith(
+            new Equals('gender', 'F'),
+            new GreaterThan('points', 9000)
+        );
+
+        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
+
+        $this->isSatisfiedBy($playerA)->shouldBe(false);
+        $this->isSatisfiedBy($playerB)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_with_object(): void
+    {
+        $this->beConstructedWith(
+            new Equals('gender', 'F'),
+            new GreaterThan('points', 9000)
+        );
+
+        $playerA = new Player('Joe', 'M', 2500);
+        $playerB = new Player('Alice', 'F', 9001);
+
+        $this->isSatisfiedBy($playerA)->shouldBe(false);
+        $this->isSatisfiedBy($playerB)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_with_array_not_satisfiable(Filter $exprA, Filter $exprB): void
+    {
+        $this->beConstructedWith($exprA, $exprB);
+
+        $player = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
+
+        $this->isSatisfiedBy($player)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_with_object_not_satisfiable(Filter $exprA, Filter $exprB): void
+    {
+        $this->beConstructedWith($exprA, $exprB);
+
+        $player = new Player('Alice', 'F', 9001);
+
+        $this->isSatisfiedBy($player)->shouldBe(true);
     }
 }

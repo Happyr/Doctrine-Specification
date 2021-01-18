@@ -31,7 +31,7 @@ trait EntitySpecificationRepositoryTrait
     /**
      * @var string
      */
-    private $alias = 'e';
+    private $alias = 'root';
 
     /**
      * Get results when you match with a Specification.
@@ -211,11 +211,13 @@ trait EntitySpecificationRepositoryTrait
             $specification->modify($queryBuilder, $alias ?: $this->getAlias());
         }
 
-        if ($specification instanceof Filter &&
-            ($filter = $specification->getFilter($queryBuilder, $alias ?: $this->getAlias())) &&
-            ($filter = trim($filter))
-        ) {
-            $queryBuilder->andWhere($filter);
+        if ($specification instanceof Filter) {
+            $filter = $specification->getFilter($queryBuilder, $alias ?: $this->getAlias());
+            $filter = trim($filter);
+
+            if ('' !== $filter) {
+                $queryBuilder->andWhere($filter);
+            }
         }
     }
 }

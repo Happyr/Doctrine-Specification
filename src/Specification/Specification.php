@@ -15,8 +15,9 @@ declare(strict_types=1);
 namespace Happyr\DoctrineSpecification\Specification;
 
 use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Filter\Satisfiable;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 
-interface Specification extends Filter, QueryModifier
+interface Specification extends Filter, QueryModifier, Satisfiable
 {
 }

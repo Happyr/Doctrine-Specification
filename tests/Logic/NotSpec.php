@@ -16,10 +16,12 @@ namespace tests\Happyr\DoctrineSpecification\Logic;
 
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Filter\Equals;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
+use tests\Happyr\DoctrineSpecification\Player;
 
 /**
  * @mixin Not
@@ -36,16 +38,16 @@ final class NotSpec extends ObjectBehavior
      */
     public function it_calls_parent_match(QueryBuilder $qb, Expr $expr, Filter $filterExpr): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
         $expression = 'expression';
         $parentExpression = 'foobar';
 
         $qb->expr()->willReturn($expr);
-        $filterExpr->getFilter($qb, $dqlAlias)->willReturn($parentExpression);
+        $filterExpr->getFilter($qb, $context)->willReturn($parentExpression);
 
         $expr->not($parentExpression)->willReturn($expression);
 
-        $this->getFilter($qb, $dqlAlias)->shouldReturn($expression);
+        $this->getFilter($qb, $context)->shouldReturn($expression);
     }
 
     /**
@@ -62,5 +64,97 @@ final class NotSpec extends ObjectBehavior
     public function it_does_not_modify_parent_query(QueryBuilder $qb): void
     {
         $this->modify($qb, 'a');
+    }
+
+    public function it_filter_array_collection(): void
+    {
+        $this->beConstructedWith(new Equals('gender', 'M'));
+
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[2]]);
+    }
+
+    public function it_filter_object_collection(): void
+    {
+        $this->beConstructedWith(new Equals('gender', 'M'));
+
+        $players = [
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 1230),
+            new Player('Alice', 'F', 9001),
+        ];
+
+        $this->filterCollection($players)->shouldYield([$players[2]]);
+    }
+
+    public function it_filter_array_collection_not_satisfiable(Filter $expr): void
+    {
+        $this->beConstructedWith($expr);
+
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
+        ];
+
+        $this->filterCollection($players)->shouldNotYield([]);
+    }
+
+    public function it_filter_object_collection_not_satisfiable(Filter $expr): void
+    {
+        $this->beConstructedWith($expr);
+
+        $players = [
+            new Player('Joe', 'M', 2500),
+            new Player('Moe', 'M', 1230),
+            new Player('Alice', 'F', 9001),
+        ];
+
+        $this->filterCollection($players)->shouldNotYield([]);
+    }
+
+    public function it_is_satisfied_with_array(): void
+    {
+        $this->beConstructedWith(new Equals('gender', 'M'));
+
+        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
+
+        $this->isSatisfiedBy($playerA)->shouldBe(false);
+        $this->isSatisfiedBy($playerB)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_with_object(): void
+    {
+        $this->beConstructedWith(new Equals('gender', 'M'));
+
+        $playerA = new Player('Joe', 'M', 2500);
+        $playerB = new Player('Alice', 'F', 9001);
+
+        $this->isSatisfiedBy($playerA)->shouldBe(false);
+        $this->isSatisfiedBy($playerB)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_with_array_not_satisfiable(Filter $expr): void
+    {
+        $this->beConstructedWith($expr);
+
+        $player = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
+
+        $this->isSatisfiedBy($player)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_with_object_not_satisfiable(Filter $expr): void
+    {
+        $this->beConstructedWith($expr);
+
+        $player = new Player('Alice', 'F', 9001);
+
+        $this->isSatisfiedBy($player)->shouldBe(true);
     }
 }

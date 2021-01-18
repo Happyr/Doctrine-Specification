@@ -83,6 +83,168 @@
 * The `DBALTypesResolver` class marked as `final`.
 * The `ValueConverter` class marked as `final`.
 * The `EntitySpecificationRepositoryTrait::getAlias()` method returns nothing else.
+* The `Operand::execute()` method was added. This method performs the necessary actions on the operand and returns the
+  result. It is desirable to return a scalar value so that it is compatible with other operands.
+* The custom platform functions also need to be made executable and register the executor in the registry.
+
+  ```php
+  PlatformFunction::getExecutorRegistry()->register('POW', fn ($base, $exp) => pow($base, $exp));
+  ```
+* The use of DQL aliases has been replaced with descriptions of contexts.
+
+  Before:
+
+  ```php
+  Spec::andX(
+      Spec::innerJoin('contestant', 'ct'),
+      Spec::innerJoin('contest', 'c', 'ct'),
+      Spec::innerJoin('user', 'u', 'ct'),
+      Spec::eq('state', State::active()->value(), 'u'),
+      Spec::eq('enabled', true, 'c')
+  );
+  ```
+
+  After:
+
+  ```php
+  Spec::andX(
+      Spec::eq('contestant.user.state', State::active()->value()),
+      Spec::eq('contestant.contest.enabled', true)
+  );
+  ```
+
+* The `BaseSpecification::getNestedContext()` method was added and behavior of the `BaseSpecification::getContext()`
+  method was changed.
+
+  Before:
+
+  ```php
+  final class PublishedQuestionnaires extends BaseSpecification
+  {
+      private string $contest_alias;
+
+      private string $contestant_alias;
+
+      private string $user_alias;
+
+      public function __construct(
+          string $contest_alias = 'c',
+          string $contestant_alias = 'ct',
+          string $user_alias = 'u',
+          ?string $dql_alias = null
+      ) {
+          $this->contest_alias = $contest_alias;
+          $this->contestant_alias = $contestant_alias;
+          $this->user_alias = $user_alias;
+          parent::__construct($dql_alias);
+      }
+
+      /**
+       * @return Filter|QueryModifier
+       */
+      protected function getSpec()
+      {
+          return Spec::andX(
+              Spec::innerJoin('contestant', $this->contestant_alias),
+              new ContestantPublished($this->contest_alias, $this->user_alias, $this->contestant_alias)
+          );
+      }
+  }
+
+  final class ContestantPublished extends BaseSpecification
+  {
+      private string $contest_alias;
+
+      private string $user_alias;
+
+      public function __construct(string $contest_alias = 'c', string $user_alias = 'u', ?string $dql_alias = null)
+      {
+          $this->contest_alias = $contest_alias;
+          $this->user_alias = $user_alias;
+          parent::__construct($dql_alias);
+      }
+
+      /**
+       * @return Filter|QueryModifier
+       */
+      protected function getSpec()
+      {
+          return Spec::andX(
+              new JoinedContestant($this->contest_alias, $this->user_alias),
+              new ContestantApproved($this->contest_alias)
+          );
+      }
+  }
+
+  final class ContestantApproved extends BaseSpecification implements Satisfiable
+  {
+      private string $contest_alias;
+
+      public function __construct(string $contest_alias = 'c', ?string $dql_alias = null)
+      {
+          $this->contest_alias = $contest_alias;
+          parent::__construct($dql_alias);
+      }
+
+      /**
+       * @return Filter|QueryModifier
+       */
+      protected function getSpec()
+      {
+          return Spec::orX(
+              Spec::eq('permission', Permission::approved()->value()),
+              Spec::not(new ContestRequireModeration($this->contest_alias))
+         );
+      }
+  }
+  ```
+
+  After:
+
+  ```php
+  final class PublishedQuestionnaires extends BaseSpecification
+  {
+      /**
+       * @return Filter|QueryModifier
+       */
+      protected function getSpec()
+      {
+          return new ContestantPublished($this->getNestedContext('contestant'));
+      }
+  }
+
+  final class ContestantPublished extends BaseSpecification
+  {
+      /**
+       * @return Filter|QueryModifier
+       */
+      protected function getSpec()
+      {
+          return Spec::andX(
+              new JoinedContestant(),
+              new ContestantApproved()
+          );
+      }
+  }
+
+  final class ContestantApproved extends BaseSpecification implements Satisfiable
+  {
+      /**
+       * @return Filter|QueryModifier
+       */
+      protected function getSpec()
+      {
+          return Spec::orX(
+              Spec::eq('permission', Permission::approved()->value()),
+              Spec::not(new ContestRequireModeration($this->getNestedContext('contest')))
+          );
+      }
+  }
+  ```
+
+* The `Satisfiable` interface was added.
+* The `Specification` interface was extends `Satisfiable` interface.
+* The `BaseSpecification` class implement `Satisfiable` interface.
 
 # Upgrade from 1.0 to 1.1
 

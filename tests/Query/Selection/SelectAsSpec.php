@@ -49,25 +49,25 @@ final class SelectAsSpec extends ObjectBehavior
 
     public function it_is_transformable(QueryBuilder $qb): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
         $expression = '(a.foo) AS bar';
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 
     public function it_is_transformable_field(QueryBuilder $qb): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
         $expression = '(a.foo) AS bar';
         $field = new Field('foo');
 
         $this->beConstructedWith($field, $this->alias);
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 
     public function it_is_transformable_value(QueryBuilder $qb, ArrayCollection $parameters): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
         $expression = '(:comparison_10) AS bar';
         $value = new Value('foo');
 
@@ -78,12 +78,12 @@ final class SelectAsSpec extends ObjectBehavior
 
         $qb->setParameter('comparison_10', 'foo', null)->shouldBeCalled();
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 
     public function it_is_transformable_filter(QueryBuilder $qb, ArrayCollection $parameters): void
     {
-        $dqlAlias = 'a';
+        $context = 'a';
         $expression = '(a.foo = :comparison_10) AS bar';
         $filter = new Equals('foo', 'bar');
 
@@ -94,6 +94,6 @@ final class SelectAsSpec extends ObjectBehavior
 
         $qb->setParameter('comparison_10', 'bar', null)->shouldBeCalled();
 
-        $this->transform($qb, $dqlAlias)->shouldReturn($expression);
+        $this->transform($qb, $context)->shouldReturn($expression);
     }
 }

@@ -16,6 +16,7 @@ namespace Happyr\DoctrineSpecification\Logic;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Filter\Satisfiable;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Specification\Specification;
 
@@ -52,16 +53,20 @@ abstract class LogicX implements Specification
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      *
      * @return string
      */
-    public function getFilter(QueryBuilder $qb, string $dqlAlias): string
+    public function getFilter(QueryBuilder $qb, string $context): string
     {
         $children = [];
         foreach ($this->children as $spec) {
-            if ($spec instanceof Filter && $filter = $spec->getFilter($qb, $dqlAlias)) {
-                $children[] = $filter;
+            if ($spec instanceof Filter) {
+                $filter = $spec->getFilter($qb, $context);
+
+                if ($filter) {
+                    $children[] = $filter;
+                }
             }
         }
 
@@ -82,15 +87,55 @@ abstract class LogicX implements Specification
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $dqlAlias
+     * @param string       $context
      */
-    public function modify(QueryBuilder $qb, string $dqlAlias): void
+    public function modify(QueryBuilder $qb, string $context): void
     {
         foreach ($this->children as $child) {
             if ($child instanceof QueryModifier) {
-                $child->modify($qb, $dqlAlias);
+                $child->modify($qb, $context);
             }
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function filterCollection(iterable $collection): iterable
+    {
+        foreach ($collection as $candidate) {
+            if ($this->isSatisfiedBy($candidate)) {
+                yield $candidate;
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isSatisfiedBy($candidate): bool
+    {
+        $has_satisfiable_children = false;
+
+        foreach ($this->children as $child) {
+            if (!$child instanceof Satisfiable) {
+                continue;
+            }
+
+            $has_satisfiable_children = true;
+
+            $satisfied = $child->isSatisfiedBy($candidate);
+
+            if ($satisfied && self::OR_X === $this->expression) {
+                return true;
+            }
+
+            if (!$satisfied && self::AND_X === $this->expression) {
+                return false;
+            }
+        }
+
+        return !$has_satisfiable_children || self::AND_X === $this->expression;
     }
 
     /**
