@@ -39,6 +39,8 @@ use Happyr\DoctrineSpecification\Operand\LikePattern;
 use Happyr\DoctrineSpecification\Operand\Multiplication;
 use Happyr\DoctrineSpecification\Operand\Operand;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\DateAdd;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\DateSub;
 use Happyr\DoctrineSpecification\Operand\Subtraction;
 use Happyr\DoctrineSpecification\Operand\Value;
 use Happyr\DoctrineSpecification\Operand\Values;
@@ -93,8 +95,6 @@ use Happyr\DoctrineSpecification\Specification\CountOf;
  * @method static PlatformFunction CURRENT_DATE() Return the current date
  * @method static PlatformFunction CURRENT_TIME() Returns the current time
  * @method static PlatformFunction CURRENT_TIMESTAMP() Returns a timestamp of the current date and time.
- * @method static PlatformFunction DATE_ADD($date, $days, $unit) Add the number of days to a given date. (Supported units are DAY, MONTH)
- * @method static PlatformFunction DATE_SUB($date, $days, $unit) Substract the number of days from a given date. (Supported units are DAY, MONTH)
  */
 class Spec
 {
@@ -632,6 +632,36 @@ class Spec
     public static function div($field, $value): Division
     {
         return new Division($field, $value);
+    }
+
+    // Platform functions
+
+    /**
+     * Add the number of days to a given date. (Supported units are YEAR, MONTH, WEEK, DAY, HOUR, MINUTE, SECOND)
+     *
+     * @param \DateTimeInterface|string|Operand $date
+     * @param int|Operand                $value
+     * @param string                     $unit
+     *
+     * @return DateAdd
+     */
+    public static function DATE_ADD($date, $value, string $unit): DateAdd
+    {
+        return new DateAdd($date, $value, $unit);
+    }
+
+    /**
+     * Substract the number of days from a given date. (Supported units are YEAR, MONTH, WEEK, DAY, HOUR, MINUTE, SECOND)
+     *
+     * @param \DateTimeInterface|string|Operand $date
+     * @param int|Operand                $value
+     * @param string                     $unit
+     *
+     * @return DateSub
+     */
+    public static function DATE_SUB($date, $value, string $unit): DateSub
+    {
+        return new DateSub($date, $value, $unit);
     }
 
     /**

@@ -57,8 +57,6 @@ final class PlatformFunction implements Operand
         'CURRENT_DATE' => Executor\CurrentDateExecutor::class,
         'CURRENT_TIME' => Executor\CurrentTimeExecutor::class,
         'CURRENT_TIMESTAMP' => Executor\CurrentTimestampExecutor::class,
-        'DATE_ADD' => Executor\DateAddExecutor::class,
-        'DATE_SUB' => Executor\DateSubExecutor::class,
     ];
 
     /**
