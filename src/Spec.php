@@ -41,6 +41,7 @@ use Happyr\DoctrineSpecification\Operand\Operand;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\DateAdd;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\DateSub;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Trim;
 use Happyr\DoctrineSpecification\Operand\Subtraction;
 use Happyr\DoctrineSpecification\Operand\Value;
 use Happyr\DoctrineSpecification\Operand\Values;
@@ -74,7 +75,6 @@ use Happyr\DoctrineSpecification\Specification\CountOf;
  *
  * @method static PlatformFunction CONCAT($str1, $str2)
  * @method static PlatformFunction SUBSTRING($str, $start, $length = null) Return substring of given string.
- * @method static PlatformFunction TRIM($str) Trim the string by the given trim char, defaults to whitespaces.
  * @method static PlatformFunction LOWER($str) Returns the string lowercased.
  * @method static PlatformFunction UPPER($str) Return the upper-case of the given string.
  * @method static PlatformFunction IDENTITY($expression, $fieldMapping = null) Retrieve the foreign key column of association of the owning side
@@ -635,6 +635,18 @@ class Spec
     }
 
     // Platform functions
+
+    /**
+     * Trim the string by the given trim char, defaults to whitespaces.
+     *
+     * @param Operand|string $string
+     * @param string         $mode
+     * @param string         $characters
+     */
+    public static function TRIM($string, string $mode = Trim::BOTH, string $characters = ''): Trim
+    {
+        return new Trim($string, $mode, $characters);
+    }
 
     /**
      * Add the number of days to a given date. (Supported units are YEAR, MONTH, WEEK, DAY, HOUR, MINUTE, SECOND).
