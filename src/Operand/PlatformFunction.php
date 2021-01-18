@@ -17,8 +17,30 @@ namespace Happyr\DoctrineSpecification\Operand;
 use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
-use Happyr\DoctrineSpecification\PlatformFunction\Executor;
-use Happyr\DoctrineSpecification\PlatformFunction\Executor\PlatformFunctionExecutorRegistry;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\AbsExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\AvgExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\BitAndExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\BitOrExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\ConcatExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\CountExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\CurrentDateExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\CurrentTimeExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\CurrentTimestampExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\DateDiffExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\IdentityExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\LengthExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\LocateExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\LowerExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\MaxExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\MinExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\ModExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\PlatformFunctionExecutorRegistry;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\SizeExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\SqrtExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\SubstringExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\SumExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\TrimExecutor;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\UpperExecutor;
 
 final class PlatformFunction implements Operand
 {
@@ -31,32 +53,32 @@ final class PlatformFunction implements Operand
      */
     private const DOCTRINE_FUNCTIONS = [
         // String functions
-        'CONCAT' => Executor\ConcatExecutor::class,
-        'SUBSTRING' => Executor\SubstringExecutor::class,
-        'TRIM' => Executor\TrimExecutor::class,
-        'LOWER' => Executor\LowerExecutor::class,
-        'UPPER' => Executor\UpperExecutor::class,
-        'IDENTITY' => Executor\IdentityExecutor::class,
+        'CONCAT' => ConcatExecutor::class,
+        'SUBSTRING' => SubstringExecutor::class,
+        'TRIM' => TrimExecutor::class,
+        'LOWER' => LowerExecutor::class,
+        'UPPER' => UpperExecutor::class,
+        'IDENTITY' => IdentityExecutor::class,
         // Numeric functions
-        'LENGTH' => Executor\LengthExecutor::class,
-        'LOCATE' => Executor\LocateExecutor::class,
-        'ABS' => Executor\AbsExecutor::class,
-        'SQRT' => Executor\SqrtExecutor::class,
-        'MOD' => Executor\ModExecutor::class,
-        'SIZE' => Executor\SizeExecutor::class,
-        'DATE_DIFF' => Executor\DateDiffExecutor::class,
-        'BIT_AND' => Executor\BitAndExecutor::class,
-        'BIT_OR' => Executor\BitOrExecutor::class,
+        'LENGTH' => LengthExecutor::class,
+        'LOCATE' => LocateExecutor::class,
+        'ABS' => AbsExecutor::class,
+        'SQRT' => SqrtExecutor::class,
+        'MOD' => ModExecutor::class,
+        'SIZE' => SizeExecutor::class,
+        'DATE_DIFF' => DateDiffExecutor::class,
+        'BIT_AND' => BitAndExecutor::class,
+        'BIT_OR' => BitOrExecutor::class,
         // Aggregate functions
-        'MIN' => Executor\MinExecutor::class,
-        'MAX' => Executor\MaxExecutor::class,
-        'AVG' => Executor\AvgExecutor::class,
-        'SUM' => Executor\SumExecutor::class,
-        'COUNT' => Executor\CountExecutor::class,
+        'MIN' => MinExecutor::class,
+        'MAX' => MaxExecutor::class,
+        'AVG' => AvgExecutor::class,
+        'SUM' => SumExecutor::class,
+        'COUNT' => CountExecutor::class,
         // Datetime functions
-        'CURRENT_DATE' => Executor\CurrentDateExecutor::class,
-        'CURRENT_TIME' => Executor\CurrentTimeExecutor::class,
-        'CURRENT_TIMESTAMP' => Executor\CurrentTimestampExecutor::class,
+        'CURRENT_DATE' => CurrentDateExecutor::class,
+        'CURRENT_TIME' => CurrentTimeExecutor::class,
+        'CURRENT_TIMESTAMP' => CurrentTimestampExecutor::class,
     ];
 
     /**
