@@ -72,8 +72,8 @@ final class DateSub implements Operand
             ));
         }
 
-        $this->date = ArgumentToOperandConverter::toField($date);
-        $this->value = ArgumentToOperandConverter::toValue($value);
+        $this->date = $date;
+        $this->value = $value;
         $this->unit = $unit;
     }
 
@@ -85,8 +85,8 @@ final class DateSub implements Operand
      */
     public function transform(QueryBuilder $qb, string $context): string
     {
-        $date = $this->date->transform($qb, $context);
-        $value = $this->value->transform($qb, $context);
+        $date = ArgumentToOperandConverter::toField($this->date)->transform($qb, $context);
+        $value = ArgumentToOperandConverter::toValue($this->value)->transform($qb, $context);
 
         return sprintf('DATE_SUB(%s, %s, \'%s\')', $date, $value, $this->unit);
     }
@@ -98,8 +98,8 @@ final class DateSub implements Operand
      */
     public function execute($candidate): \DateTimeImmutable
     {
-        $date = $this->date->execute($candidate);
-        $value = $this->value->execute($candidate);
+        $date = ArgumentToOperandConverter::toField($this->date)->execute($candidate);
+        $value = ArgumentToOperandConverter::toValue($this->value)->execute($candidate);
 
         if (!$date instanceof \DateTimeInterface) {
             throw new InvalidArgumentException(sprintf(
