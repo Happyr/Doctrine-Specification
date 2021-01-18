@@ -19,10 +19,7 @@ jobs:
         with:
           php-version: 7.2
           coverage: none
-          tools: composer:v2
-
-      - name: Install variant
-        run: composer require phpstan/phpstan:"0.12.*" --no-update
+          tools: cs2pr, phpstan, composer:v2
 
       - name: Install Composer dependencies (highest)
         uses: 'ramsey/composer-install@v1'
@@ -31,7 +28,7 @@ jobs:
           composer-options: '--prefer-dist --prefer-stable'
 
       - name: PHPStan
-        run: vendor/bin/phpstan --memory-limit=1G analyse
+        run: phpstan analyse --error-format=checkstyle | cs2pr
 
   php-cs-fixer:
     name: PHP CS Fixer
@@ -47,7 +44,7 @@ jobs:
         with:
           php-version: 7.2
           coverage: none
-          tools: php-cs-fixer
+          tools: cs2pr, php-cs-fixer
 
       - name: Run PHP-CS-Fixer
-        run: php-cs-fixer fix --verbose --diff --dry-run
+        run: php-cs-fixer fix --verbose --dry-run --format=checkstyle | cs2pr
