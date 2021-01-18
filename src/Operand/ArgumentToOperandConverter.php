@@ -20,25 +20,25 @@ namespace Happyr\DoctrineSpecification\Operand;
 final class ArgumentToOperandConverter
 {
     /**
-     * Convert the argument into the field operand if it is not an operand.
+     * Convert the argument into the field operand if it is a string and not an operand or into the value operand.
      *
-     * @param Operand|string $argument
+     * @param Operand|string|mixed $argument
      *
      * @return Operand
      */
     public static function toField($argument): Operand
     {
-        if ($argument instanceof Operand) {
-            return $argument;
+        if (is_string($argument)) {
+            return new Field($argument);
         }
 
-        return new Field($argument);
+        return self::toValue($argument);
     }
 
     /**
      * Convert the argument into the value operand if it is not an operand.
      *
-     * @param Operand|string $argument
+     * @param Operand|mixed $argument
      *
      * @return Operand
      */
@@ -72,7 +72,7 @@ final class ArgumentToOperandConverter
     /**
      * Convert all arguments to operands.
      *
-     * @param Operand[]|string[] $arguments
+     * @param Operand[]|mixed[] $arguments
      *
      * @return Operand[]
      */
