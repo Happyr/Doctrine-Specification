@@ -43,12 +43,12 @@ final class DateAdd implements Operand
     ];
 
     /**
-     * @var Operand
+     * @var \DateTimeInterface|string|Operand
      */
     private $date;
 
     /**
-     * @var Operand
+     * @var int|Operand
      */
     private $value;
 
@@ -59,8 +59,8 @@ final class DateAdd implements Operand
 
     /**
      * @param \DateTimeInterface|string|Operand $date
-     * @param int|Operand                $value
-     * @param string                     $unit
+     * @param int|Operand                       $value
+     * @param string                            $unit
      */
     public function __construct($date, $value, string $unit)
     {
