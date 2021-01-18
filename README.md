@@ -199,6 +199,8 @@ Instead reusing this code will lead to a third method filterGroupsForApiAndPermi
 
 ## Check single entity
 
+You can apply specifications to validate specific entities or dataset.
+
 ```php
 $highRankFemalesSpec = Spec::andX(
     Spec::eq('gender', 'F'),
@@ -233,6 +235,8 @@ foreach ($playersObj as $playerObj) {
 ```
 
 ## Filter collection
+
+You can apply specifications to filter collection of entities or datasets.
 
 ```php
 $highRankFemalesSpec = Spec::andX(
