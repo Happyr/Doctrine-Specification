@@ -43,6 +43,9 @@ $rules = [
     'native_constant_invocation' => false,
     'native_function_invocation' => false,
     'ordered_class_elements' => false,
+    'operator_linebreak' => [
+        'position' => 'end',
+    ],
 ];
 
 $finder = PhpCsFixer\Finder::create()
