@@ -57,3 +57,5 @@ jobs:
 
       - name: PHP Code Style Fixer (php-cs-fixer)
         uses: OskarStark/php-cs-fixer-ga@2.16.7
+        with:
+          args: --diff --dry-run
