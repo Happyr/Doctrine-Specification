@@ -45,9 +45,9 @@ jobs:
       - name: Install PHP with extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 7.2
           coverage: none
-          tools: cs2pr, php-cs-fixer
+          tools: php-cs-fixer
 
       - name: Run PHP-CS-Fixer
-        run: php-cs-fixer fix --verbose --diff --dry-run --format checkstyle | cs2pr
+        run: php-cs-fixer fix --verbose --diff --dry-run
