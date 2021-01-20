@@ -13,80 +13,15 @@
 
 namespace Happyr\DoctrineSpecification;
 
-use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Filter\Filter;
-use Happyr\DoctrineSpecification\Query\QueryModifier;
-use Happyr\DoctrineSpecification\Specification\Specification;
+use Happyr\DoctrineSpecification\Specification\BaseSpecification as BaseBaseSpecification;
+
+@trigger_error('The '.__NAMESPACE__.'\BaseSpecification class is deprecated since version 1.1 and will be removed in 2.0, use \Happyr\DoctrineSpecification\Specification\BaseSpecification instead.', E_USER_DEPRECATED);
 
 /**
  * Extend this abstract class if you want to build a new spec with your domain logic.
+ *
+ * @deprecated This class is deprecated since version 1.1 and will be removed in 2.0, use \Happyr\DoctrineSpecification\Specification\BaseSpecification instead.
  */
-abstract class BaseSpecification implements Specification
+abstract class BaseSpecification extends BaseBaseSpecification
 {
-    /**
-     * @var string|null
-     */
-    private $dqlAlias;
-
-    /**
-     * @param string|null $dqlAlias
-     */
-    public function __construct($dqlAlias = null)
-    {
-        $this->dqlAlias = $dqlAlias;
-    }
-
-    /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
-     *
-     * @return string
-     */
-    public function getFilter(QueryBuilder $qb, $dqlAlias)
-    {
-        $spec = $this->getSpec();
-        if ($spec instanceof Filter) {
-            return $spec->getFilter($qb, $this->getAlias($dqlAlias));
-        }
-
-        return '';
-    }
-
-    /**
-     * @param QueryBuilder $qb
-     * @param string       $dqlAlias
-     */
-    public function modify(QueryBuilder $qb, $dqlAlias)
-    {
-        $spec = $this->getSpec();
-        if ($spec instanceof QueryModifier) {
-            $spec->modify($qb, $this->getAlias($dqlAlias));
-        }
-    }
-
-    /**
-     * Return all the specifications.
-     *
-     * @return Filter|QueryModifier|null
-     */
-    protected function getSpec()
-    {
-        @trigger_error('Using the default implementation of '.__METHOD__.' method is deprecated since version 1.1 and this method will be marked as abstract in 2.0. You must overwrite this implementation.', E_USER_DEPRECATED);
-
-        return null;
-    }
-
-    /**
-     * @param string $dqlAlias
-     *
-     * @return string
-     */
-    private function getAlias($dqlAlias)
-    {
-        if (null !== $this->dqlAlias) {
-            return $this->dqlAlias;
-        }
-
-        return $dqlAlias;
-    }
 }

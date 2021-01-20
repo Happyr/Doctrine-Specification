@@ -48,7 +48,7 @@ Then you may start to create your specifications. Put them in `Acme\DemoBundle\E
 
 namespace Acme\DemoBundle\Entity\Spec;
 
-use Happyr\DoctrineSpecification\BaseSpecification;
+use Happyr\DoctrineSpecification\Specification\BaseSpecification;
 use Happyr\DoctrineSpecification\Spec;
 
 /**
