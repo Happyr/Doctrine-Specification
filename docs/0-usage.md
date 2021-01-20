@@ -51,7 +51,7 @@ declare(strict_types=1);
 
 namespace Acme\DemoBundle\Entity\Spec;
 
-use Happyr\DoctrineSpecification\BaseSpecification;
+use Happyr\DoctrineSpecification\Specification\BaseSpecification;
 use Happyr\DoctrineSpecification\Spec;
 
 /**

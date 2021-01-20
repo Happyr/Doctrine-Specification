@@ -83,8 +83,9 @@ public function isSatisfiedBy($candidate): bool
 
 ## BaseSpecification
 
-To make your life easier you may use the `Happyr\DoctrineSpecification\BaseSpecification` class. When you extend
-this class you don't need to bother with `getFilter`, `modify`, `filterCollection` or `isSatisfiedBy`. You need to do 2 things:
+To make your life easier you may use the `Happyr\DoctrineSpecification\Specification\BaseSpecification` class. When you
+extend  this class you don't need to bother with `getFilter`, `modify`, `filterCollection` or `isSatisfiedBy`. You need
+to do 2 things:
 
 1. If you implement a constructor, make sure to call the parent constructor with `$context`
 2. Implement `getSpec` to return your `Specifications`
@@ -92,7 +93,7 @@ this class you don't need to bother with `getFilter`, `modify`, `filterCollectio
 Consider the following example.
 
 ```php
-use Happyr\DoctrineSpecification\BaseSpecification;
+use Happyr\DoctrineSpecification\Specification\BaseSpecification;
 use Happyr\DoctrineSpecification\Spec;
 
 /**

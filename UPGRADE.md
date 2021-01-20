@@ -20,6 +20,8 @@
   `Happyr\DoctrineSpecification\Repository\EntitySpecificationRepositoryTrait` instead.
 * The `Happyr\DoctrineSpecification\RepositoryFactory` class was removed, use
   `Happyr\DoctrineSpecification\Repository\RepositoryFactory` instead.
+* The `Happyr\DoctrineSpecification\BaseSpecification` class was removed, use
+  `Happyr\DoctrineSpecification\Specification\BaseSpecification` instead.
 * Removes the ability to use `array` as argument for the `PlatformFunction` operand.
 
   Before:

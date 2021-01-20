@@ -12,13 +12,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Happyr\DoctrineSpecification;
+namespace Happyr\DoctrineSpecification\Specification;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\Satisfiable;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
-use Happyr\DoctrineSpecification\Specification\Specification;
 
 /**
  * Extend this abstract class if you want to build a new spec with your domain logic.
