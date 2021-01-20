@@ -11,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Happyr\DoctrineSpecification;
+namespace Happyr\DoctrineSpecification\Repository;
 
 use Doctrine\ORM\NonUniqueResultException as DoctrineNonUniqueResultException;
 use Doctrine\ORM\NoResultException as DoctrineNoResultException;
@@ -23,12 +23,8 @@ use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Result\ResultModifier;
 
-@trigger_error('The '.__NAMESPACE__.'\EntitySpecificationRepositoryTrait class is deprecated since version 1.1 and will be removed in 2.0, use \Happyr\DoctrineSpecification\Repository\EntitySpecificationRepositoryTrait instead.', E_USER_DEPRECATED);
-
 /**
  * This trait should be used by a class extending \Doctrine\ORM\EntityRepository.
- *
- * @description This class is deprecated since version 1.1 and will be removed in 2.0, use \Happyr\DoctrineSpecification\Repository\EntitySpecificationRepositoryTrait instead.
  */
 trait EntitySpecificationRepositoryTrait
 {

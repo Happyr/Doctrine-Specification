@@ -13,30 +13,18 @@
 
 namespace Happyr\DoctrineSpecification;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
+use Happyr\DoctrineSpecification\Repository\RepositoryFactory as BaseRepositoryFactory;
+
+@trigger_error('The '.__NAMESPACE__.'\RepositoryFactory class is deprecated since version 1.1 and will be removed in 2.0, use \Happyr\DoctrineSpecification\Repository\RepositoryFactory instead.', E_USER_DEPRECATED);
 
 /**
  * Factory class for creating EntitySpecificationRepository instances.
  *
  * Provides an implementation of RepositoryFactory so that the
  * default repository type in Doctrine can easily be replaced.
+ *
+ * @description This class is deprecated since version 1.1 and will be removed in 2.0, use \Happyr\DoctrineSpecification\Repository\RepositoryFactory instead.
  */
-class RepositoryFactory implements \Doctrine\ORM\Repository\RepositoryFactory
+class RepositoryFactory extends BaseRepositoryFactory
 {
-    /**
-     * Gets the repository for an entity class.
-     *
-     * @param EntityManagerInterface $entityManager the EntityManager instance
-     * @param string                 $entityName    the name of the entity
-     *
-     * @return EntityRepository
-     */
-    public function getRepository(EntityManagerInterface $entityManager, $entityName)
-    {
-        return new EntitySpecificationRepository(
-            $entityManager,
-            $entityManager->getClassMetadata($entityName)
-        );
-    }
 }

@@ -11,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-namespace tests\Happyr\DoctrineSpecification;
+namespace tests\Happyr\DoctrineSpecification\Repository;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
@@ -19,12 +19,12 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\NonUniqueResultException as DoctrineNonUniqueResultException;
 use Doctrine\ORM\NoResultException as DoctrineNoResultException;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\EntitySpecificationRepository;
 use Happyr\DoctrineSpecification\Exception\NonUniqueResultException;
 use Happyr\DoctrineSpecification\Exception\NoResultException;
 use Happyr\DoctrineSpecification\Exception\UnexpectedResultException;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
+use Happyr\DoctrineSpecification\Repository\EntitySpecificationRepository;
 use Happyr\DoctrineSpecification\Result\ResultModifier;
 use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
