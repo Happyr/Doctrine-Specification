@@ -39,7 +39,6 @@ use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\SizeExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\SqrtExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\SubstringExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\SumExecutor;
-use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\TrimExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\UpperExecutor;
 
 final class PlatformFunction implements Operand
@@ -55,7 +54,6 @@ final class PlatformFunction implements Operand
         // String functions
         'CONCAT' => ConcatExecutor::class,
         'SUBSTRING' => SubstringExecutor::class,
-        'TRIM' => TrimExecutor::class,
         'LOWER' => LowerExecutor::class,
         'UPPER' => UpperExecutor::class,
         'IDENTITY' => IdentityExecutor::class,
