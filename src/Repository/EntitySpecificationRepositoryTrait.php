@@ -12,13 +12,15 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Happyr\DoctrineSpecification;
+namespace Happyr\DoctrineSpecification\Repository;
 
 use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\NonUniqueResultException as DoctrineNonUniqueResultException;
+use Doctrine\ORM\NoResultException as DoctrineNoResultException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Exception\NonUniqueResultException;
+use Happyr\DoctrineSpecification\Exception\NoResultException;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Result\ResultModifier;
@@ -65,10 +67,10 @@ trait EntitySpecificationRepositoryTrait
 
         try {
             return $query->getSingleResult();
-        } catch (NonUniqueResultException $e) {
-            throw new Exception\NonUniqueResultException($e->getMessage(), $e->getCode(), $e);
-        } catch (NoResultException $e) {
-            throw new Exception\NoResultException($e->getMessage(), $e->getCode(), $e);
+        } catch (DoctrineNonUniqueResultException $e) {
+            throw new NonUniqueResultException($e->getMessage(), $e->getCode(), $e);
+        } catch (DoctrineNoResultException $e) {
+            throw new NoResultException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -86,7 +88,7 @@ trait EntitySpecificationRepositoryTrait
     {
         try {
             return $this->matchSingleResult($specification, $modifier);
-        } catch (Exception\NoResultException $e) {
+        } catch (NoResultException $e) {
             return null;
         }
     }
@@ -108,8 +110,8 @@ trait EntitySpecificationRepositoryTrait
 
         try {
             return $query->getSingleScalarResult();
-        } catch (NonUniqueResultException $e) {
-            throw new Exception\NonUniqueResultException($e->getMessage(), $e->getCode(), $e);
+        } catch (DoctrineNonUniqueResultException $e) {
+            throw new NonUniqueResultException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
