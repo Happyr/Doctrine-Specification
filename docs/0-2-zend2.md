@@ -4,7 +4,7 @@
 
 Doctrine integration with Zend Framework 2 can be achieved using the `DoctrineORM` bundle. This bundle contains
 configuration options for the repository factory. To replace the default repository type, provide a factory creating
- an instance of `Happyr\DoctrineSpecification\EntitySpecificationRepository` and any necessary configuration options.
+an instance of `Happyr\DoctrineSpecification\Repository\EntitySpecificationRepository` and any necessary configuration options.
 
 ```php
 // Application configuration
@@ -17,7 +17,7 @@ configuration options for the repository factory. To replace the default reposit
 
     'service_manager' => [
         'services' => [
-            'happyr_doctrinespecification_repository' => new Happyr\DoctrineSpecification\RepositoryFactory(),
+            'happyr_doctrinespecification_repository' => new Happyr\DoctrineSpecification\Repository\RepositoryFactory(),
         ],
     ],
 ];

@@ -6,9 +6,8 @@ If you're choosing to use Doctrine with Laravel, there are some common Doctrine 
 
 ### atrauzzi/laravel-doctrine
 
-For this package, in its configuration settings, set the `defaultRepository` setting to `Happyr\DoctrineSpecification\EntitySpecificationRepository`
+For this package, in its configuration settings, set the `defaultRepository` setting to `Happyr\DoctrineSpecification\Repository\EntitySpecificationRepository`
 
 ###  mitchellvanw/laravel-doctrine
 
-For this package, in its configuration settings, set the `repository` setting to `Happyr\DoctrineSpecification\EntitySpecificationRepository`
-
+For this package, in its configuration settings, set the `repository` setting to `Happyr\DoctrineSpecification\Repository\EntitySpecificationRepository`

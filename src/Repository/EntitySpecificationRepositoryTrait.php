@@ -12,25 +12,19 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Happyr\DoctrineSpecification;
+namespace Happyr\DoctrineSpecification\Repository;
 
 use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\NonUniqueResultException as DoctrineNonUniqueResultException;
-use Doctrine\ORM\NoResultException as DoctrineNoResultException;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Happyr\DoctrineSpecification\Exception\NonUniqueResultException;
-use Happyr\DoctrineSpecification\Exception\NoResultException;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Result\ResultModifier;
 
-@trigger_error('The '.__NAMESPACE__.'\EntitySpecificationRepositoryTrait class is deprecated since version 1.1 and will be removed in 2.0, use \Happyr\DoctrineSpecification\Repository\EntitySpecificationRepositoryTrait instead.', E_USER_DEPRECATED);
-
 /**
  * This trait should be used by a class extending \Doctrine\ORM\EntityRepository.
- *
- * @description This class is deprecated since version 1.1 and will be removed in 2.0, use \Happyr\DoctrineSpecification\Repository\EntitySpecificationRepositoryTrait instead.
  */
 trait EntitySpecificationRepositoryTrait
 {
@@ -71,10 +65,10 @@ trait EntitySpecificationRepositoryTrait
 
         try {
             return $query->getSingleResult();
-        } catch (DoctrineNonUniqueResultException $e) {
-            throw new NonUniqueResultException($e->getMessage(), $e->getCode(), $e);
-        } catch (DoctrineNoResultException $e) {
-            throw new NoResultException($e->getMessage(), $e->getCode(), $e);
+        } catch (NonUniqueResultException $e) {
+            throw new Exception\NonUniqueResultException($e->getMessage(), $e->getCode(), $e);
+        } catch (NoResultException $e) {
+            throw new Exception\NoResultException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -92,7 +86,7 @@ trait EntitySpecificationRepositoryTrait
     {
         try {
             return $this->matchSingleResult($specification, $modifier);
-        } catch (NoResultException $e) {
+        } catch (Exception\NoResultException $e) {
             return null;
         }
     }
@@ -114,8 +108,8 @@ trait EntitySpecificationRepositoryTrait
 
         try {
             return $query->getSingleScalarResult();
-        } catch (DoctrineNonUniqueResultException $e) {
-            throw new NonUniqueResultException($e->getMessage(), $e->getCode(), $e);
+        } catch (NonUniqueResultException $e) {
+            throw new Exception\NonUniqueResultException($e->getMessage(), $e->getCode(), $e);
         }
     }
 

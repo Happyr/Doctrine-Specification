@@ -12,19 +12,15 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Happyr\DoctrineSpecification;
+namespace Happyr\DoctrineSpecification\Repository;
 
 use Doctrine\ORM\EntityRepository;
-
-@trigger_error('The '.__NAMESPACE__.'\EntitySpecificationRepository class is deprecated since version 1.1 and will be removed in 2.0, use \Happyr\DoctrineSpecification\Repository\EntitySpecificationRepository instead.', E_USER_DEPRECATED);
 
 /**
  * This class allows you to use a Specification to query entities.
  *
- * @phpstan-template T
+ * @template T
  * @phpstan-extends EntityRepository<T>
- *
- * @description This class is deprecated since version 1.1 and will be removed in 2.0, use \Happyr\DoctrineSpecification\Repository\EntitySpecificationRepository instead.
  */
 class EntitySpecificationRepository extends EntityRepository implements EntitySpecificationRepositoryInterface
 {
