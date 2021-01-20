@@ -12,6 +12,14 @@
 * The `Bitwise` operands was removed.
 * The `Happyr\DoctrineSpecification\Specification\Having` class was removed, use
   `Happyr\DoctrineSpecification\Query\Having` instead.
+* The `Happyr\DoctrineSpecification\EntitySpecificationRepository` class was removed, use
+  `Happyr\DoctrineSpecification\Repository\EntitySpecificationRepository` instead.
+* The `Happyr\DoctrineSpecification\EntitySpecificationRepositoryInterface` class was removed, use
+  `Happyr\DoctrineSpecification\Repository\EntitySpecificationRepositoryInterface` instead.
+* The `Happyr\DoctrineSpecification\EntitySpecificationRepositoryTrait` class was removed, use
+  `Happyr\DoctrineSpecification\Repository\EntitySpecificationRepositoryTrait` instead.
+* The `Happyr\DoctrineSpecification\RepositoryFactory` class was removed, use
+  `Happyr\DoctrineSpecification\Repository\RepositoryFactory` instead.
 * Removes the ability to use `array` as argument for the `PlatformFunction` operand.
 
   Before:
