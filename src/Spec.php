@@ -73,7 +73,7 @@ use Happyr\DoctrineSpecification\Specification\CountOf;
 /**
  * Factory class for the specifications.
  *
- * @method static PlatformFunction CONCAT($str1, $str2)
+ * @method static PlatformFunction CONCAT($str1, ...$str2)
  * @method static PlatformFunction SUBSTRING($str, $start, $length = null) Return substring of given string.
  * @method static PlatformFunction LOWER($str) Returns the string lowercased.
  * @method static PlatformFunction UPPER($str) Return the upper-case of the given string.
