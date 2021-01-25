@@ -32,13 +32,13 @@ use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Logic\OrX;
 use Happyr\DoctrineSpecification\Operand\Addition;
 use Happyr\DoctrineSpecification\Operand\Alias;
-use Happyr\DoctrineSpecification\Operand\CountDistinct;
 use Happyr\DoctrineSpecification\Operand\Division;
 use Happyr\DoctrineSpecification\Operand\Field;
 use Happyr\DoctrineSpecification\Operand\LikePattern;
 use Happyr\DoctrineSpecification\Operand\Multiplication;
 use Happyr\DoctrineSpecification\Operand\Operand;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Count;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\DateAdd;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\DateSub;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Trim;
@@ -91,7 +91,6 @@ use Happyr\DoctrineSpecification\Specification\CountOf;
  * @method static PlatformFunction MAX($a)
  * @method static PlatformFunction AVG($a)
  * @method static PlatformFunction SUM($a)
- * @method static PlatformFunction COUNT($a)
  * @method static PlatformFunction CURRENT_DATE() Return the current date
  * @method static PlatformFunction CURRENT_TIME() Returns the current time
  * @method static PlatformFunction CURRENT_TIMESTAMP() Returns a timestamp of the current date and time.
@@ -578,16 +577,6 @@ class Spec
         return new LikePattern($value, $format);
     }
 
-    /**
-     * @param Operand|string $field
-     *
-     * @return CountDistinct
-     */
-    public static function countDistinct($field): CountDistinct
-    {
-        return new CountDistinct($field);
-    }
-
     // Arithmetic operands
 
     /**
@@ -637,15 +626,14 @@ class Spec
     // Platform functions
 
     /**
-     * Trim the string by the given trim char, defaults to whitespaces.
+     * @param Operand|string $field
+     * @param bool           $distinct
      *
-     * @param Operand|string $string
-     * @param string         $mode
-     * @param string         $characters
+     * @return Count
      */
-    public static function TRIM($string, string $mode = Trim::BOTH, string $characters = ''): Trim
+    public static function COUNT($field, bool $distinct = false): Count
     {
-        return new Trim($string, $mode, $characters);
+        return new Count($field, $distinct);
     }
 
     /**
@@ -674,6 +662,18 @@ class Spec
     public static function DATE_SUB($date, $value, string $unit): DateSub
     {
         return new DateSub($date, $value, $unit);
+    }
+
+    /**
+     * Trim the string by the given trim char, defaults to whitespaces.
+     *
+     * @param Operand|string $string
+     * @param string         $mode
+     * @param string         $characters
+     */
+    public static function TRIM($string, string $mode = Trim::BOTH, string $characters = ''): Trim
+    {
+        return new Trim($string, $mode, $characters);
     }
 
     /**

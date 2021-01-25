@@ -12,18 +12,18 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace tests\Happyr\DoctrineSpecification\Operand;
+namespace tests\Happyr\DoctrineSpecification\Operand\PlatformFunction;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\OperandNotExecuteException;
-use Happyr\DoctrineSpecification\Operand\CountDistinct;
 use Happyr\DoctrineSpecification\Operand\Operand;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Count;
 use PhpSpec\ObjectBehavior;
 
 /**
- * @mixin CountDistinct
+ * @mixin Count
  */
-final class CountDistinctSpec extends ObjectBehavior
+final class CountSpec extends ObjectBehavior
 {
     private $field = 'foo';
 
@@ -34,7 +34,7 @@ final class CountDistinctSpec extends ObjectBehavior
 
     public function it_is_a_count_distinct(): void
     {
-        $this->shouldBeAnInstanceOf(CountDistinct::class);
+        $this->shouldBeAnInstanceOf(Count::class);
     }
 
     public function it_is_a_operand(): void
@@ -44,6 +44,13 @@ final class CountDistinctSpec extends ObjectBehavior
 
     public function it_is_transformable(QueryBuilder $qb): void
     {
+        $this->transform($qb, 'a')->shouldReturn('COUNT(a.foo)');
+    }
+
+    public function it_is_transformable_distinct(QueryBuilder $qb): void
+    {
+        $this->beConstructedWith($this->field, true);
+
         $this->transform($qb, 'a')->shouldReturn('COUNT(DISTINCT a.foo)');
     }
 

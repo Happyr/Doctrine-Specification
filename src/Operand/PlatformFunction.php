@@ -22,7 +22,6 @@ use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\AvgExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\BitAndExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\BitOrExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\ConcatExecutor;
-use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\CountExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\CurrentDateExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\CurrentTimeExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\CurrentTimestampExecutor;
@@ -72,7 +71,6 @@ final class PlatformFunction implements Operand
         'MAX' => MaxExecutor::class,
         'AVG' => AvgExecutor::class,
         'SUM' => SumExecutor::class,
-        'COUNT' => CountExecutor::class,
         // Datetime functions
         'CURRENT_DATE' => CurrentDateExecutor::class,
         'CURRENT_TIME' => CurrentTimeExecutor::class,
