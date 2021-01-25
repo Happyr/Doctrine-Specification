@@ -38,9 +38,13 @@ use Happyr\DoctrineSpecification\Operand\LikePattern;
 use Happyr\DoctrineSpecification\Operand\Multiplication;
 use Happyr\DoctrineSpecification\Operand\Operand;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Avg;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Count;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\DateAdd;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\DateSub;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Max;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Min;
+use Happyr\DoctrineSpecification\Operand\PlatformFunction\Sum;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Trim;
 use Happyr\DoctrineSpecification\Operand\Subtraction;
 use Happyr\DoctrineSpecification\Operand\Value;
@@ -87,10 +91,6 @@ use Happyr\DoctrineSpecification\Specification\CountOf;
  * @method static PlatformFunction DATE_DIFF($date1, $date2) Calculate the difference in days between date1-date2.
  * @method static PlatformFunction BIT_AND($a, $b)
  * @method static PlatformFunction BIT_OR($a, $b)
- * @method static PlatformFunction MIN($a)
- * @method static PlatformFunction MAX($a)
- * @method static PlatformFunction AVG($a)
- * @method static PlatformFunction SUM($a)
  * @method static PlatformFunction CURRENT_DATE() Return the current date
  * @method static PlatformFunction CURRENT_TIME() Returns the current time
  * @method static PlatformFunction CURRENT_TIMESTAMP() Returns a timestamp of the current date and time.
@@ -634,6 +634,50 @@ class Spec
     public static function COUNT($field, bool $distinct = false): Count
     {
         return new Count($field, $distinct);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param bool           $distinct
+     *
+     * @return Avg
+     */
+    public static function AVG($field, bool $distinct = false): Avg
+    {
+        return new Avg($field, $distinct);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param bool           $distinct
+     *
+     * @return Min
+     */
+    public static function MIN($field, bool $distinct = false): Min
+    {
+        return new Min($field, $distinct);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param bool           $distinct
+     *
+     * @return Max
+     */
+    public static function MAX($field, bool $distinct = false): Max
+    {
+        return new Max($field, $distinct);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param bool           $distinct
+     *
+     * @return Sum
+     */
+    public static function SUM($field, bool $distinct = false): Sum
+    {
+        return new Sum($field, $distinct);
     }
 
     /**
