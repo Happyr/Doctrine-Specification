@@ -18,7 +18,6 @@ use Happyr\DoctrineSpecification\Filter\MemberOfX;
 use Happyr\DoctrineSpecification\Logic\LogicX;
 use Happyr\DoctrineSpecification\Operand\Addition;
 use Happyr\DoctrineSpecification\Operand\Alias;
-use Happyr\DoctrineSpecification\Operand\CountDistinct;
 use Happyr\DoctrineSpecification\Operand\Division;
 use Happyr\DoctrineSpecification\Operand\Multiplication;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction;
@@ -45,11 +44,6 @@ final class SpecSpec extends ObjectBehavior
     public function it_creates_distinct(): void
     {
         $this->distinct()->shouldReturnAnInstanceOf(Distinct::class);
-    }
-
-    public function it_creates_count_distinct(): void
-    {
-        $this->countDistinct('foo')->shouldReturnAnInstanceOf(CountDistinct::class);
     }
 
     public function it_creates_add_operand(): void

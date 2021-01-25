@@ -255,6 +255,41 @@
 * The `Satisfiable` interface was added.
 * The `Specification` interface was extends `Satisfiable` interface.
 * The `BaseSpecification` class implement `Satisfiable` interface.
+* The `Happyr\DoctrineSpecification\Operand\CountDistinct` class was removed, use
+  `Happyr\DoctrineSpecification\Operand\PlatformFunction\Count` instead.
+* The `Spec::countDistinct()` method was removed, use `Spec::COUNT()` instead.
+
+  Before:
+
+  ```php
+  new CountDistinct('field_name');
+  Spec::countDistinct('field_name');
+  ```
+
+  After:
+
+  ```php
+  new Count('field_name', true);
+  Spec::COUNT('field_name', true);
+  ```
+
+* The `COUNT` function as argument to `Spec::fun()` is not longer supported, use `Spec::COUNT()` instead.
+* The `COUNT` function as argument to `Happyr\DoctrineSpecification\Operand\PlatformFunction` is not longer supported,
+  use `Spec::COUNT()` instead.
+
+  Before:
+
+  ```php
+  new PlatformFunction('COUNT', 'field_name');
+  Spec::fun('COUNT', 'field_name');
+  ```
+
+  After:
+
+  ```php
+  new Count('field_name');
+  Spec::COUNT('field_name');
+  ```
 
 # Upgrade from 1.0 to 1.1
 

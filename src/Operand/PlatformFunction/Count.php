@@ -12,12 +12,14 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Happyr\DoctrineSpecification\Operand;
+namespace Happyr\DoctrineSpecification\Operand\PlatformFunction;
 
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\OperandNotExecuteException;
+use Happyr\DoctrineSpecification\Operand\ArgumentToOperandConverter;
+use Happyr\DoctrineSpecification\Operand\Operand;
 
-final class CountDistinct implements Operand
+final class Count implements Operand
 {
     /**
      * @var Operand|string
@@ -25,11 +27,18 @@ final class CountDistinct implements Operand
     private $field;
 
     /**
-     * @param Operand|string $field
+     * @var bool
      */
-    public function __construct($field)
+    private $distinct;
+
+    /**
+     * @param Operand|string $field
+     * @param bool           $distinct
+     */
+    public function __construct($field, bool $distinct = false)
     {
         $this->field = $field;
+        $this->distinct = $distinct;
     }
 
     /**
@@ -43,7 +52,13 @@ final class CountDistinct implements Operand
         $field = ArgumentToOperandConverter::toField($this->field);
         $field = $field->transform($qb, $context);
 
-        return sprintf('COUNT(DISTINCT %s)', $field);
+        $expression = '';
+
+        if ($this->distinct) {
+            $expression = 'DISTINCT ';
+        }
+
+        return sprintf('COUNT(%s%s)', $expression, $field);
     }
 
     /**
