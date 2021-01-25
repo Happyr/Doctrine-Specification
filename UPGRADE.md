@@ -275,7 +275,7 @@
 
 * The `COUNT` function as argument to `Spec::fun()` is not longer supported, use `Spec::COUNT()` instead.
 * The `COUNT` function as argument to `Happyr\DoctrineSpecification\Operand\PlatformFunction` is not longer supported,
-  use `Spec::COUNT()` instead.
+  use `Happyr\DoctrineSpecification\Operand\PlatformFunction\Count` instead.
 
   Before:
 
@@ -289,6 +289,78 @@
   ```php
   new Count('field_name');
   Spec::COUNT('field_name');
+  ```
+
+* The `AVG` function as argument to `Spec::fun()` is not longer supported, use `Spec::AVG()` instead.
+* The `AVG` function as argument to `Happyr\DoctrineSpecification\Operand\PlatformFunction` is not longer supported,
+  use `Happyr\DoctrineSpecification\Operand\PlatformFunction\Avg` instead.
+
+  Before:
+
+  ```php
+  new PlatformFunction('AVG', 'field_name');
+  Spec::fun('AVG', 'field_name');
+  ```
+
+  After:
+
+  ```php
+  new Avg('field_name');
+  Spec::AVG('field_name');
+  ```
+
+* The `MIN` function as argument to `Spec::fun()` is not longer supported, use `Spec::MIN()` instead.
+* The `MIN` function as argument to `Happyr\DoctrineSpecification\Operand\PlatformFunction` is not longer supported,
+  use `Happyr\DoctrineSpecification\Operand\PlatformFunction\Min` instead.
+
+  Before:
+
+  ```php
+  new PlatformFunction('MIN', 'field_name');
+  Spec::fun('MIN', 'field_name');
+  ```
+
+  After:
+
+  ```php
+  new Min('field_name');
+  Spec::MIN('field_name');
+  ```
+
+* The `MAX` function as argument to `Spec::fun()` is not longer supported, use `Spec::MAX()` instead.
+* The `MAX` function as argument to `Happyr\DoctrineSpecification\Operand\PlatformFunction` is not longer supported,
+  use `Happyr\DoctrineSpecification\Operand\PlatformFunction\Max` instead.
+
+  Before:
+
+  ```php
+  new PlatformFunction('MAX', 'field_name');
+  Spec::fun('MAX', 'field_name');
+  ```
+
+  After:
+
+  ```php
+  new Max('field_name');
+  Spec::MAX('field_name');
+  ```
+
+* The `SUM` function as argument to `Spec::fun()` is not longer supported, use `Spec::SUM()` instead.
+* The `SUM` function as argument to `Happyr\DoctrineSpecification\Operand\PlatformFunction` is not longer supported,
+  use `Happyr\DoctrineSpecification\Operand\PlatformFunction\Sum` instead.
+
+  Before:
+
+  ```php
+  new PlatformFunction('SUM', 'field_name');
+  Spec::fun('SUM', 'field_name');
+  ```
+
+  After:
+
+  ```php
+  new Sum('field_name');
+  Spec::SUM('field_name');
   ```
 
 # Upgrade from 1.0 to 1.1

@@ -18,7 +18,6 @@ use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\InvalidArgumentException;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\AbsExecutor;
-use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\AvgExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\BitAndExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\BitOrExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\ConcatExecutor;
@@ -30,14 +29,11 @@ use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\IdentityExecu
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\LengthExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\LocateExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\LowerExecutor;
-use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\MaxExecutor;
-use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\MinExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\ModExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\PlatformFunctionExecutorRegistry;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\SizeExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\SqrtExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\SubstringExecutor;
-use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\SumExecutor;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Executor\UpperExecutor;
 
 final class PlatformFunction implements Operand
@@ -66,11 +62,6 @@ final class PlatformFunction implements Operand
         'DATE_DIFF' => DateDiffExecutor::class,
         'BIT_AND' => BitAndExecutor::class,
         'BIT_OR' => BitOrExecutor::class,
-        // Aggregate functions
-        'MIN' => MinExecutor::class,
-        'MAX' => MaxExecutor::class,
-        'AVG' => AvgExecutor::class,
-        'SUM' => SumExecutor::class,
         // Datetime functions
         'CURRENT_DATE' => CurrentDateExecutor::class,
         'CURRENT_TIME' => CurrentTimeExecutor::class,
