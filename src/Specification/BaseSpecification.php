@@ -32,7 +32,7 @@ abstract class BaseSpecification implements Specification
     /**
      * @param string|null $context
      */
-    public function __construct($context = null)
+    public function __construct(?string $context = null)
     {
         $this->context = $context;
     }

@@ -274,35 +274,35 @@ class Spec
     }
 
     /**
-     * @param string $context
+     * @param string $dqlAliasInContext
      *
      * @return SelectEntity
      */
-    public static function selectEntity(string $context): SelectEntity
+    public static function selectEntity(string $dqlAliasInContext): SelectEntity
     {
-        return new SelectEntity($context);
+        return new SelectEntity($dqlAliasInContext);
     }
 
     /**
      * @param Filter|Operand|string $expression
-     * @param string                $alias
+     * @param string                $newAlias
      *
      * @return SelectAs
      */
-    public static function selectAs($expression, string $alias): SelectAs
+    public static function selectAs($expression, string $newAlias): SelectAs
     {
-        return new SelectAs($expression, $alias);
+        return new SelectAs($expression, $newAlias);
     }
 
     /**
      * @param Filter|Operand|string $expression
-     * @param string                $alias
+     * @param string                $newAlias
      *
      * @return SelectHiddenAs
      */
-    public static function selectHiddenAs($expression, string $alias): SelectHiddenAs
+    public static function selectHiddenAs($expression, string $newAlias): SelectHiddenAs
     {
-        return new SelectHiddenAs($expression, $alias);
+        return new SelectHiddenAs($expression, $newAlias);
     }
 
     // Result modifier
