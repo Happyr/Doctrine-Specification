@@ -29,16 +29,16 @@ abstract class AbstractSelectAs implements Selection
     /**
      * @var string
      */
-    private $alias;
+    private $newAlias;
 
     /**
      * @param Filter|Operand|string $expression
-     * @param string                $alias
+     * @param string                $newAlias
      */
-    public function __construct($expression, string $alias)
+    public function __construct($expression, string $newAlias)
     {
         $this->expression = $expression;
-        $this->alias = $alias;
+        $this->newAlias = $newAlias;
     }
 
     /**
@@ -56,7 +56,7 @@ abstract class AbstractSelectAs implements Selection
             $expression = $expression->transform($qb, $context);
         }
 
-        return sprintf($this->getAliasFormat(), $expression, $this->alias);
+        return sprintf($this->getAliasFormat(), $expression, $this->newAlias);
     }
 
     /**

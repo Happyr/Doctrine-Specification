@@ -22,14 +22,14 @@ final class SelectEntity implements Selection
     /**
      * @var string
      */
-    private $context;
+    private $dqlAliasInContext;
 
     /**
-     * @param string $context
+     * @param string $dqlAliasInContext
      */
-    public function __construct(string $context)
+    public function __construct(string $dqlAliasInContext)
     {
-        $this->context = $context;
+        $this->dqlAliasInContext = $dqlAliasInContext;
     }
 
     /**
@@ -40,6 +40,6 @@ final class SelectEntity implements Selection
      */
     public function transform(QueryBuilder $qb, string $context): string
     {
-        return DQLContextResolver::resolveAlias($qb, $this->context);
+        return DQLContextResolver::resolveAlias($qb, $this->dqlAliasInContext);
     }
 }
