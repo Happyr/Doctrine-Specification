@@ -31,7 +31,7 @@ final class FieldSpec extends ObjectBehavior
 
     public function let(): void
     {
-        $this->beConstructedWith($this->fieldName);
+        $this->beConstructedWith($this->fieldName, null);
     }
 
     public function it_is_a_field(): void
@@ -52,13 +52,15 @@ final class FieldSpec extends ObjectBehavior
         $this->transform($qb, $context)->shouldReturn($expression);
     }
 
-    public function it_is_change_dql_alias(QueryBuilder $qb): void
+    public function it_is_in_context(QueryBuilder $qb): void
     {
-        $context = 'a';
-        $expression = 'b.foo';
+        $this->beConstructedWith($this->fieldName, 'user');
 
-        $this->beConstructedWith($this->fieldName, 'b');
-        $this->transform($qb, $context)->shouldReturn($expression);
+        $qb->getDQLPart('join')->willReturn([]);
+        $qb->getAllAliases()->willReturn([]);
+        $qb->join('root.user', 'user')->willReturn($qb);
+
+        $this->transform($qb, 'root')->shouldReturn(sprintf('user.%s', $this->fieldName));
     }
 
     public function it_is_executable_object(): void

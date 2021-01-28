@@ -29,7 +29,7 @@ final class InstanceOfXSpec extends ObjectBehavior
 {
     public function let(): void
     {
-        $this->beConstructedWith('My\Model', 'o');
+        $this->beConstructedWith('My\Model', null);
     }
 
     public function it_is_initializable(): void
@@ -50,6 +50,22 @@ final class InstanceOfXSpec extends ObjectBehavior
         $qb->expr()->willReturn($exp);
 
         $this->getFilter($qb, 'o')->shouldReturn('o INSTANCE OF My\Model');
+    }
+
+    public function it_returns_expression_func_object_in_context(QueryBuilder $qb, Expr $exp): void
+    {
+        $this->beConstructedWith('My\Model', 'o');
+
+        $exp_comparison = new Comparison('o', 'INSTANCE OF', 'My\Model');
+        $exp->isInstanceOf('o', 'My\Model')->willReturn($exp_comparison);
+
+        $qb->expr()->willReturn($exp);
+
+        $qb->getDQLPart('join')->willReturn([]);
+        $qb->getAllAliases()->willReturn([]);
+        $qb->join('root.o', 'o')->willReturn($qb);
+
+        $this->getFilter($qb, 'root')->shouldReturn('o INSTANCE OF My\Model');
     }
 
     public function it_filter_array_collection(): void

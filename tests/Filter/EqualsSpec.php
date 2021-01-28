@@ -28,7 +28,7 @@ final class EqualsSpec extends ObjectBehavior
 {
     public function let(): void
     {
-        $this->beConstructedWith('age', 18, 'a');
+        $this->beConstructedWith('age', 18, null);
     }
 
     public function it_is_an_expression(): void
@@ -48,18 +48,20 @@ final class EqualsSpec extends ObjectBehavior
         $comparison->shouldReturn('a.age = :comparison_10');
     }
 
-    public function it_uses_comparison_specific_dql_alias_if_passed(
-        QueryBuilder $qb,
-        ArrayCollection $parameters
-    ): void {
-        $this->beConstructedWith('age', 18, null);
+    public function it_returns_comparison_object_in_context(QueryBuilder $qb, ArrayCollection $parameters): void
+    {
+        $this->beConstructedWith('age', 18, 'user');
 
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
         $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
 
-        $this->getFilter($qb, 'x')->shouldReturn('x.age = :comparison_10');
+        $qb->getDQLPart('join')->willReturn([]);
+        $qb->getAllAliases()->willReturn([]);
+        $qb->join('root.user', 'user')->willReturn($qb);
+
+        $this->getFilter($qb, 'root')->shouldReturn('user.age = :comparison_10');
     }
 
     public function it_filter_array_collection(): void

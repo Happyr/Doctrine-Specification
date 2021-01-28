@@ -51,7 +51,7 @@ final class GroupBy implements QueryModifier
     public function modify(QueryBuilder $qb, string $context): void
     {
         if (null !== $this->context) {
-            $context = $this->context;
+            $context = sprintf('%s.%s', $context, $this->context);
         }
 
         $qb->addGroupBy($this->field->transform($qb, $context));

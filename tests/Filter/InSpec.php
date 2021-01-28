@@ -33,7 +33,7 @@ final class InSpec extends ObjectBehavior
 
     public function let(): void
     {
-        $this->beConstructedWith($this->field, $this->value, 'a');
+        $this->beConstructedWith($this->field, $this->value, null);
     }
 
     public function it_is_an_expression(): void

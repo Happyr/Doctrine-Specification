@@ -58,7 +58,7 @@ final class In implements Filter, Satisfiable
     public function getFilter(QueryBuilder $qb, string $context): string
     {
         if (null !== $this->context) {
-            $context = $this->context;
+            $context = sprintf('%s.%s', $context, $this->context);
         }
 
         $field = ArgumentToOperandConverter::toField($this->field);

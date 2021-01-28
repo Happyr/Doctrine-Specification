@@ -30,7 +30,7 @@ final class IndexBySpec extends ObjectBehavior
 
     public function let(): void
     {
-        $this->beConstructedWith($this->field, $this->alias);
+        $this->beConstructedWith($this->field, null);
     }
 
     public function it_is_a_result_modifier(): void
@@ -38,17 +38,23 @@ final class IndexBySpec extends ObjectBehavior
         $this->shouldBeAnInstanceOf(QueryModifier::class);
     }
 
-    public function it_indexes_with_default_dql_alias(QueryBuilder $qb): void
+    public function it_indexes(QueryBuilder $qb): void
     {
-        $this->beConstructedWith('something', 'x');
-        $qb->indexBy('x', 'x.something')->shouldBeCalled();
+        $qb->indexBy('a', sprintf('a.%s', $this->field))->shouldBeCalled();
+
         $this->modify($qb, 'a');
     }
 
-    public function it_uses_local_alias_if_global_was_not_set(QueryBuilder $qb): void
+    public function it_indexes_in_context(QueryBuilder $qb): void
     {
-        $this->beConstructedWith('thing');
-        $qb->indexBy('b', 'b.thing')->shouldBeCalled();
-        $this->modify($qb, 'b');
+        $this->beConstructedWith('thing', 'user');
+
+        $qb->indexBy('user', 'user.thing')->shouldBeCalled();
+
+        $qb->getDQLPart('join')->willReturn([]);
+        $qb->getAllAliases()->willReturn([]);
+        $qb->join('root.user', 'user')->willReturn($qb);
+
+        $this->modify($qb, 'root');
     }
 }
