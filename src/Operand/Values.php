@@ -60,10 +60,11 @@ final class Values implements Operand
 
     /**
      * @param mixed[]|object $candidate
+     * @param string|null    $context
      *
      * @return mixed[]
      */
-    public function execute($candidate): array
+    public function execute($candidate, ?string $context): array
     {
         return $this->values;
     }

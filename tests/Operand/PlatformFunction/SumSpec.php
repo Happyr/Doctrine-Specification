@@ -58,6 +58,6 @@ final class SumSpec extends ObjectBehavior
     {
         $candidate = null; // not used
 
-        $this->shouldThrow(OperandNotExecuteException::class)->duringExecute($candidate);
+        $this->shouldThrow(OperandNotExecuteException::class)->duringExecute($candidate, null);
     }
 }

@@ -49,7 +49,7 @@ final class IsNull implements Filter, Satisfiable
     public function getFilter(QueryBuilder $qb, string $context): string
     {
         if (null !== $this->context) {
-            $context = $this->context;
+            $context = sprintf('%s.%s', $context, $this->context);
         }
 
         $field = ArgumentToOperandConverter::toField($this->field);
@@ -65,7 +65,7 @@ final class IsNull implements Filter, Satisfiable
         $field = ArgumentToOperandConverter::toField($this->field);
 
         foreach ($collection as $candidate) {
-            if (null === $field->execute($candidate)) {
+            if (null === $field->execute($candidate, $this->context)) {
                 yield $candidate;
             }
         }
@@ -78,6 +78,6 @@ final class IsNull implements Filter, Satisfiable
     {
         $field = ArgumentToOperandConverter::toField($this->field);
 
-        return null === $field->execute($candidate);
+        return null === $field->execute($candidate, $this->context);
     }
 }

@@ -53,7 +53,7 @@ abstract class AbstractJoin implements QueryModifier
     public function modify(QueryBuilder $qb, string $context): void
     {
         if (null !== $this->context) {
-            $context = $this->context;
+            $context = sprintf('%s.%s', $context, $this->context);
         }
 
         $dqlAlias = DQLContextResolver::resolveAlias($qb, $context);

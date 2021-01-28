@@ -93,13 +93,14 @@ final class DateAdd implements Operand
 
     /**
      * @param mixed[]|object $candidate
+     * @param string|null    $context
      *
      * @return \DateTimeImmutable
      */
-    public function execute($candidate): \DateTimeImmutable
+    public function execute($candidate, ?string $context): \DateTimeImmutable
     {
-        $date = ArgumentToOperandConverter::toField($this->date)->execute($candidate);
-        $value = ArgumentToOperandConverter::toValue($this->value)->execute($candidate);
+        $date = ArgumentToOperandConverter::toField($this->date)->execute($candidate, $context);
+        $value = ArgumentToOperandConverter::toValue($this->value)->execute($candidate, $context);
 
         if (!$date instanceof \DateTimeInterface) {
             throw new InvalidArgumentException(sprintf(

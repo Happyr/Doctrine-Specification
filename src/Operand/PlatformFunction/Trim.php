@@ -111,12 +111,13 @@ final class Trim implements Operand
 
     /**
      * @param mixed[]|object $candidate
+     * @param string|null    $context
      *
      * @return string
      */
-    public function execute($candidate): string
+    public function execute($candidate, ?string $context): string
     {
-        $string = ArgumentToOperandConverter::toField($this->string)->execute($candidate);
+        $string = ArgumentToOperandConverter::toField($this->string)->execute($candidate, $context);
 
         switch ($this->mode) {
             case self::LEADING:

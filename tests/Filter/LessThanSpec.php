@@ -19,6 +19,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\LessThan;
 use PhpSpec\ObjectBehavior;
+use tests\Happyr\DoctrineSpecification\Game;
 use tests\Happyr\DoctrineSpecification\Player;
 
 /**
@@ -28,7 +29,7 @@ final class LessThanSpec extends ObjectBehavior
 {
     public function let(): void
     {
-        $this->beConstructedWith('age', 18, 'a');
+        $this->beConstructedWith('age', 18, null);
     }
 
     public function it_is_an_expression(): void
@@ -48,18 +49,20 @@ final class LessThanSpec extends ObjectBehavior
         $comparison->shouldReturn('a.age < :comparison_10');
     }
 
-    public function it_uses_comparison_specific_dql_alias_if_passed(
-        QueryBuilder $qb,
-        ArrayCollection $parameters
-    ): void {
-        $this->beConstructedWith('age', 18, null);
+    public function it_returns_comparison_object_in_context(QueryBuilder $qb, ArrayCollection $parameters): void
+    {
+        $this->beConstructedWith('age', 18, 'user');
 
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
         $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
 
-        $this->getFilter($qb, 'x')->shouldReturn('x.age < :comparison_10');
+        $qb->getDQLPart('join')->willReturn([]);
+        $qb->getAllAliases()->willReturn([]);
+        $qb->join('root.user', 'user')->willReturn($qb);
+
+        $this->getFilter($qb, 'root')->shouldReturn('user.age < :comparison_10');
     }
 
     public function it_filter_array_collection(): void
@@ -112,5 +115,29 @@ final class LessThanSpec extends ObjectBehavior
         $this->isSatisfiedBy($playerA)->shouldBe(false);
         $this->isSatisfiedBy($playerB)->shouldBe(true);
         $this->isSatisfiedBy($playerC)->shouldBe(false);
+    }
+
+    public function it_is_satisfied_in_context_with_array(): void
+    {
+        $now = new \DateTimeImmutable();
+        $releaseAt = new \DateTimeImmutable('-1 day');
+        $game = ['name' => 'Tetris', 'releaseAt' => $releaseAt];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
+
+        $this->beConstructedWith('releaseAt', $now, 'inGame');
+
+        $this->isSatisfiedBy($player)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_in_context_with_object(): void
+    {
+        $now = new \DateTimeImmutable();
+        $releaseAt = new \DateTimeImmutable('-1 day');
+        $game = new Game('Tetris', $releaseAt);
+        $player = new Player('Moe', 'M', 1230, $game);
+
+        $this->beConstructedWith('releaseAt', $now, 'inGame');
+
+        $this->isSatisfiedBy($player)->shouldBe(true);
     }
 }

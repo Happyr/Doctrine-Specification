@@ -91,15 +91,16 @@ abstract class Arithmetic implements Operand
 
     /**
      * @param mixed[]|object $candidate
+     * @param string|null    $context
      *
      * @return mixed
      */
-    public function execute($candidate)
+    public function execute($candidate, ?string $context)
     {
         $field = ArgumentToOperandConverter::toField($this->field);
         $value = ArgumentToOperandConverter::toValue($this->value);
 
-        return $this->doExecute($field->execute($candidate), $value->execute($candidate));
+        return $this->doExecute($field->execute($candidate, $context), $value->execute($candidate, $context));
     }
 
     /**

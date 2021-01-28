@@ -19,6 +19,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\IsNotNull;
 use PhpSpec\ObjectBehavior;
+use tests\Happyr\DoctrineSpecification\Game;
 use tests\Happyr\DoctrineSpecification\Player;
 
 /**
@@ -28,11 +29,9 @@ final class IsNotNullSpec extends ObjectBehavior
 {
     private $field = 'foobar';
 
-    private $context = 'a';
-
     public function let(): void
     {
-        $this->beConstructedWith($this->field, $this->context);
+        $this->beConstructedWith($this->field, null);
     }
 
     public function it_is_an_expression(): void
@@ -48,19 +47,23 @@ final class IsNotNullSpec extends ObjectBehavior
         $expression = 'a.foobar is not null';
 
         $qb->expr()->willReturn($expr);
-        $expr->isNotNull(sprintf('%s.%s', $this->context, $this->field))->willReturn($expression);
+        $expr->isNotNull(sprintf('a.%s', $this->field))->willReturn($expression);
 
-        $this->getFilter($qb, $this->context)->shouldReturn($expression);
+        $this->getFilter($qb, 'a')->shouldReturn($expression);
     }
 
-    public function it_uses_dql_alias_if_passed(QueryBuilder $qb, Expr $expr): void
+    public function it_calls_not_null_in_context(QueryBuilder $qb, Expr $expr): void
     {
-        $context = 'x';
-        $this->beConstructedWith($this->field, null);
+        $this->beConstructedWith($this->field, 'user');
         $qb->expr()->willReturn($expr);
 
-        $expr->isNotNull(sprintf('%s.%s', $context, $this->field))->shouldBeCalled();
-        $this->getFilter($qb, $context);
+        $expr->isNotNull(sprintf('user.%s', $this->field))->shouldBeCalled();
+
+        $qb->getDQLPart('join')->willReturn([]);
+        $qb->getAllAliases()->willReturn([]);
+        $qb->join('root.user', 'user')->willReturn($qb);
+
+        $this->getFilter($qb, 'root');
     }
 
     public function it_filter_array_collection(): void
@@ -113,5 +116,27 @@ final class IsNotNullSpec extends ObjectBehavior
         $this->isSatisfiedBy($playerA)->shouldBe(true);
         $this->isSatisfiedBy($playerB)->shouldBe(false);
         $this->isSatisfiedBy($playerC)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_in_context_with_array(): void
+    {
+        $releaseAt = new \DateTimeImmutable();
+        $game = ['name' => 'Tetris', 'releaseAt' => $releaseAt];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
+
+        $this->beConstructedWith('releaseAt', 'inGame');
+
+        $this->isSatisfiedBy($player)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_in_context_with_object(): void
+    {
+        $releaseAt = new \DateTimeImmutable();
+        $game = new Game('Tetris', $releaseAt);
+        $player = new Player('Moe', 'M', 1230, $game);
+
+        $this->beConstructedWith('releaseAt', 'inGame');
+
+        $this->isSatisfiedBy($player)->shouldBe(true);
     }
 }

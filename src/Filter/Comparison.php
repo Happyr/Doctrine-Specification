@@ -103,7 +103,7 @@ abstract class Comparison implements Filter, Satisfiable
     public function getFilter(QueryBuilder $qb, string $context): string
     {
         if (null !== $this->context) {
-            $context = $this->context;
+            $context = sprintf('%s.%s', $context, $this->context);
         }
 
         $field = ArgumentToOperandConverter::toField($this->field);
@@ -125,7 +125,10 @@ abstract class Comparison implements Filter, Satisfiable
         $value = ArgumentToOperandConverter::toValue($this->value);
 
         foreach ($collection as $candidate) {
-            if ($this->compare($field->execute($candidate), $value->execute($candidate))) {
+            if ($this->compare(
+                $field->execute($candidate, $this->context),
+                $value->execute($candidate, $this->context)
+            )) {
                 yield $candidate;
             }
         }
@@ -139,7 +142,10 @@ abstract class Comparison implements Filter, Satisfiable
         $field = ArgumentToOperandConverter::toField($this->field);
         $value = ArgumentToOperandConverter::toValue($this->value);
 
-        return $this->compare($field->execute($candidate), $value->execute($candidate));
+        return $this->compare(
+            $field->execute($candidate, $this->context),
+            $value->execute($candidate, $this->context)
+        );
     }
 
     /**

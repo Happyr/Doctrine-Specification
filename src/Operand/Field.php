@@ -50,7 +50,7 @@ final class Field implements Operand, Selection
     public function transform(QueryBuilder $qb, string $context): string
     {
         if (null !== $this->context) {
-            $context = $this->context;
+            $context = sprintf('%s.%s', $context, $this->context);
         }
 
         $dqlAlias = DQLContextResolver::resolveAlias($qb, $context);
@@ -60,15 +60,20 @@ final class Field implements Operand, Selection
 
     /**
      * @param mixed[]|object $candidate
+     * @param string|null    $context
      *
      * @return mixed
      */
-    public function execute($candidate)
+    public function execute($candidate, ?string $context)
     {
+        $propertyPath = $this->fieldName;
+
         if (null !== $this->context) {
-            $propertyPath = sprintf('%s.%s', $this->context, $this->fieldName);
-        } else {
-            $propertyPath = $this->fieldName;
+            $propertyPath = sprintf('%s.%s', $this->context, $propertyPath);
+        }
+
+        if (null !== $context) {
+            $propertyPath = sprintf('%s.%s', $context, $propertyPath);
         }
 
         // If the candidate is a array, then we assume that all nested elements are also arrays.

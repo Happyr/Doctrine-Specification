@@ -19,6 +19,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\Like;
 use PhpSpec\ObjectBehavior;
+use tests\Happyr\DoctrineSpecification\Game;
 use tests\Happyr\DoctrineSpecification\Player;
 
 /**
@@ -32,7 +33,7 @@ final class LikeSpec extends ObjectBehavior
 
     public function let(): void
     {
-        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, 'context');
+        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, null);
     }
 
     public function it_is_an_expression(): void
@@ -44,7 +45,7 @@ final class LikeSpec extends ObjectBehavior
         QueryBuilder $qb,
         ArrayCollection $parameters
     ): void {
-        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, 'context');
+        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, null);
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
@@ -53,9 +54,26 @@ final class LikeSpec extends ObjectBehavior
         $this->getFilter($qb, 'a');
     }
 
+    public function it_surrounds_with_wildcards_when_using_contains_in_context(
+        QueryBuilder $qb,
+        ArrayCollection $parameters
+    ): void {
+        $this->beConstructedWith($this->field, $this->value, Like::CONTAINS, 'user');
+        $qb->getParameters()->willReturn($parameters);
+        $parameters->count()->willReturn(1);
+
+        $qb->setParameter('comparison_1', '%bar%')->shouldBeCalled();
+
+        $qb->getDQLPart('join')->willReturn([]);
+        $qb->getAllAliases()->willReturn([]);
+        $qb->join('root.user', 'user')->willReturn($qb);
+
+        $this->getFilter($qb, 'root');
+    }
+
     public function it_starts_with_wildcard_when_using_ends_with(QueryBuilder $qb, ArrayCollection $parameters): void
     {
-        $this->beConstructedWith($this->field, $this->value, Like::ENDS_WITH, 'context');
+        $this->beConstructedWith($this->field, $this->value, Like::ENDS_WITH, null);
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
@@ -64,15 +82,51 @@ final class LikeSpec extends ObjectBehavior
         $this->getFilter($qb, 'a');
     }
 
+    public function it_starts_with_wildcard_when_using_ends_with_in_context(
+        QueryBuilder $qb,
+        ArrayCollection $parameters
+    ): void {
+        $this->beConstructedWith($this->field, $this->value, Like::ENDS_WITH, 'user');
+
+        $qb->getParameters()->willReturn($parameters);
+        $parameters->count()->willReturn(1);
+
+        $qb->setParameter('comparison_1', '%bar')->shouldBeCalled();
+
+        $qb->getDQLPart('join')->willReturn([]);
+        $qb->getAllAliases()->willReturn([]);
+        $qb->join('root.user', 'user')->willReturn($qb);
+
+        $this->getFilter($qb, 'root');
+    }
+
     public function it_ends_with_wildcard_when_using_starts_with(QueryBuilder $qb, ArrayCollection $parameters): void
     {
-        $this->beConstructedWith($this->field, $this->value, Like::STARTS_WITH, 'context');
+        $this->beConstructedWith($this->field, $this->value, Like::STARTS_WITH, null);
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
         $qb->setParameter('comparison_1', 'bar%')->shouldBeCalled();
 
         $this->getFilter($qb, 'a');
+    }
+
+    public function it_ends_with_wildcard_when_using_starts_with_in_context(
+        QueryBuilder $qb,
+        ArrayCollection $parameters
+    ): void {
+        $this->beConstructedWith($this->field, $this->value, Like::STARTS_WITH, 'user');
+
+        $qb->getParameters()->willReturn($parameters);
+        $parameters->count()->willReturn(1);
+
+        $qb->setParameter('comparison_1', 'bar%')->shouldBeCalled();
+
+        $qb->getDQLPart('join')->willReturn([]);
+        $qb->getAllAliases()->willReturn([]);
+        $qb->join('root.user', 'user')->willReturn($qb);
+
+        $this->getFilter($qb, 'root');
     }
 
     public function it_filter_array_collection_starts_with(): void
@@ -217,5 +271,25 @@ final class LikeSpec extends ObjectBehavior
 
         $this->isSatisfiedBy($playerA)->shouldBe(true);
         $this->isSatisfiedBy($playerB)->shouldBe(false);
+    }
+
+    public function it_is_satisfied_in_context_with_array_contains(): void
+    {
+        $game = ['name' => 'Tetris'];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
+
+        $this->beConstructedWith('name', 'tr', Like::CONTAINS, 'inGame');
+
+        $this->isSatisfiedBy($player)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_in_context_with_object_contains(): void
+    {
+        $game = new Game('Tetris');
+        $player = new Player('Moe', 'M', 1230, $game);
+
+        $this->beConstructedWith('name', 'tr', Like::CONTAINS, 'inGame');
+
+        $this->isSatisfiedBy($player)->shouldBe(true);
     }
 }

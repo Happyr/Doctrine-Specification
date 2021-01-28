@@ -48,7 +48,7 @@ final class InstanceOfX implements Filter, Satisfiable
     public function getFilter(QueryBuilder $qb, string $context): string
     {
         if (null !== $this->context) {
-            $context = $this->context;
+            $context = sprintf('%s.%s', $context, $this->context);
         }
 
         $dqlAlias = DQLContextResolver::resolveAlias($qb, $context);

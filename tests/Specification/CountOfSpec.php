@@ -55,32 +55,40 @@ final class CountOfSpec extends ObjectBehavior
     public function it_count_of_all_grouped_by_id(QueryBuilder $qb): void
     {
         $field = 'id';
-        $context = 'a';
+        $context = 'user';
 
         $this->beConstructedWith(new GroupBy($field, $context));
 
-        $qb->select(sprintf('COUNT(%s)', $context))->shouldBeCalled();
+        $qb->select('COUNT(root)')->shouldBeCalled();
         $qb->addGroupBy(sprintf('%s.%s', $context, $field))->shouldBeCalled();
 
-        $this->getFilter($qb, $context)->shouldBe('');
-        $this->modify($qb, $context);
+        $qb->getDQLPart('join')->willReturn([]);
+        $qb->getAllAliases()->willReturn([]);
+        $qb->join('root.user', 'user')->willReturn($qb);
+
+        $this->getFilter($qb, 'root')->shouldBe('');
+        $this->modify($qb, 'root');
     }
 
     public function it_count_of_all_with_group_is_foo(QueryBuilder $qb): void
     {
         $field = 'group';
         $value = 'foo';
-        $context = 'a';
+        $context = 'user';
         $parametersCount = 0;
         $paramName = 'comparison_'.$parametersCount;
 
         $this->beConstructedWith(new Equals($field, $value, $context));
 
-        $qb->select(sprintf('COUNT(%s)', $context))->shouldBeCalled();
+        $qb->select('COUNT(root)')->shouldBeCalled();
         $qb->getParameters()->willReturn(new ArrayCollection());
         $qb->setParameter($paramName, $value, null)->shouldBeCalled();
 
-        $this->getFilter($qb, $context)->shouldBe(sprintf('%s.%s = :%s', $context, $field, $paramName));
-        $this->modify($qb, $context);
+        $qb->getDQLPart('join')->willReturn([]);
+        $qb->getAllAliases()->willReturn([]);
+        $qb->join('root.user', 'user')->willReturn($qb);
+
+        $this->getFilter($qb, 'root')->shouldBe(sprintf('%s.%s = :%s', $context, $field, $paramName));
+        $this->modify($qb, 'root');
     }
 }
