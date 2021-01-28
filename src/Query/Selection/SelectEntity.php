@@ -40,6 +40,6 @@ final class SelectEntity implements Selection
      */
     public function transform(QueryBuilder $qb, string $context): string
     {
-        return DQLContextResolver::resolveAlias($qb, $this->dqlAliasInContext);
+        return DQLContextResolver::resolveAlias($qb, sprintf('%s.%s', $context, $this->dqlAliasInContext));
     }
 }

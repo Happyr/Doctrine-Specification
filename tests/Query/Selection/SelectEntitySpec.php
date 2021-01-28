@@ -24,11 +24,11 @@ use PhpSpec\ObjectBehavior;
  */
 final class SelectEntitySpec extends ObjectBehavior
 {
-    private $context = 'u';
+    private $dqlAlias = 'u';
 
     public function let(): void
     {
-        $this->beConstructedWith($this->context);
+        $this->beConstructedWith($this->dqlAlias);
     }
 
     public function it_is_a_select_entity(): void
@@ -43,6 +43,25 @@ final class SelectEntitySpec extends ObjectBehavior
 
     public function it_is_transformable(QueryBuilder $qb): void
     {
-        $this->transform($qb, 'a')->shouldReturn($this->context);
+        $qb->getDQLPart('join')->willReturn([]);
+        $qb->getAllAliases()->willReturn([]);
+        $qb->join(sprintf('a.%s', $this->dqlAlias), $this->dqlAlias)->willReturn($qb);
+
+        $this->transform($qb, 'a')->shouldReturn($this->dqlAlias);
+    }
+
+    public function it_is_transformable_in_context(QueryBuilder $qb): void
+    {
+        $context = 'foo.bar';
+
+        $this->beConstructedWith(sprintf('%s.%s', $context, $this->dqlAlias));
+
+        $qb->getDQLPart('join')->willReturn([]);
+        $qb->getAllAliases()->willReturn([]);
+        $qb->join('a.foo', 'foo')->willReturn($qb);
+        $qb->join('foo.bar', 'bar')->willReturn($qb);
+        $qb->join(sprintf('bar.%s', $this->dqlAlias), $this->dqlAlias)->willReturn($qb);
+
+        $this->transform($qb, 'a')->shouldReturn($this->dqlAlias);
     }
 }
