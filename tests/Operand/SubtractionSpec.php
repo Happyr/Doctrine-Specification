@@ -69,7 +69,7 @@ final class SubtractionSpec extends ObjectBehavior
 
         $player = new Player('Moe', 'M', 1230);
 
-        $this->execute($player)->shouldReturn(1130);
+        $this->execute($player, null)->shouldReturn(1130);
     }
 
     public function it_is_executable_object_with_operands(): void
@@ -78,7 +78,7 @@ final class SubtractionSpec extends ObjectBehavior
 
         $player = new Player('Moe', 'M', 1230);
 
-        $this->execute($player)->shouldReturn(1130);
+        $this->execute($player, null)->shouldReturn(1130);
     }
 
     public function it_is_executable_array(): void
@@ -87,7 +87,7 @@ final class SubtractionSpec extends ObjectBehavior
 
         $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230];
 
-        $this->execute($player)->shouldReturn(1130);
+        $this->execute($player, null)->shouldReturn(1130);
     }
 
     public function it_is_executable_array_with_operands(): void
@@ -96,6 +96,6 @@ final class SubtractionSpec extends ObjectBehavior
 
         $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230];
 
-        $this->execute($player)->shouldReturn(1130);
+        $this->execute($player, null)->shouldReturn(1130);
     }
 }

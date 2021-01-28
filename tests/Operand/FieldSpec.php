@@ -69,7 +69,7 @@ final class FieldSpec extends ObjectBehavior
 
         $player = new Player('Moe', 'M', 1230);
 
-        $this->execute($player)->shouldReturn($player->pseudo);
+        $this->execute($player, null)->shouldReturn($player->pseudo);
     }
 
     public function it_is_executable_array(): void
@@ -78,7 +78,7 @@ final class FieldSpec extends ObjectBehavior
 
         $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230];
 
-        $this->execute($player)->shouldReturn($player['pseudo']);
+        $this->execute($player, null)->shouldReturn($player['pseudo']);
     }
 
     public function it_is_executable_object_in_context(): void
@@ -88,7 +88,7 @@ final class FieldSpec extends ObjectBehavior
         $game = new Game('Tetris');
         $player = new Player('Moe', 'M', 1230, $game);
 
-        $this->execute($player)->shouldReturn($game->name);
+        $this->execute($player, null)->shouldReturn($game->name);
     }
 
     public function it_is_executable_array_in_context(): void
@@ -98,7 +98,27 @@ final class FieldSpec extends ObjectBehavior
         $game = ['name' => 'Tetris'];
         $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
 
-        $this->execute($player)->shouldReturn($game['name']);
+        $this->execute($player, null)->shouldReturn($game['name']);
+    }
+
+    public function it_is_executable_object_in_global_context(): void
+    {
+        $this->beConstructedWith('name');
+
+        $game = new Game('Tetris');
+        $player = new Player('Moe', 'M', 1230, $game);
+
+        $this->execute($player, 'inGame')->shouldReturn($game->name);
+    }
+
+    public function it_is_executable_array_in_global_context(): void
+    {
+        $this->beConstructedWith('name');
+
+        $game = ['name' => 'Tetris'];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
+
+        $this->execute($player, 'inGame')->shouldReturn($game['name']);
     }
 
     public function it_is_executable_mixed_candidate(): void
@@ -108,7 +128,7 @@ final class FieldSpec extends ObjectBehavior
         $game = new Game('Tetris');
         $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
 
-        $this->shouldThrow(NoSuchIndexException::class)->duringExecute($player);
+        $this->shouldThrow(NoSuchIndexException::class)->duringExecute($player, null);
     }
 
     public function it_is_executable_collection(): void
@@ -122,6 +142,6 @@ final class FieldSpec extends ObjectBehavior
             ],
         ];
 
-        $this->execute($game)->shouldReturn(null);
+        $this->execute($game, null)->shouldReturn(null);
     }
 }

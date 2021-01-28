@@ -28,8 +28,9 @@ interface Operand
 
     /**
      * @param mixed[]|object $candidate
+     * @param string|null    $context
      *
      * @return mixed
      */
-    public function execute($candidate);
+    public function execute($candidate, ?string $context);
 }

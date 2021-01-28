@@ -102,7 +102,7 @@ final class TrimSpec extends ObjectBehavior
 
         $player = new Player(' Moe ', 'M', 1230);
 
-        $this->execute($player)->shouldReturn('Moe');
+        $this->execute($player, null)->shouldReturn('Moe');
     }
 
     public function it_should_execute_leading(): void
@@ -111,7 +111,7 @@ final class TrimSpec extends ObjectBehavior
 
         $player = new Player(' Moe ', 'M', 1230);
 
-        $this->execute($player)->shouldReturn('Moe ');
+        $this->execute($player, null)->shouldReturn('Moe ');
     }
 
     public function it_should_execute_trailing(): void
@@ -120,7 +120,7 @@ final class TrimSpec extends ObjectBehavior
 
         $player = new Player(' Moe ', 'M', 1230);
 
-        $this->execute($player)->shouldReturn(' Moe');
+        $this->execute($player, null)->shouldReturn(' Moe');
     }
 
     public function it_should_execute_both(): void
@@ -129,7 +129,7 @@ final class TrimSpec extends ObjectBehavior
 
         $player = new Player(' Moe ', 'M', 1230);
 
-        $this->execute($player)->shouldReturn('Moe');
+        $this->execute($player, null)->shouldReturn('Moe');
     }
 
     public function it_should_execute_with_characters(): void
@@ -138,7 +138,7 @@ final class TrimSpec extends ObjectBehavior
 
         $player = new Player('$Moe$', 'M', 1230);
 
-        $this->execute($player)->shouldReturn('Moe');
+        $this->execute($player, null)->shouldReturn('Moe');
     }
 
     public function it_should_execute_leading_with_characters(): void
@@ -147,7 +147,7 @@ final class TrimSpec extends ObjectBehavior
 
         $player = new Player('$Moe$', 'M', 1230);
 
-        $this->execute($player)->shouldReturn('Moe$');
+        $this->execute($player, null)->shouldReturn('Moe$');
     }
 
     public function it_should_execute_trailing_with_characters(): void
@@ -156,7 +156,7 @@ final class TrimSpec extends ObjectBehavior
 
         $player = new Player('$Moe$', 'M', 1230);
 
-        $this->execute($player)->shouldReturn('$Moe');
+        $this->execute($player, null)->shouldReturn('$Moe');
     }
 
     public function it_should_execute_both_with_characters(): void
@@ -165,6 +165,6 @@ final class TrimSpec extends ObjectBehavior
 
         $player = new Player('$Moe$', 'M', 1230);
 
-        $this->execute($player)->shouldReturn('Moe');
+        $this->execute($player, null)->shouldReturn('Moe');
     }
 }

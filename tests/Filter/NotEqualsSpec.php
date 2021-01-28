@@ -19,6 +19,7 @@ use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\NotEquals;
 use PhpSpec\ObjectBehavior;
+use tests\Happyr\DoctrineSpecification\Game;
 use tests\Happyr\DoctrineSpecification\Player;
 
 /**
@@ -110,5 +111,25 @@ final class NotEqualsSpec extends ObjectBehavior
 
         $this->isSatisfiedBy($playerA)->shouldBe(false);
         $this->isSatisfiedBy($playerB)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_in_context_with_array(): void
+    {
+        $game = ['name' => 'Tetris'];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
+
+        $this->beConstructedWith('name', 'Mahjong', 'inGame');
+
+        $this->isSatisfiedBy($player)->shouldBe(true);
+    }
+
+    public function it_is_satisfied_in_context_with_object(): void
+    {
+        $game = new Game('Tetris');
+        $player = new Player('Moe', 'M', 1230, $game);
+
+        $this->beConstructedWith('name', 'Mahjong', 'inGame');
+
+        $this->isSatisfiedBy($player)->shouldBe(true);
     }
 }

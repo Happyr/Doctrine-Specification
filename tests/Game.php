@@ -22,10 +22,17 @@ final class Game
     public $name;
 
     /**
-     * @param string $name
+     * @var \DateTimeInterface|null
      */
-    public function __construct(string $name)
+    public $releaseAt;
+
+    /**
+     * @param string                  $name
+     * @param \DateTimeInterface|null $releaseAt
+     */
+    public function __construct(string $name, ?\DateTimeInterface $releaseAt = null)
     {
         $this->name = $name;
+        $this->releaseAt = $releaseAt;
     }
 }

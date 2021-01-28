@@ -89,7 +89,7 @@ final class Like implements Filter, Satisfiable
         $value = $this->getUnescapedValue();
 
         foreach ($collection as $candidate) {
-            if ($this->isMatch($field->execute($candidate), $value)) {
+            if ($this->isMatch($field->execute($candidate, $this->context), $value)) {
                 yield $candidate;
             }
         }
@@ -103,7 +103,7 @@ final class Like implements Filter, Satisfiable
         $field = ArgumentToOperandConverter::toField($this->field);
         $value = $this->getUnescapedValue();
 
-        return $this->isMatch($field->execute($candidate), $value);
+        return $this->isMatch($field->execute($candidate, $this->context), $value);
     }
 
     /**

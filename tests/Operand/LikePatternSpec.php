@@ -60,6 +60,6 @@ final class LikePatternSpec extends ObjectBehavior
     {
         $candidate = null; // not used
 
-        $this->execute($candidate)->shouldReturn(sprintf($this->format, $this->value));
+        $this->execute($candidate, null)->shouldReturn(sprintf($this->format, $this->value));
     }
 }

@@ -65,7 +65,7 @@ final class IsNotNull implements Filter, Satisfiable
         $field = ArgumentToOperandConverter::toField($this->field);
 
         foreach ($collection as $candidate) {
-            if (null !== $field->execute($candidate)) {
+            if (null !== $field->execute($candidate, $this->context)) {
                 yield $candidate;
             }
         }
@@ -78,6 +78,6 @@ final class IsNotNull implements Filter, Satisfiable
     {
         $field = ArgumentToOperandConverter::toField($this->field);
 
-        return null !== $field->execute($candidate);
+        return null !== $field->execute($candidate, $this->context);
     }
 }

@@ -119,14 +119,15 @@ final class PlatformFunction implements Operand
 
     /**
      * @param mixed[]|object $candidate
+     * @param string|null    $context
      *
      * @return mixed
      */
-    public function execute($candidate)
+    public function execute($candidate, ?string $context)
     {
         $arguments = [];
         foreach (ArgumentToOperandConverter::convert($this->arguments) as $argument) {
-            $arguments[] = $argument->execute($candidate);
+            $arguments[] = $argument->execute($candidate, $context);
         }
 
         return self::getExecutorRegistry()->execute($this->functionName, ...$arguments);

@@ -63,10 +63,11 @@ final class LikePattern implements Operand
 
     /**
      * @param mixed[]|object $candidate
+     * @param string|null    $context
      *
      * @return string
      */
-    public function execute($candidate): string
+    public function execute($candidate, ?string $context): string
     {
         return $this->formatValue($this->format, $this->value);
     }
