@@ -59,7 +59,7 @@ final class InstanceOfX implements Filter, Satisfiable
     /**
      * {@inheritdoc}
      */
-    public function filterCollection(iterable $collection): iterable
+    public function filterCollection(iterable $collection, ?string $context = null): iterable
     {
         foreach ($collection as $candidate) {
             if ($candidate instanceof $this->value) {
@@ -71,7 +71,7 @@ final class InstanceOfX implements Filter, Satisfiable
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy($candidate): bool
+    public function isSatisfiedBy($candidate, ?string $context = null): bool
     {
         return $candidate instanceof $this->value;
     }

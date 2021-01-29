@@ -101,10 +101,10 @@ abstract class LogicX implements Specification
     /**
      * {@inheritdoc}
      */
-    public function filterCollection(iterable $collection): iterable
+    public function filterCollection(iterable $collection, ?string $context = null): iterable
     {
         foreach ($collection as $candidate) {
-            if ($this->isSatisfiedBy($candidate)) {
+            if ($this->isSatisfiedBy($candidate, $context)) {
                 yield $candidate;
             }
         }
@@ -113,7 +113,7 @@ abstract class LogicX implements Specification
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy($candidate): bool
+    public function isSatisfiedBy($candidate, ?string $context = null): bool
     {
         $has_satisfiable_children = false;
 
@@ -124,7 +124,7 @@ abstract class LogicX implements Specification
 
             $has_satisfiable_children = true;
 
-            $satisfied = $child->isSatisfiedBy($candidate);
+            $satisfied = $child->isSatisfiedBy($candidate, $context);
 
             if ($satisfied && self::OR_X === $this->expression) {
                 return true;

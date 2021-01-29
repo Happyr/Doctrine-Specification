@@ -60,12 +60,13 @@ final class IsNotNull implements Filter, Satisfiable
     /**
      * {@inheritdoc}
      */
-    public function filterCollection(iterable $collection): iterable
+    public function filterCollection(iterable $collection, ?string $context = null): iterable
     {
+        $context = $this->resolveContext($context);
         $field = ArgumentToOperandConverter::toField($this->field);
 
         foreach ($collection as $candidate) {
-            if (null !== $field->execute($candidate, $this->context)) {
+            if (null !== $field->execute($candidate, $context)) {
                 yield $candidate;
             }
         }
@@ -74,10 +75,29 @@ final class IsNotNull implements Filter, Satisfiable
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy($candidate): bool
+    public function isSatisfiedBy($candidate, ?string $context = null): bool
     {
+        $context = $this->resolveContext($context);
         $field = ArgumentToOperandConverter::toField($this->field);
 
-        return null !== $field->execute($candidate, $this->context);
+        return null !== $field->execute($candidate, $context);
+    }
+
+    /**
+     * @param string|null $context
+     *
+     * @return string|null
+     */
+    private function resolveContext(?string $context): ?string
+    {
+        if (null !== $this->context && null !== $context) {
+            return sprintf('%s.%s', $context, $this->context);
+        }
+
+        if (null !== $this->context) {
+            return $this->context;
+        }
+
+        return $context;
     }
 }

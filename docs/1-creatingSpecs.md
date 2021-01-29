@@ -54,13 +54,13 @@ public function modify(AbstractQuery $query): void
 You can write a rule with which you will filter the collection of entities and discard non-matching entities.
 
 ```php
-public function filterCollection(iterable $collection): iterable
+public function filterCollection(iterable $collection, ?string $context = null): iterable
 {
     $field = ArgumentToOperandConverter::toField($this->field);
     $value = ArgumentToOperandConverter::toValue($this->value);
 
     foreach ($collection as $candidate) {
-        if ($field->execute($candidate) === $value->execute($candidate))) {
+        if ($field->execute($candidate, $context) === $value->execute($candidate, $context))) {
             yield $candidate;
         }
     }
@@ -72,12 +72,12 @@ public function filterCollection(iterable $collection): iterable
 You can check a specific entity against a specific rule.
 
 ```php
-public function isSatisfiedBy($candidate): bool
+public function isSatisfiedBy($candidate, ?string $context = null): bool
 {
     $field = ArgumentToOperandConverter::toField($this->field);
     $value = ArgumentToOperandConverter::toValue($this->value);
 
-    return $field->execute($candidate) >= $value->execute($candidate);
+    return $field->execute($candidate, $context) >= $value->execute($candidate, $context);
 }
 ```
 
@@ -117,7 +117,7 @@ class IsActive extends BaseSpecification
 You also don't need to worry about joins. The Happyr Doctrine Specification will do everything for you.
 
 ```php
-use Happyr\DoctrineSpecification\BaseSpecification;
+use Happyr\DoctrineSpecification\Specification\BaseSpecification;
 use Happyr\DoctrineSpecification\Spec;
 
 /**

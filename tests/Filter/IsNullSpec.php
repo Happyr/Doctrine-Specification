@@ -137,4 +137,74 @@ final class IsNullSpec extends ObjectBehavior
 
         $this->isSatisfiedBy($player)->shouldBe(true);
     }
+
+    public function it_filter_array_collection_in_context(): void
+    {
+        $releaseAt = new \DateTimeImmutable();
+        $tetris = ['name' => 'Tetris', 'releaseAt' => null];
+        $mahjong = ['name' => 'Mahjong', 'releaseAt' => $releaseAt];
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
+        ];
+
+        $this->beConstructedWith('releaseAt', 'inGame');
+
+        $this->filterCollection($players)->shouldYield([$players[2]]);
+    }
+
+    public function it_filter_array_collection_in_global_context(): void
+    {
+        $releaseAt = new \DateTimeImmutable();
+        $tetris = ['name' => 'Tetris', 'releaseAt' => null];
+        $mahjong = ['name' => 'Mahjong', 'releaseAt' => $releaseAt];
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
+        ];
+
+        $this->beConstructedWith('releaseAt', null);
+
+        $this->filterCollection($players, 'inGame')->shouldYield([$players[2]]);
+    }
+
+    public function it_is_satisfied_in_global_context(): void
+    {
+        $game = ['name' => 'Tetris', 'releaseAt' => null];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
+
+        $this->beConstructedWith('releaseAt', null);
+
+        $this->isSatisfiedBy($player, 'inGame')->shouldBe(true);
+    }
+
+    public function it_filter_array_collection_in_combo_context(): void
+    {
+        $tetrisOwner = ['name' => 'ABC', 'based' => null];
+        $mahjongOwner = ['name' => 'DEF', 'based' => 321];
+        $tetris = ['name' => 'Tetris', 'owner' => $tetrisOwner];
+        $mahjong = ['name' => 'Mahjong', 'owner' => $mahjongOwner];
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
+        ];
+
+        $this->beConstructedWith('based', 'owner');
+
+        $this->filterCollection($players, 'inGame')->shouldYield([$players[2]]);
+    }
+
+    public function it_is_satisfied_in_combo_context(): void
+    {
+        $owner = ['name' => 'ABC', 'based' => null];
+        $game = ['name' => 'Tetris', 'owner' => $owner];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
+
+        $this->beConstructedWith('based', 'owner');
+
+        $this->isSatisfiedBy($player, 'inGame')->shouldBe(true);
+    }
 }
