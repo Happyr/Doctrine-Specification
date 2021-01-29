@@ -68,10 +68,10 @@ final class CountOf implements Specification
     /**
      * {@inheritdoc}
      */
-    public function filterCollection(iterable $collection): iterable
+    public function filterCollection(iterable $collection, ?string $context = null): iterable
     {
         if ($this->child instanceof Satisfiable) {
-            return $this->child->filterCollection($collection);
+            return $this->child->filterCollection($collection, $context);
         }
 
         return $collection;
@@ -80,10 +80,10 @@ final class CountOf implements Specification
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy($candidate): bool
+    public function isSatisfiedBy($candidate, ?string $context = null): bool
     {
         if ($this->child instanceof Satisfiable) {
-            return $this->child->isSatisfiedBy($candidate);
+            return $this->child->isSatisfiedBy($candidate, $context);
         }
 
         return true;

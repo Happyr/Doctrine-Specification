@@ -60,10 +60,10 @@ final class Not implements Specification
     /**
      * {@inheritdoc}
      */
-    public function filterCollection(iterable $collection): iterable
+    public function filterCollection(iterable $collection, ?string $context = null): iterable
     {
         foreach ($collection as $candidate) {
-            if (!$this->child instanceof Satisfiable || !$this->child->isSatisfiedBy($candidate)) {
+            if (!$this->child instanceof Satisfiable || !$this->child->isSatisfiedBy($candidate, $context)) {
                 yield $candidate;
             }
         }
@@ -72,8 +72,8 @@ final class Not implements Specification
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy($candidate): bool
+    public function isSatisfiedBy($candidate, ?string $context = null): bool
     {
-        return !$this->child instanceof Satisfiable || !$this->child->isSatisfiedBy($candidate);
+        return !$this->child instanceof Satisfiable || !$this->child->isSatisfiedBy($candidate, $context);
     }
 }

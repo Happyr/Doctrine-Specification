@@ -70,12 +70,12 @@ abstract class BaseSpecification implements Specification
     /**
      * {@inheritdoc}
      */
-    public function filterCollection(iterable $collection): iterable
+    public function filterCollection(iterable $collection, ?string $context = null): iterable
     {
         $spec = $this->getSpec();
 
         if ($spec instanceof Satisfiable) {
-            return $spec->filterCollection($collection);
+            return $spec->filterCollection($collection, $context);
         }
 
         return $collection;
@@ -84,12 +84,12 @@ abstract class BaseSpecification implements Specification
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy($candidate): bool
+    public function isSatisfiedBy($candidate, ?string $context = null): bool
     {
         $spec = $this->getSpec();
 
         if ($spec instanceof Satisfiable) {
-            return $spec->isSatisfiedBy($candidate);
+            return $spec->isSatisfiedBy($candidate, $context);
         }
 
         return true;

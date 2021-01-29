@@ -21,6 +21,7 @@ use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Logic\Not;
 use Happyr\DoctrineSpecification\Specification\Specification;
 use PhpSpec\ObjectBehavior;
+use tests\Happyr\DoctrineSpecification\Game;
 use tests\Happyr\DoctrineSpecification\Player;
 
 /**
@@ -156,5 +157,45 @@ final class NotSpec extends ObjectBehavior
         $player = new Player('Alice', 'F', 9001);
 
         $this->isSatisfiedBy($player)->shouldBe(true);
+    }
+
+    public function it_filter_array_collection_in_context(): void
+    {
+        $this->beConstructedWith(new Equals('name', 'Mahjong'));
+
+        $game = ['name' => 'Tetris'];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
+
+        $this->filterCollection([$player], 'inGame')->shouldYield([$player]);
+    }
+
+    public function it_filter_object_collection_in_context(): void
+    {
+        $this->beConstructedWith(new Equals('name', 'Mahjong'));
+
+        $game = new Game('Tetris');
+        $player = new Player('Moe', 'M', 1230, $game);
+
+        $this->filterCollection([$player], 'inGame')->shouldYield([$player]);
+    }
+
+    public function it_is_satisfied_array_collection_in_context(): void
+    {
+        $this->beConstructedWith(new Equals('name', 'Mahjong'));
+
+        $game = ['name' => 'Tetris'];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
+
+        $this->isSatisfiedBy($player, 'inGame')->shouldBe(true);
+    }
+
+    public function it_is_satisfied_object_collection_in_context(): void
+    {
+        $this->beConstructedWith(new Equals('name', 'Mahjong'));
+
+        $game = new Game('Tetris');
+        $player = new Player('Moe', 'M', 1230, $game);
+
+        $this->isSatisfiedBy($player, 'inGame')->shouldBe(true);
     }
 }

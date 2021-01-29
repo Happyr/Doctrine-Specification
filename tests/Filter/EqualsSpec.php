@@ -134,4 +134,71 @@ final class EqualsSpec extends ObjectBehavior
 
         $this->isSatisfiedBy($player)->shouldBe(true);
     }
+
+    public function it_filter_array_collection_in_context(): void
+    {
+        $releaseAt = new \DateTimeImmutable();
+        $game = ['name' => 'Tetris', 'releaseAt' => $releaseAt];
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $game],
+        ];
+
+        $this->beConstructedWith('releaseAt', $releaseAt, 'inGame');
+
+        $this->filterCollection($players)->shouldYield([$players[2]]);
+    }
+
+    public function it_filter_array_collection_in_global_context(): void
+    {
+        $releaseAt = new \DateTimeImmutable();
+        $game = ['name' => 'Tetris', 'releaseAt' => $releaseAt];
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $game],
+        ];
+
+        $this->beConstructedWith('releaseAt', $releaseAt, null);
+
+        $this->filterCollection($players, 'inGame')->shouldYield([$players[2]]);
+    }
+
+    public function it_is_satisfied_in_global_context(): void
+    {
+        $releaseAt = new \DateTimeImmutable();
+        $game = ['name' => 'Tetris', 'releaseAt' => $releaseAt];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
+
+        $this->beConstructedWith('releaseAt', $releaseAt, null);
+
+        $this->isSatisfiedBy($player, 'inGame')->shouldBe(true);
+    }
+
+    public function it_filter_array_collection_in_combo_context(): void
+    {
+        $owner = ['name' => 'ABC', 'based' => 123];
+        $game = ['name' => 'Tetris', 'owner' => $owner];
+        $players = [
+            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $game],
+        ];
+
+        $this->beConstructedWith('name', 'ABC', 'owner');
+
+        $this->filterCollection($players, 'inGame')->shouldYield([$players[2]]);
+    }
+
+    public function it_is_satisfied_in_combo_context(): void
+    {
+        $owner = ['name' => 'ABC', 'based' => 123];
+        $game = ['name' => 'Tetris', 'owner' => $owner];
+        $player = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $game];
+
+        $this->beConstructedWith('name', 'ABC', 'owner');
+
+        $this->isSatisfiedBy($player, 'inGame')->shouldBe(true);
+    }
 }

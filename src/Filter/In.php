@@ -73,16 +73,14 @@ final class In implements Filter, Satisfiable
     /**
      * {@inheritdoc}
      */
-    public function filterCollection(iterable $collection): iterable
+    public function filterCollection(iterable $collection, ?string $context = null): iterable
     {
+        $context = $this->resolveContext($context);
         $field = ArgumentToOperandConverter::toField($this->field);
         $value = ArgumentToOperandConverter::toValue($this->value);
 
         foreach ($collection as $candidate) {
-            if ($this->contains(
-                $field->execute($candidate, $this->context),
-                $value->execute($candidate, $this->context)
-            )) {
+            if ($this->contains($field->execute($candidate, $context), $value->execute($candidate, $context))) {
                 yield $candidate;
             }
         }
@@ -91,15 +89,31 @@ final class In implements Filter, Satisfiable
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy($candidate): bool
+    public function isSatisfiedBy($candidate, ?string $context = null): bool
     {
+        $context = $this->resolveContext($context);
         $field = ArgumentToOperandConverter::toField($this->field);
         $value = ArgumentToOperandConverter::toValue($this->value);
 
-        return $this->contains(
-            $field->execute($candidate, $this->context),
-            $value->execute($candidate, $this->context)
-        );
+        return $this->contains($field->execute($candidate, $context), $value->execute($candidate, $context));
+    }
+
+    /**
+     * @param string|null $context
+     *
+     * @return string|null
+     */
+    private function resolveContext(?string $context): ?string
+    {
+        if (null !== $this->context && null !== $context) {
+            return sprintf('%s.%s', $context, $this->context);
+        }
+
+        if (null !== $this->context) {
+            return $this->context;
+        }
+
+        return $context;
     }
 
     /**

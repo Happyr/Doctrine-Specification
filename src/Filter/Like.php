@@ -83,13 +83,14 @@ final class Like implements Filter, Satisfiable
     /**
      * {@inheritdoc}
      */
-    public function filterCollection(iterable $collection): iterable
+    public function filterCollection(iterable $collection, ?string $context = null): iterable
     {
+        $context = $this->resolveContext($context);
         $field = ArgumentToOperandConverter::toField($this->field);
         $value = $this->getUnescapedValue();
 
         foreach ($collection as $candidate) {
-            if ($this->isMatch($field->execute($candidate, $this->context), $value)) {
+            if ($this->isMatch($field->execute($candidate, $context), $value)) {
                 yield $candidate;
             }
         }
@@ -98,12 +99,31 @@ final class Like implements Filter, Satisfiable
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy($candidate): bool
+    public function isSatisfiedBy($candidate, ?string $context = null): bool
     {
+        $context = $this->resolveContext($context);
         $field = ArgumentToOperandConverter::toField($this->field);
         $value = $this->getUnescapedValue();
 
-        return $this->isMatch($field->execute($candidate, $this->context), $value);
+        return $this->isMatch($field->execute($candidate, $context), $value);
+    }
+
+    /**
+     * @param string|null $context
+     *
+     * @return string|null
+     */
+    private function resolveContext(?string $context): ?string
+    {
+        if (null !== $this->context && null !== $context) {
+            return sprintf('%s.%s', $context, $this->context);
+        }
+
+        if (null !== $this->context) {
+            return $this->context;
+        }
+
+        return $context;
     }
 
     /**

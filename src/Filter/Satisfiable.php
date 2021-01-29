@@ -17,7 +17,8 @@ namespace Happyr\DoctrineSpecification\Filter;
 interface Satisfiable
 {
     /**
-     * @param iterable $collection
+     * @param iterable    $collection
+     * @param string|null $context
      *
      * @return iterable
      *
@@ -25,12 +26,13 @@ interface Satisfiable
      * @phpstan-param iterable<T> $collection
      * @phpstan-return iterable<T>
      */
-    public function filterCollection(iterable $collection): iterable;
+    public function filterCollection(iterable $collection, ?string $context = null): iterable;
 
     /**
      * @param mixed[]|object $candidate
+     * @param string|null    $context
      *
      * @return bool
      */
-    public function isSatisfiedBy($candidate): bool;
+    public function isSatisfiedBy($candidate, ?string $context = null): bool;
 }
