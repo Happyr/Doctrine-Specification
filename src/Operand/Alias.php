@@ -48,7 +48,7 @@ final class Alias implements Operand
      * @param mixed[]|object $candidate
      * @param string|null    $context
      */
-    public function execute($candidate, ?string $context): void
+    public function execute($candidate, ?string $context = null): void
     {
         throw new OperandNotExecuteException('The aliasing is not supported for execution.');
     }

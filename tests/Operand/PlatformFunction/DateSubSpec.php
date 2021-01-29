@@ -30,9 +30,9 @@ final class DateSubSpec extends ObjectBehavior
 
         $candidate = null; // not used
 
-        $this->execute($candidate, null)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->execute($candidate, null)->shouldReturnSameTimeZone($now->getTimezone());
-        $this->execute($candidate, null)->shouldReturnSameTimestamp($now->modify('+1 year'));
+        $this->execute($candidate)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->execute($candidate)->shouldReturnSameTimeZone($now->getTimezone());
+        $this->execute($candidate)->shouldReturnSameTimestamp($now->modify('+1 year'));
     }
 
     public function it_should_sub_one_year(): void
@@ -43,9 +43,9 @@ final class DateSubSpec extends ObjectBehavior
 
         $candidate = null; // not used
 
-        $this->execute($candidate, null)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->execute($candidate, null)->shouldReturnSameTimeZone($now->getTimezone());
-        $this->execute($candidate, null)->shouldReturnSameTimestamp($now->modify('-1 year'));
+        $this->execute($candidate)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->execute($candidate)->shouldReturnSameTimeZone($now->getTimezone());
+        $this->execute($candidate)->shouldReturnSameTimestamp($now->modify('-1 year'));
     }
 
     public function it_should_add_one_month(): void
@@ -56,9 +56,9 @@ final class DateSubSpec extends ObjectBehavior
 
         $candidate = null; // not used
 
-        $this->execute($candidate, null)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->execute($candidate, null)->shouldReturnSameTimeZone($now->getTimezone());
-        $this->execute($candidate, null)->shouldReturnSameTimestamp($now->modify('+1 month'));
+        $this->execute($candidate)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->execute($candidate)->shouldReturnSameTimeZone($now->getTimezone());
+        $this->execute($candidate)->shouldReturnSameTimestamp($now->modify('+1 month'));
     }
 
     public function it_should_sub_one_month(): void
@@ -69,9 +69,9 @@ final class DateSubSpec extends ObjectBehavior
 
         $candidate = null; // not used
 
-        $this->execute($candidate, null)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->execute($candidate, null)->shouldReturnSameTimeZone($now->getTimezone());
-        $this->execute($candidate, null)->shouldReturnSameTimestamp($now->modify('-1 month'));
+        $this->execute($candidate)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->execute($candidate)->shouldReturnSameTimeZone($now->getTimezone());
+        $this->execute($candidate)->shouldReturnSameTimestamp($now->modify('-1 month'));
     }
 
     public function it_should_add_one_week(): void
@@ -82,9 +82,9 @@ final class DateSubSpec extends ObjectBehavior
 
         $candidate = null; // not used
 
-        $this->execute($candidate, null)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->execute($candidate, null)->shouldReturnSameTimeZone($now->getTimezone());
-        $this->execute($candidate, null)->shouldReturnSameTimestamp($now->modify('+1 week'));
+        $this->execute($candidate)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->execute($candidate)->shouldReturnSameTimeZone($now->getTimezone());
+        $this->execute($candidate)->shouldReturnSameTimestamp($now->modify('+1 week'));
     }
 
     public function it_should_sub_one_week(): void
@@ -95,9 +95,9 @@ final class DateSubSpec extends ObjectBehavior
 
         $candidate = null; // not used
 
-        $this->execute($candidate, null)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->execute($candidate, null)->shouldReturnSameTimeZone($now->getTimezone());
-        $this->execute($candidate, null)->shouldReturnSameTimestamp($now->modify('-1 week'));
+        $this->execute($candidate)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->execute($candidate)->shouldReturnSameTimeZone($now->getTimezone());
+        $this->execute($candidate)->shouldReturnSameTimestamp($now->modify('-1 week'));
     }
 
     public function it_should_add_one_day(): void
@@ -108,9 +108,9 @@ final class DateSubSpec extends ObjectBehavior
 
         $candidate = null; // not used
 
-        $this->execute($candidate, null)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->execute($candidate, null)->shouldReturnSameTimeZone($now->getTimezone());
-        $this->execute($candidate, null)->shouldReturnSameTimestamp($now->modify('+1 day'));
+        $this->execute($candidate)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->execute($candidate)->shouldReturnSameTimeZone($now->getTimezone());
+        $this->execute($candidate)->shouldReturnSameTimestamp($now->modify('+1 day'));
     }
 
     public function it_should_sub_one_day(): void
@@ -121,9 +121,9 @@ final class DateSubSpec extends ObjectBehavior
 
         $candidate = null; // not used
 
-        $this->execute($candidate, null)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->execute($candidate, null)->shouldReturnSameTimeZone($now->getTimezone());
-        $this->execute($candidate, null)->shouldReturnSameTimestamp($now->modify('-1 day'));
+        $this->execute($candidate)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->execute($candidate)->shouldReturnSameTimeZone($now->getTimezone());
+        $this->execute($candidate)->shouldReturnSameTimestamp($now->modify('-1 day'));
     }
 
     public function it_should_add_one_hour(): void
@@ -134,9 +134,9 @@ final class DateSubSpec extends ObjectBehavior
 
         $candidate = null; // not used
 
-        $this->execute($candidate, null)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->execute($candidate, null)->shouldReturnSameTimeZone($now->getTimezone());
-        $this->execute($candidate, null)->shouldReturnSameTimestamp($now->modify('+1 hour'));
+        $this->execute($candidate)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->execute($candidate)->shouldReturnSameTimeZone($now->getTimezone());
+        $this->execute($candidate)->shouldReturnSameTimestamp($now->modify('+1 hour'));
     }
 
     public function it_should_sub_one_hour(): void
@@ -147,9 +147,9 @@ final class DateSubSpec extends ObjectBehavior
 
         $candidate = null; // not used
 
-        $this->execute($candidate, null)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->execute($candidate, null)->shouldReturnSameTimeZone($now->getTimezone());
-        $this->execute($candidate, null)->shouldReturnSameTimestamp($now->modify('-1 hour'));
+        $this->execute($candidate)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->execute($candidate)->shouldReturnSameTimeZone($now->getTimezone());
+        $this->execute($candidate)->shouldReturnSameTimestamp($now->modify('-1 hour'));
     }
 
     public function it_should_add_one_minute(): void
@@ -160,9 +160,9 @@ final class DateSubSpec extends ObjectBehavior
 
         $candidate = null; // not used
 
-        $this->execute($candidate, null)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->execute($candidate, null)->shouldReturnSameTimeZone($now->getTimezone());
-        $this->execute($candidate, null)->shouldReturnSameTimestamp($now->modify('+1 minute'));
+        $this->execute($candidate)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->execute($candidate)->shouldReturnSameTimeZone($now->getTimezone());
+        $this->execute($candidate)->shouldReturnSameTimestamp($now->modify('+1 minute'));
     }
 
     public function it_should_sub_one_minute(): void
@@ -173,9 +173,9 @@ final class DateSubSpec extends ObjectBehavior
 
         $candidate = null; // not used
 
-        $this->execute($candidate, null)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->execute($candidate, null)->shouldReturnSameTimeZone($now->getTimezone());
-        $this->execute($candidate, null)->shouldReturnSameTimestamp($now->modify('-1 minute'));
+        $this->execute($candidate)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->execute($candidate)->shouldReturnSameTimeZone($now->getTimezone());
+        $this->execute($candidate)->shouldReturnSameTimestamp($now->modify('-1 minute'));
     }
 
     public function it_should_add_one_second(): void
@@ -186,9 +186,9 @@ final class DateSubSpec extends ObjectBehavior
 
         $candidate = null; // not used
 
-        $this->execute($candidate, null)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->execute($candidate, null)->shouldReturnSameTimeZone($now->getTimezone());
-        $this->execute($candidate, null)->shouldReturnSameTimestamp($now->modify('+1 second'));
+        $this->execute($candidate)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->execute($candidate)->shouldReturnSameTimeZone($now->getTimezone());
+        $this->execute($candidate)->shouldReturnSameTimestamp($now->modify('+1 second'));
     }
 
     public function it_should_sub_one_second(): void
@@ -199,9 +199,9 @@ final class DateSubSpec extends ObjectBehavior
 
         $candidate = null; // not used
 
-        $this->execute($candidate, null)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->execute($candidate, null)->shouldReturnSameTimeZone($now->getTimezone());
-        $this->execute($candidate, null)->shouldReturnSameTimestamp($now->modify('-1 second'));
+        $this->execute($candidate)->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->execute($candidate)->shouldReturnSameTimeZone($now->getTimezone());
+        $this->execute($candidate)->shouldReturnSameTimestamp($now->modify('-1 second'));
     }
 
     public function getMatchers(): array

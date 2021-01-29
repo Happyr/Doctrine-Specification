@@ -64,7 +64,7 @@ final class Values implements Operand
      *
      * @return mixed[]
      */
-    public function execute($candidate, ?string $context): array
+    public function execute($candidate, ?string $context = null): array
     {
         return $this->values;
     }

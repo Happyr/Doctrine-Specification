@@ -97,7 +97,7 @@ final class DateSub implements Operand
      *
      * @return \DateTimeImmutable
      */
-    public function execute($candidate, ?string $context): \DateTimeImmutable
+    public function execute($candidate, ?string $context = null): \DateTimeImmutable
     {
         $date = ArgumentToOperandConverter::toField($this->date)->execute($candidate, $context);
         $value = ArgumentToOperandConverter::toValue($this->value)->execute($candidate, $context);

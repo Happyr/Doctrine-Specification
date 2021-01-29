@@ -87,6 +87,6 @@ final class ValueSpec extends ObjectBehavior
     {
         $candidate = null; // not used
 
-        $this->execute($candidate, null)->shouldReturn($this->value);
+        $this->execute($candidate)->shouldReturn($this->value);
     }
 }

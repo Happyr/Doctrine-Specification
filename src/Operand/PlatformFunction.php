@@ -123,7 +123,7 @@ final class PlatformFunction implements Operand
      *
      * @return mixed
      */
-    public function execute($candidate, ?string $context)
+    public function execute($candidate, ?string $context = null)
     {
         $arguments = [];
         foreach (ArgumentToOperandConverter::convert($this->arguments) as $argument) {
