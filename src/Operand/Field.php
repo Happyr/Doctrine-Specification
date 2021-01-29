@@ -64,7 +64,7 @@ final class Field implements Operand, Selection
      *
      * @return mixed
      */
-    public function execute($candidate, ?string $context)
+    public function execute($candidate, ?string $context = null)
     {
         $propertyPath = $this->fieldName;
 

@@ -65,7 +65,7 @@ final class Avg implements Operand
      * @param mixed[]|object $candidate
      * @param string|null    $context
      */
-    public function execute($candidate, ?string $context): void
+    public function execute($candidate, ?string $context = null): void
     {
         throw new OperandNotExecuteException(
             sprintf('The operand "%s" cannot be executed for a single candidate.', self::class)

@@ -115,7 +115,7 @@ final class Trim implements Operand
      *
      * @return string
      */
-    public function execute($candidate, ?string $context): string
+    public function execute($candidate, ?string $context = null): string
     {
         $string = ArgumentToOperandConverter::toField($this->string)->execute($candidate, $context);
 

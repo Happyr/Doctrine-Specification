@@ -95,7 +95,7 @@ abstract class Arithmetic implements Operand
      *
      * @return mixed
      */
-    public function execute($candidate, ?string $context)
+    public function execute($candidate, ?string $context = null)
     {
         $field = ArgumentToOperandConverter::toField($this->field);
         $value = ArgumentToOperandConverter::toValue($this->value);

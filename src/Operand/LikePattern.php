@@ -67,7 +67,7 @@ final class LikePattern implements Operand
      *
      * @return string
      */
-    public function execute($candidate, ?string $context): string
+    public function execute($candidate, ?string $context = null): string
     {
         return $this->formatValue($this->format, $this->value);
     }

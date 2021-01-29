@@ -60,7 +60,7 @@ final class Value implements Operand
      *
      * @return mixed
      */
-    public function execute($candidate, ?string $context)
+    public function execute($candidate, ?string $context = null)
     {
         return $this->value;
     }

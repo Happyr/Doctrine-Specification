@@ -58,6 +58,6 @@ final class CountSpec extends ObjectBehavior
     {
         $candidate = null; // not used
 
-        $this->shouldThrow(OperandNotExecuteException::class)->duringExecute($candidate, null);
+        $this->shouldThrow(OperandNotExecuteException::class)->duringExecute($candidate);
     }
 }
