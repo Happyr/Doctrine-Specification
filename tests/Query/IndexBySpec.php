@@ -33,7 +33,7 @@ final class IndexBySpec extends ObjectBehavior
         $this->beConstructedWith($this->field, null);
     }
 
-    public function it_is_a_result_modifier(): void
+    public function it_is_a_query_modifier(): void
     {
         $this->shouldBeAnInstanceOf(QueryModifier::class);
     }

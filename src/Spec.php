@@ -66,6 +66,7 @@ use Happyr\DoctrineSpecification\Query\Selection\SelectAs;
 use Happyr\DoctrineSpecification\Query\Selection\SelectEntity;
 use Happyr\DoctrineSpecification\Query\Selection\SelectHiddenAs;
 use Happyr\DoctrineSpecification\Query\Selection\Selection;
+use Happyr\DoctrineSpecification\Query\SelectNew;
 use Happyr\DoctrineSpecification\Query\Slice;
 use Happyr\DoctrineSpecification\Result\AsArray;
 use Happyr\DoctrineSpecification\Result\AsScalar;
@@ -271,6 +272,19 @@ class Spec
     public static function addSelect(...$fields): AddSelect
     {
         return new AddSelect(...$fields);
+    }
+
+    /**
+     * @param string        $class
+     * @param Operand|mixed ...$arguments
+     *
+     * @phpstan-param class-string $class
+     *
+     * @return SelectNew
+     */
+    public static function selectNew(string $class, ...$arguments): SelectNew
+    {
+        return new SelectNew($class, ...$arguments);
     }
 
     /**

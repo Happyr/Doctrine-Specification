@@ -35,7 +35,7 @@ final class AddSelectSpec extends ObjectBehavior
         $this->shouldBeAnInstanceOf(AddSelect::class);
     }
 
-    public function it_is_a_specification(): void
+    public function it_is_a_query_modifier(): void
     {
         $this->shouldHaveType(QueryModifier::class);
     }

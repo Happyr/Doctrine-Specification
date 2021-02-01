@@ -29,7 +29,7 @@ final class InnerJoinSpec extends ObjectBehavior
         $this->beConstructedWith('user', 'authUser', null);
     }
 
-    public function it_is_a_specification(): void
+    public function it_is_a_query_modifier(): void
     {
         $this->shouldHaveType(QueryModifier::class);
     }

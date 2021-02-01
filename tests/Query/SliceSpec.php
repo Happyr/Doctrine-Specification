@@ -34,7 +34,7 @@ final class SliceSpec extends ObjectBehavior
         $this->beConstructedWith($this->sliceSize, 0);
     }
 
-    public function it_is_a_specification(): void
+    public function it_is_a_query_modifier(): void
     {
         $this->shouldHaveType(QueryModifier::class);
     }
