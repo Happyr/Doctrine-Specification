@@ -20,6 +20,7 @@ use Happyr\DoctrineSpecification\Filter\GreaterOrEqualThan;
 use Happyr\DoctrineSpecification\Filter\GreaterThan;
 use Happyr\DoctrineSpecification\Filter\In;
 use Happyr\DoctrineSpecification\Filter\InstanceOfX;
+use Happyr\DoctrineSpecification\Filter\IsEmpty;
 use Happyr\DoctrineSpecification\Filter\IsNotNull;
 use Happyr\DoctrineSpecification\Filter\IsNull;
 use Happyr\DoctrineSpecification\Filter\LessOrEqualThan;
@@ -387,6 +388,17 @@ class Spec
     public static function isNotNull($field, ?string $context = null): IsNotNull
     {
         return new IsNotNull($field, $context);
+    }
+
+    /**
+     * @param Operand|string $field
+     * @param string|null    $context
+     *
+     * @return IsEmpty
+     */
+    public static function isEmpty($field, ?string $context = null): IsEmpty
+    {
+        return new IsEmpty($field, $context);
     }
 
     /**
