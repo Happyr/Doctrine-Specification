@@ -75,7 +75,7 @@ abstract class BaseSpecification implements Specification
         $spec = $this->getSpec();
 
         if ($spec instanceof Satisfiable) {
-            return $spec->filterCollection($collection, $context);
+            return $spec->filterCollection($collection, $this->resolveContext($context));
         }
 
         return $collection;
@@ -89,7 +89,7 @@ abstract class BaseSpecification implements Specification
         $spec = $this->getSpec();
 
         if ($spec instanceof Satisfiable) {
-            return $spec->isSatisfiedBy($candidate, $context);
+            return $spec->isSatisfiedBy($candidate, $this->resolveContext($context));
         }
 
         return true;
@@ -125,6 +125,24 @@ abstract class BaseSpecification implements Specification
     {
         if (null !== $this->context) {
             return sprintf('%s.%s', $this->context, $context);
+        }
+
+        return $context;
+    }
+
+    /**
+     * @param string|null $context
+     *
+     * @return string|null
+     */
+    private function resolveContext(?string $context): ?string
+    {
+        if (null !== $this->context && null !== $context) {
+            return sprintf('%s.%s', $context, $this->context);
+        }
+
+        if (null !== $this->context) {
+            return $this->context;
         }
 
         return $context;
