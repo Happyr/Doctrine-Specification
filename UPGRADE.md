@@ -363,6 +363,26 @@
   Spec::SUM('field_name');
   ```
 
+* Define `Spec::leftJoin()`, `Spec::innerJoin()` and `Spec::join()` before using the new alias from it.
+
+  Before:
+
+  ```php
+  $spec = Spec::andX(
+      Spec::select(Spec::selectEntity('person')),
+      Spec::leftJoin('person', 'person')
+  );
+  ```
+
+  After:
+
+  ```php
+  $spec = Spec::andX(
+      Spec::leftJoin('person', 'person'),
+      Spec::select(Spec::selectEntity('person'))
+  );
+  ```
+
 # Upgrade from 1.0 to 1.1
 
 * No BC breaks
