@@ -148,7 +148,7 @@ final class PublishedQuestionnaires extends BaseSpecification
      */
     protected function getSpec()
     {
-        return new ContestantPublished($this->getNestedContext('contestant'));
+        return new ContestantPublished('contestant');
     }
 }
 
@@ -174,8 +174,8 @@ final class JoinedContestant extends BaseSpecification
     protected function getSpec()
     {
         return Spec::andX(
-            new UserActivated($this->getNestedContext('user')),
-            new ContestPublished($this->getNestedContext('contest'))
+            new UserActivated('user'),
+            new ContestPublished('contest')
         );
     }
 }
@@ -211,7 +211,7 @@ final class ContestantApproved extends BaseSpecification
     {
         return Spec::orX(
             Spec::eq('permission', Permission::approved()->value()),
-            Spec::not(new ContestRequireModeration($this->getNestedContext('contest')))
+            Spec::not(new ContestRequireModeration('contest'))
         );
     }
 }
