@@ -123,8 +123,7 @@
   );
   ```
 
-* The `BaseSpecification::getNestedContext()` method was added and behavior of the `BaseSpecification::getContext()`
-  method was changed.
+* Changed behavior of DQL aliases to use context.
 
   Before:
 
@@ -219,7 +218,7 @@
        */
       protected function getSpec()
       {
-          return new ContestantPublished($this->getNestedContext('contestant'));
+          return new ContestantPublished('contestant');
       }
   }
 
@@ -246,7 +245,7 @@
       {
           return Spec::orX(
               Spec::eq('permission', Permission::approved()->value()),
-              Spec::not(new ContestRequireModeration($this->getNestedContext('contest')))
+              Spec::not(new ContestRequireModeration('contest'))
           );
       }
   }
