@@ -19,7 +19,7 @@ use Doctrine\DBAL\Types\Type;
 final class DBALTypesResolver
 {
     /**
-     * The map of supported doctrine mapping types.
+     * The map of supported Doctrine mapping types.
      *
      * @var array<string, string>
      */
