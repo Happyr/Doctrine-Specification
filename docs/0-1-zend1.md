@@ -9,5 +9,5 @@ A basic implementation is provided with `Happyr\DoctrineSpecification\Repository
 
 ```php
 // During Doctrine configuration
-$config->setDefaultRepositoryClassName(EntitySpecificationRepository::class);
+$config->setDefaultRepositoryClassName(\Happyr\DoctrineSpecification\Repository\EntitySpecificationRepository::class);
 ```

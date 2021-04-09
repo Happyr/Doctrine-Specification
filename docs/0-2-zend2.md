@@ -8,10 +8,14 @@ configuration options for the repository. To replace the default repository type
 
 ```php
 // Application configuration
-'doctrine' => [
-    'configuration' => [
-        'orm_default' => [
-            'default_repository_class' => EntitySpecificationRepository::class,
+use Happyr\DoctrineSpecification\Repository\EntitySpecificationRepository;
+
+return [
+    'doctrine' => [
+        'configuration' => [
+            'orm_default' => [
+                'default_repository_class' => EntitySpecificationRepository::class,
+            ],
         ],
     ],
 ];
