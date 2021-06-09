@@ -25,9 +25,9 @@ use Happyr\DoctrineSpecification\Specification\Specification;
  */
 abstract class LogicX implements Specification
 {
-    const AND_X = 'andX';
+    public const AND_X = 'andX';
 
-    const OR_X = 'orX';
+    public const OR_X = 'orX';
 
     /**
      * @var string
