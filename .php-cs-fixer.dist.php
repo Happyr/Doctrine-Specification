@@ -18,8 +18,6 @@ $rules = [
     '@Symfony:risky' => true,
     '@PhpCsFixer' => true,
     '@PhpCsFixer:risky' => true,
-    '@PHP56Migration' => true,
-    '@PHP56Migration:risky' => true,
     '@PHP70Migration' => true,
     '@PHP70Migration:risky' => true,
     'header_comment' => [
@@ -54,7 +52,7 @@ $finder = PhpCsFixer\Finder::create()
     ->notPath('bootstrap.php')
 ;
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setRules($rules)
     ->setFinder($finder)
     ->setRiskyAllowed(true)
