@@ -35,6 +35,11 @@ final class DQLContextResolver
     private static $autoJoining = true;
 
     /**
+     * @var bool
+     */
+    private static $alwaysUnique = false;
+
+    /**
      * @param QueryBuilder $qb
      * @param string       $context
      *
@@ -139,6 +144,24 @@ final class DQLContextResolver
     }
 
     /**
+     * @return bool
+     */
+    public static function isUniqueAliasAlwaysUsed(): bool
+    {
+        return self::$alwaysUnique;
+    }
+
+    public static function alwaysUseUniqueAlias(): void
+    {
+        self::$alwaysUnique = true;
+    }
+
+    public static function useUniqueAliasIfNecessary(): void
+    {
+        self::$alwaysUnique = false;
+    }
+
+    /**
      * Find configured relationship.
      *
      * @param QueryBuilder $qb
@@ -172,11 +195,17 @@ final class DQLContextResolver
      */
     private static function getUniqueAlias(QueryBuilder $qb, string $dqlAlias): string
     {
-        $newAlias = $dqlAlias;
-
-        while (self::$conflictProtection && in_array($newAlias, $qb->getAllAliases(), true)) {
-            $newAlias = uniqid($dqlAlias);
+        if (!self::$conflictProtection) {
+            return $dqlAlias;
         }
+
+        if (!self::$alwaysUnique && !in_array($dqlAlias, $qb->getAllAliases(), true)) {
+            return $dqlAlias;
+        }
+
+        do {
+            $newAlias = uniqid($dqlAlias);
+        } while (in_array($newAlias, $qb->getAllAliases(), true));
 
         return $newAlias;
     }

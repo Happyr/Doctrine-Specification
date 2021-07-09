@@ -30,6 +30,7 @@ final class DQLContextResolverSpec extends ObjectBehavior
         $this::enableDeadJoinsProtection();
         $this::enableConflictProtection();
         $this::enableAutoJoining();
+        $this::useUniqueAliasIfNecessary();
     }
 
     public function it_resolve_not_joined_aliases(QueryBuilder $qb): void
@@ -123,5 +124,25 @@ final class DQLContextResolverSpec extends ObjectBehavior
         }), 'contest')->willReturn($qb);
 
         $this::resolveAlias($qb, 'root.contestant.contest')->shouldBe('contest');
+    }
+
+    public function it_join_always_unique_alias(QueryBuilder $qb): void
+    {
+        $this::alwaysUseUniqueAlias();
+
+        $qb->getAllAliases()->willReturn([]);
+        $qb->getDQLPart('join')->willReturn([]);
+        $qb->join('root.contestant', Argument::that(function ($argument) {
+            return preg_match('/^contestant[a-f0-9]+/', $argument);
+        }))->willReturn($qb);
+        $qb->join(Argument::that(function ($argument) {
+            return preg_match('/^contestant[a-f0-9]+\.contest$/', $argument);
+        }), Argument::that(function ($argument) {
+            return preg_match('/^contest[a-f0-9]+$/', $argument);
+        }))->willReturn($qb);
+
+        $this::resolveAlias($qb, 'root.contestant.contest')->shouldContain('contest');
+
+        $this::useUniqueAliasIfNecessary();
     }
 }
