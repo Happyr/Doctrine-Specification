@@ -19,9 +19,8 @@ use Doctrine\ORM\EntityRepository;
 /**
  * This class allows you to use a Specification to query entities.
  *
- * @phpstan-template T
+ * @template T
  * @phpstan-extends EntityRepository<T>
- * @phpstan-implements EntitySpecificationRepositoryInterface<T>
  */
 class EntitySpecificationRepository extends EntityRepository implements EntitySpecificationRepositoryInterface
 {
