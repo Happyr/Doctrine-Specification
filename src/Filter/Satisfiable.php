@@ -23,8 +23,8 @@ interface Satisfiable
      * @return iterable
      *
      * @phpstan-template T
-     * @phpstan-param iterable<T> $collection
-     * @phpstan-return iterable<T>
+     * @phpstan-param iterable<array-key, T> $collection
+     * @phpstan-return iterable<array-key, T>
      */
     public function filterCollection(iterable $collection, ?string $context = null): iterable;
 
