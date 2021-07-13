@@ -172,7 +172,7 @@ trait EntitySpecificationRepositoryTrait
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @return \Traversable<mixed>
+     * @return \Traversable|mixed[]
      */
     public function iterate($specification, ?ResultModifier $modifier = null): \Traversable
     {

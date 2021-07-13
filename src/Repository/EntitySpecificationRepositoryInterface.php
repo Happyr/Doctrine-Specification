@@ -23,6 +23,8 @@ use Happyr\DoctrineSpecification\Result\ResultModifier;
 
 /**
  * This interface should be used by an EntityRepository implementing the Specification pattern.
+ *
+ * @phpstan-template T
  */
 interface EntitySpecificationRepositoryInterface
 {
@@ -33,6 +35,8 @@ interface EntitySpecificationRepositoryInterface
      * @param ResultModifier|null  $modifier
      *
      * @return mixed
+     *
+     * @phpstan-return array<array-key, T>
      */
     public function match($specification, ?ResultModifier $modifier = null);
 
@@ -46,6 +50,8 @@ interface EntitySpecificationRepositoryInterface
      * @throw Exception\NoResultException   If no results found
      *
      * @return mixed
+     *
+     * @phpstan-return T
      */
     public function matchSingleResult($specification, ?ResultModifier $modifier = null);
 
@@ -58,6 +64,8 @@ interface EntitySpecificationRepositoryInterface
      * @throw Exception\NonUniqueException  If more than one result is found
      *
      * @return mixed|null
+     *
+     * @phpstan-return T|null
      */
     public function matchOneOrNullResult($specification, ?ResultModifier $modifier = null);
 
@@ -111,7 +119,9 @@ interface EntitySpecificationRepositoryInterface
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @return \Traversable<mixed>
+     * @return \Traversable|mixed[]
+     *
+     * @phpstan-return \Traversable<array-key, T>
      */
     public function iterate($specification, ?ResultModifier $modifier = null): \Traversable;
 }
