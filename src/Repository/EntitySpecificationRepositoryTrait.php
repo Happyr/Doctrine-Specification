@@ -176,8 +176,16 @@ trait EntitySpecificationRepositoryTrait
      */
     public function iterate($specification, ?ResultModifier $modifier = null): \Traversable
     {
-        foreach ($this->getQuery($specification, $modifier)->iterate() as $key => $row) {
-            yield $key => current($row);
+        $query = $this->getQuery($specification, $modifier);
+
+        if (method_exists($query, 'toIterable')) {
+            foreach ($query->toIterable() as $key => $row) {
+                yield $key => $row;
+            }
+        } else {
+            foreach ($query->iterate() as $key => $row) {
+                yield $key => current($row);
+            }
         }
     }
 
