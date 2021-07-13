@@ -21,9 +21,7 @@ final class DBALTypesResolver
     /**
      * The map of supported Doctrine mapping types.
      *
-     * @var string[]
-     *
-     * @phpstan-var array<string, string>
+     * @var array<string, string>
      */
     private static $typesMap = [];
 
