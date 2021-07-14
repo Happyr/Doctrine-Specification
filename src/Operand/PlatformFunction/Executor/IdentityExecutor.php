@@ -19,7 +19,7 @@ use Happyr\DoctrineSpecification\Exception\OperandNotExecuteException;
 final class IdentityExecutor
 {
     /**
-     * @throw OperandNotExecuteException
+     * @throws OperandNotExecuteException
      */
     public function __invoke(): void
     {

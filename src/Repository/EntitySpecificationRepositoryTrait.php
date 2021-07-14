@@ -56,8 +56,8 @@ trait EntitySpecificationRepositoryTrait
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @throw Exception\NonUniqueException If more than one result is found
-     * @throw Exception\NoResultException  If no results found
+     * @throws NonUniqueResultException If more than one result is found
+     * @throws NoResultException        If no results found
      *
      * @return mixed
      */
@@ -80,7 +80,7 @@ trait EntitySpecificationRepositoryTrait
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @throw Exception\NonUniqueException If more than one result is found
+     * @throws NonUniqueResultException If more than one result is found
      *
      * @return mixed|null
      */
@@ -99,8 +99,8 @@ trait EntitySpecificationRepositoryTrait
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @throw Exception\NonUniqueException If more than one result is found
-     * @throw Exception\NoResultException  If no results found
+     * @throws NonUniqueResultException If more than one result is found
+     * @throws NoResultException        If no results found
      *
      * @return mixed
      */
@@ -123,7 +123,7 @@ trait EntitySpecificationRepositoryTrait
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @throw Exception\NoResultException If no results found
+     * @throws NoResultException If no results found
      *
      * @return mixed
      */

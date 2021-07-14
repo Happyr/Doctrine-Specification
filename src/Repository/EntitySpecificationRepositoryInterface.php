@@ -17,6 +17,8 @@ namespace Happyr\DoctrineSpecification\Repository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Happyr\DoctrineSpecification\Exception\NonUniqueResultException;
+use Happyr\DoctrineSpecification\Exception\NoResultException;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 use Happyr\DoctrineSpecification\Result\ResultModifier;
@@ -42,8 +44,8 @@ interface EntitySpecificationRepositoryInterface
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @throw Exception\NonUniqueException  If more than one result is found
-     * @throw Exception\NoResultException   If no results found
+     * @throws NonUniqueResultException If more than one result is found
+     * @throws NoResultException        If no results found
      *
      * @return mixed
      */
@@ -55,7 +57,7 @@ interface EntitySpecificationRepositoryInterface
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @throw Exception\NonUniqueException  If more than one result is found
+     * @throws NonUniqueResultException If more than one result is found
      *
      * @return mixed|null
      */
@@ -67,8 +69,8 @@ interface EntitySpecificationRepositoryInterface
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @throw Exception\NonUniqueException  If more than one result is found
-     * @throw Exception\NoResultException   If no results found
+     * @throws NonUniqueResultException If more than one result is found
+     * @throws NoResultException        If no results found
      *
      * @return mixed
      */
@@ -80,8 +82,7 @@ interface EntitySpecificationRepositoryInterface
      * @param Filter|QueryModifier $specification
      * @param ResultModifier|null  $modifier
      *
-     * @throw Exception\NonUniqueException  If more than one result is found
-     * @throw Exception\NoResultException   If no results found
+     * @throws NoResultException If no results found
      *
      * @return mixed
      */
