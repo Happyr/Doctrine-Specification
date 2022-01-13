@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace tests\Happyr\DoctrineSpecification\Operand;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Operand\Operand;
 use Happyr\DoctrineSpecification\Operand\Value;
@@ -59,7 +58,7 @@ final class ValueSpec extends ObjectBehavior
 
     public function it_is_transformable_dbal_type(QueryBuilder $qb, ArrayCollection $parameters): void
     {
-        $valueType = Type::DATE;
+        $valueType = 'date';
         $this->beConstructedWith($this->value, $valueType);
 
         $qb->getParameters()->willReturn($parameters);

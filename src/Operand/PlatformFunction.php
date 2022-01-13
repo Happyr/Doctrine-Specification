@@ -71,7 +71,7 @@ final class PlatformFunction implements Operand
     /**
      * @var PlatformFunctionExecutorRegistry|null
      */
-    private static $executorRegistry = null;
+    private static $executorRegistry;
 
     /**
      * @var string
@@ -138,7 +138,7 @@ final class PlatformFunction implements Operand
      */
     public static function getExecutorRegistry(): PlatformFunctionExecutorRegistry
     {
-        if (null === self::$executorRegistry) {
+        if (!self::$executorRegistry instanceof PlatformFunctionExecutorRegistry) {
             $instances = [];
 
             foreach (self::DOCTRINE_FUNCTIONS as $functionName => $class) {
