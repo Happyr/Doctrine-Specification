@@ -75,9 +75,7 @@ final class DQLContextResolver
             $joinPart = self::findJoin($qb, $rootAlias, $join);
 
             // use exists or create new join
-            if ($joinPart instanceof Join) {
-                $dqlAlias = $joinPart->getAlias();
-            } else {
+            if (!$joinPart instanceof Join || !($dqlAlias = $joinPart->getAlias())) {
                 $dqlAlias = self::getUniqueAlias($qb, $field);
 
                 if (self::$autoJoining) {
