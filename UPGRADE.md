@@ -118,8 +118,8 @@
 
   ```php
   Spec::andX(
-      Spec::eq('contestant.user.state', State::active()->value()),
-      Spec::eq('contestant.contest.enabled', true)
+      Spec::eq('state', State::active()->value(), 'contestant.user'),
+      Spec::eq('enabled', true, 'contestant.contest')
   );
   ```
 
