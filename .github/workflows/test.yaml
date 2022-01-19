@@ -29,6 +29,9 @@ jobs:
                     - php-version: '7.2'
                       dependencies: highest
                       variant: 'doctrine/orm:~2.7'
+                    - php-version: '8.0'
+                      dependencies: highest
+                      variant: 'doctrine/orm:~2.7 symfony/symfony:^6.0'
         steps:
             - name: Checkout
               uses: actions/checkout@v2
