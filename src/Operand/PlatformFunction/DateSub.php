@@ -119,6 +119,9 @@ final class DateSub implements Operand
 
         $new_date = new \DateTimeImmutable($date->format('Y-m-d H:i:s'), $date->getTimezone());
 
+        if (0 > (float) $value) {
+            return $new_date->modify(sprintf('+%d %s', abs((float) $value), $this->unit));
+        }
         return $new_date->modify(sprintf('-%d %s', $value, $this->unit));
     }
 }
