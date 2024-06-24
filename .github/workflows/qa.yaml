@@ -17,7 +17,7 @@ jobs:
       - name: Install PHP with extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.2
+          php-version: 8.3
           coverage: none
           tools: cs2pr, phpstan, composer:v2
 
@@ -42,7 +42,7 @@ jobs:
       - name: Install PHP with extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.3
           coverage: none
           tools: cs2pr, php-cs-fixer
 
