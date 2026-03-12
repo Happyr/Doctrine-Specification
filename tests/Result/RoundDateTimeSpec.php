@@ -48,7 +48,7 @@ final class RoundDateTimeSpec extends ObjectBehavior
             new Parameter('status', 'active'), // scalar param
             new Parameter($name, $actual, $type),
         ]));
-        $query->setParameter($name, $expected, $type)->shouldBeCalled();
+        $query->setParameter($name, $expected, $type)->willReturn($query)->shouldBeCalled();
 
         $this->modify($query);
     }

@@ -51,7 +51,7 @@ final class ValueSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', $this->value, $this->valueType)->shouldBeCalled();
+        $qb->setParameter('comparison_10', $this->value, $this->valueType)->willReturn($qb)->shouldBeCalled();
 
         $this->transform($qb, $context)->shouldReturn(':comparison_10');
     }
@@ -64,7 +64,7 @@ final class ValueSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', $this->value, $valueType)->shouldBeCalled();
+        $qb->setParameter('comparison_10', $this->value, $valueType)->willReturn($qb)->shouldBeCalled();
 
         $this->transform($qb, 'a')->shouldReturn(':comparison_10');
     }
@@ -77,7 +77,7 @@ final class ValueSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', $this->value, $valueType)->shouldBeCalled();
+        $qb->setParameter('comparison_10', $this->value, $valueType)->willReturn($qb)->shouldBeCalled();
 
         $this->transform($qb, 'a')->shouldReturn(':comparison_10');
     }

@@ -49,7 +49,7 @@ final class MemberOfXSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 18, null)->willReturn($qb)->shouldBeCalled();
         $exp->isMemberOf(':comparison_10', 'a.age')->willReturn($exp_comparison);
 
         $this->getFilter($qb, 'a')->shouldReturn(':comparison_10 MEMBER OF a.age');
@@ -67,7 +67,7 @@ final class MemberOfXSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 18, null)->willReturn($qb)->shouldBeCalled();
         $exp->isMemberOf(':comparison_10', 'user.age')->willReturn($exp_comparison);
 
         $qb->getDQLPart('join')->willReturn([]);

@@ -43,7 +43,7 @@ final class SliceSpec extends ObjectBehavior
     {
         $this->beConstructedWith($this->sliceSize, 0);
 
-        $qb->setMaxResults($this->sliceSize)->shouldBeCalled();
+        $qb->setMaxResults($this->sliceSize)->willReturn($qb)->shouldBeCalled();
 
         $this->modify($qb, 'a');
     }
@@ -54,8 +54,8 @@ final class SliceSpec extends ObjectBehavior
 
         $this->beConstructedWith($this->sliceSize, $sliceNumber);
 
-        $qb->setMaxResults($this->sliceSize)->shouldBeCalled();
-        $qb->setFirstResult($this->sliceSize * $sliceNumber)->shouldBeCalled();
+        $qb->setMaxResults($this->sliceSize)->willReturn($qb)->shouldBeCalled();
+        $qb->setFirstResult($this->sliceSize * $sliceNumber)->willReturn($qb)->shouldBeCalled();
 
         $this->modify($qb, 'a');
     }

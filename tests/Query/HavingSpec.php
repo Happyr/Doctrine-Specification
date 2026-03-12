@@ -44,7 +44,7 @@ final class HavingSpec extends ObjectBehavior
     {
         $this->beConstructedWith($filter);
         $filter->getFilter($qb, 'a')->willReturn('foo = :bar');
-        $qb->having('foo = :bar')->shouldBeCalled();
+        $qb->having('foo = :bar')->willReturn($qb)->shouldBeCalled();
         $this->modify($qb, 'a');
     }
 }

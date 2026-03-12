@@ -42,7 +42,7 @@ final class GreaterOrEqualThanSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 18, null)->willReturn($qb)->shouldBeCalled();
 
         $comparison = $this->getFilter($qb, 'a');
 
@@ -56,7 +56,7 @@ final class GreaterOrEqualThanSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 18, null)->willReturn($qb)->shouldBeCalled();
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);
@@ -70,8 +70,8 @@ final class GreaterOrEqualThanSpec extends ObjectBehavior
         $this->beConstructedWith('points', 9000, null);
 
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9000],
         ];
 
@@ -95,8 +95,8 @@ final class GreaterOrEqualThanSpec extends ObjectBehavior
     {
         $this->beConstructedWith('points', 2500, null);
 
-        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
-        $playerB = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230];
+        $playerA = ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500];
+        $playerB = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230];
         $playerC = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
 
         $this->isSatisfiedBy($playerA)->shouldBe(true);
@@ -144,8 +144,8 @@ final class GreaterOrEqualThanSpec extends ObjectBehavior
         $releaseAt = new \DateTimeImmutable();
         $game = ['name' => 'Tetris', 'releaseAt' => $releaseAt];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $game],
         ];
 
@@ -159,8 +159,8 @@ final class GreaterOrEqualThanSpec extends ObjectBehavior
         $releaseAt = new \DateTimeImmutable();
         $game = ['name' => 'Tetris', 'releaseAt' => $releaseAt];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $game],
         ];
 
@@ -185,8 +185,8 @@ final class GreaterOrEqualThanSpec extends ObjectBehavior
         $owner = ['name' => 'ABC', 'based' => 123];
         $game = ['name' => 'Tetris', 'owner' => $owner];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $game],
         ];
 

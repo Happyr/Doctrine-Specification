@@ -36,7 +36,7 @@ final class LeftJoinSpec extends ObjectBehavior
 
     public function it_joins_with_default_dql_alias(QueryBuilder $qb): void
     {
-        $qb->leftJoin('a.user', 'authUser')->shouldBeCalled();
+        $qb->leftJoin('a.user', 'authUser')->willReturn($qb)->shouldBeCalled();
 
         $this->modify($qb, 'a');
     }
@@ -45,7 +45,7 @@ final class LeftJoinSpec extends ObjectBehavior
     {
         $this->beConstructedWith('user', 'authUser', 'x');
 
-        $qb->leftJoin('x.user', 'authUser')->shouldBeCalled();
+        $qb->leftJoin('x.user', 'authUser')->willReturn($qb)->shouldBeCalled();
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);
