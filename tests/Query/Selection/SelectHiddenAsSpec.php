@@ -76,7 +76,7 @@ final class SelectHiddenAsSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 'foo', null)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 'foo', null)->willReturn($qb)->shouldBeCalled();
 
         $this->transform($qb, $context)->shouldReturn($expression);
     }
@@ -92,7 +92,7 @@ final class SelectHiddenAsSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 'bar', null)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 'bar', null)->willReturn($qb)->shouldBeCalled();
 
         $this->transform($qb, $context)->shouldReturn($expression);
     }

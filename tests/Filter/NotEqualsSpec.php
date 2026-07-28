@@ -42,7 +42,7 @@ final class NotEqualsSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 18, null)->willReturn($qb)->shouldBeCalled();
 
         $comparison = $this->getFilter($qb, 'a');
 
@@ -56,7 +56,7 @@ final class NotEqualsSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 18, null)->willReturn($qb)->shouldBeCalled();
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);
@@ -70,8 +70,8 @@ final class NotEqualsSpec extends ObjectBehavior
         $this->beConstructedWith('gender', 'M', null);
 
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
         ];
 
@@ -95,7 +95,7 @@ final class NotEqualsSpec extends ObjectBehavior
     {
         $this->beConstructedWith('gender', 'M', null);
 
-        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerA = ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500];
         $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
 
         $this->isSatisfiedBy($playerA)->shouldBe(false);
@@ -138,8 +138,8 @@ final class NotEqualsSpec extends ObjectBehavior
         $tetris = ['name' => 'Tetris'];
         $mahjong = ['name' => 'Mahjong'];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
         ];
 
@@ -153,8 +153,8 @@ final class NotEqualsSpec extends ObjectBehavior
         $tetris = ['name' => 'Tetris'];
         $mahjong = ['name' => 'Mahjong'];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
         ];
 
@@ -180,8 +180,8 @@ final class NotEqualsSpec extends ObjectBehavior
         $tetris = ['name' => 'Tetris', 'owner' => $tetrisOwner];
         $mahjong = ['name' => 'Mahjong', 'owner' => $mahjongOwner];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
         ];
 

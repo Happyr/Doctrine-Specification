@@ -159,8 +159,8 @@ final class PlatformFunctionSpec extends ObjectBehavior
 
         $qb->getEntityManager()->willReturn($em);
         $qb->getParameters()->willReturn($parameters);
-        $qb->setParameter('comparison_10', 'bar', null)->shouldBeCalled();
-        $qb->setParameter('comparison_11', 'baz', null)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 'bar', null)->willReturn($qb)->shouldBeCalled();
+        $qb->setParameter('comparison_11', 'baz', null)->willReturn($qb)->shouldBeCalled();
 
         $em->getConfiguration()->willReturn($configuration);
 

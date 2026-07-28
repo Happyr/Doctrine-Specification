@@ -42,21 +42,21 @@ final class AddSelectSpec extends ObjectBehavior
 
     public function it_add_select_single_filed(QueryBuilder $qb): void
     {
-        $qb->addSelect(['a.foo'])->shouldBeCalled();
+        $qb->addSelect(['a.foo'])->willReturn($qb)->shouldBeCalled();
         $this->modify($qb, 'a');
     }
 
     public function it_add_select_several_fields(QueryBuilder $qb): void
     {
         $this->beConstructedWith('foo', 'bar');
-        $qb->addSelect(['b.foo', 'b.bar'])->shouldBeCalled();
+        $qb->addSelect(['b.foo', 'b.bar'])->willReturn($qb)->shouldBeCalled();
         $this->modify($qb, 'b');
     }
 
     public function it_add_select_operand(QueryBuilder $qb): void
     {
         $this->beConstructedWith('foo', new Field('bar'));
-        $qb->addSelect(['b.foo', 'b.bar'])->shouldBeCalled();
+        $qb->addSelect(['b.foo', 'b.bar'])->willReturn($qb)->shouldBeCalled();
         $this->modify($qb, 'b');
     }
 }

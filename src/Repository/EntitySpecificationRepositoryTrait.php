@@ -178,13 +178,7 @@ trait EntitySpecificationRepositoryTrait
     {
         $query = $this->getQuery($specification, $modifier);
 
-        if (method_exists($query, 'toIterable')) {
-            yield from $query->toIterable();
-        } else {
-            foreach ($query->iterate() as $key => $row) {
-                yield $key => current($row);
-            }
-        }
+        yield from $query->toIterable();
     }
 
     /**

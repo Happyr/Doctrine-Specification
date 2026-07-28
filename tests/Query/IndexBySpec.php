@@ -40,7 +40,7 @@ final class IndexBySpec extends ObjectBehavior
 
     public function it_indexes(QueryBuilder $qb): void
     {
-        $qb->indexBy('a', sprintf('a.%s', $this->field))->shouldBeCalled();
+        $qb->indexBy('a', sprintf('a.%s', $this->field))->willReturn($qb)->shouldBeCalled();
 
         $this->modify($qb, 'a');
     }
@@ -49,7 +49,7 @@ final class IndexBySpec extends ObjectBehavior
     {
         $this->beConstructedWith('thing', 'user');
 
-        $qb->indexBy('user', 'user.thing')->shouldBeCalled();
+        $qb->indexBy('user', 'user.thing')->willReturn($qb)->shouldBeCalled();
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);

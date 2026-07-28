@@ -52,7 +52,7 @@ final class DivisionSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', $this->value, null)->shouldBeCalled();
+        $qb->setParameter('comparison_10', $this->value, null)->willReturn($qb)->shouldBeCalled();
 
         $this->transform($qb, 'a')->shouldReturn('(a.foo / :comparison_10)');
     }

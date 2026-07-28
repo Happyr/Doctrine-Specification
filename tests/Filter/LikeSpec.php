@@ -49,7 +49,7 @@ final class LikeSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
-        $qb->setParameter('comparison_1', '%bar%')->shouldBeCalled();
+        $qb->setParameter('comparison_1', '%bar%')->willReturn($qb)->shouldBeCalled();
 
         $this->getFilter($qb, 'a');
     }
@@ -62,7 +62,7 @@ final class LikeSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
-        $qb->setParameter('comparison_1', '%bar%')->shouldBeCalled();
+        $qb->setParameter('comparison_1', '%bar%')->willReturn($qb)->shouldBeCalled();
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);
@@ -77,7 +77,7 @@ final class LikeSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
-        $qb->setParameter('comparison_1', '%bar')->shouldBeCalled();
+        $qb->setParameter('comparison_1', '%bar')->willReturn($qb)->shouldBeCalled();
 
         $this->getFilter($qb, 'a');
     }
@@ -91,7 +91,7 @@ final class LikeSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
-        $qb->setParameter('comparison_1', '%bar')->shouldBeCalled();
+        $qb->setParameter('comparison_1', '%bar')->willReturn($qb)->shouldBeCalled();
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);
@@ -106,7 +106,7 @@ final class LikeSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
-        $qb->setParameter('comparison_1', 'bar%')->shouldBeCalled();
+        $qb->setParameter('comparison_1', 'bar%')->willReturn($qb)->shouldBeCalled();
 
         $this->getFilter($qb, 'a');
     }
@@ -120,7 +120,7 @@ final class LikeSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
-        $qb->setParameter('comparison_1', 'bar%')->shouldBeCalled();
+        $qb->setParameter('comparison_1', 'bar%')->willReturn($qb)->shouldBeCalled();
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);
@@ -134,8 +134,8 @@ final class LikeSpec extends ObjectBehavior
         $this->beConstructedWith('pseudo', 'M', Like::STARTS_WITH, null);
 
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
         ];
 
@@ -147,8 +147,8 @@ final class LikeSpec extends ObjectBehavior
         $this->beConstructedWith('pseudo', 'oe', Like::ENDS_WITH, null);
 
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
         ];
 
@@ -160,8 +160,8 @@ final class LikeSpec extends ObjectBehavior
         $this->beConstructedWith('pseudo', 'o', Like::CONTAINS, null);
 
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
         ];
 
@@ -211,7 +211,7 @@ final class LikeSpec extends ObjectBehavior
     {
         $this->beConstructedWith('pseudo', 'A', Like::STARTS_WITH, null);
 
-        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerA = ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500];
         $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
 
         $this->isSatisfiedBy($playerA)->shouldBe(false);
@@ -222,7 +222,7 @@ final class LikeSpec extends ObjectBehavior
     {
         $this->beConstructedWith('pseudo', 'oe', Like::ENDS_WITH, null);
 
-        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerA = ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500];
         $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
 
         $this->isSatisfiedBy($playerA)->shouldBe(true);
@@ -233,7 +233,7 @@ final class LikeSpec extends ObjectBehavior
     {
         $this->beConstructedWith('pseudo', 'oe', Like::CONTAINS, null);
 
-        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerA = ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500];
         $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
 
         $this->isSatisfiedBy($playerA)->shouldBe(true);
@@ -298,8 +298,8 @@ final class LikeSpec extends ObjectBehavior
         $tetris = ['name' => 'Tetris'];
         $mahjong = ['name' => 'Mahjong'];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
         ];
 
@@ -314,8 +314,8 @@ final class LikeSpec extends ObjectBehavior
         $tetris = ['name' => 'Tetris', 'releaseAt' => null];
         $mahjong = ['name' => 'Mahjong', 'releaseAt' => $releaseAt];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
         ];
 
@@ -341,8 +341,8 @@ final class LikeSpec extends ObjectBehavior
         $tetris = ['name' => 'Tetris', 'owner' => $tetrisOwner];
         $mahjong = ['name' => 'Mahjong', 'owner' => $mahjongOwner];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
         ];
 

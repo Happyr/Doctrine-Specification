@@ -36,6 +36,6 @@ final class Cache implements ResultModifier
      */
     public function modify(AbstractQuery $query): void
     {
-        $query->setResultCacheLifetime($this->cacheLifetime);
+        $query->enableResultCache($this->cacheLifetime);
     }
 }

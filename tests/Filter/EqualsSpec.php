@@ -42,7 +42,7 @@ final class EqualsSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 18, null)->willReturn($qb)->shouldBeCalled();
 
         $comparison = $this->getFilter($qb, 'a');
 
@@ -56,7 +56,7 @@ final class EqualsSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 18, null)->willReturn($qb)->shouldBeCalled();
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);
@@ -70,8 +70,8 @@ final class EqualsSpec extends ObjectBehavior
         $this->beConstructedWith('gender', 'F', null);
 
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
         ];
 
@@ -95,7 +95,7 @@ final class EqualsSpec extends ObjectBehavior
     {
         $this->beConstructedWith('gender', 'F', null);
 
-        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerA = ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500];
         $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
 
         $this->isSatisfiedBy($playerA)->shouldBe(false);
@@ -140,8 +140,8 @@ final class EqualsSpec extends ObjectBehavior
         $releaseAt = new \DateTimeImmutable();
         $game = ['name' => 'Tetris', 'releaseAt' => $releaseAt];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $game],
         ];
 
@@ -155,8 +155,8 @@ final class EqualsSpec extends ObjectBehavior
         $releaseAt = new \DateTimeImmutable();
         $game = ['name' => 'Tetris', 'releaseAt' => $releaseAt];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $game],
         ];
 
@@ -181,8 +181,8 @@ final class EqualsSpec extends ObjectBehavior
         $owner = ['name' => 'ABC', 'based' => 123];
         $game = ['name' => 'Tetris', 'owner' => $owner];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $game],
         ];
 

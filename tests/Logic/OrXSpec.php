@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace tests\Happyr\DoctrineSpecification\Logic;
 
 use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\Query\Expr\Orx as ExprOrx;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Equals;
 use Happyr\DoctrineSpecification\Filter\Filter;
@@ -56,6 +57,7 @@ final class OrXSpec extends ObjectBehavior
     public function it_composes_and_child_with_expression(
         QueryBuilder $qb,
         Expr $expression,
+        ExprOrx $orX,
         Specification $specificationA,
         Specification $specificationB
     ): void {
@@ -67,7 +69,8 @@ final class OrXSpec extends ObjectBehavior
         $specificationB->getFilter($qb, $context)->willReturn($filterB);
         $qb->expr()->willReturn($expression);
 
-        $expression->orX($filterA, $filterB)->shouldBeCalled();
+        $expression->orX($filterA, $filterB)->willReturn($orX);
+        $orX->__toString()->willReturn('foo OR bar');
 
         $this->getFilter($qb, $context);
     }
@@ -75,6 +78,7 @@ final class OrXSpec extends ObjectBehavior
     public function it_supports_expressions(
         QueryBuilder $qb,
         Expr $expression,
+        ExprOrx $orX,
         Filter $exprA,
         Filter $exprB
     ): void {
@@ -88,7 +92,8 @@ final class OrXSpec extends ObjectBehavior
         $exprB->getFilter($qb, $context)->willReturn($filterB);
         $qb->expr()->willReturn($expression);
 
-        $expression->orX($filterA, $filterB)->shouldBeCalled();
+        $expression->orX($filterA, $filterB)->willReturn($orX);
+        $orX->__toString()->willReturn('foo OR bar');
 
         $this->getFilter($qb, $context);
     }
@@ -101,8 +106,8 @@ final class OrXSpec extends ObjectBehavior
         );
 
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 9001],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 9001],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 1230],
         ];
 
@@ -130,8 +135,8 @@ final class OrXSpec extends ObjectBehavior
         $this->beConstructedWith($exprA, $exprB);
 
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
         ];
 
@@ -158,8 +163,8 @@ final class OrXSpec extends ObjectBehavior
             new GreaterThan('points', 9000)
         );
 
-        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
-        $playerB = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 9001];
+        $playerA = ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500];
+        $playerB = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 9001];
         $playerC = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 1230];
 
         $this->isSatisfiedBy($playerA)->shouldBe(false);

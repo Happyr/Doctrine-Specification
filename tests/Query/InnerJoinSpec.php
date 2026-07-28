@@ -36,7 +36,7 @@ final class InnerJoinSpec extends ObjectBehavior
 
     public function it_joins_with_default_dql_alias(QueryBuilder $qb): void
     {
-        $qb->innerJoin('a.user', 'authUser')->shouldBeCalled();
+        $qb->innerJoin('a.user', 'authUser')->willReturn($qb)->shouldBeCalled();
 
         $this->modify($qb, 'a');
     }
@@ -45,7 +45,7 @@ final class InnerJoinSpec extends ObjectBehavior
     {
         $this->beConstructedWith('user', 'authUser', 'x');
 
-        $qb->innerJoin('x.user', 'authUser')->shouldBeCalled();
+        $qb->innerJoin('x.user', 'authUser')->willReturn($qb)->shouldBeCalled();
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);

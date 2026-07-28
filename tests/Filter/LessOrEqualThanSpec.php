@@ -42,7 +42,7 @@ final class LessOrEqualThanSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 18, null)->willReturn($qb)->shouldBeCalled();
 
         $comparison = $this->getFilter($qb, 'a');
 
@@ -56,7 +56,7 @@ final class LessOrEqualThanSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 18, null)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 18, null)->willReturn($qb)->shouldBeCalled();
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);
@@ -70,8 +70,8 @@ final class LessOrEqualThanSpec extends ObjectBehavior
         $this->beConstructedWith('points', 2500, null);
 
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
         ];
 
@@ -95,8 +95,8 @@ final class LessOrEqualThanSpec extends ObjectBehavior
     {
         $this->beConstructedWith('points', 2500, null);
 
-        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
-        $playerB = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230];
+        $playerA = ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500];
+        $playerB = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230];
         $playerC = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
 
         $this->isSatisfiedBy($playerA)->shouldBe(true);
@@ -145,8 +145,8 @@ final class LessOrEqualThanSpec extends ObjectBehavior
         $tetris = ['name' => 'Tetris', 'releaseAt' => new \DateTimeImmutable('-1 day')];
         $mahjong = ['name' => 'Mahjong', 'releaseAt' => new \DateTimeImmutable('+1 day')];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
         ];
 
@@ -161,8 +161,8 @@ final class LessOrEqualThanSpec extends ObjectBehavior
         $tetris = ['name' => 'Tetris', 'releaseAt' => new \DateTimeImmutable('-1 day')];
         $mahjong = ['name' => 'Mahjong', 'releaseAt' => new \DateTimeImmutable('+1 day')];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
         ];
 
@@ -189,8 +189,8 @@ final class LessOrEqualThanSpec extends ObjectBehavior
         $tetris = ['name' => 'Tetris', 'owner' => $tetrisOwner];
         $mahjong = ['name' => 'Mahjong', 'owner' => $mahjongOwner];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
         ];
 

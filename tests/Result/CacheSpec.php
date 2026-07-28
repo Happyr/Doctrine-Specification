@@ -38,7 +38,7 @@ final class CacheSpec extends ObjectBehavior
 
     public function it_caches_query_for_given_time(AbstractQuery $query): void
     {
-        $query->setResultCacheLifetime($this->lifetime)->shouldBeCalled();
+        $query->enableResultCache($this->lifetime)->willReturn($query)->shouldBeCalled();
 
         $this->modify($query);
     }

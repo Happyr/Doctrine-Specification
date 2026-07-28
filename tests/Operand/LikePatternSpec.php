@@ -51,7 +51,7 @@ final class LikePatternSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', sprintf($this->format, $this->value))->shouldBeCalled();
+        $qb->setParameter('comparison_10', sprintf($this->format, $this->value))->willReturn($qb)->shouldBeCalled();
 
         $this->transform($qb, $context)->shouldReturn(':comparison_10');
     }
