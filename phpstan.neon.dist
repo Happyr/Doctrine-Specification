@@ -1,5 +1,24 @@
 parameters:
     level: 8
+    # Silences two instanceof.alwaysTrue reports:
+    #
+    #   src/Query/QueryModifierCollection.php:44
+    #   src/Result/ResultModifierCollection.php:43
+    #
+    # Both collections declare their variadic as "@param QueryModifier ...$children"
+    # without a native type, so PHPStan trusts the PHPDoc and considers the
+    # instanceof guard dead code. It is not: PHPDoc is not enforced at runtime,
+    # these are public API classes constructed only by consumers, and the guard is
+    # the only thing that turns a bad argument into an InvalidArgumentException
+    # with a useful message.
+    #
+    # The proper fix is a native type - __construct(QueryModifier ...$children) -
+    # which would let PHP enforce it and make the guard genuinely removable. That
+    # changes the error contract from InvalidArgumentException to TypeError, so it
+    # has to wait for a major release.
+    #
+    # Scope: as of this commit the setting changes exactly those two reports and
+    # nothing else in src/.
     treatPhpDocTypesAsCertain: false
     paths:
         - src
