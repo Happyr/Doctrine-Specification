@@ -21,7 +21,7 @@ final class SubstringExecutor
      * @param int      $offset
      * @param int|null $length
      *
-     * @return false|string
+     * @return string
      */
     public function __invoke(string $string, int $offset, ?int $length = null)
     {

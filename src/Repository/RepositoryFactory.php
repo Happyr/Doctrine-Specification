@@ -34,7 +34,7 @@ class RepositoryFactory implements RepositoryFactoryInterface
      *
      * @return EntityRepository
      *
-     * @phpstan-template T
+     * @phpstan-template T of object
      * @phpstan-param class-string<T> $entityName
      * @phpstan-return EntityRepository<T>
      */
