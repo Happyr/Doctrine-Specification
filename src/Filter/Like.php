@@ -51,7 +51,7 @@ final class Like implements Filter, Satisfiable
      */
     public function __construct($field, $value, string $format = LikePattern::CONTAINS, ?string $context = null)
     {
-        if (!($value instanceof LikePattern)) {
+        if (!$value instanceof LikePattern) {
             $value = new LikePattern($value, $format);
         }
 

@@ -32,7 +32,7 @@ final class PlatformFunctionExecutorRegistrySpec extends ObjectBehavior
 
     public function it_should_register_executor(): void
     {
-        $executor = function (int $x, int $y): int {
+        $executor = static function (int $x, int $y): int {
             return $x + $y;
         };
 
@@ -43,7 +43,7 @@ final class PlatformFunctionExecutorRegistrySpec extends ObjectBehavior
 
     public function it_should_throw_exception_on_register_exist_executor(): void
     {
-        $executor = function ($x) {
+        $executor = static function ($x) {
             return $x > 0 ? $x : $x * -1;
         };
 
@@ -52,7 +52,7 @@ final class PlatformFunctionExecutorRegistrySpec extends ObjectBehavior
 
     public function it_should_override_executor(): void
     {
-        $executor = function ($x) {
+        $executor = static function ($x) {
             return $x > 0 ? $x : $x * -1;
         };
 
@@ -63,7 +63,7 @@ final class PlatformFunctionExecutorRegistrySpec extends ObjectBehavior
 
     public function it_should_throw_exception_on_override_undefined_executor(): void
     {
-        $executor = function (int $x, int $y): int {
+        $executor = static function (int $x, int $y): int {
             return $x + $y;
         };
 
@@ -78,7 +78,7 @@ final class PlatformFunctionExecutorRegistrySpec extends ObjectBehavior
 
     public function it_should_execute_custom_executor(): void
     {
-        $executor = function (int $x, int $y): int {
+        $executor = static function (int $x, int $y): int {
             return $x + $y;
         };
 

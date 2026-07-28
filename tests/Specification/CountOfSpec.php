@@ -76,7 +76,7 @@ final class CountOfSpec extends ObjectBehavior
         $value = 'foo';
         $context = 'user';
         $parametersCount = 0;
-        $paramName = 'comparison_' . $parametersCount;
+        $paramName = 'comparison_'.$parametersCount;
 
         $this->beConstructedWith(new Equals($field, $value, $context));
 

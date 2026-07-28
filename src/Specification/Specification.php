@@ -18,6 +18,4 @@ use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\Satisfiable;
 use Happyr\DoctrineSpecification\Query\QueryModifier;
 
-interface Specification extends Filter, QueryModifier, Satisfiable
-{
-}
+interface Specification extends Filter, QueryModifier, Satisfiable {}

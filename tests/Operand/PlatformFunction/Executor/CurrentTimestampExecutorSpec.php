@@ -32,10 +32,10 @@ final class CurrentTimestampExecutorSpec extends ObjectBehavior
     public function getMatchers(): array
     {
         return [
-            'beWithDefaultTimeZone' => function (\DateTimeInterface $subject): bool {
+            'beWithDefaultTimeZone' => static function (\DateTimeInterface $subject): bool {
                 return $subject->getTimezone()->getName() === date_default_timezone_get();
             },
-            'beCurrentTimestamp' => function (\DateTimeInterface $subject): bool {
+            'beCurrentTimestamp' => static function (\DateTimeInterface $subject): bool {
                 return $subject->getTimestamp() === (new \DateTimeImmutable())->getTimestamp();
             },
         ];

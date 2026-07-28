@@ -20,10 +20,12 @@ interface Satisfiable
      * @param iterable    $collection
      * @param string|null $context
      *
+     * @phpstan-template T
+     *
+     * @phpstan-param iterable<T> $collection
+     *
      * @return iterable
      *
-     * @phpstan-template T
-     * @phpstan-param iterable<T> $collection
      * @phpstan-return iterable<T>
      */
     public function filterCollection(iterable $collection, ?string $context = null): iterable;

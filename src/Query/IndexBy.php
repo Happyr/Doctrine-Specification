@@ -40,7 +40,7 @@ final class IndexBy implements QueryModifier
      */
     public function __construct($field, ?string $context = null)
     {
-        if (!($field instanceof Field)) {
+        if (!$field instanceof Field) {
             $field = new Field($field);
         }
 

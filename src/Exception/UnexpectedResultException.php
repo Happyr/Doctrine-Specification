@@ -14,6 +14,4 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\Exception;
 
-abstract class UnexpectedResultException extends \RuntimeException
-{
-}
+abstract class UnexpectedResultException extends \RuntimeException {}

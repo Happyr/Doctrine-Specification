@@ -33,7 +33,7 @@ final class DateDiffExecutorSpec extends ObjectBehavior
     public function getMatchers(): array
     {
         return [
-            'beSameDateInterval' => function (\DateInterval $subject, \DateInterval $expected): bool {
+            'beSameDateInterval' => static function (\DateInterval $subject, \DateInterval $expected): bool {
                 return
                     $subject->y === $expected->y &&
                     $subject->m === $expected->m &&
@@ -41,8 +41,7 @@ final class DateDiffExecutorSpec extends ObjectBehavior
                     $subject->h === $expected->h &&
                     $subject->i === $expected->i &&
                     $subject->s === $expected->s &&
-                    $subject->invert === $expected->invert
-                ;
+                    $subject->invert === $expected->invert;
             },
         ];
     }
