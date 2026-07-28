@@ -71,8 +71,8 @@ final class IsNotNullSpec extends ObjectBehavior
         $this->beConstructedWith('points', null);
 
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => null],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => null],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
         ];
 
@@ -96,8 +96,8 @@ final class IsNotNullSpec extends ObjectBehavior
     {
         $this->beConstructedWith('points', null);
 
-        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
-        $playerB = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => null];
+        $playerA = ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500];
+        $playerB = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => null];
         $playerC = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
 
         $this->isSatisfiedBy($playerA)->shouldBe(true);
@@ -146,8 +146,8 @@ final class IsNotNullSpec extends ObjectBehavior
         $tetris = ['name' => 'Tetris', 'releaseAt' => $releaseAt];
         $mahjong = ['name' => 'Mahjong', 'releaseAt' => null];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
         ];
 
@@ -162,8 +162,8 @@ final class IsNotNullSpec extends ObjectBehavior
         $tetris = ['name' => 'Tetris', 'releaseAt' => $releaseAt];
         $mahjong = ['name' => 'Mahjong', 'releaseAt' => null];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
         ];
 
@@ -190,8 +190,8 @@ final class IsNotNullSpec extends ObjectBehavior
         $tetris = ['name' => 'Tetris', 'owner' => $tetrisOwner];
         $mahjong = ['name' => 'Mahjong', 'owner' => $mahjongOwner];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
         ];
 

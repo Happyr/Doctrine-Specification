@@ -122,6 +122,7 @@ final class DateSub implements Operand
         if (0 > (float) $value) {
             return $new_date->modify(sprintf('+%d %s', abs((float) $value), $this->unit));
         }
+
         return $new_date->modify(sprintf('-%d %s', $value, $this->unit));
     }
 }

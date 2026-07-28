@@ -20,12 +20,14 @@ final class PlatformFunctionExecutorRegistry
 {
     /**
      * @var callable[]
+     *
      * @phpstan-var array<string, callable>
      */
     private $executors;
 
     /**
      * @param callable[] $executors
+     *
      * @phpstan-param array<string, callable> $executors
      */
     public function __construct(array $executors)

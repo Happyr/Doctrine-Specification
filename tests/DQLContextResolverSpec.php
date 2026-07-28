@@ -116,10 +116,10 @@ final class DQLContextResolverSpec extends ObjectBehavior
                 new Join(Join::INNER_JOIN, 'foo.bar', 'contestant'),
             ],
         ]);
-        $qb->join('root.contestant', Argument::that(function ($argument) {
+        $qb->join('root.contestant', Argument::that(static function ($argument) {
             return preg_match('/^contestant[a-f0-9]+/', $argument);
         }))->willReturn($qb);
-        $qb->join(Argument::that(function ($argument) {
+        $qb->join(Argument::that(static function ($argument) {
             return preg_match('/^contestant[a-f0-9]+\.contest$/', $argument);
         }), 'contest')->willReturn($qb);
 
@@ -132,12 +132,12 @@ final class DQLContextResolverSpec extends ObjectBehavior
 
         $qb->getAllAliases()->willReturn([]);
         $qb->getDQLPart('join')->willReturn([]);
-        $qb->join('root.contestant', Argument::that(function ($argument) {
+        $qb->join('root.contestant', Argument::that(static function ($argument) {
             return preg_match('/^contestant[a-f0-9]+/', $argument);
         }))->willReturn($qb);
-        $qb->join(Argument::that(function ($argument) {
+        $qb->join(Argument::that(static function ($argument) {
             return preg_match('/^contestant[a-f0-9]+\.contest$/', $argument);
-        }), Argument::that(function ($argument) {
+        }), Argument::that(static function ($argument) {
             return preg_match('/^contest[a-f0-9]+$/', $argument);
         }))->willReturn($qb);
 

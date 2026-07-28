@@ -14,6 +14,4 @@ declare(strict_types=1);
 
 namespace Happyr\DoctrineSpecification\Exception;
 
-final class PlatformFunctionExecutorException extends \InvalidArgumentException
-{
-}
+final class PlatformFunctionExecutorException extends \InvalidArgumentException {}

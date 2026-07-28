@@ -207,13 +207,13 @@ final class DateAddSpec extends ObjectBehavior
     public function getMatchers(): array
     {
         return [
-            'returnInstanceOf' => function (\DateTimeInterface $subject, string $expected): bool {
+            'returnInstanceOf' => static function (\DateTimeInterface $subject, string $expected): bool {
                 return $subject instanceof $expected;
             },
-            'returnSameTimeZone' => function (\DateTimeInterface $subject, \DateTimeZone $expected): bool {
+            'returnSameTimeZone' => static function (\DateTimeInterface $subject, \DateTimeZone $expected): bool {
                 return $subject->getTimezone()->getName() === $expected->getName();
             },
-            'returnSameTimestamp' => function (\DateTimeInterface $subject, \DateTimeInterface $expected): bool {
+            'returnSameTimestamp' => static function (\DateTimeInterface $subject, \DateTimeInterface $expected): bool {
                 return $subject->getTimestamp() === $expected->getTimestamp();
             },
         ];

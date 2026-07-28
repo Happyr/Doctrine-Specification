@@ -128,16 +128,16 @@ final class ArgumentToOperandConverterSpec extends ObjectBehavior
     public function getMatchers(): array
     {
         return [
-            'haveField' => function ($subject): bool {
+            'haveField' => static function ($subject): bool {
                 return $subject[0] instanceof Field;
             },
-            'haveValue' => function ($subject): bool {
+            'haveValue' => static function ($subject): bool {
                 return $subject[count($subject) - 1] instanceof Value;
             },
-            'haveValueAt' => function ($subject, $position): bool {
+            'haveValueAt' => static function ($subject, $position): bool {
                 return $subject[$position] instanceof Value;
             },
-            'haveOperandAt' => function ($subject, $position): bool {
+            'haveOperandAt' => static function ($subject, $position): bool {
                 return $subject[$position] instanceof Operand;
             },
         ];

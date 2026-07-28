@@ -16,9 +16,9 @@ namespace tests\Happyr\DoctrineSpecification\Repository;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\NonUniqueResultException as DoctrineNonUniqueResultException;
 use Doctrine\ORM\NoResultException as DoctrineNoResultException;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Exception\NonUniqueResultException;
 use Happyr\DoctrineSpecification\Exception\NoResultException;

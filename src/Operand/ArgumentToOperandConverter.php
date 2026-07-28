@@ -61,7 +61,7 @@ final class ArgumentToOperandConverter
     public static function isAllOperands(array $arguments): bool
     {
         foreach ($arguments as $argument) {
-            if (!($argument instanceof Operand)) {
+            if (!$argument instanceof Operand) {
                 return false;
             }
         }
