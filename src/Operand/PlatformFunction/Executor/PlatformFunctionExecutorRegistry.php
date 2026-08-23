@@ -41,7 +41,7 @@ final class PlatformFunctionExecutorRegistry
      * @param string $functionName
      * @param mixed  ...$arguments
      *
-     * @throw PlatformFunctionExecutorException
+     * @throws PlatformFunctionExecutorException
      *
      * @return mixed
      */
@@ -72,7 +72,7 @@ final class PlatformFunctionExecutorRegistry
      * @param string   $functionName
      * @param callable $executor
      *
-     * @throw PlatformFunctionExecutorException
+     * @throws PlatformFunctionExecutorException
      */
     public function register(string $functionName, callable $executor): void
     {
@@ -91,7 +91,7 @@ final class PlatformFunctionExecutorRegistry
      * @param string   $functionName
      * @param callable $executor
      *
-     * @throw PlatformFunctionExecutorException
+     * @throws PlatformFunctionExecutorException
      */
     public function override(string $functionName, callable $executor): void
     {
